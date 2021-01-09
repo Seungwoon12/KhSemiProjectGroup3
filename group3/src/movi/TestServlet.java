@@ -1,4 +1,4 @@
-package group3;
+package movi;
 
 public class TestServlet {
 
