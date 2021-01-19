@@ -7,7 +7,7 @@
 <%@page import="movi.beans.MovieDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <%
@@ -153,4 +153,4 @@
 <jsp:include page="/template/header.jsp"></jsp:include>	
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
->>>>>>> refs/remotes/origin/main
+
