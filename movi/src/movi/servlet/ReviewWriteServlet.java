@@ -28,7 +28,7 @@ public class ReviewWriteServlet extends HttpServlet {
 			reviewDto.setReview_title(req.getParameter("review_title"));
 			reviewDto.setReview_content(req.getParameter("review_content"));
 			reviewDto.setReview_movie_no(2);
-			reviewDto.setReview_writer_no(2); // 회원번호
+//			reviewDto.setReview_writer_no(2); // 회원번호
 			
 			
 			ReviewDao reviewDao = new ReviewDao();
