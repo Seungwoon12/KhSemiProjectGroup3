@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 
 public class JdbcUtil {
 	
-	public static Connection getConnection(String username, String password) throws Exception {
+	public static Connection getConnection(String username, String password) throws Exception{
 		Class.forName("oracle.jdbc.OracleDriver");
-		Connection con = DriverManager.getConnection(
-				"jdbc:oracle:thin:@localhost:1521:xe", username, password);
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",username,password);
 		return con;
-	}
 	
+		//밖에서 JdbcUtil.getConnection("","")으로 불러 올 수 있게하자!
+	}
 }
