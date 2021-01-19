@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReviewDto {
 	private int review_no;
 	private int review_movie_no;
-	private int review_wirter_no;
+	private int review_writer_no;
 	private String review_title;
 	private String review_content;
 	private Date review_date;
@@ -25,11 +25,11 @@ public class ReviewDto {
 	public void setReview_movie_no(int review_movie_no) {
 		this.review_movie_no = review_movie_no;
 	}
-	public int getReview_wirter_no() {
-		return review_wirter_no;
+	public int getReview_writer_no() {
+		return review_writer_no;
 	}
-	public void setReview_wirter_no(int review_wirter_no) {
-		this.review_wirter_no = review_wirter_no;
+	public void setReview_writer_no(int review_writer_no) {
+		this.review_writer_no = review_writer_no;
 	}
 	public String getReview_title() {
 		return review_title;
