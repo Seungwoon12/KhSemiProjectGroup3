@@ -29,13 +29,13 @@
 <script>
 	$(function(){
 		$(".edit-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/edit.do";
+			location.href = "<%=request.getContextPath()%>/member/edit.jsp";
 		});
 		$(".myGenre-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/mygenre.do";
+			location.href = "<%=request.getContextPath()%>/member/mygenre.jsp";
 		});
 		$(".editPw-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/editpw.do";
+			location.href = "<%=request.getContextPath()%>/member/editpw.jsp";
 		});
 		//.del-btn을 누르면 경고창이 나오고 확인을 누르면 멤버 삭제로 이동
 		$(".del-btn").click(function(){
