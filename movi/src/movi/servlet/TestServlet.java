@@ -1,4 +1,4 @@
-package movi;
+package movi.servlet;
 
 public class TestServlet {
 

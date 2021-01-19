@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가만든 홈페이지</title>
+<title>메인 화면 template</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css">
 <style>
 	/* 화면 레이아웃 스타일 */
@@ -17,11 +16,21 @@
 		border: 1px dotted #ccc;
 	}
 	
-	/* 전체 화면의 폭은 1024px 로 한다 */
+	/* 전체 화면의 폭은 100% 로 한다 */
 	main {
 		width:100%;
 		margin:auto;
 	}
+	
+	header{
+		width:100%;
+		height: 40px;
+	}
+	
+	section{
+	height: 100%;
+	}
+	
 	
 	/* 각각의 레이아웃 영역에 여백을 설정한다 */
 	header, footer, nav, section {
@@ -32,35 +41,17 @@
 	section {
 		min-height: 450px;
 	}
+	
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script>
-</script> 
+<script >
+
+</script>
 </head>
 <body>
-	<main>
+		<main>
 		<header>
-			<div>movi logo</div>
-			<div>
-				<a href="#">로그인</a>|
-				<a href="#">이벤트</a>
-			</div>
+		<h2>MOVI</h2>
 		</header>
 		<nav>
-			<!-- 비회원이 마주할 메뉴 -->
-			<a href="#">홈</a>
-			<a href="#">카테고리</a>
-			<a href="#">리뷰게시판</a>
-			<a href="#">마이페이지</a>
-			
-			<!-- 회원이 마주할 메뉴 -->
-			<!-- <a href="#">홈으로</a>
-			<a href="#">로그아웃</a>
-			<a href="#">내정보</a>
-			<a href="#">게시판</a> -->
-			
-			<!-- 관리자 전용 메뉴 
-			<a href="#">관리메뉴</a>
-			-->
 		</nav>
-		<section>
