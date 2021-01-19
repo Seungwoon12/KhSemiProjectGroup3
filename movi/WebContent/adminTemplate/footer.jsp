@@ -1,3 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<h1>김승연</h1>
+		</section>
+		<footer>
+		
+		</footer> 
+	</main>			
+</body>
+</html>

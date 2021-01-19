@@ -38,7 +38,7 @@
 			<input type="text" name="member_phone" required class="input"placeholder="선택사항">
 		</div>	
 		<div style="text-align:center" class="row">
-		</label>장르체크(선택사항)</label>
+		<label>장르체크(선택사항)</label>
                 <br>
                 <input type="checkbox"  name="genre" value="로맨스">로맨스
                 <input type="checkbox"  name="genre" value="뮤지컬">뮤지컬
