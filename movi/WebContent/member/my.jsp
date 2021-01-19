@@ -26,6 +26,26 @@
 	}
 </style>
 
+<script>
+	$(function(){
+		$(".edit-btn").click(function(){
+			location.href = "<%=request.getContextPath()%>/member/edit.do";
+		});
+		$(".myGenre-btn").click(function(){
+			location.href = "<%=request.getContextPath()%>/member/mygenre.do";
+		});
+		$(".editPw-btn").click(function(){
+			location.href = "<%=request.getContextPath()%>/member/editpw.do";
+		});
+		//.del-btn을 누르면 경고창이 나오고 확인을 누르면 멤버 삭제로 이동
+		$(".del-btn").click(function(){
+			if(window.confirm("정말로 탈퇴하시겠습니까?")){
+				location.href = "<%=request.getContextPath()%>/member/delete.do";
+			}
+		});
+	});
+</script>
+
 <div class="outbox">
 	<div class="row">
 		<table class="table table-border">
@@ -34,21 +54,26 @@
 					<td style="width: 30%">
 						<img src="https://placeimg.com/150/150/people">
 					</td>
-					<td>
+					<td rowspan="2">
 						<div>
 							<h2>OOOOOO님</h2>
 							<h5>방문해 주셔서 감사합니다.(멘트 추천좀)</h5>
 						</div>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<input type="button" class="input input-inline" value="프로필 변경">
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="row center">
-		<input type="button" class="input input-inline" value="내 정보 수정">
-		<input type="button" class="input input-inline" value="선호 장르 변경">
-		<input type="button" class="input input-inline" value="비밀 번호 변경">
-		<input type="button" class="input input-inline" value="회원 탈퇴">
+		<input type="button" class="input input-inline edit-btn" value="내 정보 수정">
+		<input type="button" class="input input-inline myGenre-btn" value="선호 장르 변경">
+		<input type="button" class="input input-inline editPw-btn" value="비밀 번호 변경">
+		<input type="button" class="input input-inline del-btn" value="회원 탈퇴">
 	</div>
 	<div class="row float-box">
 		<span>좋아요 누른 영화</span>
