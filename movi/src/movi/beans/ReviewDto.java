@@ -55,4 +55,5 @@ public class ReviewDto {
 	public void setReview_read(int review_read) {
 		this.review_read = review_read;
 	}
+	
 }
