@@ -10,9 +10,14 @@ import movi.util.JdbcUtil;
 
 public class ReviewDao {
 	
+	//데이터베이스 계정정보
+	public static final String USERNAME = "movi";
+	public static final String PASSWORD = "movi";
+	
+	
 	//게시글 작성
 	public void ReviewWrite(ReviewDto reviewDto) throws Exception {
-		Connection con = JdbcUtil.getConnection();
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into review values(review_seq.nextval, ?, ?, ?, ?, sysdate, 0)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, reviewDto.getReview_movie_no());
@@ -27,7 +32,7 @@ public class ReviewDao {
 	
 	//게시판 리스트
 	public List<ReviewDto> select() throws Exception {
-		Connection con = JdbcUtil.getConnection();
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
 		String sql = "select * from review order by review_no desc";
 		PreparedStatement ps = con.prepareStatement(sql);

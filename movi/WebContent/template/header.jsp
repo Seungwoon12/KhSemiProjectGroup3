@@ -45,4 +45,5 @@
 			<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
 			<a href="#">마이페이지</a>
 		</nav>
-		<section>
+	<section>
+

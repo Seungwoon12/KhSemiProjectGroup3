@@ -2,16 +2,30 @@
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
-<jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
 
-<!--목록   -->
+    
+<!--멤버 목록   -->
 <%
 	MemberDao memberDao = new MemberDao();
-	//List<MemberDto> memberList = memberDao.select(member_id);
+	List<MemberDto> memberList = memberDao.select_admin();
 %>
 
+<!-- 회원 삭제시 알림 구현 -->
+<script>
+	$(function(){
+		$(".member_delete").click(function(e){
+			e.preventDefault();
+			
+			var check = wincow.confirm("회원 삭제하시겠습니까?");
+			if(check){
+				$(location).attr("href",$(this).attr("href"));
+			}
+		});
+	});
+
+</script>
+    
+<jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
 
 <div class="outbox" style="width:100%">
    <aside>
@@ -19,7 +33,7 @@
        		<h2 style="color:deepskyblue;">회원 관리</h2>     
   	 	</div>
   	 	<div class="left">
-  	 		<a href="#">회원리스트 </a><br><br>
+  	 		<a href="memberList.jsp">회원리스트 </a><br><br>
   	 		<a href="#"> 회원 탈퇴/삭제 </a><br><br>
   	 		<a href="#"> 임시 비밀번호 발급 </a><br><br>
   	 		<a href="#"> 회원 쿠폰 관리 </a>
@@ -42,7 +56,7 @@
   		
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border table-pattern">
+		<table class="table table-border">
 			<thead>
 				<tr>
 					<th>전체선택</th>
@@ -54,22 +68,23 @@
 				</tr>
 			</thead>
 			<tbody>
-
+			<%for(MemberDto memberDto : memberList){ %>
 				<tr>
 					<td>
 						<input type="checkbox">
 					</td>
-					<td>1</td>
-					<td>tester</td>
-					<td>2021-01-18</td>
-					<td>일반</td>
+					<td><%=memberDto.getMember_no() %></td>
+					<td><%=memberDto.getMember_id() %></td>
+					<td><%=memberDto.getMember_date() %></td>
+					<td><%=memberDto.getMember_auth() %></td>
 					<td>
-						<a href="#">상세보기</a>
-						<a href="#">수정</a>
-						<a href="#">삭제</a>
+						<a href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">상세보기</a>
+						<a href="memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>">수정</a>
+						<a class="member_delete" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
 
 					</td>
 				</tr>
+			<%} %>
 			</tbody>
 		</table>
 	</div>

@@ -66,4 +66,67 @@ public class MovieDao {
 	//public List<MovieDto> select_mem() throws Exception{
 
 	//}
+	
+	
+	
+	// 관리자 모드
+	// 영화 상세보기-/admin/movieDetail.jsp
+	public MovieDto select(int movie_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql =" select * from movie where movie_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ResultSet rs = ps.executeQuery();
+		
+		MovieDto movieDto;
+		if(rs.next()) {
+			movieDto = new MovieDto();
+			movieDto.setMovie_no(rs.getInt("movie_no"));
+			movieDto.setMovie_genre_no(rs.getInt("movie_genre_no"));
+			movieDto.setMovie_name(rs.getString("movie_name"));
+			movieDto.setMovie_rate(rs.getInt("movie_rate"));
+			movieDto.setMovie_time(rs.getInt("movie_time"));
+			movieDto.setMovie_age(rs.getString("movie_age"));
+			movieDto.setMovie_country(rs.getString("movie_country"));
+			movieDto.setMovie_date(rs.getDate("movie_date"));
+			movieDto.setMovie_director(rs.getString("movie_director"));
+			movieDto.setMovie_content(rs.getString("movie_content"));
+			movieDto.setMovie_audience(rs.getInt("movie_audience"));
+			
+		}else {
+			movieDto = null;
+		}
+		con.close();
+		
+		return movieDto;
+		
+	}
+	
+	// 영화 목록-/admin/moveList.jsp
+	public List<MovieDto> select() throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, USER);
+		
+		String sql="select movie_no, movie_name,  movie_date, movie_audience "
+				+ " from movie order by movie_no asc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDto> movieList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto movieDto = new MovieDto();
+			movieDto.setMovie_no(rs.getInt("movie_no"));
+			movieDto.setMovie_name(rs.getString("movie_name"));
+			movieDto.setMovie_date(rs.getDate("movie_date"));
+			movieDto.setMovie_audience(rs.getInt("movie_audience"));
+			movieList.add(movieDto);
+		}
+			con.close();
+			
+			return movieList;
+		
+	}
+	
+	
+
 }
