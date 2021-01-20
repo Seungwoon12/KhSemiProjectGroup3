@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class MemberDto {
 	private int member_no;
-	private int member_genre_no;
 	private int member_event_no;
 	private String member_id;
 	private String member_pw;
@@ -17,12 +16,6 @@ public class MemberDto {
 	}
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
-	}
-	public int getMember_genre_no() {
-		return member_genre_no;
-	}
-	public void setMember_genre_no(int member_genre_no) {
-		this.member_genre_no = member_genre_no;
 	}
 	public int getMember_event_no() {
 		return member_event_no;
@@ -70,3 +63,5 @@ public class MemberDto {
 		super();
 	}
 }
+
+//장르 no 제거
