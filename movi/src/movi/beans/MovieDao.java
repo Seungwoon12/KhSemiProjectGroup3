@@ -19,11 +19,11 @@ public class MovieDao {
 		
 		String sql ="select * from("
 					+ "select rownum rn, TMP.* from("
-							+ "select m.movie_no, m.movie_name, count(l.love_no)mlike "
-							+ "from movie M  "
-					        + "left outer join love L  on m.movie_no=l.love_movie_no " 
-					        + " group by  m.movie_no,m.movie_name" 
-					        + " order by mlike desc)TMP"
+							+ "select m.movie_no, m.movie_name, count(l.love_no) mlike "
+							+ "from movie M "
+					        + "left outer join love L on m.movie_no=l.love_movie_no " 
+					        + "group by m.movie_no,m.movie_name " 
+					        + "order by mlike desc)TMP"
 					 + ")where rn between 1 and 5";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
