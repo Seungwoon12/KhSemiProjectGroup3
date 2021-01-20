@@ -15,8 +15,6 @@ public class MemberDao {
 	public static final String USERNAME = "movi";
 	public static final String PASSWORD = "movi";
 	
-	
-	
 	//관리자모드
 	
 	//회원 상세보기-memberDetail.jsp
@@ -69,7 +67,48 @@ public class MemberDao {
 		con.close();
 		
 		return memberList;
-		
 	}
 	
+	//회원 삭제 - 관리자도 쓸 수 있게 반환값을 boolean으로 처리 -> 삭제할 대상이 없거나 실패할 경우 대비
+	public boolean delete(int member_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "delete member where member_no = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		
+		int count = ps.executeUpdate();
+		return count > 0;
+	}
+	
+	//회원 검색 - member_no을 기준으로 단일 대상 찾기
+	public MemberDto find(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from member where member_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		ResultSet rs = ps.executeQuery();
+		
+		MemberDto memberDto;
+		if(rs.next()) {
+			memberDto = new MemberDto();
+			memberDto.setMember_no(rs.getInt("member_no"));
+			memberDto.setMember_event_no(rs.getInt("member_event_no"));
+			memberDto.setMember_id(rs.getString("member_id"));
+			memberDto.setMember_pw(rs.getString("member_pw"));
+			memberDto.setMember_nick(rs.getString("member_nick"));
+			memberDto.setMember_phone(rs.getString("member_phone"));
+			memberDto.setMember_date(rs.getDate("member_date"));
+			memberDto.setMember_auth(rs.getString("member_auth"));
+		}
+		else {
+			memberDto = null;
+		}
+		
+		con.close();
+		
+		return memberDto;		
+	}
 }
