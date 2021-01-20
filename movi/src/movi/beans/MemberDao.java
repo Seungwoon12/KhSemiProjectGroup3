@@ -2,6 +2,7 @@
 package movi.beans;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,6 +15,22 @@ public class MemberDao {
 	//계정 정보를 상수로 저장
 	public static final String USERNAME = "movi";
 	public static final String PASSWORD = "movi";
+	
+	//로그인 
+	public void insert(MemberDto dto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "insert into member("
+				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
+				+ " values(member_seq.nextval,?,?,?,?,'일반')";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_id());
+		ps.setString(2, dto.getMember_pw());
+		ps.setString(3, dto.getMember_nick());
+		ps.setString(4, dto.getMember_phone());
+		ps.execute();
+		
+		con.close();
+	}
 	
 	//관리자모드
 	
