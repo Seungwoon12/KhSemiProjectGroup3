@@ -19,6 +19,7 @@
 	main {
 		width:1200px;
 		margin:auto;
+		height: 1500px;
 	}
 	/* 각각의 레이아웃 영역에 여백을 설정한다 */
 	header, footer, nav, section {
@@ -26,7 +27,7 @@
 	}
 	/* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
 	section {
-		min-height: 450px;
+		height: 100%;
 	}
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

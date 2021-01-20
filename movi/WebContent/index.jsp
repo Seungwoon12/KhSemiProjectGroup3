@@ -19,7 +19,7 @@
 	MovieDto dto = new MovieDto();
 	//3조추천
 	RecommendDao recomDao = new RecommendDao();
-	List<RecommendDto> recomList = recomDao.select();
+	List<RecommendDto> recomList = recomDao.select_title();
 	
 	//좋아요순
 	MovieDao movieDao = new MovieDao();
@@ -39,6 +39,8 @@
 	//장르별
 	MygenreDao mygenreDao = new MygenreDao();
 	List<MygenreDtoVO> mygenreList = mygenreDao.find(a);
+	
+	
 	
 %>
 <!-- 이거 jquery css로 만들기! -->
@@ -76,23 +78,23 @@
 	}
 	
 	.unit.slot.id{
-            background-image: url(./img/search.jpg);
-            background-size: contain;
-            background-repeat: no-repeat; 
+       background-image: url(./img/search.jpg);
+       background-size: contain;
+       background-repeat: no-repeat; 
         }
         
    .name{
-   float: left;
-   width:27%;
+	  float: left;
+	  width:27%;
    }
    .recom{
-   float:right;
-   width:70%;
-   display: flex;
+	   float:left
+	   width:70%;
+	   display: flex;
    }
    .name,.recom{
-   	height:300px;
-   	padding: 0.5rem;
+	   	height:300px;
+	   	padding: 0.5rem;
    }
 	
 	.main{
@@ -109,97 +111,100 @@
 
 <script>
 	$(function(){
-		$(".hov").click(function(){
-			//영화 클릭하면 상세보기 가도록 해보자~
-			location.href="/movi/category/detail.jsp?movie_no="+<%=28%>;
+		//추천영화 목록으로 가기
+		$(".movie_recom").click(function(){
+			location.href="/movi/category/recom.jsp?recom_title="+$(this).text();
 		});
+		//영화 세부 페이지로 가기
+		$(".movie_detail").click(function(){
+			location.href="/movi/category/detail.jsp?movie_name="+$(this).text();
+		})
 	});
 </script>
 
 
-<div class="outbox" style="width:800px">
+<div class="outbox" style="width:100%">
 
-<div class="main" style="height:295px">
-	<div class="name">
-		<div>	
-			<input class="input input-hint unit slot id" placeholder="아이디(이메일)" type="text" style="width:200px">
-		</div>
-		<div class="center" style="width:200px">
-			<h1>MOVI</h1>
-			<h5>모두의 비디오, 모비</h5>
-		</div>
-		<div class="right" style="width:200px">
-			<   >
-		</div>
-	</div>
-<!-- @@@@@@@@@@ 3조 추천 영화 -->	
-	<div>
-		<div class="recom">
-			<%for(RecommendDto recomdto : recomList){ %>
-			<div style="padding: 0.2rem">
-			<img class="hov" src="http://placeimg.com/150/200/any">
-			<h1 class="h hov1">
-					<%=recomdto.getRecom_title()%>
-			</h1>
+	<div class="main" style="height:295px">
+		<div class="name">
+			<div>	
+				<input class="input input-hint unit slot id" placeholder="영화검색" type="text" style="width:200px">
 			</div>
-			<%} %>
-			
-		</div>	
+			<div class="center" style="width:200px">
+				<h1>MOVI</h1>
+				<h5>모두의 비디오, 모비</h5>
+			</div>
+			<div class="right" style="width:200px">
+				<   >
+			</div>
+		</div>
+<!-- @@@@@@@@@@ 3조 추천 영화 -->	
+		<div>
+			<div class="row recom">
+				<%for(RecommendDto recomdto : recomList){ %>
+					<div class="movie movie_recom">
+						<img class="hov" src="http://placeimg.com/150/200/any">
+						<h1 class="h hov1">
+								<%=recomdto.getRecom_title()%>
+						</h1>
+					</div>
+				<%} %>
+			</div>	
+		</div>
 	</div>
-</div>
 
 <hr>
 <!-- @@@@@@@@@@ 좋아요 순위 -->
 
-<div class="outbox" style="width:640px">
-	<div class="row left">
-		모비 좋아요 순위
-	</div>
+	<div class="outbox" style="width:640px">
+		<div class="row left">
+			모비 좋아요 순위
+		</div>
 		<div class="row">
 			<%for(MovieDtoVO lovedto : movieLoveList){ %>
-			<div class="movie">
-			<img class="hov" src="http://placeimg.com/100/200/any">
-			<h1 class="h hov2">
-					<%=lovedto.getMovie_name()%>
-			</h1>
-			</div>
+				<div class="movie movie_detail">
+					<img class="hov" src="http://placeimg.com/100/200/any">
+					<h1 class="h hov2">
+							<%=lovedto.getMovie_name()%>
+					</h1>
+				</div>
 			<%} %>
+		</div>
 	</div>
-</div>
 
 <!-- @@@@@@@@@@ 관객수 순위 -->
 
-<div class="outbox" style="width:640px">
-	<div class="row left">
-		모비 관객수 순위
-	</div>
+	<div class="outbox" style="width:640px">
+		<div class="row left">
+			모비 관객수 순위
+		</div>
 		<div class="row">
 			<%for(MovieDto moviedto : movieAudList){ %>
-			<div class="movie">
-			<img class="hov" src="http://placeimg.com/100/200/any">
-			<h1 class="h hov3">
-					<%=moviedto.getMovie_name()%>
-			</h1>
-			</div>
+				<div class="movie movie_detail">
+					<img class="hov" src="http://placeimg.com/100/200/any">
+					<h1 class="h hov3">
+							<%=moviedto.getMovie_name()%>
+					</h1>
+				</div>
 			<%} %>
+		</div>
 	</div>
-</div>
 
 <!-- @@@@@@@@@@ 맞춤 추천 -->
-<div class="outbox" style="width:640px">
-	<div class="row left">
-		맞춤 영화
+	<div class="outbox" style="width:640px">
+		<div class="row left">
+			맞춤 영화
+		</div>
+			<div class="row left">
+				<%for(MygenreDtoVO mydto : mygenreList){ %>
+				<div class="movie movie_detail">
+				<img class="hov" src="http://placeimg.com/100/200/any">
+				<h1 class="h hov4">
+						<%=mydto.getGenre_name()%>
+				</h1>
+				</div>
+				<%} %>
+		</div>
 	</div>
-		<div class="row">
-			<%for(MygenreDtoVO mydto : mygenreList){ %>
-			<div class="movie">
-			<img class="hov" src="http://placeimg.com/100/200/any">
-			<h1 class="h hov4">
-					<%=mydto.getGenre_name()%>
-			</h1>
-			</div>
-			<%} %>
-	</div>
-</div>
 
 </div>

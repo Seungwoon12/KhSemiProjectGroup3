@@ -82,13 +82,13 @@ public class MovieDao {
 		return list;
 	}
 	
-	//영화 상세보기
-	public List<MovieDto> select_movie(int movie_no) throws Exception{
+	//영화 이름으로 상세보기
+	public List<MovieDto> select_movie(String movie_name) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER,PASS);
 		
-		String sql ="select * from movie where movie_no=?";
+		String sql ="select * from movie where movie_name=?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, movie_no);
+		ps.setString(1, movie_name);
 		ResultSet rs = ps.executeQuery();
 		
 		List<MovieDto> list = new ArrayList<>();
