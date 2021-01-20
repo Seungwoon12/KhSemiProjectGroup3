@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import movi.beans.MemberDto;
 import movi.util.JdbcUtil;
 
 public class MemberDao {
@@ -79,6 +78,9 @@ public class MemberDao {
 		ps.setInt(1, member_no);
 		
 		int count = ps.executeUpdate();
+		
+		con.close();
+		
 		return count > 0;
 	}
 	
@@ -110,5 +112,46 @@ public class MemberDao {
 		con.close();
 		
 		return memberDto;		
+	}
+	
+	//회원 정보 수정 - 세션에서 받아온 멤버 번호의 회원의 비밀번호와 입력한 비밀번호가 일치하는지 확인해서 일치하면 수정
+	public boolean edit(MemberDto memberDto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "update member "
+				+ "set member_nick=?, member_phone=? "
+				+ "where member_no=? and member_pw=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setString(1, memberDto.getMember_nick());
+		ps.setString(2, memberDto.getMember_phone());
+		ps.setInt(3, memberDto.getMember_no());
+		ps.setString(4, memberDto.getMember_pw());
+		
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0;
+	}
+	
+	//회원 비밀번호 수정 
+	public boolean editPassword(MemberDto memberDto, String member_pw) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "update member "
+				+ "set member_pw=? "
+				+ "where member_no=? and member_pw=?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, member_pw);
+		ps.setInt(2, memberDto.getMember_no());
+		ps.setString(3, memberDto.getMember_pw());
+		
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0;
 	}
 }
