@@ -31,7 +31,7 @@ public class RecommendDao {
 	public List<RecommendDto> select() throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
-		String sql = "select * from recommend order by recom_no desc"; 
+		String sql = "select recom_title from recommend group by recom_title"; 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
