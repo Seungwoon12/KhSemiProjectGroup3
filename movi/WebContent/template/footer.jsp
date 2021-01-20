@@ -7,4 +7,3 @@
 		</footer> 
 	</main>			
 </body>
-

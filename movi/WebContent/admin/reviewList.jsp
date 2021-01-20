@@ -47,13 +47,12 @@
 					<td>
 						<input type="checkbox">
 					</td>
-					<td>이벤트 번호</td>
-					<td>이벤트 이름</td>
-					<td>기간</td>
+					<td>리뷰 번호</td>
+					<td>제목</td>
+					<td>작성일</td>
 					<td>조회수</td>
 					<td>
 						<a href="#">상세보기</a>
-						<a href="#">수정</a>
 						<a href="#">삭제</a>
 						
 					</td>

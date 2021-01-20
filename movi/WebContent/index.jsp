@@ -17,7 +17,6 @@
 
 <%
 	MovieDto dto = new MovieDto();
-
 	//3조추천
 	RecommendDao recomDao = new RecommendDao();
 	List<RecommendDto> recomList = recomDao.select();
@@ -204,4 +203,3 @@
 </div>
 
 </div>
-
