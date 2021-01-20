@@ -19,7 +19,7 @@ public class MemberEditServlet extends HttpServlet{
 			//준비 - member를 특정할 수 있는 정보 -> 세션에서 받아옴
 			req.setCharacterEncoding("UTF-8");
 			MemberDto memberDto = new MemberDto();
-			memberDto.setMember_no((int)req.getSession().getAttribute("loginInfo"));//현재는 없는 정보 - 로그인 세션 정보
+			memberDto.setMember_no((int)req.getSession().getAttribute("check"));//현재는 없는 정보 - 로그인 세션 정보
 			memberDto.setMember_pw(req.getParameter("member_pw")); //확인용 비밀번호
 			memberDto.setMember_nick(req.getParameter("member_nick"));
 			memberDto.setMember_phone(req.getParameter("member_phone"));

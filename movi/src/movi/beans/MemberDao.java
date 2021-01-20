@@ -171,7 +171,9 @@ public class MemberDao {
 		con.close();
 		
 		return count > 0;
-	}	//관리자모드
+	}	
+	
+	//관리자모드
 		
 		//회원 상세보기-/admin/memberDetail.jsp
 		public MemberDto select_admin(int member_no) throws Exception{
