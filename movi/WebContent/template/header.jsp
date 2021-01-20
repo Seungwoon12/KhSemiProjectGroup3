@@ -43,7 +43,8 @@
 		</header>
 		<nav>
 			<a href="<%=request.getContextPath()%>">홈</a>
-			<a href="#">카테고리</a>
+			<!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
+			<a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
 			<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
 			<a href="#">마이페이지</a>
 		</nav>

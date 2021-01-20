@@ -14,20 +14,7 @@ public class MovieDtoVO {
 	private String movie_director;
 	private String movie_content;
 	private int movie_audience;
-	private int movie_love_count;
-	
-	public int getMovie_love_count() {
-		return movie_love_count;
-	}
-
-	public void setMovie_love_count(int movie_love_count) {
-		this.movie_love_count = movie_love_count;
-	}
-
-	public MovieDtoVO() {
-		super();
-	}
-	
+	private int mlike;
 	public int getMovie_no() {
 		return movie_no;
 	}
@@ -94,7 +81,17 @@ public class MovieDtoVO {
 	public void setMovie_audience(int movie_audience) {
 		this.movie_audience = movie_audience;
 	}
-
+	public int getMlike() {
+		return mlike;
+	}
+	public void setMlike(int mlike) {
+		this.mlike = mlike;
+	}
+	public MovieDtoVO() {
+		super();
+	}
+	
+	
 	
 	
 }
