@@ -14,22 +14,38 @@ public class ReviewDao {
 	public static final String USERNAME = "movi";
 	public static final String PASSWORD = "movi";
 	
+	//게시글 생성시 review_no에 들어 갈 시퀀스 생성
+	public int getSequence() throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "select review_seq.nextval from dual";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		int seq = rs.getInt(1);
+		
+		con.close();
+		return seq;
+	}
+	
 	
 	//게시글 작성
 	public void reviewWrite(ReviewDto reviewDto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql = "insert into review values(review_seq.nextval, ?, ?, ?, ?, sysdate, 0)";
+		String sql = "insert into review values(?, ?, ?, ?, ?, sysdate, 0)";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, reviewDto.getReview_movie_no());
-		ps.setInt(2, reviewDto.getReview_writer_no());
-		ps.setString(3, reviewDto.getReview_title());
-		ps.setString(4, reviewDto.getReview_content());
+		ps.setInt(1, reviewDto.getReview_no());
+		ps.setInt(2, reviewDto.getReview_movie_no());
+		ps.setInt(3, reviewDto.getReview_writer_no());
+		ps.setString(4, reviewDto.getReview_title());
+		ps.setString(5, reviewDto.getReview_content());
 		ps.execute();
 		
 		con.close();
 		
 	}
 	
+	
+	//게시글 수정
 	public boolean reviewEdit(ReviewDto reviewDto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "update review set review_movie_no = ?, review_title = ?, review_content = ? where review_no = ?";
@@ -43,6 +59,17 @@ public class ReviewDao {
 		con.close();
 		return count > 0;
 		
+	}
+	
+	//게시글 삭제
+	public void reviewDelete(int review_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "delete review where review_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, review_no);
+		ps.execute();
+		
+		con.close();
 	}
 	
 	
