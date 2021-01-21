@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css"> 
+<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> 
+<script src="https://unpkg.com/swiper/js/swiper.js"></script> 
+<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css">
 <style>
 	/* 화면 레이아웃 스타일 */
@@ -19,6 +25,7 @@
 	main {
 		width:1200px;
 		margin:auto;
+		height: 1500px;
 	}
 	/* 각각의 레이아웃 영역에 여백을 설정한다 */
 	header, footer, nav, section {
@@ -26,7 +33,7 @@
 	}
 	/* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
 	section {
-		min-height: 450px;
+		height: 100%;
 	}
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
