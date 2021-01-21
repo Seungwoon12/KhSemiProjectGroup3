@@ -13,7 +13,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<jsp:include page="/template/header.jsp"></jsp:include>
 
 <%
 	MovieDto dto = new MovieDto();
@@ -41,6 +40,10 @@
 	List<MygenreDtoVO> mygenreList = mygenreDao.find(a);
 	
 %>
+
+<jsp:include page="/template/header.jsp"></jsp:include>
+
+
 <!-- 이거 jquery css로 만들기! -->
 <style>
 	.hov{
@@ -203,3 +206,5 @@
 </div>
 
 </div>
+
+<jsp:include page="/template/footer.jsp"></jsp:include>
