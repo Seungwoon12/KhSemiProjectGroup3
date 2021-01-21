@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
+
 <script>
 	function submitFindLoginIdForm(form) {
 		form.name.value = form.name.value.trim();
@@ -13,18 +14,16 @@
 		}
 
 alert("존재하지 않은 계정입니다");
-history.go(-1);
+
 </script>
 
-<form action="find-controller.jsp" method="post">
-                             <input type="text" size="20" name="userName" placeholder="닉네임을 입력해주세요" required>
+<form action="Idfind.jsp" method="post">
+                             <input type="text" size="20" name="userName" placeholder="닉네임을 입력해주세요">
                                <br class="clear">
                             <p>전화번호:</p>
-                              <input type="text" size="20" name="userNumber" placeholder=" - 를 제외하고 번호 전체를 입력해주세요." required>
+                              <input type="text" size="20" name="userNumber" placeholder=" - 를 제외하고 번호 전체를 입력해주세요.">
                                <br class="clear">
-                            </div>
-
-    
+                           
  </form>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
