@@ -260,4 +260,23 @@ public class MovieDao {
 		return count > 0 ;
 
 	}
+	
+	//영화이름 전체 가져오기 검색시 사용
+	public List<MovieDto> search_movie_name() throws Exception{
+		Connection con =JdbcUtil.getConnection(USER, PASS);
+		
+		String sql ="select movie_name from movie";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDto> list = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto dto = new MovieDto();
+			dto.setMovie_name(rs.getString("movie_name"));
+			list.add(dto);
+		}
+		con.close();
+		return list;
+	}
+	
 }

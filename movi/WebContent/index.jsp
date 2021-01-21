@@ -1,3 +1,6 @@
+<%@page import="movi.beans.GenreDto"%>
+<%@page import="movi.beans.GenreDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="movi.beans.MygenreDtoVO"%>
 <%@page import="movi.beans.MygenreDto"%>
 <%@page import="movi.beans.MygenreDao"%>
@@ -19,40 +22,48 @@
 
 <jsp:include page="/template/header.jsp"></jsp:include>
 
-    <!-- body 부분 -->
-    <input id="searchInput">
-
 <%
 	//페이징
 	int startPage=1;
 	int endPage=10;
 
-	MovieDto dto = new MovieDto();
+	
 	//3조추천
 	RecommendDao recomDao = new RecommendDao();
 	List<RecommendDto> recomList = recomDao.select_title();
 	
 	
 	//좋아요순
-		MovieDao movieDao = new MovieDao();
-		List<MovieDtoVO> movieLoveList = movieDao.select_love(startPage,endPage);
+	MovieDao movieDao = new MovieDao();
+	List<MovieDtoVO> movieLoveList = movieDao.select_love(startPage,endPage);
 		
 	//관객순
 	List<MovieDto> movieAudList = movieDao.select_aud(startPage,endPage);
 	
+	//검색용 영화 이름 찾기
+	List<MovieDto> searchList = movieDao.search_movie_name();
+	//배열로 바꿔주기
+	MovieDto[] arr = searchList.toArray(new MovieDto[searchList.size()]);
 	
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.select(1);
 	
-	//세션 회원 맞춤순
-	request.getSession().setAttribute("check", memberDto.getMember_no());
-	int genre = (int)session.getAttribute("check");
+	//세션 회원 맞춤순--테스트 필요
+	//request.getSession().setAttribute("check", memberDto.getMember_no());
+	//int genre = (int)session.getAttribute("check");
 	
-	int a = 2;
+//아직 멤버 세션 못받아왔음;;
+//만약 멤버 번호가 2일 때를 가정하고 보여주는거임
+	int member_no=2;
 	//장르별
 	MygenreDao mygenreDao = new MygenreDao();
-	List<MygenreDtoVO> mygenreList = mygenreDao.find(a);
+	List<MygenreDtoVO> mygenreList = mygenreDao.find(member_no);
 
+//멤버가 선호하는 장르의 영화들을 나열
+//만약 좋아하는 장르가 로맨스라고 가정했을 때
+	String genre_name="로맨스";
+	GenreDao genreDao = new GenreDao();
+	List<GenreDto> genreList = genreDao.find_movie(genre_name); 
 	
 %>
 <!-- 이거 jquery css로 만들기! -->
@@ -147,6 +158,13 @@ justify-content: center;
 	}
 	.swiper-container {
     width: 779px;
+    }
+    .ui-autocomplete {
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width:150px;
+}
 </style>
 
 <script>
@@ -177,32 +195,34 @@ justify-content: center;
 				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
 			},
 		});
-	});
-</script>
-<script>
-    $(function() {    //화면 다 뜨면 시작
-        var searchSource = ["김치 볶음밥", "신라면", "진라면", "라볶이", "팥빙수","너구리","삼양라면","안성탕면","불닭볶음면","짜왕","라면사리" ]; // 배열 형태로 
+		
+		//검색기능
+       var searchSource = [{
+    	   <%for(int i=0 ;i<arr.length; i++){
+    		   arr[i].getMovie_name();
+			}%>
+       }]
+		
+       var cCities = [
+       <%for(int i=0; i<arr.length; i++){%>
+       		"<%=arr[i].getMovie_name()%>",
+    	<%}%>
+       ]
+		
         $("#searchInput").autocomplete({  //오토 컴플릿트 시작
-            source : searchSource,    // source 는 자동 완성 대상
-            select : function(event, ui) {    //아이템 선택시
-                console.log(ui.item);
-            },
+            source : cCities,    // source 는 자동 완성 대상
             focus : function(event, ui) { 
                 return false;//한글 에러 잡기용도로 사용됨
             },
             minLength: 1,// 최소 글자수
             autoFocus: true,
             classes: { 
-                "ui-autocomplete": "highlight"
+                "ui-autocomplete": "highlight"//선택된거에 하이라이트
             },
             delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
-            position: { my : "right top", at: "right bottom" },
-            close : function(event){    //자동완성창 닫아질때 호출
-                console.log(event);
-            }
+            position: { my : "left top", at: "left bottom"}//위치
         });
-        
-    });
+	});
 </script>
 <div class="outbox" style="width:100%">
 
@@ -211,10 +231,10 @@ justify-content: center;
 		
 		<form action="/movi/category/detail.jsp" method="get">
 			<div>	
-<!-- 비동기 검색을 알아보자! -->
+<!--검색기능 -->
 				<input name="movie_name" class="input input-hint unit slot id" 
 						placeholder="영화명을 입력하세요" type="text" style="width:200px"
-						>
+						id="searchInput">
 				<input type="submit" value="검색">
 			</div>
 		</form>
