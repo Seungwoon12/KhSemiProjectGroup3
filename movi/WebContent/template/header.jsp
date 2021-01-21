@@ -45,7 +45,7 @@
 	<main>
 		<header>
 			<h1 class="left">movi</h1>
-			<a href="#" class="left">로그인</a>
+			<a href="<%=request.getContextPath()%>/member/loginpage.jsp" class="left">로그인</a>
 			<a href="#" class="right">이벤트</a>
 			<a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
 		</header>

@@ -3,9 +3,6 @@
   
 <jsp:include page="/template/header.jsp"></jsp:include>
 	
-	<style>
-	</style>
-
 <script>
 	var FindPwFormSubmitted = false;
 	function submitFindPwForm(form) {
@@ -34,11 +31,11 @@
 </script>
 <div class="find">
 	<div class="form">
-		<form action="doFindPw" method="POST" class="findPw-form"
+		<form action="doFindPw" method="POST" class="find"
 			onsubmit="submitFindPwForm(this); return false;">
-			<h1 style="padding: 0 0 30px 0;">비밀번호 찾기</h1>
+			<h1>비밀번호 찾기</h1>
 			<input name="loginId" type="text" placeholder="아이디" /> <input
-				name="name" type="text" placeholder="이름" /> <input name="email"
+				name="name" type="text" placeholder="닉네임" /> <input name="email"
 				type="email" placeholder="이메일" />
 			<button type="submit">비밀번호 찾기</button>
 			<p class="message">
