@@ -109,7 +109,8 @@
 			</thead>
 			
 			<tbody>
-				<%for(ReviewNickVO reviewNickVO : list) { %>
+				
+			    <%for(ReviewNickVO reviewNickVO : list) { %>
 				<tr>
 					<td><%=reviewNickVO.getReview_no() %></td>
 					<td>
@@ -122,6 +123,7 @@
 					<td><%=reviewNickVO.getReview_read() %></td>
 				</tr>
 				<%} %>
+				
 			</tbody>
 			
 			<tfoot>
@@ -129,6 +131,13 @@
 			</tfoot>
 		</table>
 	</div>
+	
+	<div class="row center">
+			<%if(list.isEmpty()) { %>
+				<h3>등록된 게시글이 존재하지 않습니다.</h3>
+			<%} %>	
+	</div>
+	
 	
 	<div class="row right">
 		<button class="write-btn input input-inline">글쓰기</button>
@@ -139,6 +148,7 @@
 	<!-- 페이지 네비게이션 -->
 	<div class=row center>
 		<ul class="pagination center">
+			<%if(!list.isEmpty()) { %>
 			<li>
 			<%if(isSearch) { %>
 				<a href="list.jsp?p=<%=startNum-1%>&type=<%=type%>&key=<%=key%>">	
@@ -147,6 +157,7 @@
 			<%} %>
 				&lt;</a>
 			</li>
+			<%} %>
 			
 			<%for(int i=startNum; i <= endNum; i++) {%>
 			<%if(p == i) { %>
@@ -163,6 +174,7 @@
 			
 			<%} %>
 			
+			<%if(!list.isEmpty()) { %>
 			<li>
 			<%if(isSearch) { %>
 				<a href="list.jsp?p=<%=endNum+1%>&type=<%=type%>&key=<%=key%>">
@@ -171,6 +183,7 @@
 			<%} %>
 				&gt;</a>
 			</li>
+			<%} %>
 		</ul>
 	
 	
