@@ -7,7 +7,7 @@
 <!-- 영화 목록  -->
 <%
 	MovieDao movieDao = new MovieDao();
-	List<MovieDto> movieList = movieDao.select();
+	List<MovieDto> movieList = movieDao.select_admin();
 
 %>
 
@@ -18,9 +18,8 @@
 		</div>
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
-			<a href="#"> 영화 등록 </a><br><br> 
+			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
 			<a href="#"> 영화 수정 </a><br><br> 
-			<a href="#"> 영화 삭제</a>
 		</div>
 	</aside>
 
@@ -42,7 +41,7 @@
 			<table class="table table-border">
 				<thead>
 					<tr>
-						<th>전체선택</th>
+						<th><input type="checkbox">전체선택</th>
 						<th>영화번호</th>
 						<th>영화제목</th>
 						<th>개봉일</th>
@@ -60,7 +59,7 @@
 						<td><%=movieDto.getMovie_audience() %></td>
 						<td>
 							<a href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
-						 	<a href="#">수정</a>
+						 	<a href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
 						 	 <a href="#">삭제</a>
 						</td>
 					</tr>
@@ -68,7 +67,12 @@
 				</tbody>
 			</table>
 		</div>
-
+		
+		<!-- 선택된 회원 삭제버튼 -->
+		<div class="right">
+			<input type="button" value="선택된 영화 삭제" >
+		</div>
+		
 		<!-- 페이지 네비게이션 -->
 		<div class="row center">
 			<ul class="pagination">

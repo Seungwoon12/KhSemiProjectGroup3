@@ -7,6 +7,8 @@
 
 	ReviewDao reviewDao = new ReviewDao();
 	ReviewDto reviewDto = reviewDao.find(review_no);
+	MovieDaoSW movieDaoSW = new MovieDaoSW();
+	MovieDto movieDto = movieDaoSW.find(reviewDto.getReview_movie_no());
 
 %>
 
@@ -22,9 +24,9 @@
 			
 			<div class="row">
 				<label>영화명</label>
-				<input type="text" name="movie_name" class="input" value="<%=reviewDto.getReview_movie_no()%>">
+				<input type="text" name="movie_name" class="input" value="<%=movieDto.getMovie_name()%>">
 			</div>
-			<div class="row">
+			<div class="row">	
 				<label>제목</label>
 				<input type="text" name="review_title" class="input" value="<%=reviewDto.getReview_title()%>">
 			</div>

@@ -27,8 +27,8 @@ public class RecommendDao {
 		
 	}
 	
-	//보기
-	public List<RecommendDto> select() throws Exception{
+	//추천 타이틀 보기
+	public List<RecommendDto> select_title() throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
 		String sql = "select recom_title from recommend group by recom_title"; 
@@ -44,4 +44,27 @@ public class RecommendDao {
 		con.close();
 		return list;
 	}
+	
+	//타이틀 이름별로 영화 보기
+		public List<RecommendDtoVO> select(String title) throws Exception{
+			Connection con = JdbcUtil.getConnection(USER, PASS);
+			
+			String sql = "select r.recom_title,m.movie_name "
+					+"from recommend R "
+					+ "left outer join movie M on r.recom_movie_no=m.movie_no "
+					+ "where r.recom_title=?"; 
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, title);
+			ResultSet rs = ps.executeQuery();
+			
+			List<RecommendDtoVO> list = new ArrayList<>();
+			while(rs.next()) {
+				RecommendDtoVO dto = new RecommendDtoVO();
+				dto.setRecom_title(rs.getString("recom_title"));
+				dto.setRecom_movie_name(rs.getString("movie_name"));
+				list.add(dto);
+			}
+			con.close();
+			return list;
+		}
 }

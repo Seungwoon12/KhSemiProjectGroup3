@@ -7,7 +7,7 @@
 
 	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
 	MovieDao movieDao = new MovieDao();
-	MovieDto movieDto = movieDao.select(movie_no);
+	MovieDto movieDto = movieDao.select_admin(movie_no);
 %>
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include> 
@@ -19,9 +19,8 @@
 		</div>
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
-			<a href="#"> 영화 등록 </a><br><br> 
+			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
 			<a href="#"> 영화 수정 </a><br><br> 
-			<a href="#"> 영화 삭제</a>
 		</div>
 	</aside>
 
@@ -91,6 +90,12 @@
 						<p class="left">
 							<%=movieDto.getMovie_content() %>
 						</p>
+						</th>
+					</tr>
+					<tr>
+						<th colspan="3">
+							<input type="button" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%= movieDto.getMovie_no() %>' ">
+							<input type="button" value="삭제" id="movieDelete" onclick="">
 						</th>
 					</tr>
 				</tbody>
