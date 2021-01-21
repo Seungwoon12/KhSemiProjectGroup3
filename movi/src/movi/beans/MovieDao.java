@@ -119,8 +119,9 @@ public class MovieDao {
 	
 	
 	// 관리자 모드
+	
 	// 영화 상세보기-/admin/movieDetail.jsp
-	public MovieDto select(int movie_no) throws Exception{
+	public MovieDto select_admin(int movie_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
 		String sql =" select * from movie where movie_no=?";
@@ -152,8 +153,8 @@ public class MovieDao {
 		
 	}
 	
-	// 영화 목록-/admin/moveList.jsp
-	public List<MovieDto> select() throws Exception{
+	// 영화 목록-/admin/movieList.jsp
+	public List<MovieDto> select_admin() throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, USER);
 		
 		String sql="select movie_no, movie_name,  movie_date, movie_audience "
@@ -176,4 +177,54 @@ public class MovieDao {
 		
 	}
 	
+	//영화추가 하기-/admin/movieInsert.jsp
+	public void insert_admin(MovieDto movieDto) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into movie values "
+				+ "(movie_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movieDto.getMovie_genre_no());
+		ps.setString(2, movieDto.getMovie_name());
+		ps.setInt(3, movieDto.getMovie_rate());
+		ps.setInt(4, movieDto.getMovie_time());
+		ps.setString(5, movieDto.getMovie_age());
+		ps.setString(6, movieDto.getMovie_country());
+		ps.setString(7, movieDto.getMovie_director());
+		ps.setString(8, movieDto.getMovie_content());
+		ps.setInt(9, movieDto.getMovie_audience());
+		ps.execute();
+		
+		con.close();
+		
+	}
+	
+	//영화 수정 - /admin/movieEdit.do
+	public boolean edit_admin(MovieDto movieDto) throws Exception{
+		Connection con =JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "update movie " 
+						+ " set   movie_genre_no=? ,  movie_name=? , movie_rate=? , movie_time=? , "
+						+ "       movie_age=? , movie_country=? , movie_date=sysdate, " 
+						+ "       movie_director=? , movie_content=? , movie_audience=? "
+					+ " where movie_no=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movieDto.getMovie_genre_no());
+		ps.setString(2, movieDto.getMovie_name());
+		ps.setInt(3, movieDto.getMovie_rate());
+		ps.setInt(4, movieDto.getMovie_time());
+		ps.setString(5, movieDto.getMovie_age());
+		ps.setString(6, movieDto.getMovie_country());
+		ps.setString(7, movieDto.getMovie_director());
+		ps.setString(8, movieDto.getMovie_content());
+		ps.setInt(9, movieDto.getMovie_audience());
+		ps.setInt(10, movieDto.getMovie_no());
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ;
+
+	}
+
 }
