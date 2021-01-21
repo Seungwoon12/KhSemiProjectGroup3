@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import movi.beans.MemberDao;
 import movi.beans.MemberDto;
 
-	@WebServlet(urlPatterns = "/member/loginaction.jsp")
+	@WebServlet(urlPatterns = "/member/login.do")
 public class MemberLoginServlet extends HttpServlet{
 		@Override
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
