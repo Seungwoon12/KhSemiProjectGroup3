@@ -7,7 +7,7 @@ import movi.util.JdbcUtil;
 
 public class MemberFindDao {
 	
-	public String id_find insert(MemberFindDto dto) throws Exception {
+	public String insert(MemberFindDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into member("
 				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
