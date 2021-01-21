@@ -36,7 +36,7 @@
 		<table class="table table-border table-pattern">
 			<thead>
 				<tr>
-					<th>전체선택</th>
+					<th><input type="checkbox">전체선택</th>
 					<th>이벤트 번호</th>
 					<th>이벤트 이름</th>
 					<th>기간</th>

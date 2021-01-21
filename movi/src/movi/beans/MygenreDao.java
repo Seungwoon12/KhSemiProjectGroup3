@@ -16,7 +16,7 @@ public class MygenreDao {
 	public List<MygenreDtoVO> find(int mygenre_member_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql ="select g.genre_name, m.mygenre_member_no " + 
-					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_no " + 
+					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_genre_no " + 
 					"where m.mygenre_member_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, mygenre_member_no);
@@ -33,7 +33,6 @@ public class MygenreDao {
 		return list;
 	}
 
-	
 	//회원의 선호 장르를 초기화 하는 구문
 	public void clearGenre(int member_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
@@ -60,20 +59,25 @@ public class MygenreDao {
 		
 		con.close();
 	}
-		
-	//회원 선호 장르 불러오기 
-	/*
-	public List<Integer> searchGenre(int member_no) throws Exception {
+	
+	//선호 장르의 번호 탐색 //내맘대로 수정한건데 나중에 말해서 위에 파인드랑 합칠 수 있음
+	public List<MygenreDtoVO> find_no(int mygenre_member_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		
-		String sql = "select MG.mygenre_no from member M "
-				+ "left outer join mygenre MG "
-				+ "on M.member_no = MG.mygenre_member_no "
-				+ "where M.member_no = ?";
+		String sql ="select m.* " + 
+					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_genre_no " + 
+					"where m.mygenre_member_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, member_no);
-		
+		ps.setInt(1, mygenre_member_no);
 		ResultSet rs = ps.executeQuery();
 		
-	} */
+		List<MygenreDtoVO> list = new ArrayList<>();
+		while(rs.next()) {
+			MygenreDtoVO mygenreDtoVO = new MygenreDtoVO();
+			mygenreDtoVO.setMygenre_genre_no(rs.getInt("mygenre_genre_no"));
+			
+			list.add(mygenreDtoVO);
+		}
+		con.close();
+		return list;
+	}
 }

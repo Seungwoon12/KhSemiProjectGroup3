@@ -18,7 +18,7 @@ public class MemberEditPwServlet extends HttpServlet{
 		try {
 			//준비 : 세션(회원번호), 파라미터(현재 비밀번호, 바꿀 비밀번호) - 비밀번호 확인은 같지 않으면 아예 넘어오지 않기 때문에 필요 없다
 			MemberDto memberDto = new MemberDto();
-			memberDto.setMember_no((int)req.getSession().getAttribute("loginInfo")); //로그인 정보 세션 -> 현재 없는 것이므로 나중에 수정 필요
+			memberDto.setMember_no((int)req.getSession().getAttribute("check")); //로그인 정보 세션 -> 현재 없는 것이므로 나중에 수정 필요
 			memberDto.setMember_pw(req.getParameter("original_pw"));
 			String member_pw = req.getParameter("member_pw");
 			

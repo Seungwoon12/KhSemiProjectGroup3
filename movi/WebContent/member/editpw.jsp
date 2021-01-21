@@ -28,7 +28,7 @@ $(function(){
 </script>
 
 <%
-	int member_no = (int)session.getAttribute("loginInfo"); //아직 없는 변수 수정 필요
+	int member_no = (int)session.getAttribute("check"); //아직 없는 변수 수정 필요
 	
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.find(member_no);

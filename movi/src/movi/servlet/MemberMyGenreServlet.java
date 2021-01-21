@@ -22,8 +22,7 @@ public class MemberMyGenreServlet extends HttpServlet{
 			//2. member_no를 세션에서 받아오기
 			req.setCharacterEncoding("UTF-8");
 			String[] genre = req.getParameterValues("genre");
-			int member_no = (int)req.getSession().getAttribute("loginInfo");//현재는 없는 정보 - 로그인 세션 정보
-			//int member_no = 22;
+			int member_no = (int)req.getSession().getAttribute("check");//현재는 없는 정보 - 로그인 세션 정보
 			List<Integer> member_genre = new ArrayList<>();
 			for(String genrevalue : genre) {
 				member_genre.add(Integer.parseInt(genrevalue));
@@ -34,7 +33,7 @@ public class MemberMyGenreServlet extends HttpServlet{
 			// 2. 새로 선택된 장르들을 반복문으로 insert 함
 			
 			MygenreDao mygenreDao = new MygenreDao();
-			mygenreDao.clearGenre(member_no);
+			mygenreDao.clearGenre(member_no); //회원의 선호 장르를 인단 전부 초기화
 			for(int i : member_genre) {
 				mygenreDao.selectGenre(member_no, i);
 			}
