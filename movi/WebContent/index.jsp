@@ -18,6 +18,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
+
+    <!-- body 부분 -->
+    <input id="searchInput">
+
 <%
 	//페이징
 	int startPage=1;
@@ -118,11 +122,11 @@
 	}
 	.swiper-slide img {
 	box-shadow:0 0 5px #555;
-	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 }
 .swiper-slide{
 width:118px !important;
 margin:20px;
+justify-content: center;
 }
 	.prev>img, .next>img{
 		width: 30px;
@@ -151,12 +155,13 @@ margin:20px;
 		$(".movie_recom").click(function(){
 			location.href="/movi/category/recom.jsp?recom_title="+$(this).text();
 		});
+		
 		//영화 세부 페이지로 가기
 		$(".movie_detail").click(function(){
 			location.href="/movi/category/detail.jsp?movie_name="+$(this).text();
 		})
 		
-		
+		//스와이퍼
 		new Swiper('.swiper-container', {
 			slidesPerView : 5, // 동시에 보여줄 슬라이드 갯수
 			spaceBetween : 10, // 슬라이드간 간격
@@ -172,12 +177,33 @@ margin:20px;
 				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
 			},
 		});
-		
 	});
 </script>
-<%
-
-%>
+<script>
+    $(function() {    //화면 다 뜨면 시작
+        var searchSource = ["김치 볶음밥", "신라면", "진라면", "라볶이", "팥빙수","너구리","삼양라면","안성탕면","불닭볶음면","짜왕","라면사리" ]; // 배열 형태로 
+        $("#searchInput").autocomplete({  //오토 컴플릿트 시작
+            source : searchSource,    // source 는 자동 완성 대상
+            select : function(event, ui) {    //아이템 선택시
+                console.log(ui.item);
+            },
+            focus : function(event, ui) { 
+                return false;//한글 에러 잡기용도로 사용됨
+            },
+            minLength: 1,// 최소 글자수
+            autoFocus: true,
+            classes: { 
+                "ui-autocomplete": "highlight"
+            },
+            delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+            position: { my : "right top", at: "right bottom" },
+            close : function(event){    //자동완성창 닫아질때 호출
+                console.log(event);
+            }
+        });
+        
+    });
+</script>
 <div class="outbox" style="width:100%">
 
 	<div class="main" style="height:295px">
@@ -187,7 +213,8 @@ margin:20px;
 			<div>	
 <!-- 비동기 검색을 알아보자! -->
 				<input name="movie_name" class="input input-hint unit slot id" 
-						placeholder="영화명을 입력하세요" type="text" style="width:200px">
+						placeholder="영화명을 입력하세요" type="text" style="width:200px"
+						>
 				<input type="submit" value="검색">
 			</div>
 		</form>
@@ -316,3 +343,4 @@ margin:20px;
 	
 	
 </div>
+<jsp:include page="/template/footer.jsp"></jsp:include>
