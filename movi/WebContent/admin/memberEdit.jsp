@@ -26,7 +26,6 @@
 			</div>
 			<div class="left">
 				<a href="memberList.jsp">회원리스트 </a><br> <br>
-				 <a href="#">회원 탈퇴/삭제 </a><br> <br> 
 				 <a href="#"> 임시 비밀번호 발급 </a><br><br> 
 				 <a href="#"> 회원 쿠폰 관리 </a>
 			</div>
@@ -55,7 +54,7 @@
 						<tr>
 							<th>회원아이디</th>
 							<td><%=memberDto.getMember_id()%>
-							<input type="button" value="임시 비밀번호 발급">
+							<input type="button" value="임시 비밀번호 발급" onclick="location.href='memberPwCheck.jsp'">
 							 </td>
 						</tr>
 						<tr>

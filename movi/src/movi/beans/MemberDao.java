@@ -73,7 +73,7 @@ public class MemberDao {
 		
 	}
 	
-	//회원 정보 수정
+	//회원 정보 수정 -/admin/memberEdit.jsp
 	public boolean edit_admin(MemberDto memberDto) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
@@ -91,6 +91,7 @@ public class MemberDao {
 		
 	}
 	
+	//회원 삭제 - /admin/memberDelete.do
 	public boolean delete_admin(int member_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 			
@@ -104,6 +105,22 @@ public class MemberDao {
 		
 		return count > 0;
 			
+	}
+	
+	//회원 임시 비밀번호 발급 - /admin/memberPw.do
+	public boolean editPw_admin(int member_no, String pw) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = " update member set member_pw= ? where member_no= ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, pw);
+		ps.setInt(2, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ; 
+		
 	}
 	
 		
