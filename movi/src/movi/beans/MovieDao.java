@@ -120,6 +120,76 @@ public class MovieDao {
 
 	//}
 	
+
+	//영화 이름 검색 검사
+	public List<MovieDto> search_select(String search_name) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, USER);
+		String sql = "select * from movie where instr(movie_name,?)>0";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, search_name);
+		ResultSet rs = ps.executeQuery();
+		List<MovieDto> list = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto dto = new MovieDto();
+			dto.setMovie_name(rs.getString("movie_name"));
+			dto.setMovie_age(rs.getString("movie_age"));
+			dto.setMovie_audience(rs.getInt("movie_audience"));
+			dto.setMovie_content(rs.getString("movie_content"));
+			dto.setMovie_country(rs.getString("movie_country"));
+			dto.setMovie_date(rs.getDate("movie_date"));
+			dto.setMovie_director(rs.getString("movie_director"));
+			dto.setMovie_rate(rs.getDouble("movie_rate"));
+			dto.setMovie_time(rs.getInt("movie_time"));
+			dto.setMovie_no(rs.getInt("movie_no"));
+			
+			list.add(dto);
+		}
+		con.close();
+		return list;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	// 관리자 모드
@@ -139,7 +209,7 @@ public class MovieDao {
 			movieDto.setMovie_no(rs.getInt("movie_no"));
 			movieDto.setMovie_genre_no(rs.getInt("movie_genre_no"));
 			movieDto.setMovie_name(rs.getString("movie_name"));
-			movieDto.setMovie_rate(rs.getInt("movie_rate"));
+			movieDto.setMovie_rate(rs.getDouble("movie_rate"));
 			movieDto.setMovie_time(rs.getInt("movie_time"));
 			movieDto.setMovie_age(rs.getString("movie_age"));
 			movieDto.setMovie_country(rs.getString("movie_country"));
@@ -181,35 +251,6 @@ public class MovieDao {
 		
 	}
 	
-
-	//영화 이름 검색 검사
-	public List<MovieDto> search_select(String search_name) throws Exception{
-		Connection con = JdbcUtil.getConnection(USER, USER);
-		String sql = "select * from movie where instr(movie_name,?)>0";
-		
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, search_name);
-		ResultSet rs = ps.executeQuery();
-		List<MovieDto> list = new ArrayList<>();
-		while(rs.next()) {
-			MovieDto dto = new MovieDto();
-			dto.setMovie_name(rs.getString("movie_name"));
-			dto.setMovie_age(rs.getString("movie_age"));
-			dto.setMovie_audience(rs.getInt("movie_audience"));
-			dto.setMovie_content(rs.getString("movie_content"));
-			dto.setMovie_country(rs.getString("movie_country"));
-			dto.setMovie_date(rs.getDate("movie_date"));
-			dto.setMovie_director(rs.getString("movie_director"));
-			dto.setMovie_rate(rs.getDouble("movie_rate"));
-			dto.setMovie_time(rs.getInt("movie_time"));
-			dto.setMovie_no(rs.getInt("movie_no"));
-			
-			list.add(dto);
-		}
-		con.close();
-		return list;
-		
-	}
 
 	//영화추가 하기-/admin/movieInsert.jsp
 	public void insert_admin(MovieDto movieDto) throws Exception{

@@ -55,9 +55,6 @@ public class MemberDao {
 		return result;
 	}
 
-
-
-	//관리자모드
 	
 	//회원 상세보기-memberDetail.jsp
 	public MemberDto select(int member_no) throws Exception{
@@ -197,25 +194,40 @@ public class MemberDao {
 		
 		return count > 0;
 	}	
-
-	
-	//회원 삭제 - /admin/memberDelete.do
-	public boolean delete_admin(int member_no) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-			
-		String sql = "delete member where member_no = ?";
-			
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, member_no);
-		int count = ps.executeUpdate();
 		
-		con.close();
+///찾기
+		public MemberDto find(String member_id)  throws Exception {
+				Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+				
+				String sql = "select * from member where member_id = ?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, member_id);
+				ResultSet rs = ps.executeQuery();
+				
+				MemberDto dto;
+				if(rs.next()) {
+					dto = new MemberDto();
+					dto.setMember_no(rs.getInt("member_no"));
+					dto.setMember_id(rs.getString("member_id"));
+					dto.setMember_pw(rs.getString("member_pw"));
+					dto.setMember_nick(rs.getString("member_nick"));								
+					dto.setMember_auth(rs.getString("member_auth"));
+				
+				}
+				else {
+					dto = null;
+				}
+				
+				con.close();
+				
+				return dto;		
+			}
 		
-		return count > 0;
-			
-	}
-	
-	//관리자모드
+		
+		
+		
+		
+		//관리자 모드
 		
 		//회원 상세보기-/admin/memberDetail.jsp
 		public MemberDto select_admin(int member_no) throws Exception{
@@ -290,36 +302,21 @@ public class MemberDao {
 	}
 	
 	//회원 삭제 - /admin/memberDelete.do
-	
+	public boolean delete_admin(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			
+		String sql = "delete member where member_no = ?";
+			
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		int count = ps.executeUpdate();
 		
-///찾기
-		public MemberDto find(String member_id)  throws Exception {
-				Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-				
-				String sql = "select * from member where member_id = ?";
-				PreparedStatement ps = con.prepareStatement(sql);
-				ps.setString(1, member_id);
-				ResultSet rs = ps.executeQuery();
-				
-				MemberDto dto;
-				if(rs.next()) {
-					dto = new MemberDto();
-					dto.setMember_no(rs.getInt("member_no"));
-					dto.setMember_id(rs.getString("member_id"));
-					dto.setMember_pw(rs.getString("member_pw"));
-					dto.setMember_nick(rs.getString("member_nick"));								
-					dto.setMember_auth(rs.getString("member_auth"));
-				
-				}
-				else {
-					dto = null;
-				}
-				
-				con.close();
-				
-				return dto;		
-			}
+		con.close();
 		
+		return count > 0;
+			
+	}
+			
 
 	
 	//회원 임시 비밀번호 발급 - /admin/memberPw.do
@@ -337,6 +334,64 @@ public class MemberDao {
 		return count > 0 ; 
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//관리자모드
+	
+	
 	
 	
 }
