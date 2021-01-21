@@ -16,7 +16,7 @@ public class MygenreDao {
 	public List<MygenreDtoVO> find(int mygenre_member_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql ="select g.genre_name, m.mygenre_member_no " + 
-					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_no " + 
+					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_genre_no " + 
 					"where m.mygenre_member_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, mygenre_member_no);
@@ -60,7 +60,7 @@ public class MygenreDao {
 		
 		con.close();
 	}
-		
+	
 	//회원 선호 장르 불러오기 
 	/*
 	public List<Integer> searchGenre(int member_no) throws Exception {
