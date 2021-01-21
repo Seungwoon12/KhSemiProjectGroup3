@@ -6,7 +6,7 @@ public class MovieDto {
 	private int movie_no;
 	private int movie_genre_no;
 	private String movie_name;
-	private int movie_rate;
+	private Double movie_rate;
 	private int movie_time;
 	private String movie_age;
 	private String movie_country;
@@ -34,11 +34,11 @@ public class MovieDto {
 	public void setMovie_name(String movie_name) {
 		this.movie_name = movie_name;
 	}
-	public int getMovie_rate() {
+	public double getMovie_rate() {
 		return movie_rate;
 	}
-	public void setMovie_rate(int movie_rate) {
-		this.movie_rate = movie_rate;
+	public void setMovie_rate(double d) {
+		this.movie_rate = d;
 	}
 	public int getMovie_time() {
 		return movie_time;
