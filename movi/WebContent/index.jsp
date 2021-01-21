@@ -317,4 +317,5 @@ margin:20px;
 	
 </div>
 
+</div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
