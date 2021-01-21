@@ -32,7 +32,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 //				+ 추가 : 로그인 성공한 경우 세션에 auth란 이름으로 사용자의 권한을 저장
 				if(login) {
 //				
-					MemberDto m = dao.find(dto.getMember_id());//아이디로 회원정보 다 불러오기
+					MemberDto m = dao.find(dto.getMember_no());//아이디로 회원정보 다 불러오기
 					req.getSession().setAttribute("check", m.getMember_no());
 					req.getSession().setAttribute("auth", m.getMember_auth());
 					resp.sendRedirect("../index.jsp");
