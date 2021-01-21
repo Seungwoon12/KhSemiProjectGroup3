@@ -10,22 +10,26 @@
 	List<MemberDto> memberList = memberDao.select_admin();
 %>
 
+
+<jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
+
+
 <!-- 회원 삭제시 알림 구현 -->
 <script>
 	$(function(){
-		$(".member_delete").click(function(e){
+		$(".memDelete").click(function(e){
 			e.preventDefault();
 			
-			var check = wincow.confirm("회원 삭제하시겠습니까?");
+			var check = window.confirm("회원 삭제하시겠습니까?");
 			if(check){
-				$(location).attr("href",$(this).attr("href"));
+				location.href=$(this).attr("href");
+				//location.href=this.href;//this에 있는 경로로 이동해서 보내세요
 			}
 		});
 	});
 
 </script>
-    
-<jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
+
 
 <div class="outbox" style="width:100%">
    <aside>
@@ -34,7 +38,6 @@
   	 	</div>
   	 	<div class="left">
   	 		<a href="memberList.jsp">회원리스트 </a><br><br>
-  	 		<a href="#"> 회원 탈퇴/삭제 </a><br><br>
   	 		<a href="#"> 임시 비밀번호 발급 </a><br><br>
   	 		<a href="#"> 회원 쿠폰 관리 </a>
   	 	</div>
@@ -59,7 +62,7 @@
 		<table class="table table-border">
 			<thead>
 				<tr>
-					<th>전체선택</th>
+					<th><input type="checkbox">전체선택</th>
 					<th>회원번호</th>
 					<th>회원 아이디</th>
 					<th>가입일</th>
@@ -80,7 +83,7 @@
 					<td>
 						<a href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">상세보기</a>
 						<a href="memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>">수정</a>
-						<a class="member_delete" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
+						<a class="memDelete" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
 
 					</td>
 				</tr>
@@ -88,6 +91,11 @@
 			</tbody>
 		</table>
 	</div>
+	
+		<!-- 선택된 회원 삭제버튼 -->
+		<div class="right">
+			<input type="button" value="선택된 회원 삭제" >
+		</div>
 
 		<!-- 페이지 네비게이션 -->
 		<div class="row center">

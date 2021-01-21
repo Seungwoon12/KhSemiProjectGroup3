@@ -2,6 +2,7 @@
 package movi.beans;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -14,6 +15,22 @@ public class MemberDao {
 	//계정 정보를 상수로 저장
 	public static final String USERNAME = "movi";
 	public static final String PASSWORD = "movi";
+	
+	//로그인 
+	public void insert(MemberDto dto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "insert into member("
+				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
+				+ " values(member_seq.nextval,?,?,?,?,'일반')";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_id());
+		ps.setString(2, dto.getMember_pw());
+		ps.setString(3, dto.getMember_nick());
+		ps.setString(4, dto.getMember_phone());
+		ps.execute();
+		
+		con.close();
+	}
 	
 	//관리자모드
 	
@@ -209,38 +226,57 @@ public class MemberDao {
 			return memberList;
 			
 		}
+	
+	//회원 정보 수정 -/admin/memberEdit.jsp
+	public boolean edit_admin(MemberDto memberDto) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
-		//회원 정보 수정
-		public boolean edit_admin(MemberDto memberDto) throws Exception{
-			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-			
-			String sql = "update member set member_nick = ? , member_auth= ? "
-					+ " where member_no = ?";
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, memberDto.getMember_nick());
-			ps.setString(2, memberDto.getMember_auth());
-			ps.setInt(3, memberDto.getMember_no());
-			int count = ps.executeUpdate();
-			
-			con.close();
-			
-			return count > 0;
-			
-		}
+		String sql = "update member set member_nick = ? , member_auth= ? "
+				+ " where member_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, memberDto.getMember_nick());
+		ps.setString(2, memberDto.getMember_auth());
+		ps.setInt(3, memberDto.getMember_no());
+		int count = ps.executeUpdate();
 		
-		public boolean delete_admin(int member_no) throws Exception {
-			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-				
-			String sql = "delete member where member_no = ?";
-				
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, member_no);
-			int count = ps.executeUpdate();
-			
-			con.close();
-			
-			return count > 0;
-				
-		}
+		con.close();
 		
+		return count > 0;
+		
+	}
+	
+	//회원 삭제 - /admin/memberDelete.do
+	public boolean delete_admin(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			
+		String sql = "delete member where member_no = ?";
+			
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0;
+			
+	}
+	
+	//회원 임시 비밀번호 발급 - /admin/memberPw.do
+	public boolean editPw_admin(int member_no, String pw) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = " update member set member_pw= ? where member_no= ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, pw);
+		ps.setInt(2, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ; 
+		
+	}
+	
+	
 }
+

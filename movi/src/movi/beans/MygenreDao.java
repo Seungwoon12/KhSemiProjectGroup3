@@ -33,7 +33,6 @@ public class MygenreDao {
 		return list;
 	}
 
-	
 	//회원의 선호 장르를 초기화 하는 구문
 	public void clearGenre(int member_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
