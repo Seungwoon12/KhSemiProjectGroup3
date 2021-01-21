@@ -33,7 +33,7 @@
 		<table class="table table-border table-pattern">
 			<thead>
 				<tr>
-					<th>전체선택</th>
+					<th><input type="checkbox">전체선택</th>
 					<th>리뷰 번호</th>
 					<th>제목</th>
 					<th>작성일</th>

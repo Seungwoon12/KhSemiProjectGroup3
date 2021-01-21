@@ -6,9 +6,9 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <%
-	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
+	String movie_name = request.getParameter("movie_name");
 	MovieDao movieDao = new MovieDao();
-	List<MovieDto> moviegenreList = movieDao.select_movie(movie_no);
+	List<MovieDto> moviegenreList = movieDao.select_movie(movie_name);
 %>
 
 <div>

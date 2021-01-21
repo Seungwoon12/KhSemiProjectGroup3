@@ -18,7 +18,7 @@
 	
 	/* 전체 화면의 폭은 100% 로 한다 */
 	main {
-		width:95%;
+		width:1200px;
 		margin:auto;
 	}
 	
@@ -70,7 +70,7 @@
 		<header>
 		<div class="right">
 			<a href="#">로그아웃</a>
-			<a href="#">회원모드</a>		
+			<a href="<%=request.getContextPath()%>">회원모드</a>		
 		</div>
 		
 		<h2 class="logo">MOVI</h2>

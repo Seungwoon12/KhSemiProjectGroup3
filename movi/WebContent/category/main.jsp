@@ -50,7 +50,7 @@
 <ul class="menu">
        <li>
 		<%for(MovieDto dto : moviegenreList){ %>
-			<a href="detail.jsp?movie_no=<%=dto.getMovie_no()%>">
+			<a href="detail.jsp?movie_name=<%=dto.getMovie_name()%>">
 				<%=dto.getMovie_name() %>
 			</a>
 		<%}%>
