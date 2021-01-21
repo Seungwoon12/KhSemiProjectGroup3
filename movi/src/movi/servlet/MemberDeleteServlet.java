@@ -16,7 +16,7 @@ public class MemberDeleteServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//준비 - member를 특정할 수 있는 정보 -> 세션에서 받아옴
-			int member_no = (int)req.getSession().getAttribute("loginInfo"); //현재는 없는 정보 - 로그인 세션 정보
+			int member_no = (int)req.getSession().getAttribute("check"); //로그인 세션 정보
 			
 			//처리 - 멤버 테이블에서 멤버 삭제
 			MemberDao memberDao = new MemberDao();

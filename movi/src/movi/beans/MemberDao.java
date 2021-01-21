@@ -16,22 +16,6 @@ public class MemberDao {
 	public static final String USERNAME = "movi";
 	public static final String PASSWORD = "movi";
 	
-	//로그인 
-	public void insert(MemberDto dto) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql = "insert into member("
-				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
-				+ " values(member_seq.nextval,?,?,?,?,'일반')";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, dto.getMember_id());
-		ps.setString(2, dto.getMember_pw());
-		ps.setString(3, dto.getMember_nick());
-		ps.setString(4, dto.getMember_phone());
-		ps.execute();
-		
-		con.close();
-	}
-	
 	//관리자모드
 	
 	//회원 상세보기-memberDetail.jsp
@@ -171,7 +155,26 @@ public class MemberDao {
 		con.close();
 		
 		return count > 0;
-	}	//관리자모드
+	}	
+	
+	//관리자모드
+	
+	//로그인 
+	public void insert(MemberDto dto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "insert into member("
+				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
+				+ " values(member_seq.nextval,?,?,?,?,'일반')";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_id());
+		ps.setString(2, dto.getMember_pw());
+		ps.setString(3, dto.getMember_nick());
+		ps.setString(4, dto.getMember_phone());
+		ps.execute();
+		
+		con.close();
+	}
+	//관리자모드
 		
 		//회원 상세보기-/admin/memberDetail.jsp
 		public MemberDto select_admin(int member_no) throws Exception{
