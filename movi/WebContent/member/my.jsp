@@ -46,6 +46,22 @@
 	});
 </script>
 
+<script>
+	<!-- 스와이퍼 관련된 것들은 여기에 전부 몰아넣기 -->
+	window.onload = function(){
+		var swiper = new Swiper('.swiper-container', {
+		    pagination: {
+		    	el: '.swiper-pagination',
+		    },
+			navigation: {
+				nextEl: '.swiper-button-next',
+		    	prevEl: '.swiper-button-prev',
+			},
+		});
+	};
+</script>
+
+
 <div class="outbox">
 	<div class="row">
 		<table class="table table-border">
@@ -75,6 +91,8 @@
 		<input type="button" class="input input-inline editPw-btn" value="비밀 번호 변경">
 		<input type="button" class="input input-inline del-btn" value="회원 탈퇴">
 	</div>
+	
+	<!-- 스와이퍼 다시 한번 생각해보기 -->
 	<div class="row float-box">
 		<span>좋아요 누른 영화</span>
 		<div class="right-btn">
@@ -82,11 +100,8 @@
 		</div>
 	</div>
 	<div class="row center">
-		<div class="swiper-container swiper1">
+		<div class="swiper-container">
 	        <div class="swiper-wrapper">
-	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/any">
-				</div>
 	            <div class="swiper-slide">
 					<img class="dum" src="https://placeimg.com/600/350/tech">
 				</div>
@@ -94,17 +109,23 @@
 					<img class="dum" src="https://placeimg.com/600/350/animals">
 				</div>
 	            <div class="swiper-slide">
-	            	<img class="dum" src="https://placeimg.com/600/350/nature">
-	            </div>
+					<img class="dum" src="https://placeimg.com/600/350/any">
+				</div>
 	            <div class="swiper-slide">
 	            	<img class="dum" src="https://placeimg.com/600/350/architecture">
 	            </div>
+	            <div class="swiper-slide">
+	            	<img class="dum" src="https://placeimg.com/600/350/nature">
+	            </div>
 	        </div>
+	        <div class="swiper-pagination"></div>
+	        
 	        <div class="swiper-button-prev"></div>
 	        <div class="swiper-button-next"></div>
-	        <div class="swiper-pagination"></div>
 	    </div>
 	</div>
+	
+	<!-- 이벤트 페이지 구성되면 만들 생각 -->
 	<div class="row float-box">
 		<span>참여한 이벤트</span>
 		<div class="right-btn">
@@ -112,7 +133,7 @@
 		</div>
 	</div>
 	<div class="row center">
-		<div class="swiper-container swiper2">
+		<div class="swiper-container">
 	        <div class="swiper-wrapper">
 	            <div class="swiper-slide">
 					<img class="dum" src="https://placeimg.com/600/350/any">
@@ -135,22 +156,6 @@
 	        <div class="swiper-pagination"></div>
 	    </div>
 	</div>
-	
-	<script>
-	var swiper = new Swiper('.swiper-container', {
-	    pagination: '.swiper-pagination',
-	    paginationClickable: true,
-	    spaceBetween: 30
-	});
-	var swiper = new Swiper('.swiper1', {
-		nextButton: '.swiper-button-next',
-	    prevButton: '.swiper-button-prev',
-	});
-	var swiper = new Swiper('.swiper2', {
-		nextButton: '.swiper-button-next',
-	    prevButton: '.swiper-button-prev',
-	});
-</script>
 </div>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>
