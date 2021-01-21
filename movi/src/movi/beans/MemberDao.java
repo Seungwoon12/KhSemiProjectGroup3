@@ -1,4 +1,3 @@
-
 package movi.beans;
 
 import java.sql.Connection;
@@ -55,6 +54,7 @@ public class MemberDao {
 		
 		return result;
 	}
+
 
 
 	//관리자모드
@@ -197,10 +197,24 @@ public class MemberDao {
 		
 		return count > 0;
 	}	
-	
-	//관리자모드
-	
 
+	
+	//회원 삭제 - /admin/memberDelete.do
+	public boolean delete_admin(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			
+		String sql = "delete member where member_no = ?";
+			
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0;
+			
+	}
+	
 	//관리자모드
 		
 		//회원 상세보기-/admin/memberDetail.jsp
@@ -326,3 +340,4 @@ public class MemberDao {
 	
 	
 }
+
