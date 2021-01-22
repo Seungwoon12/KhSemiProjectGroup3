@@ -2,7 +2,7 @@ package movi.beans;
 
 import java.sql.Date;
 
-public class ReviewNickVO {
+public class ReviewVO {
 	private int review_no;
 	private int review_movie_no;
 	private int review_writer_no;
@@ -11,7 +11,8 @@ public class ReviewNickVO {
 	private Date review_date;
 	private int review_read;
 	private String member_nick;
-	public ReviewNickVO() {
+	private int reply_count;
+	public ReviewVO() {
 		super();
 	}
 	public int getReview_no() {
@@ -62,6 +63,13 @@ public class ReviewNickVO {
 	public void setMember_nick(String member_nick) {
 		this.member_nick = member_nick;
 	}
+	public int getReply_count() {
+		return reply_count;
+	}
+	public void setReply_count(int reply_count) {
+		this.reply_count = reply_count;
+	}
+	
 	
 
 }

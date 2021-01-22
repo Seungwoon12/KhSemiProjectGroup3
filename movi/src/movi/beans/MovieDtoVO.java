@@ -6,15 +6,18 @@ public class MovieDtoVO {
 	private int movie_no;
 	private int movie_genre_no;
 	private String movie_name;
-	private int movie_rate;
+	private Double movie_rate;
+	private String movie_age;
 	private int movie_time;
-	private int movie_age;
 	private String movie_country;
 	private Date movie_date;
 	private String movie_director;
 	private String movie_content;
 	private int movie_audience;
 	private int mlike;
+	private String movie_actor_name;
+	private String movie_actor_role;
+	
 	public int getMovie_no() {
 		return movie_no;
 	}
@@ -33,23 +36,23 @@ public class MovieDtoVO {
 	public void setMovie_name(String movie_name) {
 		this.movie_name = movie_name;
 	}
-	public int getMovie_rate() {
+	public Double getMovie_rate() {
 		return movie_rate;
 	}
-	public void setMovie_rate(int movie_rate) {
+	public void setMovie_rate(Double movie_rate) {
 		this.movie_rate = movie_rate;
+	}
+	public String getMovie_age() {
+		return movie_age;
+	}
+	public void setMovie_age(String movie_age) {
+		this.movie_age = movie_age;
 	}
 	public int getMovie_time() {
 		return movie_time;
 	}
 	public void setMovie_time(int movie_time) {
 		this.movie_time = movie_time;
-	}
-	public int getMovie_age() {
-		return movie_age;
-	}
-	public void setMovie_age(int movie_age) {
-		this.movie_age = movie_age;
 	}
 	public String getMovie_country() {
 		return movie_country;
@@ -87,11 +90,23 @@ public class MovieDtoVO {
 	public void setMlike(int mlike) {
 		this.mlike = mlike;
 	}
+	public String getMovie_actor_name() {
+		return movie_actor_name;
+	}
+	public void setMovie_actor_name(String movie_actor_name) {
+		this.movie_actor_name = movie_actor_name;
+	}
+	public String getMovie_actor_role() {
+		return movie_actor_role;
+	}
+	public void setMovie_actor_role(String movie_actor_role) {
+		this.movie_actor_role = movie_actor_role;
+	}
 	public MovieDtoVO() {
 		super();
 	}
 	
 	
-	
+
 	
 }

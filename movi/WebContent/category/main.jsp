@@ -15,39 +15,60 @@
 	MovieDao movieDao = new MovieDao();
 	List<MovieDto> moviegenreList = movieDao.select_genre(movie_genre_no);
 %>
+
 <style>
- .menu,
-        .menu ul{
+ 		.main,
+        .main ul{
             list-style: none;
             margin: 0;
             padding: 30px;
         }
-        .menu{
+        .main{
         	width :25%;
             border : 1px solid black;
         }
-        .menu>li{
-            width: 100%;
+        .main>li{
             display: inline-block;
-            position: relative;
+            width: 89px;
+            padding: 0.4rem;
         }
-        .menu a{
+        .main>li:hover,
+        .main>li:active,
+        .main>li:visited{
+            text-decoration: underline;
+            background-color: gray;
+        }
+        .main a{
             color: black;
             text-decoration: none;
         }
+        .menu{
+   	 		width: 530px;
+   			margin-bottom: 35px;
+        }
 </style>
 
-<ul class="menu">
-       <li>
+<script>
+	$(function(){
+		//클릭시 색칠 되는 스타일이 계속 적용되도록.. 페이지가 이동해도 가능한가?
+		$("li>a").click(function(){
+			//$(this).addClass('active');
+			//$(this).css("background-color","yellow");
+		});
+	});
+</script>
+
+<ul class="main menu">
 		<%for(GenreDto dto : genreList){ %>
-			<a href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
-				<%=dto.getGenre_name() %>
+       <li>
+			<a class="aa" href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
+				<%=dto.getGenre_name()%>
 			</a>
-		<%}%>
        </li>
+		<%}%>
 </ul>
 
-<ul class="menu">
+<ul class="main movie_list">
        <li>
 		<%for(MovieDto dto : moviegenreList){ %>
 			<a href="detail.jsp?movie_name=<%=dto.getMovie_name()%>">
