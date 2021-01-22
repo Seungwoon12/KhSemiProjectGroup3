@@ -17,42 +17,33 @@ public class MemberLoginServlet extends HttpServlet{
 protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 				req.setCharacterEncoding("UTF-8");
-				MemberDto dto = new MemberDto();
-				MemberDao dao = new MemberDao();
-				dao.insert(dto);
-						
+				
+				MemberDto dto = new MemberDto();		
 				dto.setMember_id(req.getParameter("member_id"));
 				dto.setMember_pw(req.getParameter("member_pw"));
-	
-				MemberDto result = dao.find(dto.getMember_id());
+				
+				//조회
+				MemberDao dao = new MemberDao();
 				boolean login = dao.login(dto);
-			
-				if(result != null) {
-					if(dto.getMember_pw().equals(result.getMember_pw())) {
-						login = true;
-					}
-					else {
-						login = false;
-					}
-				}
-				else {
-					login = false;
-				}
+				
+				//로그인 성공 실패 리다이렉트
 				if(login) {			
 					MemberDto m = dao.find(dto.getMember_id());
-					req.getSession().setAttribute("check", m.getMember_no());
-					req.getSession().setAttribute("auth", m.getMember_auth());					
-					resp.sendRedirect("../index.jsp");
+					req.getSession().setAttribute("check", m.getMember_no()); // 로그인유지
+					req.getSession().setAttribute("auth", m.getMember_auth());
+			
+					resp.sendRedirect("../index.jsp");//홈으로
 			
 				}
 				else { 
-					resp.sendRedirect("login.jsp?error");			
-				}
+					resp.sendRedirect("loginpage.jsp?error");//에러화면		
+				
 			}
+		}
 			catch(Exception e) {
 				e.printStackTrace();
 				resp.sendError(500);
 			}
 		}
-	}
+}
 

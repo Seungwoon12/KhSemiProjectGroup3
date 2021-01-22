@@ -25,13 +25,12 @@ public class MemberJoinServlet extends HttpServlet{
 			dto.setMember_nick(req.getParameter("member_nick"));
 			dto.setMember_phone(req.getParameter("member_phone"));
 	
-
 			MemberDao dao = new MemberDao();
 			dao.insert(dto);
 			
 			resp.sendRedirect("loginsuccess.jsp");
 		}
-//		아이디/닉네임이 중복 예외 --> 실패 페이지로 이동
+//아이디/닉네임이 중복 예외 --> 실패 페이지로 이동
 		catch(SQLIntegrityConstraintViolationException e) {
 			resp.sendRedirect("loginfail.jsp");
 		}
