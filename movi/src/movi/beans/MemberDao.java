@@ -67,10 +67,9 @@ public class MemberDao {
        }
 
 
-
-
 	    //로그인
-	    public boolean login(MemberDto dto) throws Exception {
+
+		public boolean login(MemberDto dto) throws Exception {
 			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 			
 			String sql = "select * from member where member_id=? and member_pw=?";
@@ -85,6 +84,8 @@ public class MemberDao {
 			
 			return result;
 		}
+
+
 
 		//회원 상세보기-memberDetail.jsp
 		public MemberDto select(int member_no) throws Exception{
