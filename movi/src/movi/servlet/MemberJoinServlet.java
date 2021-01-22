@@ -32,7 +32,7 @@ public class MemberJoinServlet extends HttpServlet{
 		}
 //아이디/닉네임이 중복 예외 --> 실패 페이지로 이동
 		catch(SQLIntegrityConstraintViolationException e) {
-			resp.sendRedirect("loginfail.jsp");
+			resp.sendRedirect("../index.jsp");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

@@ -11,13 +11,16 @@
 </div>
 </head>
 
-<% 
- request.setCharacterEncoding("euc-kr"); 
- String member_id = request.getParameter("member_id"); //getParameter()값받기
-%>
+	
+			<h5 class="center">Session ID : <%=session.getId()%></h5>
+			<h5 class="center">check : <%=session.getAttribute("check")%></h5>
+			<h5 class="center">auth : <%=session.getAttribute("auth")%></h5>
+	 
+	</main>
+</body>
+</html>
 
-
-<font color="blue" ><%=member_id %></font> 님 가입을 환영합니다.
+ 가입을 환영합니다.
                       
 </html>
 

@@ -1,6 +1,8 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@page import="movi.beans.*"%>
 <jsp:include page="/template/header.jsp"></jsp:include>	
     
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/swiper.css">
@@ -25,6 +27,30 @@
 		border: none;
 	}
 </style>
+
+<%
+	MemberDto memberDto = new MemberDto();
+	MemberDao memberDao = new MemberDao();
+	int member_no = (int)session.getAttribute("check");
+	
+	memberDto = memberDao.find(member_no);//로그인한 회원 정보
+	
+	//선호 장르 불러오기
+	MygenreDao mygenreDao = new MygenreDao();
+	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
+	List<String> mygenre_list = new ArrayList<>();
+	GenreDao genreDao = new GenreDao();
+	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
+		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+	}
+
+	//좋아요 누른 영화 마이페이지에 뜰 수 있도록 하기
+	LoveDao loveDao = new LoveDao();
+	int start = 1, end = 10; //end의 값은 최신 좋아요 순으로 최대 10장만 나오고 최소로도 10장이 나오도록 한다는 뜻 나머지는 빈칸 으로 만들어 둠(자리 차지)
+	List<LoveDto> member_love_list = loveDao.select_love_movie(member_no, start, end);
+	MovieDao movieDao = new MovieDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
+	
+%>
 
 <script>
 	$(function(){
@@ -72,8 +98,20 @@
 					</td>
 					<td rowspan="2">
 						<div>
-							<h2>OOOOOO님</h2>
-							<h5>방문해 주셔서 감사합니다.(멘트 추천좀)</h5>
+							<h2><%=memberDto.getMember_id()%>님</h2>
+							<h5>방문해 주셔서 감사합니다.</h5>
+							<h5>
+								<%=memberDto.getMember_id()%>님
+								<%if(mygenre_list.isEmpty()) {%>
+									은 아직 선호 장르를 선택하시지 않았습니다.(선호하는 영화 장르를 선택해보세요)
+								<%} else {%>
+									의 선호 장르는
+									<%for (String mygenre : mygenre_list) {%>
+										<%=mygenre %>
+									<%} %>
+									입니다.
+									<%} %>
+							</h5>
 						</div>
 					</td>
 				</tr>
@@ -102,21 +140,23 @@
 	<div class="row center">
 		<div class="swiper-container">
 	        <div class="swiper-wrapper">
+	        	<%
+	        	for(LoveDto loveDto : member_love_list) {
+	        		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no()); 
+	        		end--;
+	        	%>
 	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/tech">
+					<img src="https://placehold.it/300x150?text=<%=movieDto.getMovie_name()%>">
+					<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_name=<%=movieDto.getMovie_name()%>">
+						<%=movieDto.getMovie_name()%>
+					</a>
 				</div>
-	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/animals">
+				<%} for(int i = 0; i < end; end--){%>
+					<div class="swiper-slide">
+					<img src="https://placehold.it/300x150?text=dummy">
+					<%="자리채우기 테스트용 더미입니다"%>
 				</div>
-	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/any">
-				</div>
-	            <div class="swiper-slide">
-	            	<img class="dum" src="https://placeimg.com/600/350/architecture">
-	            </div>
-	            <div class="swiper-slide">
-	            	<img class="dum" src="https://placeimg.com/600/350/nature">
-	            </div>
+				<%} %>
 	        </div>
 	        <div class="swiper-pagination"></div>
 	        
