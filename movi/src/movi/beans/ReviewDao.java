@@ -103,12 +103,15 @@ public class ReviewDao {
 	}
 	
 	// 게시판 페이지당 표시될 목록 개수
-	public List<ReviewNickVO> list(int startRow, int endRow) throws Exception {
+	public List<ReviewVO> list(int startRow, int endRow) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "select * from(" + 
 				"select rownum rn, TMP.* from(" + 
-				"select R.*, M.member_nick "
+				"select "
+				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
+				+ "left outer join Reply REP on R.review_no = REP.reply_origin "
+				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick  "
 				+ "order by review_no desc" + 
 				")TMP" + 
 				") where rn between ? and ?";
@@ -118,19 +121,20 @@ public class ReviewDao {
 		ps.setInt(2, endRow);
 		ResultSet rs = ps.executeQuery();
 		
-		List<ReviewNickVO> list = new ArrayList<>();
+		List<ReviewVO> list = new ArrayList<>();
 		while(rs.next()) {
-			ReviewNickVO reviewNickVO = new ReviewNickVO();
-			reviewNickVO.setReview_no(rs.getInt("review_no"));
-			reviewNickVO.setReview_movie_no(rs.getInt("review_movie_no"));
-			reviewNickVO.setReview_writer_no(rs.getInt("review_writer_no"));
-			reviewNickVO.setReview_title(rs.getString("review_title"));
-			reviewNickVO.setReview_content(rs.getString("review_content"));
-			reviewNickVO.setReview_date(rs.getDate("review_date"));
-			reviewNickVO.setReview_read(rs.getInt("review_read"));
-			reviewNickVO.setMember_nick(rs.getString("member_nick"));
+			ReviewVO reviewVO = new ReviewVO();
+			reviewVO.setReview_no(rs.getInt("review_no"));
+			reviewVO.setReview_movie_no(rs.getInt("review_movie_no"));
+			reviewVO.setReview_writer_no(rs.getInt("review_writer_no"));
+			reviewVO.setReview_title(rs.getString("review_title"));
+			reviewVO.setReview_content(rs.getString("review_content"));
+			reviewVO.setReview_date(rs.getDate("review_date"));
+			reviewVO.setReview_read(rs.getInt("review_read"));
+			reviewVO.setMember_nick(rs.getString("member_nick"));
+			reviewVO.setReply_count(rs.getInt("reply_count"));
 			
-			list.add(reviewNickVO);
+			list.add(reviewVO);
 		}
 		
 		con.close();
@@ -139,13 +143,16 @@ public class ReviewDao {
 	
 	
 	//검색 일 경우 게시판 페이지당 표시될 목록 개수
-	public List<ReviewNickVO> list(String type, String key, int startRow, int endRow) throws Exception {
+	public List<ReviewVO> list(String type, String key, int startRow, int endRow) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "select * from(" + 
 				"select rownum rn, TMP.* from(" + 
-				"select R.*, M.member_nick "
+				"select "
+				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
-				+ "where instr(#1, ?) > 0 order by review_no desc" + 
+				+ "left outer join Reply REP on R.review_no = REP.reply_origin where instr(#1, ?) > 0 "
+				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick  "
+				+ "order by review_no desc" + 
 				")TMP" + 
 				") where rn between ? and ?";
 		
@@ -156,19 +163,20 @@ public class ReviewDao {
 		ps.setInt(3, endRow);
 		ResultSet rs = ps.executeQuery();
 		
-		List<ReviewNickVO> list = new ArrayList<>();
+		List<ReviewVO> list = new ArrayList<>();
 		while(rs.next()) {
-			ReviewNickVO reviewNickVO = new ReviewNickVO();
-			reviewNickVO.setReview_no(rs.getInt("review_no"));
-			reviewNickVO.setReview_movie_no(rs.getInt("review_movie_no"));
-			reviewNickVO.setReview_writer_no(rs.getInt("review_writer_no"));
-			reviewNickVO.setReview_title(rs.getString("review_title"));
-			reviewNickVO.setReview_content(rs.getString("review_content"));
-			reviewNickVO.setReview_date(rs.getDate("review_date"));
-			reviewNickVO.setReview_read(rs.getInt("review_read"));
-			reviewNickVO.setMember_nick(rs.getString("member_nick"));
+			ReviewVO reviewVO = new ReviewVO();
+			reviewVO.setReview_no(rs.getInt("review_no"));
+			reviewVO.setReview_movie_no(rs.getInt("review_movie_no"));
+			reviewVO.setReview_writer_no(rs.getInt("review_writer_no"));
+			reviewVO.setReview_title(rs.getString("review_title"));
+			reviewVO.setReview_content(rs.getString("review_content"));
+			reviewVO.setReview_date(rs.getDate("review_date"));
+			reviewVO.setReview_read(rs.getInt("review_read"));
+			reviewVO.setMember_nick(rs.getString("member_nick"));
+			reviewVO.setReply_count(rs.getInt("reply_count"));
 			
-			list.add(reviewNickVO);
+			list.add(reviewVO);
 		}
 		
 		con.close();
@@ -239,6 +247,18 @@ public class ReviewDao {
 		return count;
 		
 	}	
+	
+	//조회수 증가
+	public void plusRead(int review_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "update review set review_read = review_read+1 where review_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, review_no);
+		ps.execute();
+		
+		con.close();
+	
+	}
 	
 	
 	

@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="movi.beans.*" %>
@@ -17,8 +18,14 @@
 	
 	
 	//댓글 작성란에 닉네임 불러오기
-	//int member_no = (int)request.getSession().getAttribute("check");
-	//MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
+	int member_no = (int)session.getAttribute("check");
+	MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
+	
+	
+	//조회수 증가(*중복방지 어케할지 고민)
+	reviewDao.plusRead(review_no);
+	
+	
 	
 
 	ReplyDao replyDao = new ReplyDao();
@@ -26,12 +33,14 @@
 	//댓글개수
 	int count = replyDao.getCount(review_no);
 	
-	//댓글 시간 format 설정
 	
-			
 	//댓글 목록 출력
 	List<ReplyVO> replyList = replyDao.selectReply(review_no);
 	
+	
+		
+	
+
 	
 
 %>
@@ -67,6 +76,50 @@
 			}
 			
 		}); 		
+ 		
+ 		
+ 		//"답글쓰기"를 누르지않을때는 대댓글, 대대댓글 작성란 숨김처리
+ 		$(".reply2-write").hide();
+ 		$(".reply3-write").hide();
+ 		
+ 		//"답글쓰기"를 누르면 대댓글 작성창을 보여준다.
+ 		$(".reply2-write-btn").click(function(e){
+ 			e.preventDefault();  		//기본이벤트 차단
+ 			
+ 			$(this).parent().parent().next().show();
+ 			
+ 		});
+ 		
+ 		//대댓글 등록 취소
+ 		$(".reply2-cancel-btn").click(function(e){
+ 			e.preventDefault();
+ 			
+ 			if($(this).parent().prev().children().val()) {
+ 				var confirm = window.confirm("이미 입력된 답글 내용을 취소 하겠습니까?");
+ 				
+ 				if(confirm) {
+ 	 				$(this).parents(".reply2-write").hide();
+ 	 	 			
+ 	 	 			$(this).parent().prev().children().val("");
+ 	 			}
+ 			}
+ 			else {
+ 				$(this).parents(".reply2-write").hide();
+ 			}
+ 	 			
+ 		});
+ 		
+ 		
+ 		//대대댓글 작성
+ 		
+ 		$(".reply3-write-btn").click(function(e){
+ 			e.preventDefault();
+ 			
+ 			$(this).parent().prev().prev().text();
+ 			
+ 			
+ 		});
+ 		
  		
  	});
  
@@ -107,7 +160,7 @@
  	
  	<!-- 댓글 목록-->
  	<br><br>
- 	<div class="outbox">
+ 	<div class="outbox reply-list">
  		<div class="row">
  			<span>댓글 <%=count%></span>
  		</div>
@@ -115,28 +168,123 @@
  		
  		
  		<%for(ReplyVO replyVO : replyList) { %>
- 			<div class="row">
+ 		<!-- 그냥 댓글 -->
+ 		<%if(replyVO.getReply_depth() == 0) { %>
+ 		<div class="row">
+ 			<div class="row" style="font-weight:bold;">
  				<%=replyVO.getMember_nick()%>
+ 			</div>
+ 			<div class="row">
  				<%=replyVO.getReply_content()%>
  			</div>
- 			
- 			
+ 			<div class="row">	
+ 				<%
+	 				//댓글 시간 format 설정
+	 				SimpleDateFormat f = new SimpleDateFormat("yyyy.MM.dd. h:mm");
+	 				String time = f.format(replyVO.getReply_time());
+ 				%>
+ 				<%=time%>
+ 				<a href="#" class="reply2-write-btn">답글쓰기</a>
+ 				<hr>
+ 			</div>
+ 		</div>
+ 		<!-- 대댓글 -->
+ 		<%} else if(replyVO.getReply_depth() == 1) { %>
+ 		<div class="row" style="margin-left:70px">
+ 			<div class="row nick" style="font-weight:bold;">
+ 				<%=replyVO.getMember_nick()%>
+ 			</div>
+ 			<div class="row">
+ 				<%=replyVO.getReply_content()%>
+ 			</div>
+ 			<div class="row">	
+ 				<%
+	 				//댓글 시간 format 설정
+	 				SimpleDateFormat f = new SimpleDateFormat("yyyy.MM.dd. HH:mm");
+	 				String time = f.format(replyVO.getReply_time());
+ 				%>
+ 				<%=time%>
+ 				<a href="#" class="reply3-write-btn">답글쓰기</a>
+ 				<hr>
+ 			</div>
+ 		</div>	
+ 		<!-- 대대댓글 -->
+ 		<%} else if(replyVO.getReply_depth() == 2) {%>
+ 		
  		<%} %>
  		
- 		<hr>
+ 		
+ 			
+		<!-- 대댓글 작성 -->
+ 		<div class="row reply2-write" style="border: 1px solid black;">
+ 			<form action="reply_write2.do" method="post">
+	 			<div class="row" style="min-height:100px">
+	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
+	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
+	 				 <input type="hidden" name="reply_root" value="<%=replyVO.getReply_no()%>">
+	 				
+	 				<div style="margin-left:0.3rem">
+	 					<%=memberReplyDto.getMember_nick()%> 
+	 				</div>
+	 				<div class="row">
+	 					<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
+	 				</div>
+	 				
+	 				
+	 				<div class="row right">
+	 					<button class="reply2-cancel-btn input input-inline">취소</button>
+	 					<input type="submit" value="등록" class="input input-inline">
+	 				</div>
+	 			
+	 			</div>
+ 			</form>
+ 		</div>
+ 		
+ 		<!-- 대대댓글 작성 -->
+ 		
+ 		<div class="row reply3-write" style="border: 1px solid black;">
+ 			<form action="reply_write3.do" method="post">
+	 			<div class="row" style="min-height:100px">
+	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
+	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
+	 				 <input type="hidden" name="reply_root" value="<%=replyVO.getReply_no()%>">
+	 				 <input type="hidden" name="reply_parent" value=>
+	 				
+	 				<div style="margin-left:0.3rem">
+	 					<%=memberReplyDto.getMember_nick()%> 
+	 				</div>
+	 				<div class="row">
+	 					<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="000님께 답글쓰기"></textarea>
+	 				</div>
+	 				
+	 				
+	 				<div class="row right">
+	 					<button class="reply3-cancel-btn input input-inline">취소</button>
+	 					<input type="submit" value="등록" class="input input-inline">
+	 				</div>
+	 			
+	 			</div>
+ 			</form>
+ 		</div>
+ 		
+	 		
+ 		<%} %>
+ 		
+ 		
+	 		
+ 		
+ 		
+ 		
  		
  		<!-- 댓글 작성 -->
  		<div class="row" style="border: 1px solid black;">
  			<form action="reply_write.do" method="post">
 	 			<div class="row" style="min-height:100px">
-	 				<!-- 
-	 				<input type="hidden" name="reply_writer_no" value="<//%=//request.getSession().getAttribute("check")%>">
-	 				 -->
+	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
 	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
 	 				
 	 				<div style="margin-left:0.3rem">
-	 					닉네임
-	 					<!--<//%=memberReplyDto.getMember_nick()%> --> 
+	 					<%=memberReplyDto.getMember_nick()%>  
 	 				</div>
 	 				<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
 	 			</div>
@@ -147,8 +295,6 @@
  			</form>
  		</div>
  		
- 		
- 		</form>
  	</div>
  	
  </div>
