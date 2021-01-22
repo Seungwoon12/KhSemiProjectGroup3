@@ -25,4 +25,25 @@ public class GenreDao {
 		con.close();
 		return list;
 	}
+	
+	//동진 수정
+	//장르 번호로 -> 장르 이름 찾기
+	public String find(int genre_no) throws Exception{
+		Connection con = JdbcUtil.getConnection("movi", "movi");
+		String sql = "select * from Genre where genre_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, genre_no);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		String genre_name;
+		if(rs.next()) {
+			genre_name = rs.getString("genre_name");
+		}
+		else {
+			genre_name = null;
+		}
+		con.close();
+		return genre_name;
+	}
 }
