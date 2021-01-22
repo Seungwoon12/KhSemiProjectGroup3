@@ -38,7 +38,7 @@
 	
 	
 	MemberDao memberDao = new MemberDao();
-	MemberDto memberDto = memberDao.select(2);
+	MemberDto memberDto = memberDao.select(3); 
 	
 	//세션 회원 맞춤순
 	request.getSession().setAttribute("check", memberDto.getMember_no());

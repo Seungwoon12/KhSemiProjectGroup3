@@ -7,7 +7,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-<!-- 패아자 네비게이션 -->
+<!-- 페이지 네비게이션 -->
 <%
 	int pageSize = 10;
 	int p ;
@@ -21,6 +21,7 @@
 	//페이지 시작, 끝 번호 계산
 	int endRow = p * pageSize;
 	int startRow = endRow- pageSize+1;
+	
 %>
 
 <!-- 영화 검색  -->
@@ -45,18 +46,52 @@
 	
 
 %>	
+
+<!-- 페이지 블록  -->
+<%
+	
+	//블록크기
+	int blockSize = 10;
+	int startBlock = (p-1)/blockSize * blockSize +1;
+	int endBlock = startBlock + blockSize -1;
+	
+	//int count;
+	//if(search){
+	//	count= memberDao.count_admin(type, key); 
+	//}else{
+	//	count= memberDao.count_admin(); 
+	//}
+	//페이지 개수
+	//int countSize = (count + pageSize -1) / pageSize;
+	
+	//if(endBlock > countSize){
+	//	endBlock = countSize;
+	//}
+%>
 	
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
 <!--영화 삭제시 알림 구현  -->
 <script>
 	$(function(){
+		//삭제시 알림창 보여주기
 		$(".delete").click(function(e){
 			e.preventDefault();
 			
 			var check = window.confirm("영화를 삭제하시겠습니까?");
 			if(check){
 				location.href=$(this).attr("href");
+			}
+		});
+		
+		//전체선택 체크박스
+		$("#checkall").click(function(){
+			//클릭O
+			if($("#checkall").prop("checked")){
+				//각 체크박스 체크해주기
+				$("input[name=chk]").prop("checked",true);
+			}else{
+				$("input[name=chk]").prop("checked",false);
 			}
 		});
 	});
@@ -102,7 +137,7 @@
 			<table class="table table-border">
 				<thead>
 					<tr>
-						<th><input type="checkbox">전체선택</th>
+						<th><input type="checkbox" id="checkall">전체선택</th>
 						<th>영화번호</th>
 						<th>영화제목</th>
 						<th>개봉일</th>
@@ -113,7 +148,7 @@
 				<tbody>
 					<%for(MovieDto movieDto : movieList){ %>
 					<tr>
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="chk"></td>
 						<td><%=movieDto.getMovie_no() %></td>
 						<td><%=movieDto.getMovie_name() %></td>
 						<td><%=movieDto.getMovie_date() %></td>
@@ -137,18 +172,34 @@
 		<!-- 페이지 네비게이션 -->
 		<div class="row center">
 			<ul class="pagination">
-				<li><a href="#">&lt;</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">6</a></li>
-				<li><a href="#">7</a></li>
-				<li><a href="#">8</a></li>
-				<li><a href="#">9</a></li>
-				<li><a href="#">10</a></li>
-				<li><a href="#">&gt;</a></li>
+				
+
+				<%if(search){ %>
+				<li><a href="memberList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
+				<%}else{ %>
+				<li><a href="memberList?p=<%=startBlock-1%>">&lt;</a></li>
+				<%} %>
+								
+
+				<%for(int i=1; i<=10;i++){ %>
+					<li>
+						<%if(search){ %>
+						<!-- 검색용 링크 -->
+						<a href="movieList.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
+						<%}else{ %>
+						<!-- 목록용 링크 -->
+						<a href="movieList.jsp?p=<%=i%>"><%=i%></a>
+						<%} %>
+					</li>	
+				<%} %>
+
+				<!-- 이후 -->
+				<%if(search){ %>
+				<li><a href="memberList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
+				<%}else{ %>
+				<li><a href="memberLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<%} %>
+				
 			</ul>
 		</div>
 	</article>

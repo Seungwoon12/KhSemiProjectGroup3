@@ -190,8 +190,64 @@ public class MovieDao {
 	
 	
 	
+
 	
 	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+///////////////////////////////////////////////////////////////////////////////////////		
 	// 관리자 모드
 	
 	// 영화 상세보기-/admin/movieDetail.jsp
@@ -406,6 +462,39 @@ public class MovieDao {
 		
 	}
 	
+	//영화 목록 개수- /admin/movielist.jsp
+	public int count_admin( ) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select count(*) from movie ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		con.close();
+		
+		return count;
+	}
 	
+	//영화 검색 개수 - /admin/movieList.jsp
+	public int count_admin(String type, String key) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql ="select count(*) from movie where instr(#1 , ?) >0 "; 
+		sql = sql.replace("#1", type );
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		
+		ResultSet rs= ps.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		
+		con.close();
+		
+		return count;
+	}
+
+	
+//////////////////////////////////////////////////////////////////////////////
 	
 }
