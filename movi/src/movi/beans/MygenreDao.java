@@ -1,40 +1,3 @@
-<<<<<<< HEAD
-package movi.beans;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
-import movi.util.JdbcUtil;
-
-public class MygenreDao {
-	
-	public static final String USERNAME="movi";
-	public static final String PASSWORD="movi";
-	
-	//멤버가 선호하는 장르 찾기
-	public List<MygenreDtoVO> find(int mygenre_member_no) throws Exception{
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql ="select g.genre_name, m.mygenre_member_no " + 
-					"from genre G right outer join mygenre M on g.genre_no=m.mygenre_genre_no " + 
-					"where m.mygenre_member_no=?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, mygenre_member_no);
-		ResultSet rs = ps.executeQuery();
-		
-		List<MygenreDtoVO> list = new ArrayList<>();
-		while(rs.next()) {
-			MygenreDtoVO dto = new MygenreDtoVO();
-			dto.setGenre_name(rs.getString("genre_name"));
-			
-			list.add(dto);
-		}
-		con.close();
-		return list;
-	}
-=======
 package movi.beans;
 
 import java.sql.Connection;
@@ -69,7 +32,6 @@ public class MygenreDao {
 		con.close();
 		return list;
 	}
->>>>>>> refs/remotes/origin/main
 
 	//회원의 선호 장르를 초기화 하는 구문
 	public void clearGenre(int member_no) throws Exception {

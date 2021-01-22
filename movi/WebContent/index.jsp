@@ -1,13 +1,13 @@
+<%@page import="movi.beans.MygenreDtoVO"%>
+<%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="movi.beans.GenreDto"%>
 <%@page import="movi.beans.GenreDao"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="movi.beans.MygenreDtoVO"%>
 <%@page import="movi.beans.MygenreDto"%>
 <%@page import="movi.beans.MygenreDao"%>
 <%@page import="movi.beans.MemberDto"%>
 <%@page import="movi.beans.MemberDao"%>
 <%@page import="movi.beans.LoveDao"%>
-<%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="movi.beans.RecommendDto"%>
 <%@page import="movi.beans.RecommendDao"%>
 <%@page import="java.util.List"%>
@@ -16,7 +16,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
@@ -48,11 +47,11 @@
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.select(1);
 	
-	//세션 회원 맞춤순--테스트 필요
+	//세션 회원 맞춤순--로그인 화면 구현시 테스트
 	//request.getSession().setAttribute("check", memberDto.getMember_no());
 	//int genre = (int)session.getAttribute("check");
 	
-//아직 멤버 세션 못받아왔음;;
+//아직 멤버 세션 못받아왔음
 //만약 멤버 번호가 2일 때를 가정하고 보여주는거임
 	int member_no=2;
 	//장르별
@@ -81,9 +80,11 @@
 		display:inline-block;
 	 	z-index: 999;
 	    position: absolute;
-	    left: 5px;
-	    left:20px
+	    left: 10px;
 	    
+	}
+	.hov:hover +.hov1{
+		top:50px;
 	}
 	
 	.h{
@@ -130,32 +131,15 @@
 	}
 	.swiper-wrapper{
 		display: flex;
-		margin:23px;
+		margin:5px;
 	}
 	.swiper-slide img {
 	box-shadow:0 0 5px #555;
 }
-.swiper-slide{
-width:118px !important;
-margin:20px;
-justify-content: center;
-}
-	.prev>img, .next>img{
-		width: 30px;
-    	position: relative;
-    	top: 40%;
-		margin: 10px;
-		cursor: pointer;
-	}
-	.prev>img{
-	    position: absolute;
-    left: 22%;
-    top: 68%;
-	}
-	.next>img{
-	    position: absolute;
-    left: 74%;
-    top: 69%;
+	.swiper-slide{
+	width:141px !important;
+	margin:8px;
+	justify-content: center;
 	}
 	.swiper-container {
     width: 779px;
@@ -165,6 +149,23 @@ justify-content: center;
 	overflow-y: auto;
 	overflow-x: hidden;
 	width:150px;
+}
+
+.swiper-button-prev,.swiper-button-next{
+	background-image: url("./img/pre.png") !important;
+	opacity:100 !important;
+	cursor: pointer !important;
+	width:31px;
+	height:40px;
+	background-size: 43px;
+	pointer-events: all;
+	
+}
+.swiper-button-prev{
+	background-image: url("./img/pre.png") !important;
+}
+.swiper-button-next{
+	background-image: url("./img/next.png") !important;
 }
 </style>
 
@@ -198,20 +199,13 @@ justify-content: center;
 		});
 		
 		//검색기능
-       var searchSource = [{
-    	   <%for(int i=0 ;i<arr.length; i++){
-    		   arr[i].getMovie_name();
-			}%>
-       }]
-		
-       var cCities = [
+       var searchSource = [
        <%for(int i=0; i<arr.length; i++){%>
-       		"<%=arr[i].getMovie_name()%>",
+      	 "<%=arr[i].getMovie_name()%>",
     	<%}%>
-       ]
-		
+       ]	
         $("#searchInput").autocomplete({  //오토 컴플릿트 시작
-            source : cCities,    // source 는 자동 완성 대상
+            source : searchSource,    // source 는 자동 완성 대상
             focus : function(event, ui) { 
                 return false;//한글 에러 잡기용도로 사용됨
             },
@@ -225,6 +219,7 @@ justify-content: center;
         });
 	});
 </script>
+
 <div class="outbox" style="width:100%">
 
 	<div class="main" style="height:295px">
@@ -244,17 +239,8 @@ justify-content: center;
 				<h1>MOVI</h1>
 				<h5>모두의 비디오, 모비</h5>
 			</div>
-			<div class="right" style="width:200px">
-				<ul>
-					<li>
-						<img src="./img/pre.png" alt="이전">
-					</li>
-					<li>
-						<img src="./img/next.png" alt="다음">
-					</li>
-				</ul>
-			</div>
 		</div>
+		
 <!-- @@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
 		<div class="row swiper-container">
@@ -281,7 +267,7 @@ justify-content: center;
 <hr>
 <!-- @@@@@@@@@@ 좋아요 순위 -->
 
-	<div class="outbox" style="width:590px">
+	<div class="outbox" style="width:640px">
 		<div class="row left">
 			모비 좋아요 순위
 		</div>
@@ -363,9 +349,4 @@ justify-content: center;
 	</div>
 	
 </div>
-<<<<<<< HEAD
-=======
-
-</div>
->>>>>>> refs/remotes/origin/main
 <jsp:include page="/template/footer.jsp"></jsp:include>

@@ -69,21 +69,39 @@ public class MemberDao {
 
 	//로그인
 
-	public boolean login(MemberDto dto) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+//	public boolean login(MemberDto dto) throws Exception {
+//		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+//		
+//		String sql = "select * from member where member_id=? and member_pw=?";
+//		PreparedStatement ps = con.prepareStatement(sql);
+//		ps.setString(1, dto.getMember_id());
+//		ps.setString(2, dto.getMember_pw());
+//		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
+//	
+//		boolean result=rs.next();
+//	
+//		con.close();
+//		
+//		return result;
+//	}
+	    //로그인
+
+		public boolean login(MemberDto dto) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			
+			String sql = "select * from member where member_id=? and member_pw=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, dto.getMember_id());
+			ps.setString(2, dto.getMember_pw());
+			ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
 		
-		String sql = "select * from member where member_id=? and member_pw=?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, dto.getMember_id());
-		ps.setString(2, dto.getMember_pw());
-		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
-	
-	boolean result=rs.next();
-	
-		con.close();
+		boolean result=rs.next();
 		
-		return result;
-	}
+			con.close();
+			
+			return result;
+		}
+
 
 	//관리자모드
 	
