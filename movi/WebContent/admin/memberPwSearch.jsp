@@ -2,7 +2,8 @@
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+
 <!-- 인코딩값 : UTF-8 -->
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -43,45 +44,9 @@
 	}
 %>
 
-<!-- 페이지 블록  -->
-<%
-	
-	//블록크기
-	int blockSize = 10;
-	int startBlock = (p-1)/blockSize * blockSize +1;
-	int endBlock = startBlock + blockSize -1;
-	
-	//int count;
-	//if(search){
-	//	count= memberDao.count_admin(type, key); 
-	//}else{
-	//	count= memberDao.count_admin(); 
-	//}
-	//페이지 개수
-	//int countSize = (count + pageSize -1) / pageSize;
-	
-	//if(endBlock > countSize){
-	//	endBlock = countSize;
-	//}
-%>
 
 
-<!-- 선택된 회원 삭제 -->
-<%
-// String[] data = request.getParameterValues("chk");
-
-//	try{
-//		for(int i=0; i<data.length; i++){
-//			memberDao.delete_admin(data[i]);
-//		}
-//	}catch(Exception e){
-//		e.printStackTrace();
-//	}
-
-%>
-
-<jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
-
+<jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
 <!-- 각종 기능 -->
 <script>
@@ -114,28 +79,32 @@
 
 </script>
 
+<div class="outbox" style="width: 100%">
+	<aside>
+		<div class="row center">
+			<h2 style="color: deepskyblue;">회원 관리</h2>
+		</div>
+		<div class="left">
+			<a href="memberList.jsp">회원리스트 </a><br>
+			<br> <a href="#"> 임시 비밀번호 발급 </a><br>
+			<br> <a href="#"> 회원 쿠폰 관리 </a>
+		</div>
+	</aside>
 
-<div class="outbox" style="width:100%">
-   <aside>
-   		<div class="row center">
-       		<h2 style="color:deepskyblue;">회원 관리</h2>     
-  	 	</div>
-  	 	<div class="left">
-  	 		<a href="memberList.jsp">회원리스트 </a><br><br>
-  	 		<a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br>
-  	 		<a href="#"> 회원 쿠폰 관리 </a>
-  	 	</div>
-  	</aside>
-	
-  	<article>
-  	
+	<article>
+
+		<div>
+			<h1>임시 비밀번호 발급</h1>
+		</div>
+
+		<div class="outbox center" style="width: 800px">
+
   	<!-- 회원 검색창 -->
   		<div>
-  			<h1>회원 리스트</h1>
+  			<h1>회원 검색</h1>
   		</div>
   		<div>
   			<form action="memberList.jsp" method="post">
-  				<label>회원검색</label>
   				<select name="type">
 					<option value="member_no">회원 번호</option>
 					<option value="member_id">아이디</option>
@@ -145,13 +114,17 @@
   			</form>
   		</div>
   		
-  		
- <%if(memberList.isEmpty()){ %> 
+ <%if(memberList == null){ %>
+<!-- 처음 들어온 경우 보여줄 화면 -->
+	<div class="row center">
+		<h4>쿠폰 관리할 회원을 선택하세요</h4>
+	</div>		
+ <%}else if(memberList.isEmpty()){ %> 
  <!-- 검색결과가 없는 경우 -->
 		<div class="row center">
 			<h1>검색결과가 없습니다.</h1>
 		</div>
- <%}else{ %>	
+ <%}else { %>	
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
@@ -179,9 +152,7 @@
 					<td><%=memberDto.getMember_date() %></td>
 					<td><%=memberDto.getMember_auth() %></td>
 					<td>
-						<a href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">상세보기</a>
-						<a href="memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>">수정</a>
-						<a class="memDelete" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
+						<a href="memberPwCheck.jsp">임시 비밀번호 발급</a>
 
 					</td>
 				</tr>
@@ -190,51 +161,13 @@
 		</table>
 	</div>
  <%} %>
-	
-	
-	
-		<!-- 선택된 회원 삭제버튼 -->
-		<div class="right">
-				<input type="button" value="선택된 회원 삭제">
-		</div>
-
-		<!-- 페이지 네비게이션 -->
-		<div class="row center">
-			<ul class="pagination">
 			
-				<!-- 이전 -->
-				<%if(search){ %>
-				<li><a href="memberList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
-				<%}else{ %>
-				<li><a href="memberList?p=<%=startBlock-1%>">&lt;</a></li>
-				<%} %>
-				
-				<%for(int i= startBlock; i<=endBlock;i++){ %>
-					<li>
-						<%if(search){ %>
-						<!-- 검색용 링크 -->
-						<a href="memberList.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
-						<%}else{ %>
-						<!-- 목록용 링크 -->
-						<a href="memberList.jsp?p=<%=i%>"><%=i %></a>
-						<%} %>
-					</li>	
-				<%} %>	
-				
-				<!-- 이후 -->
-				<%if(search){ %>
-				<li><a href="memberList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
-				<%}else{ %>
-				<li><a href="memberLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
-				<%} %>
-
-			</ul>
 		</div>
-  		
-  	</article>
+
+	</article>
 </div>
 
 
+
+
 <jsp:include page="/adminTemplate/footer.jsp"></jsp:include>
-
-

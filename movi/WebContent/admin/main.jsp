@@ -21,23 +21,30 @@
   		<div>
   			<h1>통계</h1>
   		</div>
-  		<div style="display: inline">
-  		  	<div>
-  				<h1>방문자 수</h1>
-  				<img src="https://placehold.it/300x300?text=IMAGE">
-  			</div>
-  			<div>
-  				<h1>장르별 좋아요 현황</h1>
-  				<img src="https://placehold.it/300x300?text=IMAGE">
-  			</div>
-  			 <div>
-  				<h1>인기 검색어</h1>
-  				<img src="https://placehold.it/300x300?text=IMAGE">
-  			</div>
-  		</div>
-
-  		
-  		
+  		<table>
+  			<tr>
+  				<th colspan="2">
+  				  	<div>
+  						<h1>방문자 수</h1>
+  					<img src="https://placehold.it/600x300?text=IMAGE">
+  					</div>
+  				</th>
+  			</tr>
+  			<tr>
+  				<th>
+  				 	<div>
+  						<h1>장르별 좋아요 현황</h1>
+  						<img src="https://placehold.it/300x300?text=IMAGE">
+  					</div>
+  				</th>
+  				<th>
+  				  	<div>
+  						<h1>인기 검색어</h1>
+  						<img src="https://placehold.it/300x300?text=IMAGE">
+  					</div>
+  				</th>
+  			</tr>
+  		</table>
   	</article>
 </div>
 

@@ -46,4 +46,26 @@ public class GenreDao {
 		con.close();
 		return genre_name;
 	}
+
+	//장르 이름으로 영화 이름 불러오기
+	public List<GenreDto> find_movie(String genre_name) throws Exception{
+		Connection con = JdbcUtil.getConnection("movi", "movi");
+		String sql = "select g.genre_name, m.movie_name " + 
+				"from movie M right outer join genre G on g.genre_no=m.movie_genre_no "
+				+ "where genre_name=? "
+				+ "group by g.genre_name,m.movie_name";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, genre_name);
+		ResultSet rs = ps.executeQuery();
+		List<GenreDto> list = new ArrayList<>();
+		while(rs.next()) {
+			GenreDto dto = new GenreDto();
+			dto.setGenre_movie_name(rs.getString("movie_name"));
+			
+			list.add(dto);
+		}
+		con.close();
+		return list;
+	}
+
 }
