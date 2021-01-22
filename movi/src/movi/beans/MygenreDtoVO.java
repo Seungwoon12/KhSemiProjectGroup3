@@ -33,5 +33,4 @@ public class MygenreDtoVO {
 	public MygenreDtoVO() {
 		super();
 	}
-	
 }

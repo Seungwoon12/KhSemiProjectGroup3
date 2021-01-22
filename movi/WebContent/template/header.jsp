@@ -52,7 +52,7 @@
 	<main>
 		<header>
 			<h1 class="left">movi</h1>
-			<a href="#" class="left">로그인</a>
+			<a href="<%=request.getContextPath()%>/member/loginpage.jsp" class="left">로그인</a>
 			<a href="#" class="right">이벤트</a>
 			<a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
 		</header>
@@ -61,7 +61,7 @@
 			<!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
 			<a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
 			<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
-			<a href="#">마이페이지</a>
+			<a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a>
 		</nav>
 	<section>
 

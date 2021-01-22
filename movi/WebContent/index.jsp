@@ -66,6 +66,7 @@
 	List<GenreDto> genreList = genreDao.find_movie(genre_name); 
 	
 %>
+
 <!-- 이거 jquery css로 만들기! -->
 <style>
 	.hov{
@@ -361,6 +362,10 @@ justify-content: center;
 		</div>
 	</div>
 	
-	
 </div>
+<<<<<<< HEAD
+=======
+
+</div>
+>>>>>>> refs/remotes/origin/main
 <jsp:include page="/template/footer.jsp"></jsp:include>

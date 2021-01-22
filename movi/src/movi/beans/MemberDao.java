@@ -1,4 +1,3 @@
-
 package movi.beans;
 
 import java.sql.Connection;
@@ -11,12 +10,12 @@ import java.util.List;
 import movi.util.JdbcUtil;
 
 public class MemberDao {
-	
+
 	//계정 정보를 상수로 저장
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+		public static final String USERNAME = "movi";
+		public static final String PASSWORD = "movi";
 	
-	//로그인 
+	//회원가입
 	public void insert(MemberDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into member("
@@ -27,11 +26,65 @@ public class MemberDao {
 		ps.setString(2, dto.getMember_pw());
 		ps.setString(3, dto.getMember_nick());
 		ps.setString(4, dto.getMember_phone());
+	
 		ps.execute();
 		
 		con.close();
 	}
+	// 아이디 , 비밀번호 체크
+	    public int userCheck(String member_id, String member_pw)throws Exception{
+        
+       Connection conn= null;
+       PreparedStatement ps = null;
+       ResultSet rs =null;
+       String sql="";
+       String dbmember_pw ="";
+       int x = -1;
+       
+       try{
+    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+    	    sql ="select member_pw from MEMBER where id = ?";           
+    	    ps =conn.prepareStatement(sql);           
+    	    ps.setString(1, member_id);         
+    	    rs=ps.executeQuery();
+    	             
+    	              
+    	    if(rs.next()){     	  
+    	    	dbmember_pw =rs.getString("member_pw");           
+    	    	if(dbmember_pw.equals(member_pw))
+    	    		x=1; //인증성공
+    	       else
+    	    	   x=0; //비밀번호 틀림
+    	       }else
+    	    	   x=-1; //해당 아이디 없음
+    	         
+       }catch(Exception e){
+    	   e.printStackTrace();	           
+       }finally{        	 
+    	   ps.execute();
+    	   }
+       return x;
+       }
+
+
+	//로그인
+
+	public boolean login(MemberDto dto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from member where member_id=? and member_pw=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_id());
+		ps.setString(2, dto.getMember_pw());
+		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
 	
+	boolean result=rs.next();
+	
+		con.close();
+		
+		return result;
+	}
+
 	//관리자모드
 	
 	//회원 상세보기-memberDetail.jsp
@@ -171,7 +224,26 @@ public class MemberDao {
 		con.close();
 		
 		return count > 0;
-	}	//관리자모드
+	}	
+
+	
+	//회원 삭제 - /admin/memberDelete.do
+	public boolean delete_admin(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			
+		String sql = "delete member where member_no = ?";
+			
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0;
+			
+	}
+	
+	//관리자모드
 		
 		//회원 상세보기-/admin/memberDetail.jsp
 		public MemberDto select_admin(int member_no) throws Exception{
@@ -246,20 +318,37 @@ public class MemberDao {
 	}
 	
 	//회원 삭제 - /admin/memberDelete.do
-	public boolean delete_admin(int member_no) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-			
-		String sql = "delete member where member_no = ?";
-			
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, member_no);
-		int count = ps.executeUpdate();
+	
 		
-		con.close();
+///찾기
+		public MemberDto find(String member_id)  throws Exception {
+				Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+				
+				String sql = "select * from member where member_id = ?";
+				PreparedStatement ps = con.prepareStatement(sql);
+				ps.setString(1, member_id);
+				ResultSet rs = ps.executeQuery();
+				
+				MemberDto dto;
+				if(rs.next()) {
+					dto = new MemberDto();
+					dto.setMember_no(rs.getInt("member_no"));
+					dto.setMember_id(rs.getString("member_id"));
+					dto.setMember_pw(rs.getString("member_pw"));
+					dto.setMember_nick(rs.getString("member_nick"));								
+					dto.setMember_auth(rs.getString("member_auth"));
+				
+				}
+				else {
+					dto = null;
+				}
+				
+				con.close();
+				
+				return dto;		
+			}
 		
-		return count > 0;
-			
-	}
+
 	
 	//회원 임시 비밀번호 발급 - /admin/memberPw.do
 	public boolean editPw_admin(int member_no, String pw) throws Exception{
