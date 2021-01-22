@@ -100,6 +100,7 @@
    .name{
 	  float: left;
 	  width:27%;
+	  text-align: center;
    }
    .recom{
 	   float:left
@@ -132,13 +133,14 @@
 	.swiper-wrapper{
 		display: flex;
 		margin:5px;
+		
 	}
 	.swiper-slide img {
 	box-shadow:0 0 5px #555;
 }
 	.swiper-slide{
 	width:141px !important;
-	margin:8px;
+	margin-left:8px;
 	justify-content: center;
 	}
 	.swiper-container {
@@ -158,7 +160,7 @@
 	width:31px;
 	height:40px;
 	background-size: 43px;
-	pointer-events: all;
+	pointer-events: all !important;
 	
 }
 .swiper-button-prev{
@@ -166,6 +168,14 @@
 }
 .swiper-button-next{
 	background-image: url("./img/next.png") !important;
+}
+
+.movie_recom{
+	width : 388px !important;
+}
+.movie_detail{
+	padding:17px;
+	margin:10px;
 }
 </style>
 
@@ -181,10 +191,26 @@
 			location.href="/movi/category/detail.jsp?movie_name="+$(this).text();
 		})
 		
-		//스와이퍼
-		new Swiper('.swiper-container', {
+		//스와이퍼1
+		new Swiper('.swiper1', {
+			slidesPerView : 2, // 동시에 보여줄 슬라이드 갯수
+			spaceBetween : 4, // 슬라이드간 간격
+			slidesPerGroup : 2, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+			//loop
+			
+			pagination : { // 페이징 설정
+				el : '.swiper-pagination',
+				clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+			},
+			navigation : { // 네비게이션 설정
+				nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+			},
+		});
+		//스와이퍼1
+		new Swiper('.swiper2', {
 			slidesPerView : 5, // 동시에 보여줄 슬라이드 갯수
-			spaceBetween : 10, // 슬라이드간 간격
+			spaceBetween : 4, // 슬라이드간 간격
 			slidesPerGroup : 5, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 			loopFillGroupWithBlank : true,
 			
@@ -235,7 +261,7 @@
 			</div>
 		</form>
 			
-			<div class="center" style="width:200px">
+			<div class="center" style="width:100%">
 				<h1>MOVI</h1>
 				<h5>모두의 비디오, 모비</h5>
 			</div>
@@ -243,12 +269,12 @@
 		
 <!-- @@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
-		<div class="row swiper-container">
+		<div class="row swiper-container swiper1">
 	
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
-						<img class="hov" src="http://placeimg.com/150/200/any">
+						<img class="hov" src="http://placeimg.com/300/250/any">
 						<h1 class="h hov1">
 								<%=recomdto.getRecom_title()%>
 						</h1>
@@ -273,7 +299,7 @@
 		</div>
 		
 		
-		<div class="row swiper-container">
+		<div class="row swiper-container swiper2">
 	
 			<div class="swiper-wrapper">
 				<%for(MovieDtoVO lovedto : movieLoveList){ %>
@@ -301,7 +327,7 @@
 		<div class="row left">
 			모비 관객수 순위
 		</div>
-		<div class="row swiper-container">
+		<div class="row swiper-container swiper2">
 	
 			<div class="swiper-wrapper">
 				<%for(MovieDto moviedto : movieAudList){ %>
@@ -327,7 +353,7 @@
 		<div class="row left">
 			맞춤 영화
 		</div>
-			<div class="row swiper-container">
+			<div class="row swiper-container swiper2">
 	
 			<div class="swiper-wrapper">
 				<%for(MygenreDtoVO mydto : mygenreList){ %>

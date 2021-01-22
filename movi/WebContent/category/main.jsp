@@ -24,19 +24,19 @@
             padding: 30px;
         }
         .main{
-        	width :25%;
+        	width :100%;
             border : 1px solid black;
         }
-        .main>li{
+        .top{
             display: inline-block;
             width: 89px;
             padding: 0.4rem;
         }
-        .main>li:hover,
-        .main>li:active,
-        .main>li:visited{
+        .top:hover,
+        .top:active,
+        .top:visited{
             text-decoration: underline;
-            background-color: gray;
+            font-weight: bolder;
         }
         .main a{
             color: black;
@@ -46,22 +46,27 @@
    	 		width: 530px;
    			margin-bottom: 35px;
         }
+        .movie_list{
+        	display: flex;
+        }
+        .list{
+        	width:230px;
+        	padding :0.5rem;
+        }
 </style>
 
 <script>
-	$(function(){
-		//클릭시 색칠 되는 스타일이 계속 적용되도록.. 페이지가 이동해도 가능한가?
-		$("li>a").click(function(){
-			//$(this).addClass('active');
-			//$(this).css("background-color","yellow");
-		});
+
+	$(document).ready(function(){
+		$(".a<%=movie_genre_no%>").css("text-decoration","underline");
+		$(".a<%=movie_genre_no%>").css("font-weight","bolder");
 	});
 </script>
 
 <ul class="main menu">
 		<%for(GenreDto dto : genreList){ %>
-       <li>
-			<a class="aa" href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
+       <li class="top">
+			<a class="a<%=dto.getGenre_no()%>" href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
 				<%=dto.getGenre_name()%>
 			</a>
        </li>
@@ -69,13 +74,14 @@
 </ul>
 
 <ul class="main movie_list">
-       <li>
 		<%for(MovieDto dto : moviegenreList){ %>
+       <li class="list">
 			<a href="detail.jsp?movie_name=<%=dto.getMovie_name()%>">
+			<img src ="https://placehold.it/200X300?text=IMAGE">
 				<%=dto.getMovie_name() %>
 			</a>
-		<%}%>
        </li>
+		<%}%>
 </ul>
 
 
