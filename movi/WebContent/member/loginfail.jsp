@@ -5,7 +5,7 @@
 
 <div class="outbox">
 	<div class="row center">
-		<h3>아이디가 이미 사용중입니다</h3>
+		<h3>회원가입에 실패하였습니다</h3>
 	</div>
 </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>
