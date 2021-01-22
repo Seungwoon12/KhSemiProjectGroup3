@@ -316,4 +316,52 @@ public class ReviewDao {
 	
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+	//관리자 모드
+	
+	
+	//리뷰 목록 - /admin/reviewList.jsp
+	public List<ReviewDto> select_admin()throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql= "select review_no, review_writer_no, review_title, review_date, review_read " + 
+						"from review order by review_no desc";
+		
+	}
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+	
 }
