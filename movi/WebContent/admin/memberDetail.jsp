@@ -11,8 +11,6 @@
 	MemberDto memberDto = memberDao.select_admin(member_no); 
 %>
 
-
-
 <div class="outbox" style="width:100%">
    <aside>
    		<div class="row center">
@@ -74,7 +72,7 @@
 					<tr>
 						<td colspan="2">
 							<input type="button" value="수정" id="editBtn" onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
-							<input type="button" value="삭제" id="deleteBtn" onclick="location.href= 'memberDelete.do?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="삭제" id="deleteBtn" onclick="location.href='memberDelete.do?member_no=<%=memberDto.getMember_no()%>'">
 						</td>
 					</tr>
 				</tbody>
