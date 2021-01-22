@@ -16,6 +16,7 @@ public class MemberDao {
 		public static final String USERNAME = "movi";
 		public static final String PASSWORD = "movi";
 	
+
 	//회원가입
 	public void insert(MemberDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
@@ -27,12 +28,48 @@ public class MemberDao {
 		ps.setString(2, dto.getMember_pw());
 		ps.setString(3, dto.getMember_nick());
 		ps.setString(4, dto.getMember_phone());
+	
 		ps.execute();
 		
 		con.close();
 	}
+	// 아이디 , 비밀번호 체크
+	    public int userCheck(String member_id, String member_pw)throws Exception{
+        
+       Connection conn= null;
+       PreparedStatement ps = null;
+       ResultSet rs =null;
+       String sql="";
+       String dbmember_pw ="";
+       int x = -1;
+       
+       try{
+    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+    	    sql ="select member_pw from MEMBER where id = ?";           
+    	    ps =conn.prepareStatement(sql);           
+    	    ps.setString(1, member_id);         
+    	    rs=ps.executeQuery();
+    	             
+    	              
+    	    if(rs.next()){     	  
+    	    	dbmember_pw =rs.getString("member_pw");           
+    	    	if(dbmember_pw.equals(member_pw))
+    	    		x=1; //인증성공
+    	       else
+    	    	   x=0; //비밀번호 틀림
+    	       }else
+    	    	   x=-1; //해당 아이디 없음
+    	         
+       }catch(Exception e){
+    	   e.printStackTrace();	           
+       }finally{        	 
+    	   ps.execute();
+    	   }
+       return x;
+       }
 
-	
+
+     
 	//로그인
 	public boolean login(MemberDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
@@ -41,16 +78,10 @@ public class MemberDao {
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_id());
 		ps.setString(2, dto.getMember_pw());
-		ResultSet rs = ps.executeQuery();
+		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
 	
-	boolean result;
-	if(rs.next()) {
-		result = true;
-	}
-	else {
-		result = false;
-		}
-		
+	boolean result=rs.next();
+	
 		con.close();
 		
 		return result;
