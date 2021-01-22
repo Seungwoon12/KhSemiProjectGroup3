@@ -20,7 +20,7 @@
 	//int member_no = (int)request.getSession().getAttribute("check");
 	//MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
 	
-	
+
 	ReplyDao replyDao = new ReplyDao();
 	
 	//댓글개수
