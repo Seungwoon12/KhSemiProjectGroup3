@@ -34,19 +34,18 @@ public class MemberDao {
 	// 아이디 , 비밀번호 체크
 	    public int userCheck(String member_id, String member_pw)throws Exception{
         
-       Connection conn= null;
+       Connection con= null;
        PreparedStatement ps = null;
-       ResultSet rs =null;
+       Result rs =null;
        String sql="";
        String dbmember_pw ="";
        int x = -1;
        
        try{
-    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
     	    sql ="select member_pw from MEMBER where id = ?";           
-    	    ps =conn.prepareStatement(sql);           
+    	    ps =con.prepareStatement(sql);           
     	    ps.setString(1, member_id);         
-    	    rs=ps.executeQuery();
+    	    rs=ps.execute();
     	             
     	              
     	    if(rs.next()){     	  
@@ -60,9 +59,7 @@ public class MemberDao {
     	         
        }catch(Exception e){
     	   e.printStackTrace();	           
-       }finally{        	 
-    	   ps.execute();
-    	   }
+       }
        return x;
        }
 
@@ -77,14 +74,19 @@ public class MemberDao {
 		ps.setString(1, dto.getMember_id());
 		ps.setString(2, dto.getMember_pw());
 		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
-	
-	boolean result=rs.next();
+		boolean result=rs.next();
 	
 		con.close();
 		
 		return result;
 	}
+		
 
+		
+        
+        
+	
+	
 	//관리자모드
 	
 	//회원 상세보기-memberDetail.jsp
@@ -365,7 +367,9 @@ public class MemberDao {
 		return count > 0 ; 
 		
 	}
+
+		
+	}
 	
 	
-}
 

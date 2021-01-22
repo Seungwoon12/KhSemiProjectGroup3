@@ -25,17 +25,19 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 				//조회
 				MemberDao dao = new MemberDao();
 				boolean login = dao.login(dto);
+	
+				
 				
 				//로그인 성공 실패 리다이렉트
-				if(login) {			
+				if(login) {		//로그인성공
 					MemberDto m = dao.find(dto.getMember_id());
 					req.getSession().setAttribute("check", m.getMember_no()); // 로그인유지
 					req.getSession().setAttribute("auth", m.getMember_auth());
 			
-					resp.sendRedirect("../index.jsp");//홈으로
+					resp.sendRedirect("loginfinal.jsp");
 			
 				}
-				else { 
+				else { //로그인 실패
 					resp.sendRedirect("loginpage.jsp?error");//에러화면		
 				
 			}
@@ -45,5 +47,27 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 				resp.sendError(500);
 			}
 		}
+		
+		
+		try {
+            boolean loginOk =dao.isLogin(member_id, member_pw);
+            PrintWriter out = resp.getWriter();
+            if(loginOk) {
+                out.println("로그인 성공");
+            }else {
+                out.println("로그인 정보가 일치하지않습니다.");
+            }
+            out.close();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        
+    }
+		
+		
+		
+		
+		
+		
 }
 
