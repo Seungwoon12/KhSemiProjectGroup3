@@ -255,3 +255,4 @@ public class MemberDao {
 				
 				return dto;		
 			}
+}
