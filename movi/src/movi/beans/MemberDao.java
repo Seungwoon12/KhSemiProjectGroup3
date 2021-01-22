@@ -29,24 +29,24 @@ public class MemberDao {
 	
 		ps.execute();
 		
+
 		con.close();
 	}
 	// 아이디 , 비밀번호 체크
 	    public int userCheck(String member_id, String member_pw)throws Exception{
         
-       Connection conn= null;
+       Connection con= null;
        PreparedStatement ps = null;
-       ResultSet rs =null;
+       Result rs =null;
        String sql="";
        String dbmember_pw ="";
        int x = -1;
        
        try{
-    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
     	    sql ="select member_pw from MEMBER where id = ?";           
-    	    ps =conn.prepareStatement(sql);           
+    	    ps =con.prepareStatement(sql);           
     	    ps.setString(1, member_id);         
-    	    rs=ps.executeQuery();
+    	    rs=ps.execute();
     	             
     	              
     	    if(rs.next()){     	  
@@ -60,17 +60,38 @@ public class MemberDao {
     	         
        }catch(Exception e){
     	   e.printStackTrace();	           
-       }finally{        	 
-    	   ps.execute();
-    	   }
+       }
        return x;
        }
 
+		con.close();
+	}
+	
 
+
+
+	//로그인
+
+	public boolean login(MemberDto dto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from member where member_id=? and member_pw=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, dto.getMember_id());
+		ps.setString(2, dto.getMember_pw());
+		ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
+		boolean result=rs.next();
+	
+		con.close();
+		
+		return result;
+	}
+	
 	    //로그인
 
 		public boolean login(MemberDto dto) throws Exception {
 			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+
 			
 			String sql = "select * from member where member_id=? and member_pw=?";
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -255,4 +276,29 @@ public class MemberDao {
 				
 				return dto;		
 			}
-}
+
+		
+
+	
+	//회원 임시 비밀번호 발급 - /admin/memberPw.do
+	public boolean editPw_admin(int member_no, String pw) throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = " update member set member_pw= ? where member_no= ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, pw);
+		ps.setInt(2, member_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ; 
+		
+	}
+
+		
+	}
+	
+	
+
+

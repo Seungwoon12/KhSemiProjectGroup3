@@ -68,5 +68,3 @@ public class MemberDto {
 		super();
 	}
 }
-
-//장르 no 제거
