@@ -1,10 +1,13 @@
 <%@page import="movi.beans.MygenreDtoVO"%>
+<%@page import="movi.beans.MovieDtoVO"%>
+<%@page import="movi.beans.GenreDto"%>
+<%@page import="movi.beans.GenreDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="movi.beans.MygenreDto"%>
 <%@page import="movi.beans.MygenreDao"%>
 <%@page import="movi.beans.MemberDto"%>
 <%@page import="movi.beans.MemberDao"%>
 <%@page import="movi.beans.LoveDao"%>
-<%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="movi.beans.RecommendDto"%>
 <%@page import="movi.beans.RecommendDao"%>
 <%@page import="java.util.List"%>
@@ -13,42 +16,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 
 <jsp:include page="/template/header.jsp"></jsp:include>
+
 <%
 	//페이징
 	int startPage=1;
 	int endPage=10;
 
-	MovieDto dto = new MovieDto();
+	
 	//3조추천
 	RecommendDao recomDao = new RecommendDao();
 	List<RecommendDto> recomList = recomDao.select_title();
 	
 	
 	//좋아요순
-		MovieDao movieDao = new MovieDao();
-		List<MovieDtoVO> movieLoveList = movieDao.select_love(startPage,endPage);
+	MovieDao movieDao = new MovieDao();
+	List<MovieDtoVO> movieLoveList = movieDao.select_love(startPage,endPage);
 		
 	//관객순
 	List<MovieDto> movieAudList = movieDao.select_aud(startPage,endPage);
 	
+	//검색용 영화 이름 찾기
+	List<MovieDto> searchList = movieDao.search_movie_name();
+	//배열로 바꿔주기
+	MovieDto[] arr = searchList.toArray(new MovieDto[searchList.size()]);
 	
 	MemberDao memberDao = new MemberDao();
 	MemberDto memberDto = memberDao.select(1);
 	
-	//세션 회원 맞춤순
-	request.getSession().setAttribute("check", memberDto.getMember_no());
-	int genre = (int)session.getAttribute("check");
+	//세션 회원 맞춤순--로그인 화면 구현시 테스트
+	//request.getSession().setAttribute("check", memberDto.getMember_no());
+	//int genre = (int)session.getAttribute("check");
 	
-	int a = 2;
+//아직 멤버 세션 못받아왔음
+//만약 멤버 번호가 2일 때를 가정하고 보여주는거임
+	int member_no=2;
 	//장르별
 	MygenreDao mygenreDao = new MygenreDao();
-	List<MygenreDtoVO> mygenreList = mygenreDao.find(a);
+	List<MygenreDtoVO> mygenreList = mygenreDao.find(member_no);
 
+//멤버가 선호하는 장르의 영화들을 나열
+//만약 좋아하는 장르가 로맨스라고 가정했을 때
+	String genre_name="로맨스";
+	GenreDao genreDao = new GenreDao();
+	List<GenreDto> genreList = genreDao.find_movie(genre_name); 
 	
 %>
 
@@ -66,9 +80,11 @@
 		display:inline-block;
 	 	z-index: 999;
 	    position: absolute;
-	    left: 5px;
-	    left:20px
+	    left: 10px;
 	    
+	}
+	.hov:hover +.hov1{
+		top:50px;
 	}
 	
 	.h{
@@ -115,35 +131,42 @@
 	}
 	.swiper-wrapper{
 		display: flex;
-		margin:23px;
+		margin:5px;
 	}
 	.swiper-slide img {
 	box-shadow:0 0 5px #555;
-	max-width:100%; /* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 }
-.swiper-slide{
-width:118px !important;
-margin:20px;
-}
-	.prev>img, .next>img{
-		width: 30px;
-    	position: relative;
-    	top: 40%;
-		margin: 10px;
-		cursor: pointer;
-	}
-	.prev>img{
-	    position: absolute;
-    left: 22%;
-    top: 68%;
-	}
-	.next>img{
-	    position: absolute;
-    left: 74%;
-    top: 69%;
+	.swiper-slide{
+	width:141px !important;
+	margin:8px;
+	justify-content: center;
 	}
 	.swiper-container {
     width: 779px;
+    }
+    .ui-autocomplete {
+	max-height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width:150px;
+}
+
+.swiper-button-prev,.swiper-button-next{
+	background-image: url("./img/pre.png") !important;
+	opacity:100 !important;
+	cursor: pointer !important;
+	width:31px;
+	height:40px;
+	background-size: 43px;
+	pointer-events: all;
+	
+}
+.swiper-button-prev{
+	background-image: url("./img/pre.png") !important;
+}
+.swiper-button-next{
+	background-image: url("./img/next.png") !important;
+}
 </style>
 
 <script>
@@ -152,12 +175,13 @@ margin:20px;
 		$(".movie_recom").click(function(){
 			location.href="/movi/category/recom.jsp?recom_title="+$(this).text();
 		});
+		
 		//영화 세부 페이지로 가기
 		$(".movie_detail").click(function(){
 			location.href="/movi/category/detail.jsp?movie_name="+$(this).text();
 		})
 		
-		
+		//스와이퍼
 		new Swiper('.swiper-container', {
 			slidesPerView : 5, // 동시에 보여줄 슬라이드 갯수
 			spaceBetween : 10, // 슬라이드간 간격
@@ -174,11 +198,28 @@ margin:20px;
 			},
 		});
 		
+		//검색기능
+       var searchSource = [
+       <%for(int i=0; i<arr.length; i++){%>
+      	 "<%=arr[i].getMovie_name()%>",
+    	<%}%>
+       ]	
+        $("#searchInput").autocomplete({  //오토 컴플릿트 시작
+            source : searchSource,    // source 는 자동 완성 대상
+            focus : function(event, ui) { 
+                return false;//한글 에러 잡기용도로 사용됨
+            },
+            minLength: 1,// 최소 글자수
+            autoFocus: true,
+            classes: { 
+                "ui-autocomplete": "highlight"//선택된거에 하이라이트
+            },
+            delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+            position: { my : "left top", at: "left bottom"}//위치
+        });
 	});
 </script>
-<%
 
-%>
 <div class="outbox" style="width:100%">
 
 	<div class="main" style="height:295px">
@@ -186,9 +227,10 @@ margin:20px;
 		
 		<form action="/movi/category/detail.jsp" method="get">
 			<div>	
-<!-- 비동기 검색을 알아보자! -->
+<!--검색기능 -->
 				<input name="movie_name" class="input input-hint unit slot id" 
-						placeholder="영화명을 입력하세요" type="text" style="width:200px">
+						placeholder="영화명을 입력하세요" type="text" style="width:200px"
+						id="searchInput">
 				<input type="submit" value="검색">
 			</div>
 		</form>
@@ -197,17 +239,8 @@ margin:20px;
 				<h1>MOVI</h1>
 				<h5>모두의 비디오, 모비</h5>
 			</div>
-			<div class="right" style="width:200px">
-				<ul>
-					<li>
-						<img src="./img/pre.png" alt="이전">
-					</li>
-					<li>
-						<img src="./img/next.png" alt="다음">
-					</li>
-				</ul>
-			</div>
 		</div>
+		
 <!-- @@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
 		<div class="row swiper-container">
@@ -234,7 +267,7 @@ margin:20px;
 <hr>
 <!-- @@@@@@@@@@ 좋아요 순위 -->
 
-	<div class="outbox" style="width:590px">
+	<div class="outbox" style="width:640px">
 		<div class="row left">
 			모비 좋아요 순위
 		</div>
@@ -315,7 +348,5 @@ margin:20px;
 		</div>
 	</div>
 	
-</div>
-
 </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

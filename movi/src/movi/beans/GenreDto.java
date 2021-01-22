@@ -3,6 +3,14 @@ package movi.beans;
 public class GenreDto {
 	private int genre_no;
 	private String genre_name;
+	private String genre_movie_name;
+	
+	public String getGenre_movie_name() {
+		return genre_movie_name;
+	}
+	public void setGenre_movie_name(String genre_movie_name) {
+		this.genre_movie_name = genre_movie_name;
+	}
 	public GenreDto() {
 		super();
 	}
