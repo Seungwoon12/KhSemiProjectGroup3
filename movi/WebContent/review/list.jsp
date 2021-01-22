@@ -25,54 +25,51 @@
 
 
 <%
-	// 목록과 검색
-	// type : 분류 , key : 검색어
-	String type = request.getParameter("type");
-	String key = request.getParameter("key");
-	boolean isSearch = type != null && key != null;
-	
-	ReviewDao reviewDao = new ReviewDao();
-	List<ReviewNickVO> list; 
-	if(isSearch) {
-		list = reviewDao.list(type, key, startRow, endRow);
-	}
-	else {
-		list = reviewDao.list(startRow, endRow);
-	}
-	
-%>   
+    	// 목록과 검색
+    	// type : 분류 , key : 검색어
+    	String type = request.getParameter("type");
+    	String key = request.getParameter("key");
+    	boolean isSearch = type != null && key != null;
+    	
+    	ReviewDao reviewDao = new ReviewDao();
+    	List<ReviewVO> list; 
+    	if(isSearch) {
+    		list = reviewDao.list(type, key, startRow, endRow);
+    	}
+    	else {
+    		list = reviewDao.list(startRow, endRow);
+    	}
+    %>   
 
 
 <%
-	//페이지 네비게이션 작성
-	
-	//페이지 네비게이션 사이즈 10
-	int pageNavSize = 10;
-	
-	//시작번호, 끝번호 계산
-	int startNum = (p-1) / pageNavSize * pageNavSize + 1;
-	int endNum = startNum + pageNavSize - 1;
-	
-	//목록 개수 or 검색 개수
-	int count;
-	
-	if(isSearch) {
-		count = reviewDao.count(type, key);
-	}
-	else {
-		count = reviewDao.count();
-	}
-	
-	// 필요한 페이지 개수
-	int pageSize = (count + pageNavSize - 1) / pageNavSize;
-	
-	//페이지 마지막번호가 필요한 페이지 개수보다 클 경우 페이지 마지막번호를 필요한 페이지 개수로 설정해준다.
-	if(endNum > pageSize) {
-		endNum = pageSize;
-	}
-
-
-%>
+   	//페이지 네비게이션 작성
+   	
+   	//페이지 네비게이션 사이즈 10
+   	int pageNavSize = 10;
+   	
+   	//시작번호, 끝번호 계산
+   	int startNum = (p-1) / pageNavSize * pageNavSize + 1;
+   	int endNum = startNum + pageNavSize - 1;
+   	
+   	//목록 개수 or 검색 개수
+   	int count;
+   	
+   	if(isSearch) {
+   		count = reviewDao.count(type, key);
+   	}
+   	else {
+   		count = reviewDao.count();
+   	}
+   	
+   	// 필요한 페이지 개수
+   	int pageSize = (count + pageNavSize - 1) / pageNavSize;
+   	
+   	//페이지 마지막번호가 필요한 페이지 개수보다 클 경우 페이지 마지막번호를 필요한 페이지 개수로 설정해준다.
+   	if(endNum > pageSize) {
+   		endNum = pageSize;
+   	}
+   %>
 
    
 <jsp:include page="/template/header.jsp"></jsp:include>
@@ -110,17 +107,22 @@
 			
 			<tbody>
 				
-			    <%for(ReviewNickVO reviewNickVO : list) { %>
+			    <%
+	    		for(ReviewVO reviewVO : list) {
+			    %>
 				<tr>
-					<td><%=reviewNickVO.getReview_no() %></td>
+					<td><%=reviewVO.getReview_no() %></td>
 					<td>
-						<a href="detail.jsp?review_no=<%=reviewNickVO.getReview_no()%>">
-							<%=reviewNickVO.getReview_title() %>
+						<a href="detail.jsp?review_no=<%=reviewVO.getReview_no()%>">
+							<%=reviewVO.getReview_title() %>
+							<%if(reviewVO.getReply_count() > 0) { %>
+								[<%=reviewVO.getReply_count() %>]
+							<%} %>
 						</a>
 					</td>
-					<td><%=reviewNickVO.getMember_nick()%></td>
-					<td><%=reviewNickVO.getReview_date() %></td>
-					<td><%=reviewNickVO.getReview_read() %></td>
+					<td><%=reviewVO.getMember_nick()%></td>
+					<td><%=reviewVO.getReview_date() %></td>
+					<td><%=reviewVO.getReview_read() %></td>
 				</tr>
 				<%} %>
 				
