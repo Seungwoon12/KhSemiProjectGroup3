@@ -7,7 +7,7 @@
 <!-- 상세보기 회원정보 -->
 <%
 	int member_no = Integer.parseInt(request.getParameter("member_no"));
-	MemberDao memberDao = new MemberDao();
+	MemberAdminDao memberDao = new MemberAdminDao();
 	MemberDto memberDto = memberDao.select_admin(member_no); 
 %>
 

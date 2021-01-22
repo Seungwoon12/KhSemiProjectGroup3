@@ -35,7 +35,7 @@
 %>
 <!-- 영화 목록  -->
 <%
-	MovieDao movieDao = new MovieDao();
+	MovieAdminDao movieDao = new MovieAdminDao();
 	List<MovieDto> movieList;
 	if(search){
 		//movieList = movieDao.select_admin(type, key);

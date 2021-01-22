@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MovieDao;
+import movi.beans.MovieAdminDao;
 import movi.beans.MovieDto;
 
 @WebServlet(urlPatterns = "/admin/movieEdit.do")
@@ -31,7 +31,7 @@ public class AdminMovieEditServlet extends HttpServlet{
 			movieDto.setMovie_no(Integer.parseInt(req.getParameter("movie_no")));
 			
 //			처리 : 데이터 수정
-			MovieDao movieDao = new MovieDao();
+			MovieAdminDao movieDao = new MovieAdminDao();
 			boolean result = movieDao.edit_admin(movieDto);
 			
 //			출력 : 영화 상세 페이지로 이동

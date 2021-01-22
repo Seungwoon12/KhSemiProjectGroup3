@@ -34,7 +34,7 @@
 
 <!--멤버 목록   -->
 <%	
-	ReviewDao reviewDao = new ReviewDao();
+	ReviewAdminDao reviewDao = new ReviewAdminDao();
 	List<ReviewDto> reviewList ;
 	if(search){
 		 reviewList = reviewDao.page_admin(type, key, startRow, endRow);

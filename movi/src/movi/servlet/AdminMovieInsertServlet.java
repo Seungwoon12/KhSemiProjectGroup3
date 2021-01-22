@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MovieDao;
+import movi.beans.MovieAdminDao;
 import movi.beans.MovieDto;
 
 @WebServlet(urlPatterns = "/admin/movieInsert.do")
@@ -31,7 +31,7 @@ public class AdminMovieInsertServlet extends HttpServlet{
 			
 			
 //			처리:
-			MovieDao movieDao = new MovieDao();
+			MovieAdminDao movieDao = new MovieAdminDao();
 			movieDao.insert_admin(movieDto); 
 			
 //			출력 : 

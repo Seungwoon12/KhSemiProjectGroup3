@@ -8,7 +8,7 @@
 <%
 	//관리자는 회원정보를 수정하므로 파라미터로 전달받아 출력한다.(세션X)
 	int member_no = Integer.parseInt(request.getParameter("member_no"));
-	MemberDao memberDao = new MemberDao();
+	MemberAdminDao memberDao = new MemberAdminDao();
 	MemberDto memberDto = memberDao.select_admin(member_no); 
 %>
 

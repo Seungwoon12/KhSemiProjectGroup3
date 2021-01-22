@@ -35,7 +35,7 @@
 
 <!--멤버 목록   -->
 <%	
-	MemberDao memberDao = new MemberDao();
+	MemberAdminDao memberDao = new MemberAdminDao();
 	List<MemberDto> memberList ;
 	if(search){
 		 memberList = memberDao.page_admin(type, key, startRow, endRow);
