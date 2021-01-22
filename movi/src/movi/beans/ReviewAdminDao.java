@@ -44,29 +44,29 @@ public class ReviewAdminDao {
 //리뷰 삭제하기- /admin/reviewDelete.do
 
 //리뷰 페이징 리뷰 목록(검색x)- admin/reviewList.jsp
-	public List<ReviewDto> page_admin(String type, String key, int startRow, int endRow) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-
-		String sql = " select * from( "
-							+ "select rownum rn, TMP.* from( "
-								+ "select * from review order by review_no desc "
-							+ " )TMP " 
-						+ ")where rn between ? and ? ";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, startRow);
-		ps.setInt(2, endRow);
-		ResultSet rs = ps.executeQuery();
-		
-		List<ReviewDto> reviewList = new ArrayList<>();
-		while(rs.next()) {
-			ReviewDto reviewDto = new ReviewDto();
-			reviewDto.setReview_no(rs.getInt("review_no"));
-			reviewDto.setReview_writer_no(rs.getInt("review_writer_no"));
-			
-		}
-		
-
-	}
+//	public List<ReviewDto> page_admin(String type, String key, int startRow, int endRow) throws Exception {
+//		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+//
+//		String sql = " select * from( "
+//							+ "select rownum rn, TMP.* from( "
+//								+ "select * from review order by review_no desc "
+//							+ " )TMP " 
+//						+ ")where rn between ? and ? ";
+//		PreparedStatement ps = con.prepareStatement(sql);
+//		ps.setInt(1, startRow);
+//		ps.setInt(2, endRow);
+//		ResultSet rs = ps.executeQuery();
+//		
+//		List<ReviewDto> reviewList = new ArrayList<>();
+//		while(rs.next()) {
+//			ReviewDto reviewDto = new ReviewDto();
+//			reviewDto.setReview_no(rs.getInt("review_no"));
+//			reviewDto.setReview_writer_no(rs.getInt("review_writer_no"));
+//			
+//		}
+//		
+//
+//	}
 
 //리뷰 페이징+리뷰 검색: 제목+ 번호+ 아이디 - /admin/reviewlist.jsp
 

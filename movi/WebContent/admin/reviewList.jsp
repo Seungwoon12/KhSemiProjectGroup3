@@ -36,11 +36,11 @@
 <%	
 	ReviewAdminDao reviewDao = new ReviewAdminDao();
 	List<ReviewDto> reviewList ;
-	if(search){
-		 reviewList = reviewDao.page_admin(type, key, startRow, endRow);
-	}else{
-		 reviewList = reviewDao.page_admin(startRow, endRow);
-	}
+//	if(search){
+//		 reviewList = reviewDao.page_admin(type, key, startRow, endRow);
+//	}else{
+//		 reviewList = reviewDao.page_admin(startRow, endRow);
+//	}
 %>
 
 <!-- 페이지 블록  -->
