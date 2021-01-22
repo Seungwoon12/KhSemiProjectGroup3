@@ -76,8 +76,8 @@
 							<td>
 								<select name="movie_age">
 									<option>전체관람가</option>
-									<option>12세관람가</option>
-									<option>15세 관람가</option>
+									<option>12세이상관람가</option>
+									<option>15세이상관람가</option>
 									<option>청소년관람불가</option>
 								</select>
 							</td>

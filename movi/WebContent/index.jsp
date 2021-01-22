@@ -45,7 +45,7 @@
 	MovieDto[] arr = searchList.toArray(new MovieDto[searchList.size()]);
 	
 	MemberDao memberDao = new MemberDao();
-	MemberDto memberDto = memberDao.select(1);
+	MemberDto memberDto = memberDao.select(3); 
 	
 	//세션 회원 맞춤순--로그인 화면 구현시 테스트
 	//request.getSession().setAttribute("check", memberDto.getMember_no());

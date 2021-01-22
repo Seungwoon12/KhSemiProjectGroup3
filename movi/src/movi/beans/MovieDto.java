@@ -83,4 +83,16 @@ public class MovieDto {
 		this.movie_audience = movie_audience;
 	}
 	private int movie_audience;
+	
+	//객체의 권한 검사
+	//-연령조건
+	public boolean age(String movie_age) {
+		return this.movie_age != null && this.movie_age.equals(movie_age);
+	}
+	//-국가조건
+	public boolean country(String movie_country) {
+		return this.movie_country != null && this.movie_country.equals(movie_country);
+	}
+	
+	
 }
