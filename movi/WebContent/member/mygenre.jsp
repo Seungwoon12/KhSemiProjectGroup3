@@ -19,8 +19,6 @@
 	MygenreDao mygenreDao = new MygenreDao();
 	
 	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
-	List<Integer> mygenre_no_list = new ArrayList<>();
-	
 	
 	//선호 장르를 바꾸기 전에 전에 선택했던 선호 장르들은 선택된 상태로 보여주는 구문
 	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list) {

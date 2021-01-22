@@ -32,7 +32,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
                req.getSession().setAttribute("check", m.getMember_no()); // 로그인유지
                req.getSession().setAttribute("auth", m.getMember_auth());
          
-               resp.sendRedirect("../index.jsp");
+               resp.sendRedirect("../index.jsp");//홈으로
          
             }
             else { 
@@ -46,3 +46,4 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
          }
       }
 }
+
