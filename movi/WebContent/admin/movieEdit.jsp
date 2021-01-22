@@ -3,12 +3,10 @@
     pageEncoding="UTF-8"%>
 
 
-<!-- 수정중!!! -->
-
-
 <!-- 관리자 : 영화 정보 수정 -->  
  <%
  	//파라미터 받아서 출력
+ 	request.setCharacterEncoding("UTF-8");
  	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
  	MovieDao movieDao = new MovieDao();
  	MovieDto movieDto = movieDao.select_admin(movie_no);
@@ -91,10 +89,10 @@
 							<th>등급</th>
 							<td>
 								<select name="movie_age">
-									<option>전체관람가</option>
-									<option>12세관람가</option>
-									<option>15세 관람가</option>
-									<option>청소년관람불가</option>
+									<option <%if(movieDto.age("전체관람가")){%>selected<%}%>>전체관람가</option>
+									<option <%if(movieDto.age("12세이상관람가")){%>selected<%}%>>12세이상관람가</option>
+									<option <%if(movieDto.age("15세이상관람가")){%>selected<%}%>>15세이상관람가</option>
+									<option <%if(movieDto.age("청소년관람불가")){%>selected<%}%>>청소년관람불가</option>
 								</select>
 							</td>
 						</tr>
@@ -102,8 +100,8 @@
 							<th>국가</th>
 							<td>
 								<select name="movie_country">
-									<option>한국</option>
-									<option>외국</option>
+									<option <%if(movieDto.country("한국")){%>selected<%}%>>한국</option>
+									<option <%if(movieDto.country("해외")){%>selected<%}%>>해외</option>
 								</select>
 							</td>
 						</tr>
@@ -114,7 +112,7 @@
 						<tr>
 							<th>감독</th>
 							<td>
-								<input type="text" name="movie_director" required>
+								<input type="text" name="movie_director" placeholder="<%=movieDto.getMovie_director() %>" required>
 							</td>
 						</tr>
 						<tr>
@@ -141,7 +139,6 @@
 			</div>
 		</article>
 	</div>
-
 </form>
     
     

@@ -2,14 +2,45 @@
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
     
-<!--멤버 목록   -->
+<!-- 인코딩값 : UTF-8 -->
 <%
-	MemberDao memberDao = new MemberDao();
-	List<MemberDto> memberList = memberDao.select_admin();
+	request.setCharacterEncoding("UTF-8");
+%>
+<!-- 패아자 네비게이션 -->
+<%
+	int pageSize = 10;
+	int p ;
+	try{
+		p = Integer.parseInt(request.getParameter("p"));
+		if(p<=0) throw new Exception();//페이지<=0일 때 강제예외
+	}catch(Exception e){
+		p=1;
+	}
+	
+	//페이지 시작, 끝 번호 계산
+	int endRow = p * pageSize;
+	int startRow = endRow- pageSize+1;
 %>
 
+<!--회원 검색 -->
+<%
+	//type(분류):번호,아이디 	key:검색어
+	String type= request.getParameter("type");
+	String key = request.getParameter("key");
+	
+	boolean search = type != null && key != null;
+%>    
+<!--멤버 목록   -->
+<%	
+	MemberDao memberDao = new MemberDao();
+	List<MemberDto> memberList ;
+	if(search){
+		 memberList = memberDao.page_admin(type, key, startRow, endRow);
+	}else{
+		 memberList = memberDao.page_admin(startRow, endRow);
+	}
+%>
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
 
@@ -50,13 +81,25 @@
   			<h1>회원 리스트</h1>
   		</div>
   		<div>
-  			<form action="#" method="post">
+  			<form action="memberList.jsp" method="post">
   				<label>회원검색</label>
-  				<input type="text" name="member_id">
+  				<select name="type">
+					<option value="member_no">회원 번호</option>
+					<option value="member_id">아이디</option>
+  				</select>
+  				<input type="text" name="key" placeholder="검색어를 입력하세요" required>
   				<input type="submit" value="검색">
   			</form>
   		</div>
   		
+  		
+ <%if(memberList.isEmpty()){ %> 
+ <!-- 검색결과가 없는 경우 -->
+		<div class="row center">
+			<h1>검색결과가 없습니다.</h1>
+		</div>
+ <%}else{ %>	
+<!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
 		<table class="table table-border">
@@ -87,10 +130,13 @@
 
 					</td>
 				</tr>
-			<%} %>
+			<%} %> 
 			</tbody>
 		</table>
 	</div>
+ <%} %>
+	
+	
 	
 		<!-- 선택된 회원 삭제버튼 -->
 		<div class="right">
@@ -114,8 +160,6 @@
 				<li><a href="#">&gt;</a></li>
 			</ul>
 		</div>
-	
-	
   		
   	</article>
 </div>

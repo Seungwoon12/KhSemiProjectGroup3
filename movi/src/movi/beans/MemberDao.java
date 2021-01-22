@@ -224,6 +224,40 @@ public class MemberDao {
 			}
 		
 		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -335,64 +369,97 @@ public class MemberDao {
 		
 	}
 	
+	//회원 검색+리스트 - /admin/memberList.jsp
+	public List<MemberDto> select_admin(String type, String key) throws Exception{
+		if(type==null|| key==null) return null;
+		
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from member where instr(#1, ?) >0 order  by member_no desc";
+		sql = sql.replace("#1", type);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MemberDto> memberList = new ArrayList<>();
+		while(rs.next()) {
+			MemberDto memberDto = new MemberDto();
+			memberDto.setMember_no(rs.getInt("member_no"));
+			memberDto.setMember_id(rs.getString("member_id"));
+			memberDto.setMember_date(rs.getDate("member_date"));
+			memberDto.setMember_auth(rs.getString("member_auth"));
+			memberList.add(memberDto);	
+		}
+		con.close();
+		
+		return memberList;
+	}
+	
+
+	
+	//페이징+회원 검색: 아이디 or번호 - /admin/memberList.jsp
+	public List<MemberDto> page_admin(String type, String key, int startRow, int endRow )throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from( " 
+						+ "select rownum rn , TMP.* from( " 
+							+ "select * from member  " 
+							+ "where instr( #1 , ?) >0 " 
+							+ "order by member_no asc " 
+						+ ")TMP " 
+					+ ") where rn between ? and ? ";
+		sql = sql.replace("#1", type);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		ps.setInt(2, startRow);
+		ps.setInt(3, endRow);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MemberDto> memberList = new ArrayList<>();
+		while(rs.next()) {
+			MemberDto memberDto = new MemberDto();
+			memberDto.setMember_no(rs.getInt("member_no"));
+			memberDto.setMember_id(rs.getString("member_id"));
+			memberDto.setMember_date(rs.getDate("member_date"));
+			memberDto.setMember_auth(rs.getString("member_auth"));
+			memberList.add(memberDto);			
+		}
+		con.close();
+		
+		return memberList;
+	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//관리자모드
+	//페이징+ 회원 목록(검색X일때) -/admin/memberList.jsp
+	public List<MemberDto> page_admin( int startRow, int endRow )throws Exception{
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from( " + 
+						"select rownum rn , TMP.* from( " + 
+							"select * from member order by member_no asc " + 
+							")TMP  " + 
+					") where rn between ? and ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, startRow);
+		ps.setInt(2, endRow);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MemberDto> memberList = new ArrayList<>();
+		while(rs.next()) {
+			MemberDto memberDto = new MemberDto();
+			memberDto.setMember_no(rs.getInt("member_no"));
+			memberDto.setMember_id(rs.getString("member_id"));
+			memberDto.setMember_date(rs.getDate("member_date"));
+			memberDto.setMember_auth(rs.getString("member_auth"));
+			memberList.add(memberDto);			
+		}
+		con.close();
+		
+		return memberList;
+
+	}
 	
 	
 	
 	
 }
-

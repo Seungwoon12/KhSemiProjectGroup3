@@ -314,4 +314,35 @@ public class ReviewDao {
 //		return list;
 //	}
 	
+	//관리자모드
+	public List<ReviewDto> select_admin() throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from review order by review_no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReviewDto> list = new ArrayList<>();
+		while(rs.next()) {
+			ReviewDto reviewDto = new ReviewDto();
+			reviewDto.setReview_no(rs.getInt("review_no"));
+			reviewDto.setReview_movie_no(rs.getInt("review_movie_no"));
+			reviewDto.setReview_writer_no(rs.getInt("review_writer_no"));
+			reviewDto.setReview_title(rs.getString("review_title"));
+			reviewDto.setReview_content(rs.getString("review_content"));
+			reviewDto.setReview_date(rs.getDate("review_date"));
+			reviewDto.setReview_read(rs.getInt("review_read"));
+			list.add(reviewDto);
+		}
+		
+		con.close();
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
 }

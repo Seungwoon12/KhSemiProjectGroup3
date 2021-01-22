@@ -301,4 +301,111 @@ public class MovieDao {
 		return count > 0 ;
 
 	}
+	
+	//영화 삭제 - /admin/movieDelete.do
+	public boolean delete_admin(int movie_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "delete movie where movie_no =? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count >0 ;
+	}
+	
+	//영화 검색+리스트 - /admin/movieList.jsp
+	public List<MovieDto> select_admin(String type, String key) throws Exception{
+		if(type==null || key==null) return null;
+		
+		Connection con = JdbcUtil.getConnection(USER, USER);
+		
+		String sql="select * from movie where instr(#1, ?) >0 order  by movie_no desc";
+		sql = sql.replace("#1", type);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDto> movieList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto movieDto = new MovieDto();
+			movieDto.setMovie_no(rs.getInt("movie_no"));
+			movieDto.setMovie_name(rs.getString("movie_name"));
+			movieDto.setMovie_date(rs.getDate("movie_date"));
+			movieDto.setMovie_audience(rs.getInt("movie_audience"));
+			movieList.add(movieDto);
+		}
+			con.close();
+			
+			return movieList;
+		
+	}
+	
+	//페이징+영화 검색 :영화번호+ 영화제목 -/admin/movieList.jsp
+	public List<MovieDto> page_admin(String type, String key, int startRow, int endRow)throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select * from( " + 
+				"    select rownum rn , TMP.* from( " + 
+				"        select * from movie " + 
+				"        where instr( #1 , ?) >0 " + 
+				"        order by movie_no asc " + 
+				"    )TMP   " + 
+				") where rn between ? and ? ";
+		sql = sql.replace("#1", type);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		ps.setInt(2, startRow);
+		ps.setInt(3, endRow);
+		ResultSet rs = ps.executeQuery();	
+		
+		List<MovieDto> movieList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto movieDto = new MovieDto();
+			movieDto.setMovie_no(rs.getInt("movie_no"));
+			movieDto.setMovie_name(rs.getString("movie_name"));
+			movieDto.setMovie_date(rs.getDate("movie_date"));
+			movieDto.setMovie_audience(rs.getInt("movie_audience"));
+			movieList.add(movieDto);
+		}
+			con.close();
+			
+			return movieList;
+		
+	}
+	
+	
+	//페이징+영화 목록(검색X) -admin/movieList.jsp
+	public List<MovieDto> page_admin(int startRow, int endRow)throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select * from( " + 
+				"    select rownum rn , TMP.* from( " + 
+				"        select * from movie order by movie_no asc " + 
+				"    )TMP " + 
+				") where rn between ? and ? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, startRow);
+		ps.setInt(2, endRow);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDto> movieList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDto movieDto = new MovieDto();
+			movieDto.setMovie_no(rs.getInt("movie_no"));
+			movieDto.setMovie_name(rs.getString("movie_name"));
+			movieDto.setMovie_date(rs.getDate("movie_date"));
+			movieDto.setMovie_audience(rs.getInt("movie_audience"));
+			movieList.add(movieDto);
+		}
+			con.close();
+			
+			return movieList;
+		
+	}
+	
+	
+	
 }

@@ -17,7 +17,7 @@ public class AdminMovieEditServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 //			준비 : movieDto 데이터 
-			req.setCharacterEncoding("UFT-8");
+			req.setCharacterEncoding("UTF-8");
 			MovieDto movieDto = new MovieDto();
 			movieDto.setMovie_genre_no(Integer.parseInt(req.getParameter("movie_genre_no")));
 			movieDto.setMovie_name(req.getParameter("movie_name"));
