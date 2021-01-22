@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
+
 import movi.util.JdbcUtil;
 
 public class ReviewDao {
@@ -357,10 +359,25 @@ public class ReviewDao {
 		
 		String sql= "select review_no, review_writer_no, review_title, review_date, review_read " + 
 						"from review order by review_no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		
+		List<ReviewDto> reviewList = new ArrayList<>();
+		while(rs.next()) {
+			ReviewDto reviewDto = new ReviewDto();
+			reviewDto.setReview_no(rs.getInt("review_no"));
+			reviewDto.setReview_writer_no(rs.getInt("review_writer_no"));
+			reviewDto.setReview_title(rs.getString("review_title"));
+			reviewDto.setReview_date(rs.getDate("review_date"));
+			reviewDto.setReview_read(rs.getInt("review_read"));
+			reviewList.add(reviewDto);
+		}
+		con.close();
+		
+		return reviewList;
 		
 	}
-	
-	
+
 //////////////////////////////////////////////////////////////////////////////////////////////////	
 	
 	
