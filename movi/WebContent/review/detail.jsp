@@ -39,9 +39,6 @@
 	
 	
 		
-	
-
-	
 
 %>
 
@@ -78,9 +75,9 @@
 		}); 		
  		
  		
- 		//"답글쓰기"를 누르지않을때는 대댓글, 대대댓글 작성란 숨김처리
+ 		//"답글쓰기"를 누르지않을때는 대댓글 작성란 숨김처리
  		$(".reply2-write").hide();
- 		$(".reply3-write").hide();
+ 		
  		
  		//"답글쓰기"를 누르면 대댓글 작성창을 보여준다.
  		$(".reply2-write-btn").click(function(e){
@@ -109,17 +106,22 @@
  	 			
  		});
  		
+ 		//"답글쓰기"를 누르지않을때는 대대댓글 작성란 숨김처리
+
+ 		$(".reply3-write").hide();
  		
- 		//대대댓글 작성
+ 		//대댓글의 답글쓰기를 누르면 대대댓글 작성창을 보여준다.
  		
- 		$(".reply3-write-btn").click(function(e){
+ 		  
+ 		  $(".reply3-write-btn").click(function(e){
  			e.preventDefault();
  			
- 			$(this).parent().prev().prev().text();
+ 			var nick = $(this).parent().prev().prev().children().text(); // 대댓글 작성한 사람 닉네임
  			
+ 			$(this).parent().parent().next().next().find("textarea").attr("placeholder", nick+"님께 답글쓰기");
  			
+ 			$(this).parent().parent().next().next().show();
  		});
- 		
  		
  	});
  
@@ -191,8 +193,8 @@
  		<!-- 대댓글 -->
  		<%} else if(replyVO.getReply_depth() == 1) { %>
  		<div class="row" style="margin-left:70px">
- 			<div class="row nick" style="font-weight:bold;">
- 				<%=replyVO.getMember_nick()%>
+ 			<div class="row" style="font-weight:bold;">
+ 				<span><%=replyVO.getMember_nick()%></span>
  			</div>
  			<div class="row">
  				<%=replyVO.getReply_content()%>
@@ -208,17 +210,17 @@
  				<hr>
  			</div>
  		</div>	
- 		<!-- 대대댓글 -->
- 		<%} else if(replyVO.getReply_depth() == 2) {%>
- 		
  		<%} %>
+ 		<!-- 대대댓글 -->
+ 		
+ 		
  		
  		
  			
 		<!-- 대댓글 작성 -->
- 		<div class="row reply2-write" style="border: 1px solid black;">
+ 		<div class="row reply2-write">
  			<form action="reply_write2.do" method="post">
-	 			<div class="row" style="min-height:100px">
+	 			<div class="row" style="min-height:100px; border: 1px solid black;">
 	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
 	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
 	 				 <input type="hidden" name="reply_root" value="<%=replyVO.getReply_no()%>">
@@ -235,16 +237,18 @@
 	 					<button class="reply2-cancel-btn input input-inline">취소</button>
 	 					<input type="submit" value="등록" class="input input-inline">
 	 				</div>
-	 			
 	 			</div>
  			</form>
+ 			<hr>
  		</div>
- 		
+		
+		
+		 		
  		<!-- 대대댓글 작성 -->
  		
- 		<div class="row reply3-write" style="border: 1px solid black;">
+ 		<div class="row reply3-write">
  			<form action="reply_write3.do" method="post">
-	 			<div class="row" style="min-height:100px">
+	 			<div class="row" style="min-height:100px; border: 1px solid black;">
 	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
 	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
 	 				 <input type="hidden" name="reply_root" value="<%=replyVO.getReply_no()%>">
@@ -254,7 +258,7 @@
 	 					<%=memberReplyDto.getMember_nick()%> 
 	 				</div>
 	 				<div class="row">
-	 					<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="000님께 답글쓰기"></textarea>
+	 					<textarea name="reply_content" class="input reply3-text" rows="3" style="border:0"></textarea>
 	 				</div>
 	 				
 	 				
@@ -262,21 +266,19 @@
 	 					<button class="reply3-cancel-btn input input-inline">취소</button>
 	 					<input type="submit" value="등록" class="input input-inline">
 	 				</div>
-	 			
 	 			</div>
  			</form>
+ 			<hr>
  		</div>
  		
 	 		
  		<%} %>
  		
  		
-	 		
- 		
- 		
  		
  		
  		<!-- 댓글 작성 -->
+ 		
  		<div class="row" style="border: 1px solid black;">
  			<form action="reply_write.do" method="post">
 	 			<div class="row" style="min-height:100px">
@@ -296,6 +298,7 @@
  		</div>
  		
  	</div>
+ 		
  	
  </div>
  
