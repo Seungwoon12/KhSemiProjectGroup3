@@ -25,7 +25,6 @@
         }
         .main{
         	width :100%;
-            border : 1px solid black;
         }
         .top{
             display: inline-block;
@@ -46,12 +45,10 @@
    	 		width: 530px;
    			margin-bottom: 35px;
         }
-        .movie_list{
-        	display: flex;
-        }
         .list{
-        	width:230px;
+        	width:215px;
         	padding :0.5rem;
+        	display: none;
         }
 </style>
 
@@ -60,6 +57,9 @@
 	$(document).ready(function(){
 		$(".a<%=movie_genre_no%>").css("text-decoration","underline");
 		$(".a<%=movie_genre_no%>").css("font-weight","bolder");
+	
+		$(".list").slideDown(500);
+		$(".list").css("display","inline-block");
 	});
 </script>
 

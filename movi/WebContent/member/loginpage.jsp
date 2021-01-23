@@ -23,12 +23,12 @@
  </table>
  
  <%if(request.getParameter("error")!=null){ %>
-	<!-- 오류 메세지 -->
-	<div align="center" style="color:red;" >
+   <!-- 오류 메세지 -->
+   <div align="center" style="color:red;" >
               아이디 또는 비밀번호가 맞지않습니다.
-	</div>
-	<%} %>
-	
+   </div>
+   <%} %>
+   
 <table align="center" height="40">
        <tr>
              <td><input type="submit" value="로그인" class="input" style="height:50px; width:430px;  background-color:skyblue; color:white; font-size:16px; "></td>
@@ -39,7 +39,7 @@
   <tr>
    <td><a href="/movi/member/join.jsp"> 회원가입 | </a></td> 
    <td><a href="/movi/member/Idfind.jsp"> 아이디 찾기 |</a></td>
-   <td><a href="/movi/member/PWfind.jsp"> 비밀번호 재설정</a></td>
+   <td><a href="/movi/member/pwfind.jsp"> 비밀번호 재설정</a></td>
   </tr>
   </table>
              
