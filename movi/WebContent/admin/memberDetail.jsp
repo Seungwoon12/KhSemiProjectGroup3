@@ -8,7 +8,7 @@
 <%
 	int member_no = Integer.parseInt(request.getParameter("member_no"));
 	MemberAdminDao memberDao = new MemberAdminDao();
-	MemberDto memberDto = memberDao.select_admin(member_no); 
+	MemberAdminDtoVO memberDto = memberDao.SelectAll_admin(member_no); 
 %>
 
 <div class="outbox" style="width:100%">
@@ -18,8 +18,10 @@
   	 	</div>
   	 	<div class="left">
   	 		<a href="memberList.jsp">회원리스트 </a><br><br>
-  	 		<a href="#"> 임시 비밀번호 발급 </a><br><br>
-  	 		<a href="#"> 회원 쿠폰 관리 </a>
+  	 		<a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br>
+			<a href="#"> 회원 쿠폰 관리 </a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a>쿠폰 등록</a>
   	 	</div>
   	</aside>
 	
@@ -61,12 +63,15 @@
 						<td><%=memberDto.getMember_auth() %></td>
 					</tr>
 					<tr>
-						<th>선호 장르</th>
-						<td></td>
+						<th>선호장르</th>
+						<td><%=memberDto.getGenre_name() %></td>
 					</tr>
 					<tr>
-						<th>이벤트 내역</th>
-						<td></td>
+						<th>이벤트명/ 쿠폰</th>
+						<td>
+						<%=memberDto.getEvent_name() %>/
+						<%=memberDto.getEvent_coupon() %>
+						</td>
 					</tr>
 					
 					<tr>

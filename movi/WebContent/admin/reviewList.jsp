@@ -23,7 +23,7 @@
 	int startRow = endRow- pageSize+1;
 %>
 
-<!--회원 검색 -->
+<!--리뷰 검색 -->
 <%
 	//type(분류):번호,아이디 	key:검색어
 	String type= request.getParameter("type");
@@ -32,15 +32,15 @@
 	boolean search = type != null && key != null;
 %> 
 
-<!--멤버 목록   -->
+<!--리뷰 목록   -->
 <%	
 	ReviewAdminDao reviewDao = new ReviewAdminDao();
 	List<ReviewDto> reviewList ;
-//	if(search){
-//		 reviewList = reviewDao.page_admin(type, key, startRow, endRow);
-//	}else{
-//		 reviewList = reviewDao.page_admin(startRow, endRow);
-//	}
+	if(search){
+		 reviewList = reviewDao.page_admin(type, key, startRow, endRow);
+	}else{
+		 reviewList = reviewDao.page_admin(startRow, endRow);
+	}
 %>
 
 <!-- 페이지 블록  -->
@@ -64,8 +64,7 @@
 	//	endBlock = countSize;
 	//}
 %>    
-    
-    
+     
     
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>      
@@ -76,7 +75,7 @@
 		$(".Delete").click(function(e){
 			e.preventDefault();
 			
-			var check = window.confirm("회원 삭제하시겠습니까?");
+			var check = window.confirm("리뷰를 삭제하시겠습니까?");
 			if(check){
 				location.href=$(this).attr("href");
 				//location.href=this.href;//this에 있는 경로로 이동해서 보내세요
@@ -109,14 +108,13 @@
   	 	</div>
   	 	<div class="left">
   	 		<a href="reviewList.jsp"> 리뷰리스트 </a><br><br>
-  	 		<a href="#"> 리뷰 관리 </a><br><br>
-  	 		<a href="#"> 리뷰 삭제 </a><br><br>
+  	 		<a href="#"> 공지 등록 </a><br><br>
   	 	</div>
   	</aside>
 	
   	<article>
   	
-  	<!-- 이벤트 검색창 -->
+  	<!-- 리뷰 검색창 -->
   		<div>
   			<h1>리뷰리스트</h1>
   		</div>
@@ -124,14 +122,15 @@
   			<form action="reviewList.jsp" method="post">
   				<label>리뷰 검색</label>
   				<select name="type">
-  					<option value="">리뷰 번호</option>
-  					<option value="">리뷰 작성자</option>
-  					<option value=" ">제목</option>
+  					<option value="review_no">리뷰 번호</option>
+  					<option value="review_writer_no">리뷰 작성자</option>
+  					<option value="review_title">제목</option>
   				</select>
   				<input type="text" name="key" placeholder="검색어를 입력하세요" required> 
   				<input type="submit" value="검색">
   			</form>
   		</div>
+  		
  <%if(reviewList.isEmpty()){ %> 
  <!-- 검색결과가 없는 경우 -->
 		<div class="row center">
@@ -141,7 +140,7 @@
 <!-- 검색결과가 있는 경우 -->			
   	<!--리뷰 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border table-pattern">
+		<table class="table table-border">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="checkall">전체선택</th>
@@ -154,29 +153,66 @@
 				</tr>
 			</thead>
 			<tbody>
-
+			<%for(ReviewDto reviewDto : reviewList) {%>
 				<tr>
 					<td>
 						<input type="checkbox" name="chk" value="">
 					</td>
-					<td>리뷰 번호</td>
-					<td>제목</td>
-					<th>작성자</th>
-					<td>작성일</td>
-					<td>조회수</td>
+					<td><%=reviewDto.getReview_no() %></td>
+					<td><%=reviewDto.getReview_title() %></td>
+					<th><%=reviewDto.getReview_writer_no() %></th>
+					<td><%=reviewDto.getReview_date() %></td>
+					<td ><%=reviewDto.getReview_read() %></td>
 					<td>
-						<a href="#">상세보기</a>
-						<a href="#">삭제</a>
+						<a href="reviewDetail.jsp?review_no=<%=reviewDto.getReview_no()%>">상세보기</a>
+						<a href="reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>">삭제</a>
 						
 					</td>
 				</tr>
+			<%} %>
 			</tbody>
-			<%} %> 
 		</table>
 	</div>
+	<%} %>
 	
+			<!-- 선택된 회원 삭제버튼 -->
+		<div class="right">
+				<input type="button" value="선택된 회원 삭제">
+		</div>
+
+		<!-- 페이지 네비게이션 -->
+		<div class="row center">
+			<ul class="pagination">
+			
+				<!-- 이전 -->
+				<%if(search){ %>
+				<li><a href="reviewList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
+				<%}else{ %>
+				<li><a href="reviewList?p=<%=startBlock-1%>">&lt;</a></li>
+				<%} %>
+				
+				<%for(int i= startBlock; i<=endBlock;i++){ %>
+					<li>
+						<%if(search){ %>
+						<!-- 검색용 링크 -->
+						<a href="reviewList.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
+						<%}else{ %>
+						<!-- 목록용 링크 -->
+						<a href="reviewList.jsp?p=<%=i%>"><%=i %></a>
+						<%} %>
+					</li>	
+				<%} %>	
+				
+				<!-- 이후 -->
+				<%if(search){ %>
+				<li><a href="reviewList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
+				<%}else{ %>
+				<li><a href="reviewLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<%} %>
+
+			</ul>
+		</div>
 	</article>
-	
 </div>	
 
 

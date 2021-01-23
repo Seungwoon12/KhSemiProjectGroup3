@@ -123,7 +123,9 @@
   	 	<div class="left">
   	 		<a href="memberList.jsp">회원리스트 </a><br><br>
   	 		<a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br>
-  	 		<a href="#"> 회원 쿠폰 관리 </a>
+			<a href="#"> 회원 쿠폰 관리 </a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a>쿠폰 등록</a>
   	 	</div>
   	</aside>
 	

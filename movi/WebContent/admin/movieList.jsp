@@ -105,7 +105,6 @@
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
-			<a href="#"> 영화 수정 </a><br><br> 
 		</div>
 	</aside>
 
