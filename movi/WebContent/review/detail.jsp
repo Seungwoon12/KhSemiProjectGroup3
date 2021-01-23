@@ -74,6 +74,37 @@
 			
 		}); 		
  		
+ 		//댓글 null값 방지
+ 		$(".reply-regist-btn").click(function(e){
+ 			if(!$(".reply-area").val()) {
+ 				e.preventDefault();
+ 				window.alert("내용을 입력해주세요");
+ 			}
+ 			
+ 		});
+ 		
+ 		
+ 		//대댓글 null값 방지
+		$(".reply2-regist-btn").click(function(e){
+ 			
+ 			if(!$(this).parent().prev().children().val()) {
+ 				e.preventDefault();
+ 				window.alert("내용을 입력해주세요");
+ 			}
+ 		});
+ 		
+		//대대댓글 null값 방지
+		$(".reply3-regist-btn").click(function(e){
+ 			if(!$(this).parent().prev().children().val()) {
+ 				e.preventDefault();
+ 				window.alert("내용을 입력해주세요");
+ 			}
+ 			
+ 		});
+ 		
+ 		
+ 		
+ 		
  		
  		//"답글쓰기"를 누르지않을때는 대댓글 작성란 숨김처리
  		$(".reply2-write").hide();
@@ -86,6 +117,11 @@
  			$(this).parent().parent().next().show();
  			
  		});
+ 		
+ 		
+ 		
+ 		
+ 		
  		
  		//대댓글 등록 취소
  		$(".reply2-cancel-btn").click(function(e){
@@ -106,22 +142,52 @@
  	 			
  		});
  		
+ 		
+ 		
+ 		
+ 		
+ 		
  		//"답글쓰기"를 누르지않을때는 대대댓글 작성란 숨김처리
 
  		$(".reply3-write").hide();
  		
- 		//대댓글의 답글쓰기를 누르면 대대댓글 작성창을 보여준다.
  		
- 		  
+ 		//대댓글의 답글쓰기를 누르면 대대댓글 작성창을 보여준다.
  		  $(".reply3-write-btn").click(function(e){
  			e.preventDefault();
  			
- 			var nick = $(this).parent().prev().prev().children().text(); // 대댓글 작성한 사람 닉네임
+ 			// 대댓글 작성한 사람 닉네임 불러와서 작성창 placeholder에 등록
+ 			var nick = $(this).parent().prev().prev().children().text(); 
+ 			$(this).parent().parent().next().next().find(".reply3-area").attr("placeholder", nick+"님께 답글쓰기");
  			
- 			$(this).parent().parent().next().next().find("textarea").attr("placeholder", nick+"님께 답글쓰기");
+ 			//대댓글의 reply_root(댓글의 reply_no)를 대대댓글의 input name이 reply_root 인 것 한테 넣기 
+ 			var replyNo = $(this).next().val();
  			
+ 			$(this).parent().parent().next().next().find("input[name=reply_root]").val(replyNo);
+ 			
+ 			
+ 			//작성란 보여주기
  			$(this).parent().parent().next().next().show();
  		});
+ 		
+ 		//대대댓글 등록취소
+ 		 $(".reply3-cancel-btn").click(function(e){
+  			e.preventDefault();
+  			
+  			if($(this).parent().prev().children().val()) {
+  				var confirm = window.confirm("이미 입력된 답글 내용을 취소 하겠습니까?");
+  				
+  				if(confirm) {
+  	 				$(this).parents(".reply3-write").hide();
+  	 	 			
+  	 	 			$(this).parent().prev().children().val("");
+  	 			}
+  			}
+  			else {
+  				$(this).parents(".reply3-write").hide();
+  			}
+  	 			
+  		});
  		
  	});
  
@@ -154,7 +220,11 @@
  		
  		<br>
  		<div class="row" >
- 			<%=reviewDto.getReview_content()%>
+ 			<%
+ 				String review_content = reviewDto.getReview_content();
+ 				review_content = review_content.replace("\r\n", "<br>");
+ 			%>
+ 			<%=review_content%>
  		</div>
 	
 	</div>
@@ -207,13 +277,37 @@
  				%>
  				<%=time%>
  				<a href="#" class="reply3-write-btn">답글쓰기</a>
+ 				<input type="hidden" name="reply_root" value="<%=replyVO.getReply_root()%>"> <!-- 댓글의 reply_no -->
  				<hr>
  			</div>
  		</div>	
- 		<%} %>
  		<!-- 대대댓글 -->
- 		
- 		
+ 		<%} else { %>
+ 		<div class="row" style="margin-left:70px">
+ 			<%
+ 				int reply_parent = replyVO.getReply_parent();
+ 				String parent_nick = replyDao.getNick(reply_parent);
+ 			%>
+ 			<div class="row" style="font-weight:bold;">
+ 				<span><%=replyVO.getMember_nick()%> -> </span>
+ 				<span><%=parent_nick%></span>
+ 			</div>
+ 			<div class="row">
+ 				<%=replyVO.getReply_content()%>
+ 			</div>
+ 			<div class="row">	
+ 				<%
+	 				//댓글 시간 format 설정
+	 				SimpleDateFormat f = new SimpleDateFormat("yyyy.MM.dd. HH:mm");
+	 				String time = f.format(replyVO.getReply_time());
+ 				%>
+ 				<%=time%>
+ 				<a href="#" class=""></a>
+ 				<input type="hidden" name="reply_root" value="<%=replyVO.getReply_root()%>"> <!-- 댓글의 reply_no -->
+ 				<hr>
+ 			</div>
+ 		</div>		
+ 		<%} %>
  		
  		
  			
@@ -229,13 +323,13 @@
 	 					<%=memberReplyDto.getMember_nick()%> 
 	 				</div>
 	 				<div class="row">
-	 					<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
+	 					<textarea name="reply_content" class="input reply2-area" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
 	 				</div>
 	 				
 	 				
 	 				<div class="row right">
 	 					<button class="reply2-cancel-btn input input-inline">취소</button>
-	 					<input type="submit" value="등록" class="input input-inline">
+	 					<input type="submit" value="등록" class="input input-inline reply2-regist-btn">
 	 				</div>
 	 			</div>
  			</form>
@@ -251,20 +345,21 @@
 	 			<div class="row" style="min-height:100px; border: 1px solid black;">
 	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">
 	 				 <input type="hidden" name="reply_origin" value="<%=review_no%>">
-	 				 <input type="hidden" name="reply_root" value="<%=replyVO.getReply_no()%>">
-	 				 <input type="hidden" name="reply_parent" value=>
+	 				 <input type="hidden" name="reply_root"> <!-- reply3-write-btn 누르면 여기에 root값 넣어주도록 스크립트 태그에서 구현 -->
+	 				 <input type="hidden" name="reply_parent" value="<%=replyVO.getReply_no()%>">
 	 				
 	 				<div style="margin-left:0.3rem">
 	 					<%=memberReplyDto.getMember_nick()%> 
 	 				</div>
 	 				<div class="row">
-	 					<textarea name="reply_content" class="input reply3-text" rows="3" style="border:0"></textarea>
+	 					<textarea name="reply_content" class="input reply3-area" rows="3" style="border:0"></textarea>
 	 				</div>
+	 				
 	 				
 	 				
 	 				<div class="row right">
 	 					<button class="reply3-cancel-btn input input-inline">취소</button>
-	 					<input type="submit" value="등록" class="input input-inline">
+	 					<input type="submit" value="등록" class="input input-inline reply3-regist-btn">
 	 				</div>
 	 			</div>
  			</form>
@@ -288,11 +383,11 @@
 	 				<div style="margin-left:0.3rem">
 	 					<%=memberReplyDto.getMember_nick()%>  
 	 				</div>
-	 				<textarea name="reply_content" class="input" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
+	 				<textarea name="reply_content" class="input reply-area" rows="3" style="border:0" placeholder="댓글을 남겨보세요"></textarea>
 	 			</div>
 	 			
 	 			<div class="row right">
-	 				<input type="submit" value="등록" class="input input-inline">
+	 				<input type="submit" value="등록" class="input input-inline reply-regist-btn">
 	 			</div>
  			</form>
  		</div>

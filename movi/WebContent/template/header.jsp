@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+  <%
+   //사용자가 로그인 상태인지 계산하는 코드
+   //로그인 상태 : null이 아닌 경우
+   //로그아웃 상태 : null인 경우
+   boolean isLogin = session.getAttribute("check") != null;
+   
+   //사용자가 관리자인지 계산하는 코드
+   String auth = (String)session.getAttribute("auth");
+   boolean isAdmin = isLogin && auth.equals("관리자");
+%>
+    
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,28 +28,28 @@
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css">
 <style>
-	/* 화면 레이아웃 스타일 */
-	
-	/* 모든 영역은 점선으로 테두리가 표시되게 한다(테스트용) */
-	main, header, nav, 
-	footer
-	 {
-		border: 1px dotted #ccc;
-	}
-	/* 전체 화면의 폭은 100% 로 한다 */
-	main {
-		width:1200px;
-		margin:auto;
-		height: 1500px;
-	}
-	/* 각각의 레이아웃 영역에 여백을 설정한다 */
-	header, footer, nav, section {
-		padding:1rem;
-	}
-	/* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
-	section {
-		height: 100%;
-	}
+   /* 화면 레이아웃 스타일 */
+   
+   /* 모든 영역은 점선으로 테두리가 표시되게 한다(테스트용) */
+   main, header, nav, 
+   footer
+    {
+      border: 1px dotted #ccc;
+   }
+   /* 전체 화면의 폭은 100% 로 한다 */
+   main {
+      width:1200px;
+      margin:auto;
+      height: 1500px;
+   }
+   /* 각각의 레이아웃 영역에 여백을 설정한다 */
+   header, footer, nav, section {
+      padding:1rem;
+   }
+   /* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
+   section {
+      height: 100%;
+   }
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.1.js"></script>
@@ -49,19 +62,29 @@
 </script>
 </head>
 <body>
-	<main>
-		<header>
-			<h1 class="left">movi</h1>
-			<a href="<%=request.getContextPath()%>/member/loginpage.jsp" class="left">로그인</a>
-			<a href="#" class="right">이벤트</a>
-			<a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
-		</header>
-		<nav>
-			<a href="<%=request.getContextPath()%>">홈</a>
-			<!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
-			<a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
-			<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
-			<a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a>
-		</nav>
-	<section>
-
+   <main>
+      <header>
+         <h1 class="left">movi</h1>
+         <%if(!isLogin){ %>
+         <!--로그인아닐때---->
+         <a href="<%=request.getContextPath()%>/member/loginpage.jsp" class="left">로그인</a>
+         <%}
+         else{ %><!--로그인했을때--->
+         <a href="<%=request.getContextPath()%>/member/logout.do"class="left">로그아웃</a>
+   <%} %>
+         <a href="#" class="right">이벤트</a>
+         <%if(isAdmin){ %>
+         <!--권한부여---->
+         <a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
+         <%} %>
+      </header>
+      <nav>
+      <a href="<%=request.getContextPath()%>">홈</a>
+      <!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
+      <a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
+      <a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
+      <%if(isLogin){ %>
+      <!--로그인했을때---->
+      <a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a><%} %>
+      </nav>
+   <section>
