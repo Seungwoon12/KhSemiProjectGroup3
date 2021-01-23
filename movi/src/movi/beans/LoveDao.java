@@ -63,7 +63,7 @@ public class LoveDao {
 	public void love_cancel(LoveDto loveDto) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
-		String sql = "delete member where love_movie_no=? and love_member_no = ?";
+		String sql = "delete love where love_movie_no=? and love_member_no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, loveDto.getLove_movie_no());
 		ps.setInt(2, loveDto.getLove_member_no());
@@ -75,7 +75,7 @@ public class LoveDao {
 	public boolean love_search(int member_no, int movie_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
-		String sql = "select * form love where love_movie_no=? and love_member_no=?";
+		String sql = "select * from love where love_movie_no=? and love_member_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, movie_no);
 		ps.setInt(2, member_no);
@@ -89,5 +89,23 @@ public class LoveDao {
 		con.close();
 		
 		return result;
+	}
+	
+	public int love_count (int movie_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select love_movie_no, count(*) love_num from love where love_movie_no=? group by love_movie_no";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int love_num = 0;
+		if(rs.next()) {
+			love_num = rs.getInt("love_num");
+		}
+		con.close();
+		
+		return love_num;
 	}
 }

@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<th>좋아요 수</th>
-					<td></td>
+					<td><%=loveDao.love_count(movie_no) %></td>
 				</tr>
 				<tr>
 					<th>관객 수</th>

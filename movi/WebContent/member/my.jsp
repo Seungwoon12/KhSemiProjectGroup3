@@ -22,6 +22,10 @@
         display:block;
     	clear:both;
 	}
+	.swiper-container {
+      width: 100%;
+      height: 100%;
+    }
 	
 	div{
 		border: none;
@@ -49,7 +53,7 @@
 	int start = 1, end = 10; //end의 값은 최신 좋아요 순으로 최대 10장만 나오고 최소로도 10장이 나오도록 한다는 뜻 나머지는 빈칸 으로 만들어 둠(자리 차지)
 	List<LoveDto> member_love_list = loveDao.select_love_movie(member_no, start, end);
 	MovieDao movieDao = new MovieDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
-	
+
 %>
 
 <script>
@@ -75,7 +79,24 @@
 <script>
 	<!-- 스와이퍼 관련된 것들은 여기에 전부 몰아넣기 -->
 	window.onload = function(){
-		var swiper = new Swiper('.swiper-container', {
+		var swiper1 = new Swiper('.swiper1', {
+			loop: true,
+			loopFillGroupWithBlank: true,
+			
+		    pagination: {
+		    	el: '.swiper-pagination',
+		    },
+			navigation: {
+				nextEl: '.swiper-button-next',
+		    	prevEl: '.swiper-button-prev',
+			},
+			autoplay: {
+		        delay: 2000,
+		        disableOnInteraction: false,
+		    }
+		});
+		
+		var swiper2 = new Swiper('.swiper2', {
 		    pagination: {
 		    	el: '.swiper-pagination',
 		    },
@@ -110,7 +131,7 @@
 										<%=mygenre %>
 									<%} %>
 									입니다.
-									<%} %>
+								<%} %>
 							</h5>
 						</div>
 					</td>
@@ -138,7 +159,7 @@
 		</div>
 	</div>
 	<div class="row center">
-		<div class="swiper-container">
+		<div class="swiper-container swiper1">
 	        <div class="swiper-wrapper">
 	        	<%
 	        	for(LoveDto loveDto : member_love_list) {
@@ -146,14 +167,22 @@
 	        		end--;
 	        	%>
 	            <div class="swiper-slide">
-					<img src="https://placehold.it/300x150?text=<%=movieDto.getMovie_name()%>">
-					<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_name=<%=movieDto.getMovie_name()%>">
-						<%=movieDto.getMovie_name()%>
-					</a>
+	            	<div class="row">
+						<a href="<%=request.getContextPath()%>/movie/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+							<img alt="movie_img" src="<%=request.getContextPath()%>/image/movie/
+							<%try{ %>
+							<%=movieDto.getMovie_no()%>
+							<%}
+							catch(NullPointerException ne){%>
+							<%="dummy"%>
+							<%} %>.jpg">
+							<%=movieDto.getMovie_name()%>
+						</a>
+	            	</div>
 				</div>
 				<%} for(int i = 0; i < end; end--){%>
 					<div class="swiper-slide">
-					<img src="https://placehold.it/300x150?text=dummy">
+					<img alt="dummy" src="<%=request.getContextPath()%>/image/movie/dummy.jpg">
 					<%="자리채우기 테스트용 더미입니다"%>
 				</div>
 				<%} %>
@@ -173,7 +202,7 @@
 		</div>
 	</div>
 	<div class="row center">
-		<div class="swiper-container">
+		<div class="swiper-container swiper2">
 	        <div class="swiper-wrapper">
 	            <div class="swiper-slide">
 					<img class="dum" src="https://placeimg.com/600/350/any">
