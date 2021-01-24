@@ -1,3 +1,8 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@page import="java.util.Collections"%>
 <%@page import="movi.beans.MygenreDtoVO"%>
 <%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="movi.beans.GenreDto"%>
@@ -13,8 +18,6 @@
 <%@page import="java.util.List"%>
 <%@page import="movi.beans.MovieDao"%>
 <%@page import="movi.beans.MovieDto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
@@ -37,43 +40,27 @@
 	List<MovieDtoVO> movieLoveList = movieDao.select_love(startPage,endPage);
 		
 	//관객순
-	List<MovieDto> movieAudList = movieDao.select_aud(startPage,endPage);
+	List<MovieDtoVO> movieAudList = movieDao.select_aud(startPage,endPage);
 	
 	//검색용 영화 이름 찾기
 	List<MovieDto> searchList = movieDao.search_movie_name();
 	//배열로 바꿔주기
 	MovieDto[] arr = searchList.toArray(new MovieDto[searchList.size()]);
-	
-	MemberDao memberDao = new MemberDao();
-	MemberDto memberDto = memberDao.select(3); 
-	
-	//세션 회원 맞춤순--로그인 화면 구현시 테스트
-	//request.getSession().setAttribute("check", memberDto.getMember_no());
-	//int genre = (int)session.getAttribute("check");
-	
-//아직 멤버 세션 못받아왔음
-//만약 멤버 번호가 2일 때를 가정하고 보여주는거임
-	int member_no=2;
-	//장르별
-	MygenreDao mygenreDao = new MygenreDao();
-	List<MygenreDtoVO> mygenreList = mygenreDao.find(member_no);
 
-//멤버가 선호하는 장르의 영화들을 나열
-//만약 좋아하는 장르가 로맨스라고 가정했을 때
-	String genre_name="로맨스";
-	GenreDao genreDao = new GenreDao();
-	List<GenreDto> genreList = genreDao.find_movie(genre_name); 
 	
+	boolean isLogin = session.getAttribute("check") != null;
+	
+
 %>
-
 <!-- 이거 jquery css로 만들기! -->
 <style>
-	.hov{
-		border: 1px solid red;
-	}
-	
+.hov{
+	transform: scale(1);
+  	transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+}
 	.hov:hover{
 		opacity: 0.5;
+		 transform: scale(1.2);
 	}
 	
 	.hov:hover +.h{
@@ -96,7 +83,10 @@
        background-size: contain;
        background-repeat: no-repeat; 
         }
-        
+     
+    .box{
+    	    margin-left: 15%;
+    }   
    .name{
 	  float: left;
 	  width:27%;
@@ -105,7 +95,6 @@
    .recom{
 	   float:left
 	   width:70%;
-	   display: flex;
    }
    .name,.recom{
 	   	height:300px;
@@ -116,9 +105,6 @@
 		width:100%;
 		height: 500px;
 	}
-	.row{
-		display:flex;
-		}
 		
 	.movie{
 		padding: 0.2rem;
@@ -131,7 +117,6 @@
 	width:30px;
 	}
 	.swiper-wrapper{
-		display: flex;
 		margin:5px;
 		
 	}
@@ -146,36 +131,91 @@
 	.swiper-container {
     width: 779px;
     }
+    
+ <!--검색-->   
     .ui-autocomplete {
 	max-height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
-	width:150px;
 }
 
 .swiper-button-prev,.swiper-button-next{
-	background-image: url("./img/pre.png") !important;
 	opacity:100 !important;
 	cursor: pointer !important;
+	pointer-events: all !important;	
+}
+
+.n1,.p1{
+	width:50px;
+	height:50px;
+	background-size: 55px;
+}
+.n1{
+	background-image: url("./img/next1.png") !important;
+}
+.p1{
+	background-image: url("./img/prev1.jpg") !important;
+}
+
+.n2,.p2{
 	width:31px;
 	height:40px;
 	background-size: 43px;
-	pointer-events: all !important;
-	
 }
-.swiper-button-prev{
-	background-image: url("./img/pre.png") !important;
-}
-.swiper-button-next{
+.n2{
 	background-image: url("./img/next.png") !important;
+}
+.p2{
+	background-image: url("./img/pre.png") !important;
 }
 
 .movie_recom{
-	width : 388px !important;
+	width : 395px !important;
 }
 .movie_detail{
 	padding:17px;
 	margin:10px;
+}
+.rank{
+	position: absolute;
+    top: 5px;
+    left: 10px;
+    z-index: 999;
+    background-color: cornflowerblue;
+    width: 25px;
+    height: 26px;
+    font-size: larger;
+    text-align: -webkit-center;
+    border-radius: 35%;
+}
+
+/*팝업창*/
+.loading-wrapper{
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:9999;
+    display:none;
+    
+}
+.loading-wrapper>a{
+	width:500px;
+	height:600px;
+	z-index:9999;
+    position: fixed;
+    left: 37%;
+    top:20%
+}
+.close{
+	width: 39px;
+    position: fixed;
+    top: 21%;
+    left: 62%;
+    z-index: 999999999;
+    cursor: pointer;
 }
 </style>
 
@@ -188,23 +228,28 @@
 		
 		//영화 세부 페이지로 가기
 		$(".movie_detail").click(function(){
-			location.href="/movi/category/detail.jsp?movie_name="+$(this).text();
+			location.href="/movi/category/detail.jsp?movie_no="+$(this).children('.no').text();
 		})
 		
 		//스와이퍼1
 		new Swiper('.swiper1', {
-			slidesPerView : 2, // 동시에 보여줄 슬라이드 갯수
-			spaceBetween : 4, // 슬라이드간 간격
-			slidesPerGroup : 2, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-			//loop
+			slidesPerView: 2,
+		    slidesPerGroup: 2,
+	        loopFillGroupWithBlank : true,
+
+			loop : true,
+			autoplay:{
+			      delay:3000,
+			      disableOnInteraction: false,
+			    },
 			
 			pagination : { // 페이징 설정
 				el : '.swiper-pagination',
 				clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
 			},
 			navigation : { // 네비게이션 설정
-				nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+				nextEl : '.n1', // 다음 버튼 클래스명
+				prevEl : '.p1', // 이번 버튼 클래스명
 			},
 		});
 		//스와이퍼1
@@ -219,43 +264,68 @@
 				clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
 			},
 			navigation : { // 네비게이션 설정
-				nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-				prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+				nextEl : '.n2', // 다음 버튼 클래스명
+				prevEl : '.p2', // 이번 버튼 클래스명
 			},
 		});
-		
-		//검색기능
-       var searchSource = [
-       <%for(int i=0; i<arr.length; i++){%>
-      	 "<%=arr[i].getMovie_name()%>",
-    	<%}%>
-       ]	
-        $("#searchInput").autocomplete({  //오토 컴플릿트 시작
-            source : searchSource,    // source 는 자동 완성 대상
-            focus : function(event, ui) { 
-                return false;//한글 에러 잡기용도로 사용됨
-            },
-            minLength: 1,// 최소 글자수
-            autoFocus: true,
-            classes: { 
-                "ui-autocomplete": "highlight"//선택된거에 하이라이트
-            },
-            delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
-            position: { my : "left top", at: "left bottom"}//위치
-        });
-	});
+
+//******************************검색기능
+	
+    var searchSource = [
+    <%for(int i=0; i<arr.length; i++){%>
+    		"<%=arr[i].getMovie_name()%>",
+ 	<%}%>
+    ];
+	
+     $("#searchInput").autocomplete({  //오토 컴플릿트 시작
+         source : searchSource,    // source 는 자동 완성 대상
+         open: function(event, ui) {
+             $(this).autocomplete("widget").css({
+                 "width": 180
+             });
+         },
+         autoFocus: true,
+         classes: { 
+             "ui-autocomplete": "highlight"//선택된거에 하이라이트
+         },
+         delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+         position: { my : "left top", at: "left bottom"}//위치
+     });
+     
+     $(".close").click(function(){
+    	 $(".loading-wrapper").hide();
+     });
+     
+});
+     $(document).ready(function(){
+    	 $(".loading-wrapper").show();
+     });
+	
 </script>
+
+
+<!-- 팝업창 -->
+<div class="loading-wrapper">
+	<img src="./img/close.jpg" class="close">
+	<a href="/movi/event/main.jsp">
+		<img src="https://img.pooq.co.kr/service30/crm/3m66upgrade_layerpopup_pc.jpg">
+	</a>
+</div>
+
 
 <div class="outbox" style="width:100%">
 
 	<div class="main" style="height:295px">
 		<div class="name">
 		
-		<form action="/movi/category/detail.jsp" method="get">
+		<!-- 영화 이름으로 검색하고 , 같은 이름이 있을수도 있으니 한번더 걸러주는 작업을 한다!! -->
+		<form action="/movi/category/search.jsp" method="get">
 			<div>	
-<!--검색기능 -->
+			
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색기능 -->
+
 				<input name="movie_name" class="input input-hint unit slot id" 
-						placeholder="영화명을 입력하세요" type="text" style="width:200px"
+						placeholder="영화명을 입력하세요" type="text" style="width:180px"
 						id="searchInput">
 				<input type="submit" value="검색">
 			</div>
@@ -267,14 +337,14 @@
 			</div>
 		</div>
 		
-<!-- @@@@@@@@@@ 3조 추천 영화 -->	
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
-		<div class="row swiper-container swiper1">
+		<div class="row swiper-container swiper1" style="width:800px">
 	
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
-						<img class="hov" src="http://placeimg.com/300/250/any">
+						<img class="hov" src="https://placehold.it/300X250?text=IMAGE">
 						<h1 class="h hov1">
 								<%=recomdto.getRecom_title()%>
 						</h1>
@@ -282,8 +352,8 @@
 				<%} %>
 			</div>	
 			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			<div class="swiper-button-next n1"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+			<div class="swiper-button-prev p1"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
@@ -291,9 +361,9 @@
 	</div>
 
 <hr>
-<!-- @@@@@@@@@@ 좋아요 순위 -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 좋아요 순위 -->
 
-	<div class="outbox" style="width:640px">
+	<div class="outbox box">
 		<div class="row left">
 			모비 좋아요 순위
 		</div>
@@ -304,7 +374,9 @@
 			<div class="swiper-wrapper">
 				<%for(MovieDtoVO lovedto : movieLoveList){ %>
 					<div class="movie movie_detail swiper-slide">
-						<img class="hov" src="http://placeimg.com/100/200/any">
+					<div class="rank"><%=lovedto.getRank() %></div>
+						<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
+						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 						<h1 class="h hov2">
 								<%=lovedto.getMovie_name()%>
 						</h1>
@@ -313,26 +385,28 @@
 			</div>
 		
 			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>	
 	</div>
 
-<!-- @@@@@@@@@@ 관객수 순위 -->
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 관객수 순위 -->
 
-	<div class="outbox" style="width:640px">
+	<div class="outbox box">
 		<div class="row left">
 			모비 관객수 순위
 		</div>
 		<div class="row swiper-container swiper2">
 	
 			<div class="swiper-wrapper">
-				<%for(MovieDto moviedto : movieAudList){ %>
+				<%for(MovieDtoVO moviedto : movieAudList){ %>
 					<div class="movie movie_detail swiper-slide">
-						<img class="hov" src="http://placeimg.com/100/200/any">
+					<div class="rank"><%=moviedto.getRank() %></div>
+						<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
+						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 						<h1 class="h hov3">
 								<%=moviedto.getMovie_name()%>
 						</h1>
@@ -340,39 +414,54 @@
 				<%} %>
 			</div>
 			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 	</div>
 </div>
 
-<!-- @@@@@@@@@@ 맞춤 추천 -->
-	<div class="outbox" style="width:640px">
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 맞춤 추천 -->
+
+<!-- 로그인 했을 경우엔 맞춤 영화를 보여준다! -->
+<%	if(isLogin){
+	//null값을 처리해주기 위해 자료형은 Integer로 설정
+	Integer member_check = (Integer)session.getAttribute("check");
+	
+	//내가 좋아하는 장르의 영화 리스트
+	List<MovieDto> favgenre_movieList =movieDao.find_movie(member_check);
+	//랜덤으로 섞어주기
+	Collections.shuffle(favgenre_movieList);
+	
+	if(!(favgenre_movieList.isEmpty())) {%>
+
+	<div class="outbox box">
 		<div class="row left">
 			맞춤 영화
 		</div>
 			<div class="row swiper-container swiper2">
 	
 			<div class="swiper-wrapper">
-				<%for(MygenreDtoVO mydto : mygenreList){ %>
+		
+				<%for(MovieDto mydto : favgenre_movieList){ %>
 					<div class="movie movie_detail swiper-slide">
-					<img class="hov" src="http://placeimg.com/100/200/any">
+					<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
+					<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 					<h1 class="h hov4">
-							<%=mydto.getGenre_name()%>
+							<%=mydto.getMovie_name()%>
 					</h1>
 					</div>
 				<%} %>
 			</div>
 			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
 		
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
 		</div>
 	</div>
-	
+<%} } %>
 </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

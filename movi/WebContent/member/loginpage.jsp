@@ -39,7 +39,7 @@
   <tr>
    <td><a href="/movi/member/join.jsp"> 회원가입 | </a></td> 
    <td><a href="/movi/member/Idfind.jsp"> 아이디 찾기 |</a></td>
-   <td><a href="/movi/member/PWfind.jsp"> 비밀번호 재설정</a></td>
+   <td><a href="/movi/member/pwfind.jsp"> 비밀번호 재설정</a></td>
   </tr>
   </table>
              

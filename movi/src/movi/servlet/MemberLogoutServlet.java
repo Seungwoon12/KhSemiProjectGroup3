@@ -26,4 +26,4 @@ public class MemberLogoutServlet extends HttpServlet{
          resp.sendError(500);
       }
    }
-}//MemberLogoutServlet
+}

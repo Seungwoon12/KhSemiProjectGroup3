@@ -26,9 +26,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
             //조회
             MemberDao dao = new MemberDao();
             boolean login = dao.login(dto);
-   
-            
-            
+ 
             //로그인 성공 실패 리다이렉트
             if(login) {      //로그인성공
                MemberDto m = dao.find(dto.getMember_id());

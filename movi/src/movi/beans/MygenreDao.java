@@ -13,6 +13,8 @@ public class MygenreDao {
 	public static final String USERNAME="movi";
 	public static final String PASSWORD="movi";
 	
+	//회원이 선호하는 장르의 이름을 가져오기
+	//선호하는 장르에 따른 영화 이름은 movieDao에 있음
 	public List<MygenreDtoVO> find(int mygenre_member_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql ="select g.genre_name, m.mygenre_member_no " + 
@@ -80,4 +82,5 @@ public class MygenreDao {
 		con.close();
 		return list;
 	}
+	
 }
