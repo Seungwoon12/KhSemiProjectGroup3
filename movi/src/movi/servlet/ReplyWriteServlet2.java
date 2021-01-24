@@ -40,7 +40,8 @@ public class ReplyWriteServlet2 extends HttpServlet {
 			replyDao.writeReply2(replyDto); // 대댓글등록
 			
 			//댓글을 작성한 게시글 상세페이지로 이동
-			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin());
+			int p = Integer.parseInt(req.getParameter("p"));
+			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin()+"&p="+p);
 			
 		}
 		catch(Exception e) {

@@ -23,6 +23,7 @@ public class ReplyWriteServlet extends HttpServlet {
 			replyDto.setReply_writer_no(Integer.parseInt(req.getParameter("reply_writer_no")));
 			replyDto.setReply_content(req.getParameter("reply_content"));
 			
+			
 			//댓글번호 시퀀스 생성 후 댓글 등록
 			ReplyDao replyDao = new ReplyDao();
 			int reply_no = replyDao.getSequence();
@@ -32,7 +33,8 @@ public class ReplyWriteServlet extends HttpServlet {
 			replyDao.writeReply(replyDto); // 댓글등록
 			
 			//댓글을 작성한 게시글 상세페이지로 이동
-			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin());
+			int p = Integer.parseInt(req.getParameter("p"));
+			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin()+"&p="+p);
 			
 			
 		}

@@ -36,7 +36,10 @@ public class ReplyWriteServlet3 extends HttpServlet {
 			//대대댓글 등록
 			replyDao.writeReply3(replyDto);
 			
-			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin());
+			//댓글을 작성한 게시글 상세페이지로 이동
+			int p = Integer.parseInt(req.getParameter("p"));
+			
+			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin()+"&p="+p);
 			
 			
 			

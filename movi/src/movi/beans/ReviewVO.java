@@ -11,6 +11,7 @@ public class ReviewVO {
 	private Date review_date;
 	private int review_read;
 	private String member_nick;
+	private String movie_name;
 	private int reply_count;
 	public ReviewVO() {
 		super();
@@ -63,12 +64,19 @@ public class ReviewVO {
 	public void setMember_nick(String member_nick) {
 		this.member_nick = member_nick;
 	}
+	public String getMovie_name() {
+		return movie_name;
+	}
+	public void setMovie_name(String movie_name) {
+		this.movie_name = movie_name;
+	}
 	public int getReply_count() {
 		return reply_count;
 	}
 	public void setReply_count(int reply_count) {
 		this.reply_count = reply_count;
 	}
+	
 	
 	
 

@@ -9,7 +9,10 @@
 	ReviewDto reviewDto = reviewDao.find(review_no);
 	MovieDaoSW movieDaoSW = new MovieDaoSW();
 	MovieDto movieDto = movieDaoSW.find(reviewDto.getReview_movie_no());
-
+	
+	//페이지번호
+	int p = Integer.parseInt(request.getParameter("p"));
+		
 %>
 
 
@@ -21,6 +24,7 @@
 		</div>
 		<form action="edit.do" method="post">
 			<input type="hidden" name="review_no" value="<%=review_no%>">
+			<input type="hidden" name="p" value=<%=p%>>
 			
 			<div class="row">
 				<label>영화명</label>

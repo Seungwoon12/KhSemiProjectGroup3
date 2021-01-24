@@ -21,12 +21,6 @@
 	int member_no = (int)session.getAttribute("check");
 	MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
 	
-	
-	//조회수 증가(*중복방지 어케할지 고민)
-	reviewDao.plusRead(review_no);
-	
-	
-	
 
 	ReplyDao replyDao = new ReplyDao();
 	
@@ -38,8 +32,30 @@
 	List<ReplyVO> replyList = replyDao.selectReply(review_no);
 	
 	
-		
+	//목록에서 들어올때 해당 게시글이 몇페이지에 있는지 파라미터로 받기
+	int p = Integer.parseInt(request.getParameter("p"));
+	
+	
+	//작성자본인 및 운영자인지 확인작업
+	String auth = (String)session.getAttribute("auth");
+	boolean isAdmin = auth.equals("관리자");
+	
+	int userNo = (int)session.getAttribute("check");
+	boolean isWriter = reviewDto.getReview_writer_no() == userNo;
 
+	
+	//조회수 증가(*중복방지 어케할지 고민)
+	
+	//게시글번호 세션에 저장
+	
+		
+		if(!isWriter && session.getAttribute("review_no") == null) {
+			session.setAttribute("review_no", review_no);
+			reviewDao.plusRead(review_no);
+		}
+			
+	
+	
 %>
 
 
@@ -61,7 +77,7 @@
  		//수정버튼 클릭하면 해당 게시글 수정페이지로 이동
  		$(".review-edit-btn").click(function(){
  			
- 			location.href = "<%=request.getContextPath()%>/review/edit.jsp?review_no=<%=review_no%>";
+ 			location.href = "<%=request.getContextPath()%>/review/edit.jsp?review_no=<%=review_no%>&p=<%=p%>";
  		});
  		
  		//삭제버튼 클릭하면 삭제
@@ -73,6 +89,19 @@
 			}
 			
 		}); 		
+ 		
+ 		//목록버튼 클릭하면 목록으로 이동
+ 		$(".review-list-btn").click(function(){
+ 			
+ 			location.href = "<%=request.getContextPath()%>/review/list.jsp?p=<%=p%>";
+ 			
+ 		});
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
  		
  		//댓글 null값 방지
  		$(".reply-regist-btn").click(function(e){
@@ -189,14 +218,40 @@
   	 			
   		});
  		
+ 		
+ 		//reply4-write-btn 대대댓글에 답글쓸때부터는 쭉 이걸로
+ 		$(".reply4-write-btn").click(function(e){
+ 			e.preventDefault();
+ 			
+ 			var nick = $(this).prev().val();
+ 			$(this).parent().parent().next().next().find(".reply3-area").attr("placeholder", nick+"님께 답글쓰기");
+ 			
+			var replyNo = $(this).next().val();
+ 			
+ 			$(this).parent().parent().next().next().find("input[name=reply_root]").val(replyNo);
+ 			
+ 			
+ 			//작성란 보여주기
+ 			$(this).parent().parent().next().next().show();
+ 			
+ 		});
+ 		
+ 		
+ 		
+ 		
+ 		
  	});
  
  </script>
  
  <div class="outbox" style="width:800px">
  	<div class="row">
- 		<button class="review-edit-btn">수정</button>
- 		<button class="review-delete-btn">삭제</button>
+ 	<%if(isWriter || isAdmin) { %>
+ 		<button class="review-edit-btn input input-inline">수정</button>
+ 		<button class="review-delete-btn input input-inline">삭제</button>
+ 	<%} %>
+ 		<button class="review-list-btn input input-inline">목록</button>
+ 		
  	</div>
  	<br>
  	
@@ -302,12 +357,13 @@
 	 				String time = f.format(replyVO.getReply_time());
  				%>
  				<%=time%>
- 				<a href="#" class=""></a>
+ 				<input type="hidden" name="reply_member_nick" value=<%=replyVO.getMember_nick()%> >
+ 				<a href="#" class="reply4-write-btn">답글쓰기</a>
  				<input type="hidden" name="reply_root" value="<%=replyVO.getReply_root()%>"> <!-- 댓글의 reply_no -->
  				<hr>
  			</div>
  		</div>		
- 		<%} %>
+ 		<%}	 %>
  		
  		
  			
@@ -328,6 +384,7 @@
 	 				
 	 				
 	 				<div class="row right">
+	 					<input type="hidden" name="p" value="<%=p%>">
 	 					<button class="reply2-cancel-btn input input-inline">취소</button>
 	 					<input type="submit" value="등록" class="input input-inline reply2-regist-btn">
 	 				</div>
@@ -358,6 +415,7 @@
 	 				
 	 				
 	 				<div class="row right">
+	 					<input type="hidden" name="p" value="<%=p%>">
 	 					<button class="reply3-cancel-btn input input-inline">취소</button>
 	 					<input type="submit" value="등록" class="input input-inline reply3-regist-btn">
 	 				</div>
@@ -387,13 +445,21 @@
 	 			</div>
 	 			
 	 			<div class="row right">
+	 				<input type="hidden" name="p" value="<%=p%>">
 	 				<input type="submit" value="등록" class="input input-inline reply-regist-btn">
 	 			</div>
  			</form>
  		</div>
  		
  	</div>
- 		
+ 	
+ 	<div>
+ 	<%if(isWriter || isAdmin) { %>
+ 		<button class="review-edit-btn input input-inline">수정</button>
+ 		<button class="review-delete-btn input input-inline">삭제</button>
+ 	<%} %>
+ 		<button class="review-list-btn input input-inline">목록</button>
+ 	</div>	
  	
  </div>
  

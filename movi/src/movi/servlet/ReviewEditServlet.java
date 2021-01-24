@@ -32,7 +32,10 @@ public class ReviewEditServlet extends HttpServlet {
 			ReviewDao reviewDao = new ReviewDao();
 			reviewDao.reviewEdit(reviewDto);
 			
-			resp.sendRedirect("detail.jsp?review_no="+reviewDto.getReview_no());
+			
+			//수정 후 상세페이지로 리다이렉트
+			int p = Integer.parseInt(req.getParameter("p"));
+			resp.sendRedirect("detail.jsp?review_no="+reviewDto.getReview_no()+"&p="+p);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
