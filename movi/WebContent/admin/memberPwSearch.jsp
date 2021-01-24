@@ -80,7 +80,7 @@
 			<br> <a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br>
 			<br> <a href="#"> 회원 쿠폰 관리 </a>
 			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
-			<br><br> <a>쿠폰 등록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
 		</div>
 	</aside>
 
@@ -97,7 +97,7 @@
   			<h1>회원 검색</h1>
   		</div>
   		<div>
-  			<form action="memberList.jsp" method="post">
+  			<form action="memberPwSearch.jsp" method="post">
   				<select name="type">
 					<option value="member_no">회원 번호</option>
 					<option value="member_id">아이디</option>

@@ -66,7 +66,9 @@
 						<th><%=reviewDto.getReview_content() %></th>
 					</tr>
 					<tr>
-						<th>댓글</th>
+						<th>
+							<textarea placeholder="댓글을 입력하세요."></textarea>
+						</th>
 					</tr>
 					<tr>
 						<td>

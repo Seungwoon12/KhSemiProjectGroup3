@@ -34,7 +34,7 @@
 
 <!--멤버 목록   -->
 <%	
-	MemberAdminDao memberDao = new MemberAdminDao();
+	EventAdminDao memberDao = new EventAdminDao();
 	List<MemberAdminDtoVO> memberList ;
 	if(search){
 		 memberList = memberDao.coupage_admin(type, key, startRow, endRow);
@@ -44,8 +44,7 @@
 %>
 
 <!-- 페이지 블록  -->
-<%
-	
+<%	
 	//블록크기
 	int blockSize = 10;
 	int startBlock = (p-1)/blockSize * blockSize +1;
@@ -67,6 +66,28 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<!-- 각종 기능 -->
+<script>
+//	$(function(){
+//		//삭제시 알림창 보여주기
+//		$(".delete").click(function(e){
+//			e.preventDefault();
+			
+//			var check = window.confirm("쿠폰을 삭제하시겠습니까?");
+//			if(check){
+//				location.href=$(this).attr("href");
+//			}
+//		});
+		
+//	});
+	
+	
+
+</script>
+
+
+
+
 <div class="outbox" style="width: 100%">
 	<aside>
 		<div class="row center">
@@ -76,8 +97,8 @@
 			<a href="memberList.jsp">회원리스트 </a><br>
 			<br> <a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br>
 			<br> <a href="#"> 회원 쿠폰 관리 </a>
-			<br><br> <a href="memberCouponlist.jsp">쿠폰 목록</a>
-			<br><br> <a href="#">쿠폰 등록</a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
 		</div>
 	</aside>
 
@@ -138,8 +159,8 @@
 					<td><%=memberDto.getEvent_coupon() %></td>
 					<td><%=memberDto.getEvent_start() %> ~ <%=memberDto.getEvent_end() %></td>
 					<td>
-						<input type="button" value="수정">
-						<input type="button" value="삭제">
+						<input type="button" value="수정" onclick="location.href='memberCouponEdit.jsp?member_no=<%=memberDto.getMember_no()%>' ">
+						<input type="button"  value="삭제" onclick="location.href='couponDelete.do?event_member_no=<%=memberDto.getMember_no()%>'">
 					</td>
 				</tr>
 			<%} %> 
@@ -186,8 +207,6 @@
 
 	</article>
 </div>
-
-
 
 
 <jsp:include page="/adminTemplate/footer.jsp"></jsp:include>

@@ -165,7 +165,7 @@
 					<td ><%=reviewDto.getReview_read() %></td>
 					<td>
 						<a href="reviewDetail.jsp?review_no=<%=reviewDto.getReview_no()%>">상세보기</a>
-						<a href="reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>">삭제</a>
+						<a class="Delete" href="reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>">삭제</a>
 						
 					</td>
 				</tr>

@@ -15,6 +15,7 @@ public class MemberAdminDtoVO {
 	private int mygenre_no;
 	private int genre_no;
 	private String genre_name;
+	private int event_member_no;
 	private String event_name;
 	private String event_coupon;
 	private Date event_start;
@@ -150,9 +151,21 @@ public class MemberAdminDtoVO {
 	public void setEvent_end(Date event_end) {
 		this.event_end = event_end;
 	}
+	
+	public int getEvent_member_no() {
+		return event_member_no;
+	}
 
+	public void setEvent_member_no(int event_member_no) {
+		this.event_member_no = event_member_no;
+	}
+	
 	public boolean is(String member_auth) {
 		return this.member_auth != null & this.member_auth.equals(member_auth);
+	}
+	
+	public boolean coupon(String event_coupon) {
+		return this.event_coupon !=null & this.event_coupon.equals(event_coupon);
 	}
 	
 }

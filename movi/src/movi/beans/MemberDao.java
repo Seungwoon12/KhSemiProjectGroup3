@@ -1,6 +1,7 @@
 package movi.beans;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 import movi.util.JdbcUtil;
 
-public class Memberdao {
+public class MemberDao {
 
 	//계정 정보를 상수로 저장
 		public static final String USERNAME = "movi";
@@ -254,7 +255,4 @@ public class Memberdao {
 				
 				return dto;		
 			}
-		
-		
-
 }
