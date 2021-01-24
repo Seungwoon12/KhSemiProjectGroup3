@@ -21,7 +21,6 @@
 	int member_no = (int)session.getAttribute("check");
 	MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
 	
-
 	ReplyDao replyDao = new ReplyDao();
 	
 	//댓글개수
@@ -42,7 +41,6 @@
 	
 	int userNo = (int)session.getAttribute("check");
 	boolean isWriter = reviewDto.getReview_writer_no() == userNo;
-
 	
 	//조회수 증가(*중복방지 어케할지 고민)
 	
@@ -67,7 +65,6 @@
 	textarea{
 		resize:none;
 	}
-
 </style>
 
 
@@ -177,7 +174,6 @@
  		
  		
  		//"답글쓰기"를 누르지않을때는 대대댓글 작성란 숨김처리
-
  		$(".reply3-write").hide();
  		
  		

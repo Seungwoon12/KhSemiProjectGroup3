@@ -48,6 +48,7 @@ public class GenreDao {
 	}
 
 	//장르 이름으로 영화 이름 불러오기
+	//회원이 선호하는 장르의 영화 이름들을 불러오는거는 moviedao의 movie_find()를 참고하자 
 	public List<GenreDto> find_movie(String genre_name) throws Exception{
 		Connection con = JdbcUtil.getConnection("movi", "movi");
 		String sql = "select g.genre_name, m.movie_name " + 
