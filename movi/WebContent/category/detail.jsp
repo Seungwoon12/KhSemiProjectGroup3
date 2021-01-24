@@ -87,7 +87,8 @@
 	<hr>
 	
 	<div class="right">
-	<a href="#">영화 리뷰 보러가기</a>
+	<!-- 클릭하면 해당 영화의 movie_no가 검색된 리뷰 테이블로 이동하기 -->
+	<a href="/movi/review/list.jsp">영화 리뷰 보러가기</a>
 	</div>
 	
 </div>

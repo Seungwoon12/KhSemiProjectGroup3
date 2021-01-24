@@ -1,3 +1,4 @@
+<%@page import="javax.swing.JOptionPane"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -187,6 +188,35 @@
     text-align: -webkit-center;
     border-radius: 35%;
 }
+
+/*팝업창*/
+.loading-wrapper{
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:9999;
+    display:none;
+    
+}
+.loading-wrapper>a{
+	width:500px;
+	height:600px;
+	z-index:9999;
+    position: fixed;
+    left: 37%;
+    top:20%
+}
+.close{
+	width: 39px;
+    position: fixed;
+    top: 21%;
+    left: 62%;
+    z-index: 999999999;
+    cursor: pointer;
+}
 </style>
 
 <script>
@@ -261,9 +291,27 @@
          delay: 0,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
          position: { my : "left top", at: "left bottom"}//위치
      });
+     
+     $(".close").click(function(){
+    	 $(".loading-wrapper").hide();
+     });
+     
 });
+     $(document).ready(function(){
+    	 $(".loading-wrapper").show();
+     });
 	
 </script>
+
+
+<!-- 팝업창 -->
+<div class="loading-wrapper">
+	<img src="./img/close.jpg" class="close">
+	<a href="/movi/event/main.jsp">
+		<img src="https://img.pooq.co.kr/service30/crm/3m66upgrade_layerpopup_pc.jpg">
+	</a>
+</div>
+
 
 <div class="outbox" style="width:100%">
 
@@ -398,6 +446,7 @@
 		
 				<%for(MovieDto mydto : favgenre_movieList){ %>
 					<div class="movie movie_detail swiper-slide">
+					<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
 					<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 					<h1 class="h hov4">
 							<%=mydto.getMovie_name()%>

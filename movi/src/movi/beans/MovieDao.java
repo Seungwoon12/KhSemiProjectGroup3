@@ -498,6 +498,7 @@ public class MovieDao {
 		while(rs.next()) {
 			MovieDto dto = new MovieDto();
 			dto.setMovie_name(rs.getString("movie_name"));
+			dto.setMovie_no(rs.getInt("movie_no"));
 			
 			list.add(dto);
 		}
