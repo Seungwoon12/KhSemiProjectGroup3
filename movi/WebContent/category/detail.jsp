@@ -8,12 +8,13 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 
 <%
-	String movie_name = request.getParameter("movie_name");
+	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
+
 	MovieDao movieDao = new MovieDao();
-	List<MovieDtoVO> moviegenreList = movieDao.select_movie_detail(movie_name);
+	List<MovieDtoVO> moviegenreList = movieDao.select_movie_detail(movie_no);
 			
-	List<MovieDtoVO> main_actor = movieDao.find_actor(movie_name, "주연");
-	List<MovieDtoVO> sub_actor = movieDao.find_actor(movie_name, "조연");
+	List<MovieDtoVO> main_actor = movieDao.find_actor(movie_no, "주연");
+	List<MovieDtoVO> sub_actor = movieDao.find_actor(movie_no, "조연");
 %>
 
 <style>

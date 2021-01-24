@@ -44,7 +44,7 @@
 <ul class="main movie_list">
 		<%for(RecommendDtoVO dto : recomDto) {%>
        <li class="list">
-			<a href="detail.jsp?movie_name=<%=dto.getRecom_movie_name()%>">
+			<a href="detail.jsp?movie_no=<%=dto.getRecom_movie_no()%>">
 			<img src ="https://placehold.it/200X300?text=IMAGE">
 				<%=dto.getRecom_movie_name() %>
 			</a>

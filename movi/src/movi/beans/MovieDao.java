@@ -19,7 +19,7 @@ public class MovieDao {
 		
 		String sql ="select * from("
 					+ "select rownum rn, TMP.* from("
-							+ "select m.movie_no, m.movie_name, count(l.love_no) mlike "
+							+ "select m.movie_no, m.movie_name, count(l.love_movie_no) mlike "
 							+ "from movie M "
 					        + "left outer join love L on m.movie_no=l.love_movie_no " 
 					        + "group by m.movie_no,m.movie_name " 
@@ -507,15 +507,15 @@ public class MovieDao {
 	
 	//영화 이름으로 상세보기 +장르 이름까지
 	//select_movie() 업그레이드 버전
-		public List<MovieDtoVO> select_movie_detail(String movie_name) throws Exception{
+		public List<MovieDtoVO> select_movie_detail(int movie_no) throws Exception{
 			Connection con = JdbcUtil.getConnection(USER,PASS);
 			
 			String sql ="select * " + 
 					"from movie m " + 
 					"left outer join genre g on g.genre_no = m.movie_genre_no " + 
-					"where m.movie_name=?";
+					"where m.movie_no=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, movie_name);
+			ps.setInt(1, movie_no);
 			ResultSet rs = ps.executeQuery();
 			
 			List<MovieDtoVO> list = new ArrayList<>();
@@ -541,17 +541,16 @@ public class MovieDao {
 		}
 		
 		//영화 이름에 따른 배우 리스트 쫙 불러오기 (주연,조연에 따라)
-		public List<MovieDtoVO> find_actor(String movie_name, String actor_role) throws Exception{
+		public List<MovieDtoVO> find_actor(int movie_no, String actor_role) throws Exception{
 			Connection con = JdbcUtil.getConnection(USER,PASS);
 			
-			String sql ="select a.actor_name " + 
-					"from movie m " + 
-					"left outer join genre g on g.genre_no = m.movie_genre_no " + 
-					"left outer join actor a on a.actor_movie_no = m.movie_no " + 
-					"where m.movie_name=? and a.actor_role=? " + 
-					"group by a.actor_name";
+			String sql ="select * "
+					+ "from actor "
+					+ "right outer join actor_con "
+					+ "on actor_no=con_actor_no "
+					+ "where con_movie_no=? and con_actor_role=?";
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, movie_name);
+			ps.setInt(1, movie_no);
 			ps.setString(2, actor_role);
 			ResultSet rs = ps.executeQuery();
 			

@@ -198,7 +198,7 @@
 		
 		//영화 세부 페이지로 가기
 		$(".movie_detail").click(function(){
-			location.href="/movi/category/detail.jsp?movie_name="+$(this).children("h1").text();
+			location.href="/movi/category/detail.jsp?movie_no="+$(this).children('.no').text();
 		})
 		
 		//스와이퍼1
@@ -239,7 +239,7 @@
 			},
 		});
 
-	//검색기능
+//******************************검색기능
 	
     var searchSource = [
     <%for(int i=0; i<arr.length; i++){%>
@@ -270,7 +270,8 @@
 	<div class="main" style="height:295px">
 		<div class="name">
 		
-		<form action="/movi/category/detail.jsp" method="get">
+		<!-- 영화 이름으로 검색하고 , 같은 이름이 있을수도 있으니 한번더 걸러주는 작업을 한다!! -->
+		<form action="/movi/category/search.jsp" method="get">
 			<div>	
 			
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색기능 -->
@@ -326,6 +327,7 @@
 				<%for(MovieDtoVO lovedto : movieLoveList){ %>
 					<div class="movie movie_detail swiper-slide">
 					<div class="rank"><%=lovedto.getRank() %></div>
+						<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
 						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 						<h1 class="h hov2">
 								<%=lovedto.getMovie_name()%>
@@ -355,6 +357,7 @@
 				<%for(MovieDtoVO moviedto : movieAudList){ %>
 					<div class="movie movie_detail swiper-slide">
 					<div class="rank"><%=moviedto.getRank() %></div>
+						<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
 						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
 						<h1 class="h hov3">
 								<%=moviedto.getMovie_name()%>
