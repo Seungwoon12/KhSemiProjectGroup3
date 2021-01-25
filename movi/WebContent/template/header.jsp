@@ -128,4 +128,3 @@ $(function(){
       <a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a><%} %>
       </nav>
    <section>
- 

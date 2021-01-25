@@ -68,4 +68,4 @@ public class RecommendDao {
 			con.close();
 			return list;
 		}
-}
+}	
