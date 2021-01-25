@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+  <%
+	//사용자가 로그인 상태인지 계산하는 코드
+	//로그인 상태 : null이 아닌 경우
+	//로그아웃 상태 : null인 경우
+	boolean isLogin = session.getAttribute("check") != null;
+	
+	//사용자가 관리자인지 계산하는 코드
+	String auth = (String)session.getAttribute("auth");
+	boolean isAdmin = isLogin && auth.equals("관리자");
+%>
+    
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,16 +65,27 @@
 	<main>
 		<header>
 			<h1 class="left">movi</h1>
+			<%if(!isLogin){ %>
+			<!--로그인아닐때---->
 			<a href="<%=request.getContextPath()%>/member/loginpage.jsp" class="left">로그인</a>
+			<%}
+			else{ %><!--로그인했을때--->
+			<a href="<%=request.getContextPath()%>/member/logout.do"class="left">로그아웃</a>
+	<%} %>
 			<a href="#" class="right">이벤트</a>
+			<%if(isAdmin){ %>
+			<!--권한부여---->
 			<a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
+			<%} %>
 		</header>
 		<nav>
-			<a href="<%=request.getContextPath()%>">홈</a>
-			<!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
-			<a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
-			<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
-			<a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a>
+		<a href="<%=request.getContextPath()%>">홈</a>
+		<!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
+		<a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
+		<a href="<%=request.getContextPath()%>/review/list.jsp">리뷰</a>
+		<%if(isLogin){ %>
+		<!--로그인했을때---->
+		<a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a><%} %>
 		</nav>
 	<section>
 

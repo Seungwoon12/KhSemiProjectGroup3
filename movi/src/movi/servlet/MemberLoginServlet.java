@@ -49,21 +49,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 			}
 		}
 		
-		
-		try {
-            boolean loginOk =dao.isLogin(member_id, member_pw);
-            PrintWriter out = resp.getWriter();
-            if(loginOk) {
-                out.println("로그인 성공");
-            }else {
-                out.println("로그인 정보가 일치하지않습니다.");
-            }
-            out.close();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        
-    }
+   }
 		
 		
 		
