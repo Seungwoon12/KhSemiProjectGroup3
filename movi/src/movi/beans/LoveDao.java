@@ -21,7 +21,7 @@ public class LoveDao {
 		
 		String sql ="select * from ("
 						+ "select rownum rn, L.* from("
-							+ "select * from love where love_member_no=? order by love_no desc"
+							+ "select * from love where love_member_no=? order by love_date desc"
 							+ ") L"
 						+ ")where rn between ? and ?";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -34,7 +34,7 @@ public class LoveDao {
 		while(rs.next()) {
 			LoveDto loveDto = new LoveDto();
 			loveDto = new LoveDto();
-			loveDto.setLove_no(rs.getInt("love_no"));
+			loveDto.setLove_date(rs.getDate("love_date"));
 			loveDto.setLove_movie_no(rs.getInt("love_movie_no"));
 			loveDto.setLove_member_no(rs.getInt("love_member_no"));
 			
@@ -50,7 +50,7 @@ public class LoveDao {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
 		String sql = "insert into love values "
-				+ "(love_seq.nextval, ?, ?)";
+				+ "(?, ?, sysdate)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, loveDto.getLove_movie_no());
 		ps.setInt(2, loveDto.getLove_member_no());
