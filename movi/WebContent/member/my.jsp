@@ -115,7 +115,7 @@
 			<tbody>
 				<tr>
 					<td style="width: 30%">
-						<img src="https://placeimg.com/150/150/people"> <!-- 프로필 사진이 나오도록 수정 -->
+						<img alt="profile" src="https://placeimg.com/150/150/people"> <!-- 프로필 사진이 나오도록 수정 -->
 					</td>
 					<td rowspan="2">
 						<div>
@@ -171,7 +171,7 @@
 	        	%>
 	            <div class="swiper-slide">
 	            	<div class="row">
-						<a href="<%=request.getContextPath()%>/movie/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+						<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
 							<img alt="movie_img" src="<%=request.getContextPath()%>/image/movie/
 							<%try{ %>
 							<%=movieDto.getMovie_no()%>
