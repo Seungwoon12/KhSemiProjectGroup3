@@ -12,7 +12,7 @@
 
 <%
 	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
-	MovieDao movieDao = new MovieDao();
+	MovieAdminDao movieDao = new MovieAdminDao();
 	MovieDto movieDto = movieDao.select_admin(movie_no); /*이것도 나중에 수정*/
 	
 	LoveDao loveDao = new LoveDao();

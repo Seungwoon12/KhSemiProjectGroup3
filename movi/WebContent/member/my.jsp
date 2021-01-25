@@ -52,7 +52,7 @@
 	LoveDao loveDao = new LoveDao();
 	int start = 1, end = 10; //end의 값은 최신 좋아요 순으로 최대 10장만 나오고 최소로도 10장이 나오도록 한다는 뜻 나머지는 빈칸 으로 만들어 둠(자리 차지)
 	List<LoveDto> member_love_list = loveDao.select_love_movie(member_no, start, end);
-	MovieDao movieDao = new MovieDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
+	MovieAdminDao movieDao = new MovieAdminDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
 
 %>
 
