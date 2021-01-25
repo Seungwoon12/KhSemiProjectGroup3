@@ -20,11 +20,25 @@
 <style>
 	.top{
 		display:inline-block;
+		text-align:left;
+	}
+	.outbox{
+		text-align:center;
+	}
+	.detail{
+		border: 1px solid lightgray;
+	    text-align: left;
+	    width: 68%;
+	    margin-left: 16%;
+	    padding-inline: 2rem;
+	}
+	.icon{
+		width:20px;
 	}
 </style>
 <div class="outbox">
 	<%for(MovieDtoVO dto : moviegenreList){ %>
-	<div >
+	<div>
 		<div class="top">
 			<img src ="https://placehold.it/200X300?text=IMAGE">
 		</div>
@@ -52,26 +66,21 @@
 		</div>
 	</div>
 	
-	<hr>
-
+<div class="detail">
 	<div class="row">
-		<h3>상세 정보</h3>
-	<hr>
+		<h2><img class="icon" src="../img/check.png">상세 정보</h2>
 		<p><%=dto.getMovie_name()%></p>
 		<p><%=dto.getMovie_date()%> ・ <%=dto.getMovie_time()%>분 ・ <%=dto.getMovie_director()%></p>
-		<br>
-		[줄거리]
+		<h4>[줄거리]</h4>
 		<p><%=dto.getMovie_content()%></p>
 	</div>
 	
-	<hr>
 
 <%} %>
-	
+<hr>
 <!-- 출연배우 불러오자 !!! -->	
 	<div>
-		<h3>출연배우</h3>
-	<hr>
+		<h2><img class="icon" src="../img/check.png">출연배우</h2>
 	<h4>주연</h4>
 	<p>
 		<%for(MovieDtoVO vo : main_actor) {%>
@@ -84,8 +93,8 @@
 			<%=vo.getActor_name()%>&nbsp;     
 		<%}%>
 	</p>
-	<hr>
-	
+	</div>
+</div>	
 	<div class="right">
 	<!-- 클릭하면 해당 영화의 movie_no가 검색된 리뷰 테이블로 이동하기 -->
 	<a href="/movi/review/list.jsp">영화 리뷰 보러가기</a>

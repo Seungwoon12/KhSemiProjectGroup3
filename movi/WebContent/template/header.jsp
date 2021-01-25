@@ -11,6 +11,7 @@
    String auth = (String)session.getAttribute("auth");
    boolean isAdmin = isLogin && auth.equals("관리자");
   
+   
 %>
     
  
@@ -75,7 +76,11 @@
 
 
 <script>
+
 $(function(){
+	//세션으로 다크모드를 유지하는 방법을 생각해보자!
+	//$(document).ready(function(){
+	//});
 	//다크 모드
 	$(".black-btn").click(function(){
 		//$("html").toggleClass("black");
@@ -84,7 +89,6 @@ $(function(){
 			$("html").addClass("black");
 			$(this).val("밝게하기");
 			$(this).css("background-color","dimgray");
-			//카테고리부분
 			$("li>a").css("color","white");
 		}
 		else{
@@ -100,8 +104,9 @@ $(function(){
 </head>
 <body>
 <!-- 다크 모드 -->
-<input name="mode" type="button" value="어둡게하기" class="btn black-btn">
-
+<form action="" method="get">
+<input name="mode" type="submit" value="어둡게하기" class="btn black-btn">
+</form>
    <main>
       <header>
          <h1 class="left">movi</h1>

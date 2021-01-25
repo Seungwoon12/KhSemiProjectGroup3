@@ -188,6 +188,14 @@
 	padding:17px;
 	margin:10px;
 }
+/*아이콘*/
+.icon{
+	width:60px;
+	float:left;
+}
+.icon+h4{
+	display:inline-block;
+}
 
 /*좋아요, 관객수 순위 숫자 모양*/
 .rank{
@@ -222,7 +230,7 @@
 	height:600px;
 	z-index:9999;
     position: fixed;
-    left: 37%;
+    left: 33%;
     top:20%
 }
 /*팝업창 닫기*/
@@ -230,7 +238,7 @@
 	width: 39px;
     position: inherit;
     top: 21%;
-    left: 58%;
+    left: 60%;
     z-index: 999999999;
     cursor: pointer;
 }
@@ -329,7 +337,7 @@
 <div class="loading-wrapper">
 	<img src="./img/close.jpg" class="close">
 	<a href="/movi/event/main.jsp">
-		<img src="https://img.pooq.co.kr/service30/crm/3m66upgrade_layerpopup_pc.jpg">
+		<img src="./img/event.PNG">
 	</a>
 </div>
 
@@ -387,7 +395,8 @@
 
 		<div class="outbox box">
 			<div class="row left">
-				모비 좋아요 순위
+			<img src="./img/like.png" class="icon">
+				<h4>모비 좋아요 순위</h4>
 			</div>
 			
 			
@@ -419,7 +428,8 @@
 	
 		<div class="outbox box">
 			<div class="row left">
-				모비 관객수 순위
+			<img src="./img/view.png" class="icon">
+				<h4>모비 관객수 순위</h4>
 			</div>
 			<div class="row swiper-container swiper2">
 		
@@ -459,7 +469,8 @@
 
 	<div class="outbox box">
 		<div class="row left">
-			맞춤 영화
+		<img src="./img/recom.png" class="icon">
+			<h4>맞춤 영화</h4>
 		</div>
 		<div class="row swiper-container swiper2">
 
