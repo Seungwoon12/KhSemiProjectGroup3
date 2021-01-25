@@ -167,7 +167,7 @@
     height: 56px;
     background-size: 50px;
 }
-.n1{background-image: url("./img/next1.png") !important;}
+.n1{background-image: url("./img/nnext.png") !important;}
 .p1{background-image: url("./img/prev1.png") !important;}
 
 .n2,.p2{
@@ -234,6 +234,7 @@
     z-index: 999999999;
     cursor: pointer;
 }
+
 </style>
 
 <script>
@@ -315,13 +316,14 @@
     	 $(".loading-wrapper").hide();
      });
        
-});
      $(document).ready(function(){
     	 $(".loading-wrapper").show();
      });
+ 
+});
+	
 	
 </script>
-
 
 <!-- 팝업창 -->
 <div class="loading-wrapper">
@@ -358,7 +360,7 @@
 		
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
-		<div class="row swiper-container swiper1" style="width:850px; height:100%">
+		<div class="row swiper-container swiper1" style="width:840px; height:100%">
 	
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>

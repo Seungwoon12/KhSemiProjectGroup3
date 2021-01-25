@@ -10,6 +10,7 @@
    //사용자가 관리자인지 계산하는 코드
    String auth = (String)session.getAttribute("auth");
    boolean isAdmin = isLogin && auth.equals("관리자");
+  
 %>
     
  
@@ -50,6 +51,22 @@
    section {
       height: 100%;
    }
+   
+   /*다크모드 버튼 (헤더에 해야됨)*/
+.btn{
+	position: fixed;
+    top: 90%;
+    left: 84%;
+    height: 50px;
+    width: 124px;
+    z-index: 999;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+.black{
+	background-color: #202020;
+	color: #d9d9d9;
+}
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.1.js"></script>
@@ -58,10 +75,33 @@
 
 
 <script>
-
+$(function(){
+	//다크 모드
+	$(".black-btn").click(function(){
+		//$("html").toggleClass("black");
+		
+		if($(this).val()=="어둡게하기"){
+			$("html").addClass("black");
+			$(this).val("밝게하기");
+			$(this).css("background-color","dimgray");
+			//카테고리부분
+			$("li>a").css("color","white");
+		}
+		else{
+			$("html").removeClass("black");
+			$(this).val("어둡게하기");
+			$(this).css("background-color","white");
+			$("li>a").css("color","black");
+		}
+	
+	});
+});
 </script>
 </head>
 <body>
+<!-- 다크 모드 -->
+<input name="mode" type="button" value="어둡게하기" class="btn black-btn">
+
    <main>
       <header>
          <h1 class="left">movi</h1>
@@ -88,3 +128,4 @@
       <a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a><%} %>
       </nav>
    <section>
+ 
