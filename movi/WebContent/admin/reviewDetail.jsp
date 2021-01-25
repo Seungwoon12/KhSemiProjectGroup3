@@ -15,6 +15,7 @@
 
 <!-- 각종 기능 -->
 <script>
+//리뷰 삭제시 alert확인
 	window.onload= function(){
 		document.querySelector(".review-delete").addEventListener("click", function(){
 	
@@ -22,7 +23,7 @@
 			if(check){
 				location.href=this.href ;
 			}else{
-				this.disabled='disabled';
+				location.href= "<%=request.getContextPath()%>/admin/reviewList.jsp";
 			}
 		});
 	}; 

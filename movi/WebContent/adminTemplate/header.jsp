@@ -18,9 +18,8 @@
 	
 	/* 전체 화면의 폭은 100% 로 한다 */
 	main {
-		width:100%;
+		width:1200px;
 		margin:auto;
-		min-height: 1650px;
 	}
 	
         section::after {
@@ -50,7 +49,7 @@
         
 	/* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
 	section {
-		height: 1500px;
+		min-height: 450px;
 	}
 	/*로고 만들기*/
 	.logo{
