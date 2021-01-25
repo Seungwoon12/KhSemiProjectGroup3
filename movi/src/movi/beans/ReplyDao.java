@@ -97,7 +97,7 @@ public class ReplyDao {
 		String sql = "select R.*, M.member_nick "
 				+ "from reply R inner join member M on R.reply_writer_no = M.member_no "
 				+ "where reply_origin = ? "
-				+ "order by reply_root, reply_time";
+				+ "order by reply_root, reply_no, reply_time";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, review_no);
 		ResultSet rs = ps.executeQuery();
@@ -123,17 +123,52 @@ public class ReplyDao {
 		return list;
 	}
 	
-	//reply_parent 닉네임 구하기(대대댓글 출력시 사용)
-	public String getNick(int reply_parent) throws Exception {
+	//reply_parent 닉네임 및 댓글 작성자번호 구하기(대대댓글 출력시 사용)
+	public ReplyVO getNick(int reply_parent) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "select R.*, M.member_nick from reply R inner join member M on R.reply_writer_no = M.member_no where reply_no = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, reply_parent);
 		ResultSet rs = ps.executeQuery();
-		rs.next();
-		String nick = rs.getString("member_nick");
 		
-		return nick;
+		ReplyVO replyVO;
+		if(rs.next()) {
+			replyVO = new ReplyVO();
+			replyVO.setReply_writer_no(rs.getInt("reply_writer_no"));
+			replyVO.setMember_nick(rs.getString("member_nick"));
+		}
+		else {
+			replyVO = null;
+		}
+		
+		con.close();
+		
+		return replyVO;
+	}
+	
+	
+	//댓글수정
+	public void editReply(ReplyDto replyDto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "update reply set reply_content = ?, reply_time = sysdate where reply_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, replyDto.getReply_content());
+		ps.setInt(2, replyDto.getReply_no());
+		ps.execute();
+		
+		con.close();
+	}
+	
+	//댓글삭제
+	public void deleteReply(int reply_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "delete reply where reply_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, reply_no);
+		ps.execute();
+		
+		con.close();
+		
 	}
 	
 	

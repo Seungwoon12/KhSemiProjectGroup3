@@ -5,6 +5,8 @@
     
 <%
 	request.setCharacterEncoding("UTF-8");
+	//조회수 방지위해 기록했던 review_no 세션 제거
+	session.removeAttribute("review_no");
 %>
 
 <%
@@ -74,6 +76,16 @@
    
 <jsp:include page="/template/header.jsp"></jsp:include>
 
+<style>
+	.table a{
+		 text-decoration: none;
+         color: black;
+	}
+	.table a:hover{
+		text-decoration: underline;
+	}
+</style>
+
 <script>
 	$(function(){
 		
@@ -97,7 +109,8 @@
 			<thead>
 				<tr>
 					<th>글번호</th>
-					<th>제목</th>
+					<th>영화명</th>
+					<th width="40%">제목</th>
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회</th>
@@ -111,8 +124,9 @@
 			    %>
 				<tr>
 					<td><%=reviewVO.getReview_no() %></td>
+					<td><%=reviewVO.getMovie_name()%></td>
 					<td>
-						<a href="detail.jsp?review_no=<%=reviewVO.getReview_no()%>">
+						<a href="detail.jsp?review_no=<%=reviewVO.getReview_no()%>&p=<%=p%>">
 							<%=reviewVO.getReview_title() %>
 							<%if(reviewVO.getReply_count() > 0) { %>
 								[<%=reviewVO.getReply_count() %>]
@@ -217,4 +231,4 @@
 </div>
 
 
-<jsp:include page="/template/footer.jsp"></jsp:include>
+<jsp:include page="/template/footer.jsp"></jsp:include>	
