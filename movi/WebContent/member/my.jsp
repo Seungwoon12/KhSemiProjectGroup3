@@ -115,7 +115,7 @@
 			<tbody>
 				<tr>
 					<td style="width: 30%">
-						<img src="https://placeimg.com/150/150/people">
+						<img src="https://placeimg.com/150/150/people"> <!-- 프로필 사진이 나오도록 수정 -->
 					</td>
 					<td rowspan="2">
 						<div>
@@ -138,7 +138,10 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="button" class="input input-inline" value="프로필 변경">
+						<form action="profile-enroll.do" method="post" enctype="multipart/form-data">
+ 							<input type="file" name="profile" accept=".jpg, .png, .gif">
+ 							<input type="submit" class="input input-inline" value="프로필 변경">
+ 						</form>
 					</td>
 				</tr>
 			</tbody>
