@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import movi.util.JdbcUtil;
 
 public class MemberFindDao {
+	//계정 정보를 상수로 저장
+			public static final String USERNAME = "movi";
+			public static final String PASSWORD = "movi";
 	
 	public String insert(MemberFindDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);

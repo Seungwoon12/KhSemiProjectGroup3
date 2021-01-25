@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import movi.beans.ReplyDao;
 import movi.beans.ReplyDto;
 
-@WebServlet(urlPatterns="/review/reply_write2.do")
+@WebServlet(urlPatterns="/review/reply2_write.do")
 public class ReplyWriteServlet2 extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
