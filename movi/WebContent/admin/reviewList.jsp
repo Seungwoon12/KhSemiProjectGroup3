@@ -51,21 +51,20 @@
 	int startBlock = (p-1)/blockSize * blockSize +1;
 	int endBlock = startBlock + blockSize -1;
 	
-	//int count;
-	//if(search){
-	//	count= memberDao.count_admin(type, key); 
-	//}else{
-	//	count= memberDao.count_admin(); 
-	//}
+	int count;
+	if(search){
+		count= reviewDao.count_admin(type, key); 
+	}else{
+		count= reviewDao.count_admin(); 
+	}
 	//페이지 개수
-	//int countSize = (count + pageSize -1) / pageSize;
+	int countSize = (count + pageSize -1) / pageSize;
 	
-	//if(endBlock > countSize){
-	//	endBlock = countSize;
-	//}
+	if(endBlock > countSize){
+		endBlock = countSize;
+	}
 %>    
      
-    
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>      
  

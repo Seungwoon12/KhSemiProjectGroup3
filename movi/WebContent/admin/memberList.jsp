@@ -226,7 +226,7 @@
 				<%if(search){ %>
 				<li><a href="memberList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
 				<%}else{ %>
-				<li><a href="memberLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<li><a href="memberList.jsp?p=<%=endBlock+1%>">&gt;</a></li>
 				<%} %>
 
 			</ul>

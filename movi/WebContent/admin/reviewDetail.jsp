@@ -13,6 +13,22 @@
 	ReviewDto reviewDto = reviewDao.select_admin(review_no);
 %>
 
+<!-- 각종 기능 -->
+<script>
+	window.onload= function(){
+		document.querySelector(".review-delete").addEventListener("click", function(){
+	
+			var check = window.confirm("리뷰를 삭제하시겠습니까?");
+			if(check){
+				location.href=this.href ;
+			}else{
+				this.disabled='disabled';
+			}
+		});
+	}; 
+	
+
+</script>
 
 
 <div class="outbox" style="width:100%">
@@ -73,11 +89,11 @@
 					<tr>
 						<td>
 							<input type="button" value="댓글추가" id="editBtn" onclick="location.href='reviewDetail.jsp?review_no=<%=reviewDto.getReview_no()%>'">
-							<input type="button" value="댓글삭제" id="deleteBtn" onclick="location.href=''">
+							<input type="button" value="댓글삭제" class="delete-btn" onclick="location.href=''">
 						</td>
 					</tr>
 					<tr>
-						<td><input type="button" value="리뷰삭제" id="deleteBtn" onclick="location.href='reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>'"></td>
+						<td><input type="button" value="리뷰삭제" class="review-delete" onclick="location.href='reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>'"></td>
 					</tr>
 				</tbody>
 			</table>

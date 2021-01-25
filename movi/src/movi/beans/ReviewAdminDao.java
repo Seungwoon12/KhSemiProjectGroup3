@@ -147,8 +147,42 @@ public class ReviewAdminDao {
 		con.close();
 
 		return reviewList;
+	}	
+		
+//리뷰 목록 개수 -/admin/reviewList.jsp
+		public int count_admin() throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+
+			String sql = "select count(*) from review ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			con.close();
+
+			return count;
+		}
+
+		
+//리뷰 검색 개수 -/admin/reviewList.jsp
+		public int count_admin(String type , String key) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+
+			String sql = " select count(*) from review where instr(#1, ?) >0 ";
+			sql = sql.replace("#1", type);
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, key);
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+
+			con.close();
+
+			return count;
+
+		}		
 		
 		
-		
-	}
+	
 }

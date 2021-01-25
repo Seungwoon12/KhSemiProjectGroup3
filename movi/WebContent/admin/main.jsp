@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
-<% %>
-
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
 
@@ -41,32 +38,7 @@ chart.render();
 }
 </script>
 <!-- 파이 차트 -->
-<script>
-window.onload = function() {
 
-var chart = new CanvasJS.Chart("chartContainer2", {
-	animationEnabled: true,
-	title: {
-		text: "Desktop Search Engine Market Share - 2016"
-	},
-	data: [{
-		type: "pie",
-		startAngle: 240,
-		yValueFormatString: "##0.00\"%\"",
-		indexLabel: "{label} {y}",
-		dataPoints: [
-			{y: 79.45, label: "Google"},
-			{y: 7.31, label: "Bing"},
-			{y: 7.06, label: "Baidu"},
-			{y: 4.91, label: "Yahoo"},
-			{y: 1.26, label: "Others"}
-		]
-	}]
-});
-chart.render();
-
-}
-</script>
 
 <div class="outbox" style="width:100%">
    <aside>
@@ -102,7 +74,6 @@ chart.render();
   				<th>
   				  	<div>
   						<h1>인기 검색어</h1>
-  						<img src="https://placehold.it/300x300?text=IMAGE">
 
   					</div>
   				</th>
