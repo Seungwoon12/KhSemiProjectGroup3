@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.org.apache.bcel.internal.generic.NEWARRAY;
-
 import movi.util.JdbcUtil;
 
 public class ReviewDao {
