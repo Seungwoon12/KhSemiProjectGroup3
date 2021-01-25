@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MemberDao;
+import movi.beans.MemberAdminDao;
 
 @WebServlet(urlPatterns = "/admin/memberDelete.do")
 public class AdminMemberDeleteServlet extends HttpServlet{
@@ -19,7 +19,7 @@ public class AdminMemberDeleteServlet extends HttpServlet{
 			int member_no = Integer.parseInt(req.getParameter("member_no"));
 			
 //			처리:
-			MemberDao memberDao = new MemberDao();
+			MemberAdminDao memberDao = new MemberAdminDao();
 			boolean result = memberDao.delete_admin(member_no);
 			
 //			출력:

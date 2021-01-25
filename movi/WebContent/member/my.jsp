@@ -166,7 +166,7 @@
 	        <div class="swiper-wrapper">
 	        	<%
 	        	for(LoveDto loveDto : member_love_list) {
-	        		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no()); 
+	        		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no()); /*수정*/
 	        		end--;
 	        	%>
 	            <div class="swiper-slide">

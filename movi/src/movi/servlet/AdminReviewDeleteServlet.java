@@ -8,28 +8,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MovieAdminDao;
+import movi.beans.ReviewAdminDao;
 
-@WebServlet(urlPatterns = "/admin/movieDelete.do")
-public class AdminMovieDeleteServlet extends HttpServlet{
+@WebServlet(urlPatterns = "/admin/reviewDelete.do")
+public class AdminReviewDeleteServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-//			준비: 영화 번호
-			int movie_no = Integer.parseInt(req.getParameter("movie_no"));
+//			준비: 리뷰 번호
+			int review_no = Integer.parseInt(req.getParameter("review_no"));
 			
 //			처리 : 결과값 boolean
-			MovieAdminDao movieDao = new MovieAdminDao();
-			boolean result = movieDao.delete_admin(movie_no);
+			ReviewAdminDao reviewDao = new ReviewAdminDao();
+			boolean result = reviewDao.delete_admin(review_no);
 			
-//			출력 : 영화리스트로 이동
+//			출력 : 
 			if(result) {
-				resp.sendRedirect("movieList.jsp");
+				resp.sendRedirect("reviewList.jsp");
 			}else {
-				resp.sendError(404);//영화 정보가 없음
+				resp.sendError(400);//리뷰 정보가 없음
 			}
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

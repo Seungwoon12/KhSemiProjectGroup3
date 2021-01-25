@@ -34,7 +34,7 @@
 
 <!--멤버 목록   -->
 <%	
-	MemberDao memberDao = new MemberDao();
+	MemberAdminDao memberDao = new MemberAdminDao();
 	List<MemberDto> memberList ;
 	if(search){
 		 memberList = memberDao.page_admin(type, key, startRow, endRow);
@@ -51,20 +51,19 @@
 	int startBlock = (p-1)/blockSize * blockSize +1;
 	int endBlock = startBlock + blockSize -1;
 	
-	//int count;
-	//if(search){
-	//	count= memberDao.count_admin(type, key); 
-	//}else{
-	//	count= memberDao.count_admin(); 
-	//}
+	int count;
+	if(search){
+		count= memberDao.count_admin(type, key); 
+	}else{
+		count= memberDao.count_admin(); 
+	}
 	//페이지 개수
-	//int countSize = (count + pageSize -1) / pageSize;
+	int countSize = (count + pageSize -1) / pageSize;
 	
-	//if(endBlock > countSize){
-	//	endBlock = countSize;
-	//}
+	if(endBlock > countSize){
+		endBlock = countSize;
+	}
 %>
-
 
 <!-- 선택된 회원 삭제 -->
 <%
@@ -123,7 +122,9 @@
   	 	<div class="left">
   	 		<a href="memberList.jsp">회원리스트 </a><br><br>
   	 		<a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br>
-  	 		<a href="#"> 회원 쿠폰 관리 </a>
+			<a href="#"> 회원 쿠폰 관리 </a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
   	 	</div>
   	</aside>
 	
@@ -225,7 +226,7 @@
 				<%if(search){ %>
 				<li><a href="memberList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
 				<%}else{ %>
-				<li><a href="memberLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<li><a href="memberList.jsp?p=<%=endBlock+1%>">&gt;</a></li>
 				<%} %>
 
 			</ul>
