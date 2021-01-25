@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MovieDao;
+import movi.beans.MovieAdminDao;
 
 @WebServlet(urlPatterns = "/admin/movieDelete.do")
 public class AdminMovieDeleteServlet extends HttpServlet{
@@ -19,7 +19,7 @@ public class AdminMovieDeleteServlet extends HttpServlet{
 			int movie_no = Integer.parseInt(req.getParameter("movie_no"));
 			
 //			처리 : 결과값 boolean
-			MovieDao movieDao = new MovieDao();
+			MovieAdminDao movieDao = new MovieAdminDao();
 			boolean result = movieDao.delete_admin(movie_no);
 			
 //			출력 : 영화리스트로 이동

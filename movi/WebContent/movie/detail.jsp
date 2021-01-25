@@ -3,6 +3,13 @@
 <jsp:include page="/template/header.jsp"></jsp:include>
 <%@page import="movi.beans.*"%>
 
+<style>
+	.heart {
+		height: 35px;
+		width: 35px;
+	}
+</style>
+
 <%
 	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
 	MovieDao movieDao = new MovieDao();
@@ -60,7 +67,7 @@
 				</tr>
 				<tr>
 					<th>좋아요 수</th>
-					<td></td>
+					<td><%=loveDao.love_count(movie_no) %></td>
 				</tr>
 				<tr>
 					<th>관객 수</th>
@@ -82,9 +89,13 @@
 		boolean love_check = loveDao.love_search(member_no, movie_no);
 		if(love_check){
 		%>
-		<a href="love_cancel.do?movie_no=<%=movieDto.getMovie_no()%>">좋아요 취소</a>
+		<a href="love_cancel.do?movie_no=<%=movieDto.getMovie_no()%>">
+			<img class="heart" alt="cancel_love" src="<%=request.getContextPath()%>/img/heart_red.png">
+		</a>
 		<%} else{ %>
-		<a href="love.do?movie_no=<%=movieDto.getMovie_no()%>">좋아요</a>
+		<a href="love.do?movie_no=<%=movieDto.getMovie_no()%>">
+			<img class="heart" alt="plus_love" src="<%=request.getContextPath()%>/img/heart_white.png">
+		</a>
 		<%} %>
 	<%} %>
 </div>

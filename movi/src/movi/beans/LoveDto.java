@@ -1,17 +1,19 @@
 package movi.beans;
 
+import java.sql.Date;
+
 public class LoveDto {
-	private int love_no;
 	private int love_movie_no;
 	private int love_member_no;
+	private Date love_date;
 	public LoveDto() {
 		super();
 	}
-	public int getLove_no() {
-		return love_no;
+	public Date getLove_date() {
+		return love_date;
 	}
-	public void setLove_no(int love_no) {
-		this.love_no = love_no;
+	public void setLove_date(Date love_date) {
+		this.love_date = love_date;
 	}
 	public int getLove_movie_no() {
 		return love_movie_no;

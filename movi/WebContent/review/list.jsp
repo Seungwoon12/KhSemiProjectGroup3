@@ -5,7 +5,6 @@
     
 <%
 	request.setCharacterEncoding("UTF-8");
-
 	//조회수 방지위해 기록했던 review_no 세션 제거
 	session.removeAttribute("review_no");
 %>
@@ -232,4 +231,4 @@
 </div>
 
 
-<jsp:include page="/template/footer.jsp"></jsp:include>
+<jsp:include page="/template/footer.jsp"></jsp:include>	

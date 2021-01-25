@@ -35,7 +35,7 @@
 
 <!--멤버 목록   -->
 <%	
-	MemberDao memberDao = new MemberDao();
+	MemberAdminDao memberDao = new MemberAdminDao();
 	List<MemberDto> memberList ;
 	if(search){
 		 memberList = memberDao.page_admin(type, key, startRow, endRow);
@@ -44,40 +44,31 @@
 	}
 %>
 
+<!-- 페이지 블록  -->
+<%
+	
+	//블록크기
+	int blockSize = 10;
+	int startBlock = (p-1)/blockSize * blockSize +1;
+	int endBlock = startBlock + blockSize -1;
+	
+	int count;
+	if(search){
+		count= memberDao.count_admin(type, key); 
+	}else{
+		count= memberDao.count_admin(); 
+	}
+	// 페이지 개수
+	int countSize = (count + pageSize -1) / pageSize;
+	
+	if(endBlock > countSize){
+		endBlock = countSize;
+	}
+%>
+
 
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
-
-<!-- 각종 기능 -->
-<script>
-	$(function(){
-		//삭제시 알림창 보여주기
-		$(".memDelete").click(function(e){
-			e.preventDefault();
-			
-			var check = window.confirm("회원 삭제하시겠습니까?");
-			if(check){
-				location.href=$(this).attr("href");
-				//location.href=this.href;//this에 있는 경로로 이동해서 보내세요
-			}
-		});
-		
-		//전체선택 체크박스
-		$("#checkall").click(function(){
-			//클릭O
-			if($("#checkall").prop("checked")){
-				//각 체크박스 체크해주기
-				$("input[name=chk]").prop("checked",true);
-			}else{
-				$("input[name=chk]").prop("checked",false);
-			}
-		});
-		
-		
-		
-	});
-
-</script>
 
 <div class="outbox" style="width: 100%">
 	<aside>
@@ -86,8 +77,10 @@
 		</div>
 		<div class="left">
 			<a href="memberList.jsp">회원리스트 </a><br>
-			<br> <a href="#"> 임시 비밀번호 발급 </a><br>
+			<br> <a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br>
 			<br> <a href="#"> 회원 쿠폰 관리 </a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
 		</div>
 	</aside>
 
@@ -97,14 +90,14 @@
 			<h1>임시 비밀번호 발급</h1>
 		</div>
 
-		<div class="outbox center" style="width: 800px">
-
+		
+<div class="outbox center" style="width: 800px">
   	<!-- 회원 검색창 -->
   		<div>
   			<h1>회원 검색</h1>
   		</div>
   		<div>
-  			<form action="memberList.jsp" method="post">
+  			<form action="memberPwSearch.jsp" method="post">
   				<select name="type">
 					<option value="member_no">회원 번호</option>
 					<option value="member_id">아이디</option>
@@ -131,7 +124,6 @@
 		<table class="table table-border">
 			<thead>
 				<tr>
-					<th><input type="checkbox" id="checkall">전체선택</th>
 					<th>회원번호</th>
 					<th>회원 아이디</th>
 					<th>가입일</th>
@@ -142,17 +134,12 @@
 			<tbody>
 			<%for(MemberDto memberDto : memberList){ %>
 				<tr>
-					<td>
-						<form action="" method="post">
-							<input type="checkbox" name="chk" value="<%=memberDto.getMember_no() %>">
-						</form>
-					</td>
 					<td><%=memberDto.getMember_no() %></td>
 					<td><%=memberDto.getMember_id() %></td>
 					<td><%=memberDto.getMember_date() %></td>
 					<td><%=memberDto.getMember_auth() %></td>
 					<td>
-						<a href="memberPwCheck.jsp">임시 비밀번호 발급</a>
+						<a href="memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>">임시 비밀번호 발급</a>
 
 					</td>
 				</tr>
@@ -161,7 +148,44 @@
 		</table>
 	</div>
  <%} %>
+</div>			
 			
+		<!-- 선택된 회원 삭제버튼 -->
+		<div class="right">
+				<input type="button" value="선택된 회원 삭제">
+		</div>
+
+		<!-- 페이지 네비게이션 -->
+		<div class="row center">
+			<ul class="pagination">
+			
+				<!-- 이전 -->
+				<%if(search){ %>
+				<li><a href="memberPwSearch?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
+				<%}else{ %>
+				<li><a href="memberPwSearch?p=<%=startBlock-1%>">&lt;</a></li>
+				<%} %>
+				
+				<%for(int i= startBlock; i<=endBlock;i++){ %>
+					<li>
+						<%if(search){ %>
+						<!-- 검색용 링크 -->
+						<a href="memberPwSearch.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
+						<%}else{ %>
+						<!-- 목록용 링크 -->
+						<a href="memberPwSearch.jsp?p=<%=i%>"><%=i %></a>
+						<%} %>
+					</li>	
+				<%} %>	
+				
+				<!-- 이후 -->
+				<%if(search){ %>
+				<li><a href="memberPwSearch.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
+				<%}else{ %>
+				<li><a href="memberPwSearch.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<%} %>
+
+			</ul>
 		</div>
 
 	</article>
