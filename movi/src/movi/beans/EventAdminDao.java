@@ -124,7 +124,7 @@ public class EventAdminDao {
 		ps.setString(2, memberDto.getEvent_coupon());
 		ps.setDate(3, memberDto.getEvent_start());
 		ps.setDate(4, memberDto.getEvent_end());
-		ps.setInt(5, memberDto.getEvent_member_no());
+		ps.setInt(5, memberDto.getMember_no());
 		int count = ps.executeUpdate();
 
 		con.close();
@@ -149,6 +149,38 @@ public class EventAdminDao {
 		
 	}
 	
+	//회원 목록 개수 -/admin/memberList.jsp
+		public int count_admin() throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+
+			String sql = "select count(*) from member ";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			con.close();
+
+			return count;
+		}
+
+	//회원 검색 개수 -/admin/memberList.jsp
+		public int count_admin(String type, String key) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+
+			String sql = " select count(*) from member where instr(#1, ?) >0 ";
+			sql = sql.replace("#1", type);
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, key);
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+
+			con.close();
+
+			return count;
+
+		}
 	
 	//진행중인 이벤트 목록보기- /admin/EventList.jsp
 	

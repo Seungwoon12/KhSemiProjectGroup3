@@ -75,7 +75,7 @@ public class MovieAdminDao {
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 
 		String sql = "insert into movie values " 
-						+ "(movie_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, ?, ?)";
+						+ "(movie_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, movieDto.getMovie_genre_no());
 		ps.setString(2, movieDto.getMovie_name());
@@ -83,9 +83,10 @@ public class MovieAdminDao {
 		ps.setInt(4, movieDto.getMovie_time());
 		ps.setString(5, movieDto.getMovie_age());
 		ps.setString(6, movieDto.getMovie_country());
-		ps.setString(7, movieDto.getMovie_director());
-		ps.setString(8, movieDto.getMovie_content());
-		ps.setInt(9, movieDto.getMovie_audience());
+		ps.setDate(7, movieDto.getMovie_date());
+		ps.setString(8, movieDto.getMovie_director());
+		ps.setString(9, movieDto.getMovie_content());
+		ps.setInt(10, movieDto.getMovie_audience());
 		ps.execute();
 
 		con.close();
@@ -98,7 +99,7 @@ public class MovieAdminDao {
 
 		String sql = "update movie " 
 						+ " set   movie_genre_no=? ,  movie_name=? , movie_rate=? , movie_time=? , "
-							+ " movie_age=? , movie_country=? , movie_date=sysdate, "
+							+ " movie_age=? , movie_country=? , movie_date= ? , "
 							+ "	movie_director=? , movie_content=? , movie_audience=? " 
 					+ " where movie_no=? ";
 		PreparedStatement ps = con.prepareStatement(sql);
@@ -108,10 +109,11 @@ public class MovieAdminDao {
 		ps.setInt(4, movieDto.getMovie_time());
 		ps.setString(5, movieDto.getMovie_age());
 		ps.setString(6, movieDto.getMovie_country());
-		ps.setString(7, movieDto.getMovie_director());
-		ps.setString(8, movieDto.getMovie_content());
-		ps.setInt(9, movieDto.getMovie_audience());
-		ps.setInt(10, movieDto.getMovie_no());
+		ps.setDate(7, movieDto.getMovie_date());
+		ps.setString(8, movieDto.getMovie_director());
+		ps.setString(9, movieDto.getMovie_content());
+		ps.setInt(10, movieDto.getMovie_audience());
+		ps.setInt(11, movieDto.getMovie_no());
 		int count = ps.executeUpdate();
 
 		con.close();

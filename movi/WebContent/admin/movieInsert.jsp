@@ -92,7 +92,9 @@
 						</tr>
 						<tr>
 							<th>개봉일</th>
-							<td></td>
+							<td>
+								<input type="text" name="movie_date" required>
+							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
@@ -107,7 +109,7 @@
 						<tr>
 							<th>줄거리</th>
 							<td>
-								<textarea class="input" name="movie_content" placeholder="줄거리 입력"></textarea>
+								<textarea class="input" name="movie_content" placeholder="줄거리 입력" required></textarea>
 							</td>
 						</tr>
 						<tr>

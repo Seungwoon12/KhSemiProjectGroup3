@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,11 +28,9 @@ public class AdminCouEditServlet extends HttpServlet{
 			memberDto.setEvent_name(req.getParameter("event_name"));
 			memberDto.setEvent_coupon(req.getParameter("event_coupon"));
 			//Date.valueOf();로 수정하기
-			Date start= new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("event_start"));
-			Date end= new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("event_end"));
-			memberDto.setEvent_start(start);
-			memberDto.setEvent_end(end);
-			memberDto.setEvent_member_no(Integer.parseInt(req.getParameter("even_member_no")));
+			memberDto.setEvent_start(Date.valueOf(req.getParameter("event_start")));
+			memberDto.setEvent_end(Date.valueOf(req.getParameter("event_end")));
+			memberDto.setMember_no(Integer.parseInt(req.getParameter("member_no")));
 			
 //			처리:
 			EventAdminDao memberDao = new EventAdminDao();

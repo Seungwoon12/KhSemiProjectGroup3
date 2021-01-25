@@ -88,6 +88,7 @@ chart.render();
   				  	<div>
   						<h1>방문자 수</h1>
 							<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+							<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   					</div>
   				</th>
   			</tr>
@@ -95,8 +96,7 @@ chart.render();
   				<th>
   				 	<div>
   						<h1>장르별 좋아요 현황</h1>
-								<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
-								<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
   					</div>
   				</th>
   				<th>

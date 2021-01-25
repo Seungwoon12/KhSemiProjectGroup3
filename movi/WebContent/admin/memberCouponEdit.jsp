@@ -16,7 +16,7 @@
 
 
 
-<form action="memberEdit.do" method="post">
+<form action="couponEdit.do" method="post">
 	<!-- 옆에 사이드 -->
 	<div class="outbox" style="width: 100%">
 		<aside>
@@ -28,14 +28,14 @@
 				 <a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br> 
 				 <a href="#"> 회원 쿠폰 관리 </a>
 			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
-			<br><br> <a hre="memberCouponInsert.jsp">쿠폰 등록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
 			</div>
 		</aside>
 
 		<article>
 
 			<div>
-				<h1>회원 정보 수정</h1>
+				<h1>쿠폰 수정</h1>
 			</div>
 
 			<!--쿠폰 수정 테이블에서 정보 수정  -->
@@ -47,7 +47,7 @@
 						<tr>
 							<th width="20%">회원 번호</th>
 							<td>
-							<input type="hidden" name="event_member_no" value="<%=memberDto.getMember_no()%>">
+							<input type="hidden" name="member_no" value="<%=memberDto.getMember_no()%>">
 							<%=memberDto.getMember_no()%>
 							</td>
 						</tr>

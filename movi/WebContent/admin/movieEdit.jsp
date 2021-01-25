@@ -106,7 +106,9 @@
 						</tr>
 						<tr>
 							<th>개봉일</th>
-							<td></td>
+							<td>
+								<input type="text" name="movie_date" placeholder="<%=movieDto.getMovie_date() %>" required>
+							</td>
 						</tr>
 						<tr>
 							<th>감독</th>

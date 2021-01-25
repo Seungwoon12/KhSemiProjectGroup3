@@ -16,11 +16,11 @@ public class AdminCouDeleteservlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 //			준비:쿠폰이 삭제될 회원번호 준비
-			int event_member_no = Integer.parseInt(req.getParameter("member_no"));
+			int event_member_no = Integer.parseInt(req.getParameter("event_member_no"));
 			
 //			처리:
-			EventAdminDao eventDao = new EventAdminDao();
-			boolean result = eventDao.delete_admin(event_member_no);
+			EventAdminDao memberDao = new EventAdminDao();
+			boolean result = memberDao.delete_admin(event_member_no);
 			
 //			출력:삭제 완료하면 couponList.jsp로 이동
 			if(result) {
