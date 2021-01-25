@@ -7,6 +7,9 @@ import movi.util.JdbcUtil;
 
 public class MemberFindDao {
 	
+	public static final String USERNAME = "movi";
+	public static final String PASSWORD = "movi";
+	
 	public String insert(MemberFindDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into member("
@@ -19,6 +22,8 @@ public class MemberFindDao {
 		ps.execute();
 		
 		con.close();
+		
+		return ""; /*여기에 뭘 리턴할지 써줘야 함*/
 	}
 	
 }

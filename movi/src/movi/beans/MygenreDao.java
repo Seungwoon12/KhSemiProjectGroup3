@@ -52,7 +52,7 @@ public class MygenreDao {
 	public void selectGenre(int member_no, int genre_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
-		String sql = "insert into mygenre values(mygenre_seq.nextval, ?, ?)";
+		String sql = "insert into mygenre values(?, ?)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, member_no);
 		ps.setInt(2, genre_no);
