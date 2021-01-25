@@ -41,7 +41,6 @@ public class ReplyWriteServlet3 extends HttpServlet {
 			
 			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin()+"&p="+p);
 			
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
