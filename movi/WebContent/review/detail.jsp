@@ -151,39 +151,26 @@
  		
  		//댓글수정 null값 방지
 		$(".reply-edit-regist-btn").click(function(e){
- 			
  			if(!$(this).parent().prev().find(".reply-edit-area").val()) {
  				e.preventDefault();
  				window.alert("내용을 입력해주세요");
  			}
  		});
  		
+ 		
  		//댓글삭제진행
- 		//$(".reply-delete-btn").click(function(e){
- 			//e.preventDefault();
+ 		$(".reply-delete-btn").click(function(e){
+ 			e.preventDefault();
  			
- 			//var replyNo = $(this).next().val();
+ 			var confirm = window.confirm("댓글을 삭제하시겠습니까?");
  			
- 			//데이터베이스에서 지울 필요가 없음 삭제된 댓글이란걸 보여줄거라서
+ 			if(confirm) {
+ 				location.href = $(this).href();
+ 			}
  			
- 			//삭제알림창
- 			//var confirm = window.confirm("댓글을 삭제하시겠습니까?");
- 			
- 			//if($(this).parent().parent().next().next().next().hasClass(".reply2")) {
- 				//안에 내용 지우고 삭제됐다고 보여준다.
- 				//if(confirm) {
- 	 				//$(this).parent().parent().empty();
- 	 				//$("<span>삭제된 댓글입니다.</span>")appendTo($(this).parent().parent());
- 	 			//}
- 			//}
- 			//else{
- 				//if(confirm) {
- 					//location.href = "reply_delete.do?review_no="+review_no+"&p="+p+"&reply_no="+replyNo;
- 				//}
- 			//}
  			
  				
- 		//});
+ 		});
  		
  		
  		
@@ -506,8 +493,7 @@
  				<a href="#" class="reply-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#" class="reply-delete-btn">삭제</a>
- 				<input type="hidden" name="reply_no" value="<%=replyVO.getReply_no()%>">
+ 				<a href="reply_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-delete-btn">삭제</a>
  				<%} %>	
  				<hr>
  			</div>
@@ -592,7 +578,7 @@
  				<a href="#" class="reply2-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#">삭제</a>
+ 				<a href="reply_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-delete-btn">삭제</a>
  				<%} %>
  				<hr>
  			</div>
@@ -696,7 +682,7 @@
  				<a href="#" class="reply3-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#">삭제</a>
+ 				<a href="reply_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-delete-btn">삭제</a>
  				<%} %>
  				<hr>
  			</div>

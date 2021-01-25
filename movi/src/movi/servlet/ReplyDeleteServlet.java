@@ -13,7 +13,7 @@ import movi.beans.ReplyDao;
 @WebServlet(urlPatterns="/review/reply_delete.do")
 public class ReplyDeleteServlet extends HttpServlet {
 		@Override
-		protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			try {
 				req.setCharacterEncoding("UTF-8");
 				
