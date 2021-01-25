@@ -9,7 +9,6 @@
 
 <%
 	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
-
 	MovieDao movieDao = new MovieDao();
 	List<MovieDtoVO> moviegenreList = movieDao.select_movie_detail(movie_no);
 			

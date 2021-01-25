@@ -1,4 +1,4 @@
-     <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    
       <div>
@@ -16,5 +16,4 @@
         <a href="logout.jsp">로그아웃</a>
         <a href="../index.jsp">홈으로</a>
     </body>
-</html>
 </html>

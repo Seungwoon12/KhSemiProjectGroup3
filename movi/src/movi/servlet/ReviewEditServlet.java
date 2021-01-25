@@ -13,39 +13,37 @@ import movi.beans.MovieDto;
 import movi.beans.ReviewDao;
 import movi.beans.ReviewDto;
 
-@WebServlet(urlPatterns="/review/write.do")
-public class ReviewWriteServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/review/edit.do")
+public class ReviewEditServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			
-			//임시로 해보는거,, 영화명으로 영화번호 구하기
 			MovieDaoSW movieDao = new MovieDaoSW();
 			MovieDto movieDto = movieDao.find(req.getParameter("movie_name"));
 			
-			
 			ReviewDto reviewDto = new ReviewDto();
-			reviewDto.setReview_writer_no((int)req.getSession().getAttribute("check")); // 회원번호 가져오기
-			reviewDto.setReview_movie_no(movieDto.getMovie_no()); //영화번호 가져오기
+			reviewDto.setReview_no(Integer.parseInt(req.getParameter("review_no")));
+			reviewDto.setReview_movie_no(movieDto.getMovie_no());
 			reviewDto.setReview_title(req.getParameter("review_title"));
 			reviewDto.setReview_content(req.getParameter("review_content"));
 			
-			//시퀀스 생성 후 게시글 등록
 			ReviewDao reviewDao = new ReviewDao();
+			reviewDao.reviewEdit(reviewDto);
 			
-			int review_no = reviewDao.getSequence();
-			reviewDto.setReview_no(review_no);
-				
-			reviewDao.reviewWrite(reviewDto);
 			
-			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p=1");
-			
+			//수정 후 상세페이지로 리다이렉트
+			int p = Integer.parseInt(req.getParameter("p"));
+			resp.sendRedirect("detail.jsp?review_no="+reviewDto.getReview_no()+"&p="+p);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);
+			
 		}
+		
+			
 	
 	}
 }

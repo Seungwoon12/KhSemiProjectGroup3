@@ -48,7 +48,7 @@ public class ProfileUploadServlet extends HttpServlet{
 			profileDto.setProfile_member_no((int)req.getSession().getAttribute("check"));
 			
 			profileDao.insert(profileDto);
-			
+
 			resp.sendRedirect(req.getContextPath()+"/member/my.jsp");
 		}
 		catch(Exception e) {

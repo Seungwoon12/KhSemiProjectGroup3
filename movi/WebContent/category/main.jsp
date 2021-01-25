@@ -57,7 +57,6 @@
 </style>
 
 <script>
-
 	$(document).ready(function(){
 		$(".a<%=movie_genre_no%>").css("text-decoration","underline");
 		$(".a<%=movie_genre_no%>").css("font-weight","bolder");
