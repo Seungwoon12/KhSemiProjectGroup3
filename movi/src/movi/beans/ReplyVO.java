@@ -68,5 +68,5 @@ public class ReplyVO {
 	}
 	public void setMember_nick(String member_nick) {
 		this.member_nick = member_nick;
-	}
+	} 
 }
