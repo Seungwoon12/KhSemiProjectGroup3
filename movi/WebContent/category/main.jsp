@@ -41,6 +41,10 @@
             color: black;
             text-decoration: none;
         }
+        .top a{
+        	color:#4E6FA6;
+        	font-size:17px;
+        }
         .menu{
    	 		width: 530px;
    			margin-bottom: 35px;
