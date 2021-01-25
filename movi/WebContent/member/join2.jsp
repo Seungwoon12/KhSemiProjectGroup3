@@ -1,7 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/template/header.jsp"></jsp:include>	
+<script>
+window.onload = function () {
+    document.getElementById('frm').onsubmit = function () {
+        var checkInput = document.querySelectorAll("input[name=agree]");
 
+        for (var i = 0; i < checkInput.length; i++) {
+            if (!checkInput[i].checked) {
+                alert("모든 약관에 동의하세요");
+                return false;
+            }
+        }
+        return true;
+    };
+
+}
+</script>
 <style>
 .row{
 height:50px; 
