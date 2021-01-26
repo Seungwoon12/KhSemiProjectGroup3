@@ -170,7 +170,6 @@ public class MemberDao {
 		if(rs.next()) {
 			memberDto = new MemberDto();
 			memberDto.setMember_no(rs.getInt("member_no"));
-			memberDto.setMember_event_no(rs.getInt("member_event_no"));
 			memberDto.setMember_id(rs.getString("member_id"));
 			memberDto.setMember_pw(rs.getString("member_pw"));
 			memberDto.setMember_nick(rs.getString("member_nick"));
