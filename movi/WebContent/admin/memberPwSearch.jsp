@@ -121,7 +121,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border">
+		<table class="table1" style="width:790px">
 			<thead>
 				<tr>
 					<th>회원번호</th>
@@ -139,7 +139,7 @@
 					<td><%=memberDto.getMember_date() %></td>
 					<td><%=memberDto.getMember_auth() %></td>
 					<td>
-						<a href="memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>">임시 비밀번호 발급</a>
+						<a class="abtn blue" href="memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>">임시 비밀번호 발급</a>
 
 					</td>
 				</tr>

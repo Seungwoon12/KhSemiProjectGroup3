@@ -16,7 +16,7 @@
 		var check = document.getElementById("check");
 		
 		if(check.checked == true){
-			location.href="<%=request.getContextPath()%>/admin/memberPw.jsp";
+			location.href="<%=request.getContextPath()%>/admin/memberPw.do?member_no=<%=memberDto.getMember_no()%>";
 			
 		}else{
 			alert("전송 방식을 체크해주세요");
@@ -25,13 +25,6 @@
 
 	}
 </script>
-	<form action="/admin/memberPw.do">
-		<input type="hidden" name="member_no" value="<%=memberDto.getMember_no()%>">
-		<input type="hidden" name="member_id" value="<%=memberDto.getMember_id()%>">
-		<input type="hidden" name="member_nick" value="<%=memberDto.getMember_phone()%>">
-		<input type="hidden" name="member_phone" value="<%=memberDto.getMember_date()%>">
-		<input type="hidden" name="member_auth" value="<%=memberDto.getMember_auth()%>">
-	</form>
 
 
 <div class="outbox" style="width: 100%">
@@ -73,8 +66,8 @@
 				</tr>
 				<tr>
 					<td style="height:100px">
-					<input type="button" value="확인" id="pass-btn" onclick="pass();">
-					 <input type="button" value="취소" onclick="location.href='memberList.jsp'">
+						<input type="button" value="확인" id="pass-btn" onclick="pass()">
+					 	<input type="button" value="취소" onclick="location.href='memberList.jsp'">
 					 </td>
 				</tr>
 
