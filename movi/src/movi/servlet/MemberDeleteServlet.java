@@ -22,7 +22,8 @@ public class MemberDeleteServlet extends HttpServlet{
 			MemberDao memberDao = new MemberDao();
 			memberDao.delete(member_no);
 			
-			req.getSession().removeAttribute("loginInfo");// 세션 만료 -> 로그아웃
+			req.getSession().removeAttribute("check");
+			req.getSession().removeAttribute("auth");// 세션 만료 -> 로그아웃
 			
 			resp.sendRedirect("goodbye.jsp");
 		}
