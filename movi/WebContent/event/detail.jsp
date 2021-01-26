@@ -18,9 +18,6 @@
 	Collections.shuffle(couponDto);
 	CouponDto[] arr = couponDto.toArray(new CouponDto[couponDto.size()]);
 	
-	MemberCouponDao mcDao = new MemberCouponDao();
-	//int member_id = 1;
-	//mcDao.insert(member_id, arr[0].getCoupon_no(), event_no);
 	 boolean isLogin = session.getAttribute("check") != null;
 %>
 <style>
@@ -57,6 +54,7 @@
 	     });
 	});
 </script>
+
 <%for(EventDto dto : eventDto) {%>
 	<div class="box">
 		<h1><%=dto.getEvent_name() %></h1>
@@ -65,27 +63,14 @@
 	</div>
 <%} %>
 <%if(isLogin){%>
-<input type="button" class="ppopgi" value="뽑기 시작">
 
-<img >닫기</button>
-<img src="./img/close.jpg" class="close">
-
-<div class="a">
-	<div class="goods"></div>
-	<form action="" method="get">
-		<input type="submit" value="마이페이지로 이동하기">
-	</form>
-</div>
-<%} %>
-<!--
-	로그인을 한 사람만 누르기 가능!! is Login
-	한 계정당 한번만 가능!! where member_id=session 일 때 
-	뽑기 버튼 눌렀을 때?
-	display absolute 해서 중간에
-	coupon random값을 text로 출력하기!
-	-> 닫기, 마이페이지로 링크 추가
-	=> 마이페이지 쿠폰함에 text 값 넣어주기 
-
- -->
+<form action="event.do" method="post">
+	<input type="hidden" name="coupon_no" value="<%=arr[0].getCoupon_no()%>">
+	<input type="hidden" name="event_no" value="<%=event_no%>">
+	<input type="submit" class="ppopgi" value="뽑기 시작">
+</form>
+<%} else{%>
+	<input type="button" onclick="alert('로그인 후에 참여가 가능합니다!')" class="ppopgi" value="뽑기 시작">
+<%}%>
 
 <jsp:include page="/template/footer.jsp"></jsp:include>

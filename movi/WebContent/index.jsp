@@ -324,7 +324,7 @@
 <!-- 팝업창 -->
 <div class="loading-wrapper">
 	<img src="./img/close.jpg" class="close">
-	<a href="/movi/event/main.jsp">
+	<a href="/movi/event/detail.jsp?event_no=41">
 		<img src="./img/event.PNG">
 	</a>
 </div>

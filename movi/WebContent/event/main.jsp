@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="movi.beans.EventDto"%>
