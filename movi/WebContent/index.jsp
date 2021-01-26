@@ -3,21 +3,9 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="java.util.Collections"%>
-<%@page import="movi.beans.MygenreDtoVO"%>
-<%@page import="movi.beans.MovieDtoVO"%>
-<%@page import="movi.beans.GenreDto"%>
-<%@page import="movi.beans.GenreDao"%>
+<%@page import="movi.beans.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="movi.beans.MygenreDto"%>
-<%@page import="movi.beans.MygenreDao"%>
-<%@page import="movi.beans.MemberDto"%>
-<%@page import="movi.beans.MemberDao"%>
-<%@page import="movi.beans.LoveDao"%>
-<%@page import="movi.beans.RecommendDto"%>
-<%@page import="movi.beans.RecommendDao"%>
 <%@page import="java.util.List"%>
-<%@page import="movi.beans.MovieDao"%>
-<%@page import="movi.beans.MovieDto"%>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
@@ -30,7 +18,7 @@
 	int endPage=10;
 
 	
-	//3조추천
+	//3조추천s
 	RecommendDao recomDao = new RecommendDao();
 	List<RecommendDto> recomList = recomDao.select_title();
 	

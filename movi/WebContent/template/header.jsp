@@ -104,9 +104,8 @@ $(function(){
 </head>
 <body>
 <!-- 다크 모드 -->
-<form action="" method="get">
-<input name="mode" type="submit" value="어둡게하기" class="btn black-btn">
-</form>
+<!--<form action="" method="get">-->
+<input type="button" value="어둡게하기" class="btn black-btn">
    <main>
       <header>
          <h1 class="left">movi</h1>
@@ -117,7 +116,7 @@ $(function(){
          else{ %><!--로그인했을때--->
          <a href="<%=request.getContextPath()%>/member/logout.do"class="left">로그아웃</a>
    <%} %>
-         <a href="#" class="right">이벤트</a>
+         <a href="<%=request.getContextPath()%>/event/main.jsp" class="right">이벤트</a>
          <%if(isAdmin){ %>
          <!--권한부여---->
          <a href="<%=request.getContextPath()%>/admin/main.jsp">관리자 모드</a>
