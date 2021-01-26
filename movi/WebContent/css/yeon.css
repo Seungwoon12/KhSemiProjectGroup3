@@ -1,0 +1,167 @@
+     .outbox {
+         border: 1px solid black;
+         width: 1000px;
+     }
+
+     .header {
+         padding: 1rem;
+         border: 1px solid black;
+     }
+
+     .nav {
+         padding: 1rem;
+         border: 1px solid black;
+     }
+
+     .aside {
+         padding: 1rem;
+         border: 1px solid black;
+         width: 15%;
+         height: 400px;
+         float: left;
+     }
+
+     .section {
+         padding: 1rem;
+         border: 1px solid black;
+         width: 85%;
+         height: 400px;
+         float: right;
+     }
+
+     .footer {
+         padding: 1rem;
+         border: 1px solid black;
+     }
+
+     .float-box::after {
+         content: "";
+         display: block;
+         clear: both;
+     }
+
+     .logo {
+         padding-left: 2rem;
+         color: deepskyblue;
+         font-size: 40px;
+     }
+
+     /*a태그 버튼 형식*/
+
+         .abtn {
+            font-size: 1rem;
+            color: white;
+            padding: 3px 15px 3px 15px;
+            margin: 5px;
+            display: inline-block;
+            border-radius: 10px;
+            transition: all 0.1s;
+            text-decoration: none;
+        }
+
+        .abtn:active {
+            transform: translateY(3px);
+        }
+
+        .abtn.blue {
+            color: #4c3fff;
+            border: 2px solid #4c3fff;
+            background-color: white;
+        }
+
+        .abtn.blue:hover {
+            color: white;
+            border: 2px solid #165195;
+            background-color: #165195;
+        }
+
+        .abtn.red {
+            color: #f64c49;
+            border: 2px solid #f64c49;
+            background-color: white;
+        }
+
+        .abtn.red:hover  {
+            color: white;
+            border: 2px solid #c1370e;
+            background-color: #c1370e;
+        }
+
+        .abtn.purple {
+            color: #9c4c9f;
+            border: 2px solid #9c4c9f;
+            background-color: white;
+        }
+
+        .abtn.purple:hover {
+            color: white;
+            border: 2px solid #9c4c9f;
+            background-color: #9c4c9f;
+        }
+
+        .abtn.yellow {
+            color: #ffd000;
+            border: 2px solid #ffd000;
+            background-color: white;
+        }
+
+        .abtn.yellow:hover  {
+            color: white;
+            border: 2px solid #ffd000;
+            background-color: #ffd000;
+        }
+
+        .abtn.green {
+            color: #1aa006;
+            border: 2px solid #1aa006;
+            background-color: white;
+        }
+
+        .abtn.green:hover  {
+            color: white;
+            border: 2px solid #1aa006;
+            background-color: #1aa006;
+        }
+
+     /*테이블 게시판 형식*/
+     .table1 {
+         border-collapse: collapse;
+         border-top: 3px solid #626262;
+     }
+
+     .table1 th {
+         color: #168;
+         background: #E2E2E2;
+         text-align: center;
+     }
+
+     .table1 th,
+     .table1 td {
+         padding: 5px 10px; 
+         border: 1px solid #ddd;
+     }
+     
+    .table1 > thead > tr > th,
+	.table1 > thead > tr > td{
+		padding: 10px;
+		}
+
+     .table1 th:first-child,
+     .table1 td:first-child {
+         border-left: 15;
+     }
+
+     .table1 th:last-child,
+     .table1 td:last-child {
+         border-right: 15;
+     }
+
+     .table1 tr td {
+     	
+         text-align: center;
+     }
+
+     .table1 caption {
+         caption-side: bottom;
+         display: none;
+     }

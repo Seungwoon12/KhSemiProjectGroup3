@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import movi.beans.ReplyDao;
 
-@WebServlet(urlPatterns="/review/reply_delete.do")
-public class ReplyDeleteServlet extends HttpServlet {
+@WebServlet(urlPatterns="/review/reply_root_delete.do")
+public class ReplyRootDeleteServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -24,7 +24,7 @@ public class ReplyDeleteServlet extends HttpServlet {
 			
 			//댓글삭제 메소드
 			ReplyDao replyDao = new ReplyDao();
-			replyDao.deleteReply(reply_no);
+			replyDao.deleteRootReply(reply_no);
 			
 			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p="+p);
 		}

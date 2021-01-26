@@ -9,6 +9,7 @@
 	//조회수 방지위해 기록했던 review_no 세션 제거
 	session.removeAttribute("review_no");
 	
+	
 %>
 
 <%
@@ -35,15 +36,15 @@
     	String key = request.getParameter("key");
     	boolean isSearch = type != null && key != null;
     	
+    //카테고리 영화 상세페이지에서 리뷰로 넘어올때 movie_no 받아와야함
+	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
+    	
+    	//영화 상세페이지에서 들어올때 리뷰 목록
+    	
     	ReviewDao reviewDao = new ReviewDao();
-    	List<ReviewVO> list; 
-    	if(isSearch) {
-    		list = reviewDao.list(type, key, startRow, endRow);
-    	}
-    	else {
-    		list = reviewDao.list(startRow, endRow);
-    	}
-    %>   
+    	List<ReviewVO> detailList = reviewDao.detailList(movie_no, startRow, endRow); 
+    	
+%>   
 
 
 <%
@@ -57,14 +58,8 @@
    	int endNum = startNum + pageNavSize - 1;
    	
    	//목록 개수 or 검색 개수
-   	int count;
+   	int count = reviewDao.detailCount(movie_no);
    	
-   	if(isSearch) {
-   		count = reviewDao.count(type, key);
-   	}
-   	else {
-   		count = reviewDao.count();
-   	}
    	
    	// 필요한 페이지 개수
    	int pageSize = (count + pageNavSize - 1) / pageNavSize;
@@ -121,12 +116,12 @@
 			
 			<tbody>
 				
-			    <%for(ReviewVO reviewVO : list) { %>
+			    <%for(ReviewVO reviewVO : detailList) { %>
 				<tr>
 					<td><%=reviewVO.getReview_no() %></td>
 					<td><%=reviewVO.getMovie_name()%></td>
 					<td>
-						<a href="detail.jsp?review_no=<%=reviewVO.getReview_no()%>&p=<%=p%>">
+						<a href="detailForDetail.jsp?review_no=<%=reviewVO.getReview_no()%>&movie_no=<%=movie_no%>&p=<%=p%>">
 							<%=reviewVO.getReview_title() %>
 							<%if(reviewVO.getReply_count() > 0) { %>
 								[<%=reviewVO.getReply_count() %>]
@@ -148,7 +143,7 @@
 	</div>
 	
 	<div class="row center">
-			<%if(list.isEmpty()) { %>
+			<%if(detailList.isEmpty()) { %>
 				<h3>등록된 게시글이 존재하지 않습니다.</h3>
 			<%} %>	
 	</div>
@@ -163,14 +158,9 @@
 	<!-- 페이지 네비게이션 -->
 	<div class=row center>
 		<ul class="pagination center">
-			<%if(!list.isEmpty()) { %>
+			<%if(!detailList.isEmpty()) { %>
 			<li>
-			<%if(isSearch) { %>
-				<a href="list.jsp?p=<%=startNum-1%>&type=<%=type%>&key=<%=key%>">	
-			<%} else { %>
-				<a href="list.jsp?p=<%=startNum-1%>">
-			<%} %>
-				&lt;</a>
+				<a href="listForDetail.jsp?movie_no=<%=movie_no%>&p=<%=startNum-1%>">&lt;</a>
 			</li>
 			<%} %>
 			
@@ -180,23 +170,13 @@
 			<%} else {%>
 			<li>
 			<%} %>
-				<%if(isSearch) { %>
-				<a href="list.jsp?p=<%=i%>&type=<%=type%>&key=<%=key%>"><%=i%></a>
-				<%} else { %>
-				<a href="list.jsp?p=<%=i%>"><%=i%></a>		
-				<%} %>
+				<a href="listForDetail.jsp?movie_no=<%=movie_no%>&p=<%=i%>"><%=i%></a>		
 			</li>
-			
 			<%} %>
 			
-			<%if(!list.isEmpty()) { %>
+			<%if(!detailList.isEmpty()) { %>
 			<li>
-			<%if(isSearch) { %>
-				<a href="list.jsp?p=<%=endNum+1%>&type=<%=type%>&key=<%=key%>">
-			<%} else { %>
-				<a href="list.jsp?p=<%=endNum+1%>">
-			<%} %>
-				&gt;</a>
+				<a href="listForDetail.jsp?movie_no=<%=movie_no%>&p=<%=endNum+1%>">&gt;</a>
 			</li>
 			<%} %>
 		</ul>
@@ -204,7 +184,6 @@
 	
 	
 	</div>
-
 
 	
 	

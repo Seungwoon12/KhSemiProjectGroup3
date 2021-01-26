@@ -108,7 +108,7 @@
 			<h1>회원 쿠폰 목록</h1>
 		</div>
 
-<div class="outbox center" style="width: 800px">
+<div class="outbox center" style="width: 900px">
 
   	<!-- 회원 쿠폰 검색창 -->
   		<div>
@@ -138,8 +138,8 @@
  <%}else { %>	
 <!-- 검색결과가 있는 경우 --> 
   	<!--쿠폰 리스트 테이블  -->	
-	<div class="row">
-		<table class="table table-border">
+	<div class="row"> 
+		<table class="table1" style="width: 880px">
 			<thead>
 				<tr>
 					<th>회원번호</th>
@@ -159,8 +159,8 @@
 					<td><%=memberDto.getEvent_coupon() %></td>
 					<td><%=memberDto.getEvent_start() %> ~ <%=memberDto.getEvent_end() %></td>
 					<td>
-						<input type="button" value="수정" onclick="location.href='memberCouponEdit.jsp?member_no=<%=memberDto.getMember_no()%>' ">
-						<input type="button"  value="삭제" onclick="location.href='couponDelete.do?event_member_no=<%=memberDto.getMember_no()%>'">
+						<input type="button" class="abtn green" value="수정" onclick="location.href='memberCouponEdit.jsp?member_no=<%=memberDto.getMember_no()%>' ">
+						<input type="button" class="abtn red"  value="삭제" onclick="location.href='couponDelete.do?event_member_no=<%=memberDto.getMember_no()%>'">
 					</td>
 				</tr>
 			<%} %> 

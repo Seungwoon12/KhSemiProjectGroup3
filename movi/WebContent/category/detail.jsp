@@ -83,13 +83,11 @@
 			<%=vo.getActor_name()%>&nbsp;     
 		<%}%>
 	</p>
-	</div>
-	
 	<hr>
 	
 	<div class="right">
 	<!-- 클릭하면 해당 영화의 movie_no가 검색된 리뷰 테이블로 이동하기 -->
-	<a href="/movi/review/list.jsp">영화 리뷰 보러가기</a>
+	<a href="/movi/review/listForDetail.jsp?movie_no=<%=movie_no%>">영화 리뷰 보러가기</a>
 	</div>
 	
 </div>

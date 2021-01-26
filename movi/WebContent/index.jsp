@@ -3,21 +3,9 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="java.util.Collections"%>
-<%@page import="movi.beans.MygenreDtoVO"%>
-<%@page import="movi.beans.MovieDtoVO"%>
-<%@page import="movi.beans.GenreDto"%>
-<%@page import="movi.beans.GenreDao"%>
+<%@page import="movi.beans.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="movi.beans.MygenreDto"%>
-<%@page import="movi.beans.MygenreDao"%>
-<%@page import="movi.beans.MemberDto"%>
-<%@page import="movi.beans.MemberDao"%>
-<%@page import="movi.beans.LoveDao"%>
-<%@page import="movi.beans.RecommendDto"%>
-<%@page import="movi.beans.RecommendDao"%>
 <%@page import="java.util.List"%>
-<%@page import="movi.beans.MovieDao"%>
-<%@page import="movi.beans.MovieDto"%>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
@@ -28,6 +16,7 @@
 	//페이징
 	int startPage=1;
 	int endPage=10;
+
 	
 	//3조추천
 	RecommendDao recomDao = new RecommendDao();
@@ -45,21 +34,23 @@
 	List<MovieDto> searchList = movieDao.search_movie_name();
 	//배열로 바꿔주기
 	MovieDto[] arr = searchList.toArray(new MovieDto[searchList.size()]);
+
 	
 	boolean isLogin = session.getAttribute("check") != null;
 	
+
 %>
-<!-- 이거 jquery css로 만들기! -->
 <style>
-.hov{
-	transform: scale(1);
-  	transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
-}
+
+/*영화 이미지 hover시 효과*/
+	.hov{
+		transform: scale(1);
+	  	transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
+	}
 	.hov:hover{
 		opacity: 0.5;
-		 transform: scale(1.2);
+		transform: scale(1.2);
 	}
-	
 	.hov:hover +.h{
 		display:inline-block;
 	 	z-index: 999;
@@ -70,98 +61,114 @@
 	.hov:hover +.hov1{
 		top:50px;
 	}
-	
 	.h{
 	   display:none;
 	}
 	
+/*검색창 왼쪽 여백 주기*/	
 	.unit.slot.id{
-       background-image: url(./img/search.jpg);
-       background-size: contain;
-       background-repeat: no-repeat; 
-        }
-     
-    .box{
-    	    margin-left: 15%;
-    }   
-   .name{
-	  float: left;
-	  width:27%;
-	  text-align: center;
-   }
-   .recom{
-	   float:left
-	   width:70%;
-   }
-   .name,.recom{
-	   	height:300px;
-	   	padding: 0.5rem;
-   }
+	      background-image: url(./img/search.jpg);
+	      background-size: contain;
+	      background-repeat: no-repeat; 
+	}
 	
-	.main{
-		width:100%;
-		height: 500px;
-	}
-		
-	.movie{
-		padding: 0.2rem;
-	}
-	li{
-		list-style:none;
-		display: inline-block;
-	}
-	li>img{
-	width:30px;
-	}
-	.swiper-wrapper{
-		margin:5px;
-		
-	}
-	.swiper-slide img {
-	box-shadow:0 0 5px #555;
-}
-	.swiper-slide{
-	width:141px !important;
-	margin-left:8px;
-	justify-content: center;
-	}
-	.swiper-container {
-    width: 779px;
-    }
-    
- <!--검색-->   
+/*검색 아래로 내려오는 창*/  
     .ui-autocomplete {
 	max-height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
+
+/*상단 제목과 추천영화 스타일*/
+	.title{
+		margin-top: 20%
+	}
+	.big_name{
+		font-size: 49px;
+	    font-family: sans-serif;
+	    color: #4E6FA6;
+	    font-weight: bolder;
+	}
+	.name{
+	  float: left;
+	  width:27%;
+	  text-align: center;
+	}
+	.recom{
+	   float:left
+	   width:70%;
+	}
+	.name,.recom{
+	   	height:300px;
+	   	padding: 0.5rem;
+	}
+	
+/*상단화면*/	
+	.main{
+		width:100%;
+		height: 500px;
+	}
+/*하단화면*/	
+	.body{
+		width:100%;
+		height:100%;
+	}     
+/*아래 영화 리스트들 왼쪽 간격*/     
+	.box{
+	   margin-left: 20%;
+	}   
+
+/*swiper 속성*/	
+	.swiper-wrapper{
+		margin:5px;		
+	}
+	.swiper-slide img {
+		box-shadow:0 0 5px #555;
+	}
+	.swiper-slide{
+		width:141px !important;
+		margin-left:8px;
+		justify-content: center;
+	}
+	/*아래 container만 적용*/
+	.swiper-container {
+	    width: 779px;
+	    height:19%;
+    }
+    .swiper1{
+    	height:100%;
+    }
+    /*이미지 사이 간격*/
+   	.movie{
+	padding: 0.2rem;
+	}
+  
+/*이전, 다음 버튼 전체 속성*/
 .swiper-button-prev,.swiper-button-next{
 	opacity:100 !important;
 	cursor: pointer !important;
 	pointer-events: all !important;	
 }
+/*이전, 다음 버튼 각각의 속성, 이미지*/
 .n1,.p1{
-	width:50px;
-	height:50px;
-	background-size: 55px;
+    width: 49px;
+    height: 56px;
+    background-size: 50px;
 }
-.n1{
-	background-image: url("./img/next1.png") !important;
-}
-.p1{
-	background-image: url("./img/prev1.jpg") !important;
-}
+.n1{background-image: url("./img/nnext.png") !important;}
+.p1{background-image: url("./img/prev1.png") !important;}
+
 .n2,.p2{
 	width:31px;
 	height:40px;
 	background-size: 43px;
 }
-.n2{
-	background-image: url("./img/next.png") !important;
-}
-.p2{
-	background-image: url("./img/pre.png") !important;
-}
+.n2{background-image: url("./img/next.png") !important;}
+.p2{background-image: url("./img/pre.png") !important;}
+
+
+
+/*영화 리스트들 너비나 속성들*/
 .movie_recom{
 	width : 395px !important;
 }
@@ -169,18 +176,31 @@
 	padding:17px;
 	margin:10px;
 }
+/*아이콘*/
+.icon{
+	width:60px;
+	float:left;
+}
+.icon+h4{
+	display:inline-block;
+}
+
+/*좋아요, 관객수 순위 숫자 모양*/
 .rank{
+    opacity: 0.8;
 	position: absolute;
     top: 5px;
     left: 10px;
     z-index: 999;
-    background-color: cornflowerblue;
+    background-color: #4E6FA6;
+    color:white;
     width: 25px;
     height: 26px;
     font-size: larger;
     text-align: -webkit-center;
     border-radius: 35%;
 }
+
 /*팝업창*/
 .loading-wrapper{
     background-color: rgba(0,0,0,0.5);
@@ -198,17 +218,19 @@
 	height:600px;
 	z-index:9999;
     position: fixed;
-    left: 37%;
+    left: 33%;
     top:20%
 }
+/*팝업창 닫기*/
 .close{
 	width: 39px;
-    position: fixed;
+    position: inherit;
     top: 21%;
-    left: 62%;
+    left: 60%;
     z-index: 999999999;
     cursor: pointer;
 }
+
 </style>
 
 <script>
@@ -226,8 +248,10 @@
 		//스와이퍼1
 		new Swiper('.swiper1', {
 			slidesPerView: 2,
+		    spaceBetween : 50,
 		    slidesPerGroup: 2,
-	        loopFillGroupWithBlank : true,
+	        loopFillGroupWithBlank : false,
+
 			loop : true,
 			autoplay:{
 			      delay:3000,
@@ -259,6 +283,7 @@
 				prevEl : '.p2', // 이번 버튼 클래스명
 			},
 		});
+
 //******************************검색기능
 	
     var searchSource = [
@@ -282,23 +307,25 @@
          position: { my : "left top", at: "left bottom"}//위치
      });
      
+//팝업창!!!!!!!!!!
      $(".close").click(function(){
     	 $(".loading-wrapper").hide();
      });
-     
-});
+       
      $(document).ready(function(){
     	 $(".loading-wrapper").show();
      });
+ 
+});
+	
 	
 </script>
-
 
 <!-- 팝업창 -->
 <div class="loading-wrapper">
 	<img src="./img/close.jpg" class="close">
 	<a href="/movi/event/main.jsp">
-		<img src="https://img.pooq.co.kr/service30/crm/3m66upgrade_layerpopup_pc.jpg">
+		<img src="./img/event.PNG">
 	</a>
 </div>
 
@@ -321,15 +348,15 @@
 			</div>
 		</form>
 			
-			<div class="center" style="width:100%">
-				<h1>MOVI</h1>
-				<h5>모두의 비디오, 모비</h5>
+			<div class="title">
+				<div class="big_name">MOVI</div>
+				<div class="small_name">모두의 비디오, 모비</div>
 			</div>
 		</div>
 		
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 3조 추천 영화 -->	
 		<div>
-		<div class="row swiper-container swiper1" style="width:800px">
+		<div class="row swiper-container swiper1" style="width:840px; height:100%">
 	
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
@@ -347,71 +374,73 @@
 		
 			<!-- 페이징 -->
 			<div class="swiper-pagination"></div>
+			</div>
 		</div>
 	</div>
-
 <hr>
+	<div class="body">
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 좋아요 순위 -->
 
-	<div class="outbox box">
-		<div class="row left">
-			모비 좋아요 순위
-		</div>
-		
-		
-		<div class="row swiper-container swiper2">
-	
-			<div class="swiper-wrapper">
-				<%for(MovieDtoVO lovedto : movieLoveList){ %>
-					<div class="movie movie_detail swiper-slide">
-					<div class="rank"><%=lovedto.getRank() %></div>
-						<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
-						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
-						<h1 class="h hov2">
-								<%=lovedto.getMovie_name()%>
-						</h1>
-					</div>
-				<%} %>
+		<div class="outbox box">
+			<div class="row left">
+			<img src="./img/like.png" class="icon">
+				<h4>모비 좋아요 순위</h4>
 			</div>
+			
+			
+			<div class="row swiper-container swiper2">
 		
-			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
-		
-			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
-		</div>	
-	</div>
-
-<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 관객수 순위 -->
-
-	<div class="outbox box">
-		<div class="row left">
-			모비 관객수 순위
+				<div class="swiper-wrapper">
+					<%for(MovieDtoVO lovedto : movieLoveList){ %>
+						<div class="movie movie_detail swiper-slide">
+						<div class="rank"><%=lovedto.getRank() %></div>
+							<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
+							<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+							<h1 class="h hov2">
+									<%=lovedto.getMovie_name()%>
+							</h1>
+						</div>
+					<%} %>
+				</div>
+			
+				<!-- 네비게이션 버튼 -->
+				<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+			</div>	
 		</div>
-		<div class="row swiper-container swiper2">
 	
-			<div class="swiper-wrapper">
-				<%for(MovieDtoVO moviedto : movieAudList){ %>
-					<div class="movie movie_detail swiper-slide">
-					<div class="rank"><%=moviedto.getRank() %></div>
-						<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
-						<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
-						<h1 class="h hov3">
-								<%=moviedto.getMovie_name()%>
-						</h1>
-					</div>
-				<%} %>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 관객수 순위 -->
+	
+		<div class="outbox box">
+			<div class="row left">
+			<img src="./img/view.png" class="icon">
+				<h4>모비 관객수 순위</h4>
 			</div>
-			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
+			<div class="row swiper-container swiper2">
 		
-			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+				<div class="swiper-wrapper">
+					<%for(MovieDtoVO moviedto : movieAudList){ %>
+						<div class="movie movie_detail swiper-slide">
+						<div class="rank"><%=moviedto.getRank() %></div>
+							<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
+							<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+							<h1 class="h hov3">
+									<%=moviedto.getMovie_name()%>
+							</h1>
+						</div>
+					<%} %>
+				</div>
+				<!-- 네비게이션 버튼 -->
+				<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
+			
+				<!-- 페이징 -->
+				<div class="swiper-pagination"></div>
+		</div>
 	</div>
-</div>
-
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 맞춤 추천 -->
 
 <!-- 로그인 했을 경우엔 맞춤 영화를 보여준다! -->
@@ -428,30 +457,32 @@
 
 	<div class="outbox box">
 		<div class="row left">
-			맞춤 영화
+		<img src="./img/recom.png" class="icon">
+			<h4>맞춤 영화</h4>
 		</div>
-			<div class="row swiper-container swiper2">
+		<div class="row swiper-container swiper2">
+
+		<div class="swiper-wrapper">
 	
-			<div class="swiper-wrapper">
-		
-				<%for(MovieDto mydto : favgenre_movieList){ %>
-					<div class="movie movie_detail swiper-slide">
-					<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
-					<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
-					<h1 class="h hov4">
-							<%=mydto.getMovie_name()%>
-					</h1>
-					</div>
-				<%} %>
-			</div>
-			<!-- 네비게이션 버튼 -->
-			<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-			<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
-		
-			<!-- 페이징 -->
-			<div class="swiper-pagination"></div>
+			<%for(MovieDto mydto : favgenre_movieList){ %>
+				<div class="movie movie_detail swiper-slide">
+				<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
+				<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+				<h1 class="h hov4">
+						<%=mydto.getMovie_name()%>
+				</h1>
+				</div>
+			<%} %>
 		</div>
+		<!-- 네비게이션 버튼 -->
+		<div class="swiper-button-next n2"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+		<div class="swiper-button-prev p2"></div><!-- 이전 버튼 -->
+	
+		<!-- 페이징 -->
+		<div class="swiper-pagination"></div>
 	</div>
 <%} } %>
+</div>
+</div>
 </div>
 <jsp:include page="/template/footer.jsp"></jsp:include>

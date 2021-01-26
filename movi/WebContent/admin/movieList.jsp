@@ -137,7 +137,7 @@
 <!-- 검색결과가 있는 경우 --> 
 		<!--멤버 리스트 테이블  -->
 		<div class="row">
-			<table class="table table-border">
+			<table class="table1" style="width: 1000px">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="checkall">전체선택</th>
@@ -157,9 +157,9 @@
 						<td><%=movieDto.getMovie_date() %></td>
 						<td><%=movieDto.getMovie_audience() %></td>
 						<td>
-							<a href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
-						 	<a href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
-						 	 <a class="delete" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
+						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
+						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
 						</td>
 					</tr>
 					<%} %>
