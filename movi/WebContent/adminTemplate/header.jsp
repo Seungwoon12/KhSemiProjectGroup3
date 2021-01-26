@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>관리자 메인 화면 template</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/yeon.css">
 <style>
 	/* 화면 레이아웃 스타일 */
 	

@@ -12,7 +12,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	theme: "light2",
 	title:{
-		text: "Simple Line Chart"
+		text: "방문자 수"
 	},
 	data: [{        
 		type: "line",
@@ -55,11 +55,39 @@ chart.render();
   			<h1>통계</h1>
   		</div>
   		<table>
+  		  	<tr>
+  				<th>
+  				 	<div>
+  						<h1>총 회원 수</h1>
+
+  					</div>
+  				</th>
+  				<th>
+  				  	<div>
+  						<h1>이벤트 참여자 수</h1>
+
+  					</div>
+  				</th>
+  				<th>
+  					<div>
+  				  		<h1>등록된 영화의 개수</h1>
+  					</div>
+  				</th>
+  				<th>
+  					<div>
+  						<h1>리뷰 총 개수</h1>
+  					</div>
+  				</th>
+  			</tr>
+  		
+  		
+  		</table>
+  		<table>
   			<tr>
   				<th colspan="2">
   				  	<div>
   						<h1>방문자 수</h1>
-							<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+							<div id="chartContainer" style="height: 350px; width: 800px"></div>
 							<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   					</div>
   				</th>
@@ -74,7 +102,6 @@ chart.render();
   				<th>
   				  	<div>
   						<h1>인기 검색어</h1>
-
   					</div>
   				</th>
   			</tr>

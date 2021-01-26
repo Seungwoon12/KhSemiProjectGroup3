@@ -139,7 +139,7 @@
 <!-- 검색결과가 있는 경우 -->			
   	<!--리뷰 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border">
+		<table class="table1" style="width: 1000px">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="checkall">전체선택</th>
@@ -159,12 +159,12 @@
 					</td>
 					<td><%=reviewDto.getReview_no() %></td>
 					<td><%=reviewDto.getReview_title() %></td>
-					<th><%=reviewDto.getReview_writer_no() %></th>
+					<td><%=reviewDto.getReview_writer_no() %></td>
 					<td><%=reviewDto.getReview_date() %></td>
 					<td ><%=reviewDto.getReview_read() %></td>
 					<td>
-						<a href="reviewDetail.jsp?review_no=<%=reviewDto.getReview_no()%>">상세보기</a>
-						<a class="Delete" href="reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>">삭제</a>
+						<a class="abtn purple" href="reviewDetail.jsp?review_no=<%=reviewDto.getReview_no()%>">상세보기</a>
+						<a class="Delete abtn red" href="reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>">삭제</a>
 						
 					</td>
 				</tr>

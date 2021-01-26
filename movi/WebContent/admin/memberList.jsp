@@ -156,7 +156,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border">
+		<table class="table1" style="width: 1000px">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="checkall">전체선택</th>
@@ -180,9 +180,9 @@
 					<td><%=memberDto.getMember_date() %></td>
 					<td><%=memberDto.getMember_auth() %></td>
 					<td>
-						<a href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">상세보기</a>
-						<a href="memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>">수정</a>
-						<a class="memDelete" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
+						<a class="abtn purple" href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">상세보기</a>
+						<a class="abtn green"  href="memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>">수정</a>
+						<a class="memDelete abtn red" href="memberDelete.do?member_no=<%=memberDto.getMember_no()%>">삭제</a>
 
 					</td>
 				</tr>
