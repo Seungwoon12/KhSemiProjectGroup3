@@ -115,14 +115,16 @@
 			<tbody>
 				<tr>
 					<td style="width: 30%">
-						<img alt="profile" src="https://placeimg.com/150/150/people"> <!-- 프로필 사진이 나오도록 수정 -->
+						<img alt="user_profile" src="profile-download.do" 
+						onerror="this.src='/movi/image/profile/default_profile.png'" 
+						style="height: 150px; width: 150px;">
 					</td>
 					<td rowspan="2">
 						<div>
-							<h2><%=memberDto.getMember_id()%>님</h2>
+							<h2><%=memberDto.getMember_nick()%>님</h2>
 							<h5>방문해 주셔서 감사합니다.</h5>
 							<h5>
-								<%=memberDto.getMember_id()%>님
+								<%=memberDto.getMember_nick()%>님
 								<%if(mygenre_list.isEmpty()) {%>
 									은 아직 선호 장르를 선택하시지 않았습니다.(선호하는 영화 장르를 선택해보세요)
 								<%} else {%>
@@ -158,7 +160,7 @@
 	<div class="row float-box">
 		<span>좋아요 누른 영화</span>
 		<div class="right-btn">
-			<a href="#">더보기</a>
+			<a href="mylovemovielist.jsp?p=1">더보기</a>
 		</div>
 	</div>
 	<div class="row center">
@@ -200,9 +202,6 @@
 	<!-- 이벤트 페이지 구성되면 만들 생각 -->
 	<div class="row float-box">
 		<span>참여한 이벤트</span>
-		<div class="right-btn">
-			<a href="#">더보기</a>
-		</div>
 	</div>
 	<div class="row center">
 		<div class="swiper-container swiper2">

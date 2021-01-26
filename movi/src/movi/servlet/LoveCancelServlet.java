@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import movi.beans.LoveDao;
 import movi.beans.LoveDto;
 
-@WebServlet(urlPatterns = "/movie/love_cancel.do")
+@WebServlet(urlPatterns = "/category/love_cancel.do")
 public class LoveCancelServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +24,7 @@ public class LoveCancelServlet extends HttpServlet{
 			LoveDao loveDao = new LoveDao();
 			loveDao.love_cancel(loveDto);
 			
-			resp.sendRedirect(req.getContextPath()+"/movie/detail.jsp?movie_no=" + req.getParameter("movie_no"));
+			resp.sendRedirect(req.getContextPath()+"/category/detail.jsp?movie_no=" + req.getParameter("movie_no"));
 		}
 		catch(Exception e) {
 			e.printStackTrace();
