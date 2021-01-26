@@ -15,14 +15,15 @@
 
 <!-- 각종 기능 -->
 <script>
+//리뷰 삭제시 alert확인
 	window.onload= function(){
 		document.querySelector(".review-delete").addEventListener("click", function(){
-	
+			
 			var check = window.confirm("리뷰를 삭제하시겠습니까?");
 			if(check){
-				location.href=this.href ;
+				location.href="<%=request.getContextPath()%>/admin/reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>" ;
 			}else{
-				this.disabled='disabled';
+				location.href= "<%=request.getContextPath()%>/admin/reviewList.jsp" ;
 			}
 		});
 	}; 
@@ -93,7 +94,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><input type="button" value="리뷰삭제" class="review-delete" onclick="location.href='reviewDelete.do?review_no=<%=reviewDto.getReview_no()%>'"></td>
+						<td><input type="button" value="리뷰삭제" class="review-delete"></td>
 					</tr>
 				</tbody>
 			</table>

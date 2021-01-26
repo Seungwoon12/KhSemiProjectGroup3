@@ -8,6 +8,15 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<!-- 영화 포스터 먼저 업로드 하기 -->
+<form action="" method="post">
+	<input type="image" name="movie_poster" required>
+</form>
+
+
+
+
+
 <form action="movieInsert.do" method="post">
 	<div class="outbox" style="width: 100%">
 		<aside>
