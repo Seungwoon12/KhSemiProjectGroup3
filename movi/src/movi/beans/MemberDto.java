@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class MemberDto {
 	private int member_no;
-	private int member_event_no;
 	private String member_id;
 	private String member_pw;
 	private String member_nick;
@@ -17,12 +16,7 @@ public class MemberDto {
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
 	}
-	public int getMember_event_no() {
-		return member_event_no;
-	}
-	public void setMember_event_no(int member_event_no) {
-		this.member_event_no = member_event_no;
-	}
+	
 	public String getMember_id() {
 		return member_id;
 	}

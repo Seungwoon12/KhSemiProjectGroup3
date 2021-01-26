@@ -75,10 +75,10 @@ public class ReplyDao {
 	
 	
 	
-	//댓글개수
+	//댓글개수(삭제된 댓글은 카운트에서 빼는 조건 추가)
 	public int getCount(int review_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql = "select count(*) from reply where reply_origin = ?";
+		String sql = "select count(*) from reply where reply_origin = ? and reply_parent >=0";
 		PreparedStatement ps  = con.prepareStatement(sql);
 		ps.setInt(1, review_no);
 		ResultSet rs = ps.executeQuery();
@@ -159,7 +159,7 @@ public class ReplyDao {
 		con.close();
 	}
 	
-	//댓글삭제
+	//댓글삭제(댓글을 DB에서 삭제시키면 안될듯....)
 	public void deleteReply(int reply_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "delete reply where reply_no=?";
@@ -169,6 +169,17 @@ public class ReplyDao {
 		
 		con.close();
 		
+	}
+	
+	//댓글 삭제시 그 댓글의 reply_parent를 -1로 변경하고 reply_content를 "삭제된 댓글입니다"로 변경
+	public void deleteRootReply(int reply_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "update reply set reply_parent = -1, reply_content= '삭제된 댓글입니다.' where reply_no =?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, reply_no);
+		ps.execute();
+		
+		con.close();
 	}
 	
 	

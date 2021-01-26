@@ -5,6 +5,7 @@
 <%@ page import="java.util.*" %>
 
 <%
+	//게시글 번호
 	int review_no = Integer.parseInt(request.getParameter("review_no"));
 	
 	ReviewDao reviewDao = new ReviewDao();
@@ -48,6 +49,10 @@
 			session.setAttribute("review_no", review_no);
 			reviewDao.plusRead(review_no);
 		}
+	
+	
+	//상세영화번호
+	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
 			
 	
 %>
@@ -91,7 +96,7 @@
  		//목록버튼 클릭하면 목록으로 이동
  		$(".review-list-btn").click(function(){
  			
- 			location.href = "<%=request.getContextPath()%>/review/list.jsp?p=<%=p%>";
+ 			location.href = "<%=request.getContextPath()%>/review/listForDetail.jsp?movie_no=<%=movie_no%>&p=<%=p%>";
  			
  		});
  		
