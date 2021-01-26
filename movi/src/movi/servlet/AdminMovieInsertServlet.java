@@ -1,6 +1,7 @@
 package movi.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MovieDao;
+import movi.beans.MovieAdminDao;
 import movi.beans.MovieDto;
 
 @WebServlet(urlPatterns = "/admin/movieInsert.do")
@@ -25,13 +26,14 @@ public class AdminMovieInsertServlet extends HttpServlet{
 			movieDto.setMovie_time(Integer.parseInt(req.getParameter("movie_time")));
 			movieDto.setMovie_age(req.getParameter("movie_age"));
 			movieDto.setMovie_country(req.getParameter("movie_country"));
+			movieDto.setMovie_date(Date.valueOf(req.getParameter("movie_date")));
 			movieDto.setMovie_director(req.getParameter("movie_director"));
 			movieDto.setMovie_content(req.getParameter("movie_content"));
 			movieDto.setMovie_audience(Integer.parseInt(req.getParameter("movie_audience")));
 			
 			
 //			처리:
-			MovieDao movieDao = new MovieDao();
+			MovieAdminDao movieDao = new MovieAdminDao();
 			movieDao.insert_admin(movieDto); 
 			
 //			출력 : 

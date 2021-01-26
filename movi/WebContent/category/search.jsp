@@ -9,7 +9,6 @@
 
 <%
 	String movie_name = request.getParameter("movie_name");
-
 	MovieDao movieDao = new MovieDao();
 	List<MovieDto> movieList = movieDao.select_movie(movie_name);
 %>
@@ -51,7 +50,6 @@
 </style>
 
 <script>
-
 	$(document).ready(function(){
 	
 		$(".list").slideDown(500);

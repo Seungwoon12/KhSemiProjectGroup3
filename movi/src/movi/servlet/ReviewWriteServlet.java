@@ -36,10 +36,10 @@ public class ReviewWriteServlet extends HttpServlet {
 			
 			int review_no = reviewDao.getSequence();
 			reviewDto.setReview_no(review_no);
-			
+				
 			reviewDao.reviewWrite(reviewDto);
 			
-			resp.sendRedirect("detail.jsp?review_no="+review_no);
+			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p=1");
 			
 		}
 		catch(Exception e) {
@@ -48,5 +48,4 @@ public class ReviewWriteServlet extends HttpServlet {
 		}
 	
 	}
-	
 }

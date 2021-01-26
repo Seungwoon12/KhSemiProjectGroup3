@@ -18,7 +18,7 @@
 	int endPage=10;
 
 	
-	//3조추천s
+	//3조추천
 	RecommendDao recomDao = new RecommendDao();
 	List<RecommendDto> recomList = recomDao.select_title();
 	

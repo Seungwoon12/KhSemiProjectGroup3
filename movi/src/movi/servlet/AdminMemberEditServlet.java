@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MemberDao;
+import movi.beans.MemberAdminDao;
 import movi.beans.MemberDto;
 
 @WebServlet(urlPatterns = "/admin/memberEdit.do")
@@ -28,7 +28,7 @@ public class AdminMemberEditServlet extends HttpServlet{
 			
 			
 //			처리: 데이터 수정 지시
-			MemberDao memberDao = new MemberDao();
+			MemberAdminDao memberDao = new MemberAdminDao();
 			boolean result = memberDao.edit_admin(memberDto);
 			
 			

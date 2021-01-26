@@ -6,7 +6,7 @@
 <%
 
 	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
-	MovieDao movieDao = new MovieDao();
+	MovieAdminDao movieDao = new MovieAdminDao();
 	MovieDto movieDto = movieDao.select_admin(movie_no);
 %>
     
@@ -20,7 +20,6 @@
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
-			<a href="#"> 영화 수정 </a><br><br> 
 		</div>
 	</aside>
 

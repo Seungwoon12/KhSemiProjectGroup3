@@ -27,7 +27,6 @@
 <!-- 영화 검색  -->
 <%
 	//type(분류):영화 번호,영화제목 	key:검색어
-	request.setCharacterEncoding("UTF-8");
 	String type= request.getParameter("type");
 	String key = request.getParameter("key");
 	
@@ -35,7 +34,7 @@
 %>
 <!-- 영화 목록  -->
 <%
-	MovieDao movieDao = new MovieDao();
+	MovieAdminDao movieDao = new MovieAdminDao();
 	List<MovieDto> movieList;
 	if(search){
 		//movieList = movieDao.select_admin(type, key);
@@ -55,20 +54,20 @@
 	int startBlock = (p-1)/blockSize * blockSize +1;
 	int endBlock = startBlock + blockSize -1;
 	
-	//int count;
-	//if(search){
-	//	count= memberDao.count_admin(type, key); 
-	//}else{
-	//	count= memberDao.count_admin(); 
-	//}
-	//페이지 개수
-	//int countSize = (count + pageSize -1) / pageSize;
+	int count;
+	if(search){
+		count= movieDao.count_admin(type, key);
+	}else{
+		count= movieDao.count_admin();
+	}
+	// 페이지 개수
+	int countSize = (count + pageSize -1) / pageSize;
 	
-	//if(endBlock > countSize){
-	//	endBlock = countSize;
-	//}
+	if(endBlock > countSize){
+		endBlock = countSize;
+	}
 %>
-	
+
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
 <!--영화 삭제시 알림 구현  -->
@@ -105,7 +104,6 @@
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
-			<a href="#"> 영화 수정 </a><br><br> 
 		</div>
 	</aside>
 
@@ -125,7 +123,12 @@
 				<input type="submit" value="검색">
 			</form>
 		</div>
- <%if(movieList.isEmpty()){ %> 
+ <%if(movieList == null){ %>
+<!-- 처음 들어온 경우 보여줄 화면 -->
+	<div class="row center">
+		<h4>검색할 영화를 입력하세요</h4>
+	</div>		
+ <%}else if(movieList.isEmpty()){ %> 
  <!-- 검색결과가 없는 경우 -->
 		<div class="row center">
 			<h1>검색결과가 없습니다.</h1>
@@ -134,7 +137,7 @@
 <!-- 검색결과가 있는 경우 --> 
 		<!--멤버 리스트 테이블  -->
 		<div class="row">
-			<table class="table table-border">
+			<table class="table1" style="width: 1000px">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="checkall">전체선택</th>
@@ -154,9 +157,9 @@
 						<td><%=movieDto.getMovie_date() %></td>
 						<td><%=movieDto.getMovie_audience() %></td>
 						<td>
-							<a href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
-						 	<a href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
-						 	 <a class="delete" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
+						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
+						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
 						</td>
 					</tr>
 					<%} %>
@@ -175,13 +178,13 @@
 				
 
 				<%if(search){ %>
-				<li><a href="memberList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
+				<li><a href="movieList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
 				<%}else{ %>
-				<li><a href="memberList?p=<%=startBlock-1%>">&lt;</a></li>
+				<li><a href="movieList?p=<%=startBlock-1%>">&lt;</a></li>
 				<%} %>
 								
 
-				<%for(int i=1; i<=10;i++){ %>
+				<%for(int i=1; i<=endBlock;i++){ %>
 					<li>
 						<%if(search){ %>
 						<!-- 검색용 링크 -->
@@ -195,9 +198,9 @@
 
 				<!-- 이후 -->
 				<%if(search){ %>
-				<li><a href="memberList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
+				<li><a href="movieList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
 				<%}else{ %>
-				<li><a href="memberLilst.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<li><a href="movieList.jsp?p=<%=endBlock+1%>">&gt;</a></li>
 				<%} %>
 				
 			</ul>

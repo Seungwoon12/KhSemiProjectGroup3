@@ -24,7 +24,7 @@ public class LoveCancelServlet extends HttpServlet{
 			LoveDao loveDao = new LoveDao();
 			loveDao.love_cancel(loveDto);
 			
-			resp.sendRedirect("movie/detail.jsp?movie_no=" + req.getParameter("movie_no"));
+			resp.sendRedirect(req.getContextPath()+"/movie/detail.jsp?movie_no=" + req.getParameter("movie_no"));
 		}
 		catch(Exception e) {
 			e.printStackTrace();

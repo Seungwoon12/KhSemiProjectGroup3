@@ -8,6 +8,15 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<!-- 영화 포스터 먼저 업로드 하기 -->
+<form action="" method="post">
+	<input type="image" name="movie_poster" required>
+</form>
+
+
+
+
+
 <form action="movieInsert.do" method="post">
 	<div class="outbox" style="width: 100%">
 		<aside>
@@ -17,7 +26,6 @@
 			<div class="left">
 				<a href="movieList.jsp"> 영화리스트 </a><br>
 				<br> <a href="movieInsert.jsp"> 영화 등록 </a><br>
-				<br> <a href="#"> 영화 수정 </a><br>
 			</div>
 		</aside>
 
@@ -93,7 +101,9 @@
 						</tr>
 						<tr>
 							<th>개봉일</th>
-							<td></td>
+							<td>
+								<input type="text" name="movie_date" required>
+							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
@@ -108,7 +118,7 @@
 						<tr>
 							<th>줄거리</th>
 							<td>
-								<textarea class="input" name="movie_content" placeholder="줄거리 입력"></textarea>
+								<textarea class="input" name="movie_content" placeholder="줄거리 입력" required></textarea>
 							</td>
 						</tr>
 						<tr>

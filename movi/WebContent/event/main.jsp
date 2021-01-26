@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="movi.beans.EventDto"%>
@@ -67,4 +68,5 @@
 			<%} %>
 	<%} %>
 </div>
+
 <jsp:include page="/template/footer.jsp"></jsp:include>

@@ -8,7 +8,7 @@
  	//파라미터 받아서 출력
  	request.setCharacterEncoding("UTF-8");
  	int movie_no = Integer.parseInt(request.getParameter("movie_no"));
- 	MovieDao movieDao = new MovieDao();
+ 	MovieAdminDao movieDao = new MovieAdminDao();
  	MovieDto movieDto = movieDao.select_admin(movie_no);
  
  %>     
@@ -24,7 +24,6 @@
 			<div class="left">
 				<a href="movieList.jsp"> 영화리스트 </a><br>
 				<br> <a href="movieInsert.jsp"> 영화 등록 </a><br>
-				<br> <a href="#"> 영화 수정 </a><br>
 			</div>
 		</aside>
 
@@ -107,7 +106,9 @@
 						</tr>
 						<tr>
 							<th>개봉일</th>
-							<td></td>
+							<td>
+								<input type="text" name="movie_date" placeholder="<%=movieDto.getMovie_date() %>" required>
+							</td>
 						</tr>
 						<tr>
 							<th>감독</th>

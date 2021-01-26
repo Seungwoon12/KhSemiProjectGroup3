@@ -7,7 +7,7 @@
 <div class="outbox" style="width:100%">
    <aside>
    		<div class="row center">
-       		<h2 style="color:deepskyblue;">영화 관리</h2>     
+       		<h2 style="color:deepskyblue;">이벤트 관리</h2>     
   	 	</div>
   	 	<div class="left">
   	 		<a href="#"> 이벤트 목록 </a><br><br>
@@ -33,7 +33,7 @@
   		
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table table-border table-pattern">
+		<table class="table1" style="width: 1000px">
 			<thead>
 				<tr>
 					<th><input type="checkbox">전체선택</th>
@@ -53,9 +53,9 @@
 					<td>이벤트 이름</td>
 					<td>기간</td>
 					<td>
-						<a href="#">상세보기</a>
-						<a href="#">수정</a>
-						<a href="#">삭제</a>
+						<a class="abtn purple" href="#">상세보기</a>
+						<a class="abtn green" href="#">수정</a>
+						<a class="abtn red" href="#">삭제</a>
 
 					</td>
 				</tr>

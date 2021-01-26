@@ -1,3 +1,4 @@
+
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -8,8 +9,8 @@
 <%
 	//관리자는 회원정보를 수정하므로 파라미터로 전달받아 출력한다.(세션X)
 	int member_no = Integer.parseInt(request.getParameter("member_no"));
-	MemberDao memberDao = new MemberDao();
-	MemberDto memberDto = memberDao.select_admin(member_no); 
+	MemberAdminDao memberDao = new MemberAdminDao();
+	MemberAdminDtoVO memberDto = memberDao.SelectAll_admin(member_no); 
 %>
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
@@ -26,8 +27,10 @@
 			</div>
 			<div class="left">
 				<a href="memberList.jsp">회원리스트 </a><br> <br>
-				 <a href="#"> 임시 비밀번호 발급 </a><br><br> 
+				 <a href="memberPwSearch.jsp"> 임시 비밀번호 발급 </a><br><br> 
 				 <a href="#"> 회원 쿠폰 관리 </a>
+			<br><br> <a href="memberCouponList.jsp">쿠폰 목록</a>
+			<br><br> <a href="memberCouponInsert.jsp">쿠폰 등록</a>
 			</div>
 		</aside>
 
@@ -54,7 +57,7 @@
 						<tr>
 							<th>회원아이디</th>
 							<td><%=memberDto.getMember_id()%>
-							<input type="button" value="임시 비밀번호 발급" onclick="location.href='memberPwCheck.jsp'">
+							<input type="button" value="임시 비밀번호 발급" onclick="location.href='memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>'">
 							 </td>
 						</tr>
 						<tr>
@@ -82,11 +85,14 @@
 						</tr>
 						<tr>
 							<th>선호 장르</th>
-							<td></td>
+							<td><%=memberDto.getGenre_name() %></td>
 						</tr>
 						<tr>
 							<th>이벤트 내역</th>
-							<td></td>
+							<td>
+							이벤트명: <%=memberDto.getEvent_name() %>/
+							쿠폰 :<%=memberDto.getEvent_coupon() %>
+							</td>
 						</tr>
 
 						<tr>

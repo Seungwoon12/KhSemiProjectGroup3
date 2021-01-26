@@ -1,17 +1,10 @@
 package movi.beans;
 
 public class MygenreDtoVO {
-	private int mygenre_no;
 	private int mygenre_member_no;
 	private int mygenre_genre_no;
 	private String genre_name;
 	
-	public int getMygenre_no() {
-		return mygenre_no;
-	}
-	public void setMygenre_no(int mygenre_no) {
-		this.mygenre_no = mygenre_no;
-	}
 	public int getMygenre_member_no() {
 		return mygenre_member_no;
 	}
