@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
     pageEncoding="UTF-8"%>
@@ -37,9 +38,9 @@
  
 <table align="center" height="50"  class="message">
   <tr>
-   <td><a href="/movi/member/join2.jsp"> 회원가입 | </a></td> 
-   <td><a href="/movi/member/Id_find.jsp"> 아이디 찾기 |</a></td>
-   <td><a href="/movi/member/pw_find.jsp"> 비밀번호 재설정</a></td>
+   <td><a href="/movi/member/join.jsp"> 회원가입 | </a></td> 
+   <td><a href="/movi/member/Idfind.jsp"> 아이디 찾기 |</a></td>
+   <td><a href="/movi/member/pwfind.jsp"> 비밀번호 재설정</a></td>
   </tr>
   </table>
              

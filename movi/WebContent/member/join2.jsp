@@ -1,22 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/template/header.jsp"></jsp:include>	
-<script>
-window.onload = function () {
-    document.getElementById('frm').onsubmit = function () {
-        var checkInput = document.querySelectorAll("input[name=agree]");
-
-        for (var i = 0; i < checkInput.length; i++) {
-            if (!checkInput[i].checked) {
-                alert("모든 약관에 동의하세요");
-                return false;
-            }
-        }
-        return true;
-    };
-
-}
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <style>
 .row{
 height:50px; 
@@ -28,16 +13,30 @@ border-radius:1.5em;
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	
+    $("#next").click(function(){    
+	if($("#agree1").prop("checked")== false || $("#agree2").prop("checked") == false){
+         alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다."); // 이용약관에 체크되지않을시 경고창
+      }else{
+    	  location.href = "<%=request.getContextPath()%>/member/join.jsp"
+         // 체크되면 다음페이지로 이동
+      }
+    });    
+});
+ </script> 
+       
+
 
 <!-----약관동의---->
-
 <table width="600px" align="center">
     <tbody><tr>
+
     <td align="center">
-    <h1>회원가입</h1>
+    <h1>이용약관</h1>
     </td>
     </tr>
-
     <tr>
       <td align="center">
           
@@ -220,7 +219,7 @@ border-radius:1.5em;
             </tr>
             <tr>
               <td>
-                <input type="checkbox" required>이용약관에 동의합니다.<br><br><br><br>
+                <input type="checkbox" id="agree1" value="1" >이용약관에 동의합니다.<br><br><br><br>
               </td>
             </tr>
             <tr>
@@ -347,7 +346,7 @@ SNS
             </tr>
             <tr>
               <td>
-                <input type="checkbox" required>개인정보 수집 및 이용에 대한 안내에 동의합니다.
+                <input type="checkbox"  id="agree2"  value="2"  >개인정보 수집 및 이용에 대한 안내에 동의합니다.
               </td>
             </tr>
     </tbody></table>
@@ -358,9 +357,9 @@ SNS
                <br><br>
                <div>
              <input type="button" value="Back" onClick="history.go(-1)" class="row" >
-			 <input type="button" value="Next" onclick="location.href='join.jsp'" class="row" >
-			   </div>
+			 <input type="button" value="Next" id="next" class="row" >
+			  </div>
 			  </td>
            </tr>   
    </tbody>
-
+</table></form>

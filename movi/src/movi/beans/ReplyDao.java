@@ -57,6 +57,23 @@ public class ReplyDao {
 	}
 	
 	
+	//대대댓글 등록메소드 ReplyWriteServlet3에서 사용
+	public void writeReply3(ReplyDto replyDto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "insert into reply values(?, ?, ?, ?, ?, 2, ?, sysdate)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, replyDto.getReply_no());
+		ps.setInt(2, replyDto.getReply_origin());
+		ps.setInt(3, replyDto.getReply_writer_no());
+		ps.setInt(4, replyDto.getReply_root());
+		ps.setInt(5, replyDto.getReply_parent());
+		ps.setString(6, replyDto.getReply_content());
+		ps.execute();
+		
+		con.close();
+	}
+	
+	
 	
 	//댓글개수
 	public int getCount(int review_no) throws Exception {
@@ -80,7 +97,7 @@ public class ReplyDao {
 		String sql = "select R.*, M.member_nick "
 				+ "from reply R inner join member M on R.reply_writer_no = M.member_no "
 				+ "where reply_origin = ? "
-				+ "order by reply_root, reply_time";
+				+ "order by reply_root, reply_no, reply_time";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, review_no);
 		ResultSet rs = ps.executeQuery();
@@ -105,6 +122,62 @@ public class ReplyDao {
 		
 		return list;
 	}
+	
+	//reply_parent 닉네임 및 댓글 작성자번호 구하기(대대댓글 출력시 사용)
+	public ReplyVO getNick(int reply_parent) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "select R.*, M.member_nick from reply R inner join member M on R.reply_writer_no = M.member_no where reply_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, reply_parent);
+		ResultSet rs = ps.executeQuery();
+		
+		ReplyVO replyVO;
+		if(rs.next()) {
+			replyVO = new ReplyVO();
+			replyVO.setReply_writer_no(rs.getInt("reply_writer_no"));
+			replyVO.setMember_nick(rs.getString("member_nick"));
+		}
+		else {
+			replyVO = null;
+		}
+		
+		con.close();
+		
+		return replyVO;
+	}
+	
+	
+	//댓글수정
+	public void editReply(ReplyDto replyDto) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "update reply set reply_content = ?, reply_time = sysdate where reply_no = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, replyDto.getReply_content());
+		ps.setInt(2, replyDto.getReply_no());
+		ps.execute();
+		
+		con.close();
+	}
+	
+	//댓글삭제
+	public void deleteReply(int reply_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "delete reply where reply_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, reply_no);
+		ps.execute();
+		
+		con.close();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//대댓글 목록 출력 메소드
 //	public List<ReplyVO> selectReply2(int review_no) throws Exception {

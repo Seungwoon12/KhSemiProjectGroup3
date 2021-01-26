@@ -26,7 +26,7 @@ public class ReviewWriteServlet extends HttpServlet {
 			
 			
 			ReviewDto reviewDto = new ReviewDto();
-        //reviewDto.setReview_writer_no(req.getSession().getAttribute("회원번호")); // 회원번호 가져오기
+			reviewDto.setReview_writer_no((int)req.getSession().getAttribute("check")); // 회원번호 가져오기
 			reviewDto.setReview_movie_no(movieDto.getMovie_no()); //영화번호 가져오기
 			reviewDto.setReview_title(req.getParameter("review_title"));
 			reviewDto.setReview_content(req.getParameter("review_content"));
@@ -36,10 +36,10 @@ public class ReviewWriteServlet extends HttpServlet {
 			
 			int review_no = reviewDao.getSequence();
 			reviewDto.setReview_no(review_no);
-			
+				
 			reviewDao.reviewWrite(reviewDto);
 			
-			resp.sendRedirect("detail.jsp?review_no=?"+review_no);
+			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p=1");
 			
 		}
 		catch(Exception e) {
@@ -48,5 +48,4 @@ public class ReviewWriteServlet extends HttpServlet {
 		}
 	
 	}
-	
 }

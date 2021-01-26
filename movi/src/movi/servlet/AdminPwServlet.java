@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import movi.beans.MemberDao;
+import movi.beans.MemberAdminDao;
 import movi.util.PwUtil;
 
 @WebServlet(urlPatterns = "/admin/memberPw.do")
@@ -23,7 +23,7 @@ public class AdminPwServlet extends HttpServlet{
 			String pw = PwUtil.generaterandonString(10);
 			
 //			처리 : 비밀번호 변경
-			MemberDao memberDao = new MemberDao();
+			MemberAdminDao memberDao = new MemberAdminDao();
 			boolean result = memberDao.editPw_admin(member_no, pw);
 			
 //			출력 : 포워드로 출력

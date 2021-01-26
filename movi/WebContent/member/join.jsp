@@ -71,7 +71,7 @@ border-radius:1.5em;
 
  </style>
  
-<form action="join.do" method="post" onsubmit="checkValue()">
+<form action="join.do" method="post" >
 	<div  class="outbox" align="center">
 			<h1>회원 가입</h1>
 	</div>
@@ -91,7 +91,7 @@ border-radius:1.5em;
 		<div align="center">
 			<font>비밀번호확인</font>
 			<br>
-			<input type="password" name="pw2" required class="row"   placeholder="4~20자의 영문/ 대소문자/숫자 입력">
+			<input type="password" name="pw2" required class="row"  placeholder="4~20자의 영문/ 대소문자/숫자 입력">
 		</div>
 			<br>
 		<div align="center">
@@ -103,7 +103,7 @@ border-radius:1.5em;
 		<div align="center">
 			<font>전화번호</font>
 			<br>
-			<input type="text" name="member_phone" class="row" placeholder="선택사항">
+			<input type="text" name="member_phone" class="row" placeholder="선택사항/아이디 비밀번호 찾기시 사용될수 있습니다">
 		</div>
 		<br>	
 		<div align="center">

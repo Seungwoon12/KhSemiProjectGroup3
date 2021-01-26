@@ -16,8 +16,7 @@ public class Pwfindservlet extends HttpServlet {
 	    @Override
 	    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	       
-	   //    입력 : 아이디, 전화번호
-	        
+	   //    입력 (id, phone)	        
 	        try {
 	        req.setCharacterEncoding("UTF-8");
 	        MemberDto dto = new MemberDto(); 
@@ -25,8 +24,12 @@ public class Pwfindservlet extends HttpServlet {
 			dto.setMember_nick(req.getParameter("member_id"));
 			dto.setMember_phone(req.getParameter("member_phone"));
 
-           
+           // 처리
             MemberFindDao dao = new MemberFindDao();
+            
+            dao.Pw_find(dto);
+            
+            //불러오기 
             String member_pw= dao.Pw_find(dto);
             
             if (!member_pw.isEmpty()) {
@@ -40,4 +43,3 @@ public class Pwfindservlet extends HttpServlet {
         } 
     }
 }
-		

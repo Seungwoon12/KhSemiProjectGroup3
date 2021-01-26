@@ -24,44 +24,52 @@
             padding: 30px;
         }
         .main{
-        	width :25%;
-            border : 1px solid black;
+        	width :100%;
         }
-        .main>li{
+        .top{
             display: inline-block;
             width: 89px;
             padding: 0.4rem;
         }
-        .main>li:hover,
-        .main>li:active,
-        .main>li:visited{
+        .top:hover,
+        .top:active,
+        .top:visited{
             text-decoration: underline;
-            background-color: gray;
+            font-weight: bolder;
         }
         .main a{
             color: black;
             text-decoration: none;
         }
+        .top a{
+        	color:#4E6FA6;
+        	font-size:17px;
+        }
         .menu{
    	 		width: 530px;
    			margin-bottom: 35px;
         }
+        .list{
+        	width:215px;
+        	padding :0.5rem;
+        	display: none;
+        }
 </style>
 
 <script>
-	$(function(){
-		//클릭시 색칠 되는 스타일이 계속 적용되도록.. 페이지가 이동해도 가능한가?
-		$("li>a").click(function(){
-			//$(this).addClass('active');
-			//$(this).css("background-color","yellow");
-		});
+	$(document).ready(function(){
+		$(".a<%=movie_genre_no%>").css("text-decoration","underline");
+		$(".a<%=movie_genre_no%>").css("font-weight","bolder");
+	
+		$(".list").slideDown(500);
+		$(".list").css("display","inline-block");
 	});
 </script>
 
 <ul class="main menu">
 		<%for(GenreDto dto : genreList){ %>
-       <li>
-			<a class="aa" href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
+       <li class="top">
+			<a class="a<%=dto.getGenre_no()%>" href="main.jsp?movie_genre_no=<%=dto.getGenre_no()%>">
 				<%=dto.getGenre_name()%>
 			</a>
        </li>
@@ -69,13 +77,14 @@
 </ul>
 
 <ul class="main movie_list">
-       <li>
 		<%for(MovieDto dto : moviegenreList){ %>
-			<a href="detail.jsp?movie_name=<%=dto.getMovie_name()%>">
+       <li class="list">
+			<a href="detail.jsp?movie_no=<%=dto.getMovie_no()%>">
+			<img src ="https://placehold.it/200X300?text=IMAGE">
 				<%=dto.getMovie_name() %>
 			</a>
-		<%}%>
        </li>
+		<%}%>
 </ul>
 
 

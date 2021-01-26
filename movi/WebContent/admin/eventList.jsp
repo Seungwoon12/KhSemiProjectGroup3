@@ -7,7 +7,7 @@
 <div class="outbox" style="width:100%">
    <aside>
    		<div class="row center">
-       		<h2 style="color:deepskyblue;">영화 관리</h2>     
+       		<h2 style="color:deepskyblue;">이벤트 관리</h2>     
   	 	</div>
   	 	<div class="left">
   	 		<a href="#"> 이벤트 목록 </a><br><br>

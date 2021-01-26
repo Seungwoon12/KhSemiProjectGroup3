@@ -14,9 +14,19 @@ public class MovieDtoVO {
 	private String movie_director;
 	private String movie_content;
 	private int movie_audience;
-	private int mlike;
-	private String movie_actor_name;
-	private String movie_actor_role;
+	private int rank;
+	
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
+	public MovieDtoVO() {
+		super();
+	}
 	
 	public int getMovie_no() {
 		return movie_no;
@@ -90,23 +100,28 @@ public class MovieDtoVO {
 	public void setMlike(int mlike) {
 		this.mlike = mlike;
 	}
-	public String getMovie_actor_name() {
-		return movie_actor_name;
+	public String getGenre_name() {
+		return genre_name;
 	}
-	public void setMovie_actor_name(String movie_actor_name) {
-		this.movie_actor_name = movie_actor_name;
+	public void setGenre_name(String genre_name) {
+		this.genre_name = genre_name;
 	}
-	public String getMovie_actor_role() {
-		return movie_actor_role;
+	public String getActor_name() {
+		return actor_name;
 	}
-	public void setMovie_actor_role(String movie_actor_role) {
-		this.movie_actor_role = movie_actor_role;
+	public void setActor_name(String actor_name) {
+		this.actor_name = actor_name;
 	}
-	public MovieDtoVO() {
-		super();
+	public String getActor_role() {
+		return actor_role;
 	}
-	
-	
+	public void setActor_role(String actor_role) {
+		this.actor_role = actor_role;
+	}
+	private int mlike;
+	private String genre_name;
+	private String actor_name;
+	private String actor_role;
 
 	
 }

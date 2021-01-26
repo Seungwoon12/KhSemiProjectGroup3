@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import movi.beans.ReplyDao;
 import movi.beans.ReplyDto;
 
-@WebServlet(urlPatterns="/review/reply_write2.do")
+@WebServlet(urlPatterns="/review/reply2_write.do")
 public class ReplyWriteServlet2 extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,7 +40,8 @@ public class ReplyWriteServlet2 extends HttpServlet {
 			replyDao.writeReply2(replyDto); // 대댓글등록
 			
 			//댓글을 작성한 게시글 상세페이지로 이동
-			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin());
+			int p = Integer.parseInt(req.getParameter("p"));
+			resp.sendRedirect("detail.jsp?review_no="+replyDto.getReply_origin()+"&p="+p);
 			
 		}
 		catch(Exception e) {

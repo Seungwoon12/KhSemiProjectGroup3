@@ -106,10 +106,11 @@ public class ReviewDao {
 		String sql = "select * from(" + 
 				"select rownum rn, TMP.* from(" + 
 				"select "
-				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, count(REP.reply_origin) reply_count "
+				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
 				+ "left outer join Reply REP on R.review_no = REP.reply_origin "
-				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick  "
+				+ "inner join Movie MO on R.review_movie_no = MO.movie_no "
+				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
 				+ "order by review_no desc" + 
 				")TMP" + 
 				") where rn between ? and ?";
@@ -130,6 +131,7 @@ public class ReviewDao {
 			reviewVO.setReview_date(rs.getDate("review_date"));
 			reviewVO.setReview_read(rs.getInt("review_read"));
 			reviewVO.setMember_nick(rs.getString("member_nick"));
+			reviewVO.setMovie_name(rs.getString("movie_name"));
 			reviewVO.setReply_count(rs.getInt("reply_count"));
 			
 			list.add(reviewVO);
@@ -146,10 +148,12 @@ public class ReviewDao {
 		String sql = "select * from(" + 
 				"select rownum rn, TMP.* from(" + 
 				"select "
-				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, count(REP.reply_origin) reply_count "
+				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
-				+ "left outer join Reply REP on R.review_no = REP.reply_origin where instr(#1, ?) > 0 "
-				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick  "
+				+ "left outer join Reply REP on R.review_no = REP.reply_origin "
+				+ "inner join movie MO on R.review_movie_no = MO.movie_no "
+				+ "where instr(#1, ?) > 0  "
+				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
 				+ "order by review_no desc" + 
 				")TMP" + 
 				") where rn between ? and ?";
@@ -172,6 +176,7 @@ public class ReviewDao {
 			reviewVO.setReview_date(rs.getDate("review_date"));
 			reviewVO.setReview_read(rs.getInt("review_read"));
 			reviewVO.setMember_nick(rs.getString("member_nick"));
+			reviewVO.setMovie_name(rs.getString("movie_name"));
 			reviewVO.setReply_count(rs.getInt("reply_count"));
 			
 			list.add(reviewVO);
@@ -335,68 +340,9 @@ public class ReviewDao {
 //	}
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//////////////////////////////////////////////////////////////////////////////////////////////////
-	//관리자 모드
-	
-	
-	//리뷰 목록 - /admin/reviewList.jsp
-	public List<ReviewDto> select_admin()throws Exception{
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		
-		String sql= "select review_no, review_writer_no, review_title, review_date, review_read " + 
-						"from review order by review_no desc";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ResultSet rs = ps.executeQuery();
-		
-		List<ReviewDto> reviewList = new ArrayList<>();
-		while(rs.next()) {
-			ReviewDto reviewDto = new ReviewDto();
-			reviewDto.setReview_no(rs.getInt("review_no"));
-			reviewDto.setReview_writer_no(rs.getInt("review_writer_no"));
-			reviewDto.setReview_title(rs.getString("review_title"));
-			reviewDto.setReview_date(rs.getDate("review_date"));
-			reviewDto.setReview_read(rs.getInt("review_read"));
-			reviewList.add(reviewDto);
-		}
-		con.close();
-		
-		return reviewList;
-		
-	}
 
-//////////////////////////////////////////////////////////////////////////////////////////////////	
-	
-	
+
 }
+
+	
+

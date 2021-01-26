@@ -49,7 +49,7 @@ public class RecommendDao {
 		public List<RecommendDtoVO> select(String title) throws Exception{
 			Connection con = JdbcUtil.getConnection(USER, PASS);
 			
-			String sql = "select r.recom_title,m.movie_name "
+			String sql = "select r.recom_title,m.movie_name,r.recom_movie_no "
 					+"from recommend R "
 					+ "left outer join movie M on r.recom_movie_no=m.movie_no "
 					+ "where r.recom_title=?"; 
@@ -62,9 +62,10 @@ public class RecommendDao {
 				RecommendDtoVO dto = new RecommendDtoVO();
 				dto.setRecom_title(rs.getString("recom_title"));
 				dto.setRecom_movie_name(rs.getString("movie_name"));
+				dto.setRecom_movie_no(rs.getInt("recom_movie_no"));
 				list.add(dto);
 			}
 			con.close();
 			return list;
 		}
-}
+}	

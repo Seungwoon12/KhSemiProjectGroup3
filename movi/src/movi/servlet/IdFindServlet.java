@@ -23,12 +23,20 @@ public class IdFindServlet extends HttpServlet {
 	        req.setCharacterEncoding("UTF-8");
 	        MemberDto dto = new MemberDto(); 
 	        
-			dto.setMember_nick(req.getParameter("member_nick"));
+	        dto.setMember_nick(req.getParameter("member_nick"));
+			dto.setMember_phone(req.getParameter("member_phone"));
+	       
+      //처리
+			
+			System.out.println(dto);          
+			MemberFindDao dao = new MemberFindDao();
+			
+            dao.Id_find(dto);
 
-           
-            MemberFindDao dao = new MemberFindDao();
+			
             String member_id= dao.Id_find(dto);
-            
+           
+     //
             if (!member_id.isEmpty()) {
                 resp.sendRedirect("Id_findresult.jsp");
             } else {
@@ -40,4 +48,6 @@ public class IdFindServlet extends HttpServlet {
         } 
 	    }
 }
-	
+
+
+
