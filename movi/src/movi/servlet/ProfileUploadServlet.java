@@ -3,6 +3,7 @@ package movi.servlet;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,10 @@ public class ProfileUploadServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			String path = req.getContextPath() + "/image/profile";
+			
+			ServletContext context = getServletContext();
+			
+			String path = context.getRealPath("upload/profile");
 			
 			int max = 5 * 1024 * 1024;
 			String encoding = "UTF-8";

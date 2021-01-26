@@ -1,3 +1,4 @@
+<%@page import="movi.beans.LoveDao"%>
 <%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="movi.beans.MovieDto"%>
@@ -20,7 +21,25 @@
 	.top{
 		display:inline-block;
 	}
+	.heart {
+		height: 35px;
+		width: 35px;
+		vertical-align: middle;
+	}
 </style>
+
+<script>
+	$(function(){
+		$(".cancel_love").click(function(){
+			location.href="love_cancel.do?movie_no=<%=movie_no%>";
+		});
+		$(".plus_love").click(function(){
+			location.href="love.do?movie_no=<%=movie_no%>";
+		});
+	});
+</script>
+
+
 <div class="outbox">
 	<%for(MovieDtoVO dto : moviegenreList){ %>
 	<div >
@@ -83,11 +102,35 @@
 			<%=vo.getActor_name()%>&nbsp;     
 		<%}%>
 	</p>
+	</div>
+	
 	<hr>
+	
+	<div class="love_box">
+	<%
+	
+	LoveDao loveDao = new LoveDao();
+	boolean loginCheck = session.getAttribute("check") != null;
+	
+	if(loginCheck) {
+		int member_no = (int)session.getAttribute("check");
+		boolean love_check = loveDao.love_search(member_no, movie_no);
+		if(love_check){
+		%>
+		<button class="love-btn cancel_love">
+			<img class="heart" alt="cancel_love" src="<%=request.getContextPath()%>/img/heart_red.png">
+		<%} else{ %>
+		<button class="love-btn plus_love">
+			<img class="heart" alt="plus_love" src="<%=request.getContextPath()%>/img/heart_white.png">
+		<%} %>
+	<%} %>
+			<%=loveDao.love_count(movie_no) %>
+		</button>
+	</div>
 	
 	<div class="right">
 	<!-- 클릭하면 해당 영화의 movie_no가 검색된 리뷰 테이블로 이동하기 -->
-	<a href="/movi/review/listForDetail.jsp?movie_no=<%=movie_no%>">영화 리뷰 보러가기</a>
+	<a href="/movi/review/list.jsp">영화 리뷰 보러가기</a>
 	</div>
 	
 </div>

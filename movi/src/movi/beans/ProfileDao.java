@@ -2,6 +2,7 @@ package movi.beans;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import movi.util.JdbcUtil;
 
@@ -34,5 +35,31 @@ public class ProfileDao {
 		ps.execute();
 		
 		con.close();
+	}
+	
+	public ProfileDto select(int member_no) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from profile where profile_member_no=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, member_no);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		ProfileDto profileDto;
+		if (rs.next()) {
+			profileDto = new ProfileDto();
+			profileDto.setProfile_no(rs.getInt("profile_no"));
+			profileDto.setProfile_upload_name(rs.getString("profile_upload_name"));
+			profileDto.setProfile_save_name(rs.getString("profile_save_name"));
+			profileDto.setProfile_size(rs.getLong("profile_size"));
+			profileDto.setProfile_type(rs.getString("profile_type"));
+			profileDto.setProfile_member_no(rs.getInt("profile_member_no"));
+		} else {
+			profileDto = null;
+		}
+		con.close();
+
+		return profileDto;
 	}
 }

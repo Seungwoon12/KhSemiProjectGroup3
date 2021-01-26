@@ -108,7 +108,7 @@ public class ReviewDao {
 				"select "
 				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
-				+ "left outer join Reply REP on R.review_no = REP.reply_origin "
+				+ "left outer join Reply REP on R.review_no = REP.reply_origin and REP.reply_parent >= 0 "
 				+ "inner join Movie MO on R.review_movie_no = MO.movie_no "
 				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
 				+ "order by review_no desc" + 
@@ -150,9 +150,9 @@ public class ReviewDao {
 				"select "
 				+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
 				+ "from review R inner join member M on R.review_writer_no = M.member_no "
-				+ "left outer join Reply REP on R.review_no = REP.reply_origin "
+				+ "left outer join Reply REP on R.review_no = REP.reply_origin and REP.reply_parent >= 0 "
 				+ "inner join movie MO on R.review_movie_no = MO.movie_no "
-				+ "where instr(#1, ?) > 0  "
+				+ "where instr(#1, ?) > 0 "
 				+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
 				+ "order by review_no desc" + 
 				")TMP" + 
@@ -262,6 +262,67 @@ public class ReviewDao {
 		con.close();
 	
 	}
+	
+	
+	
+	
+	// 카테고리 영화상세에서 들어올때게시판 페이지당 표시될 목록 
+		public List<ReviewVO> detailList(int movie_no, int startRow, int endRow) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select * from(" + 
+					"select rownum rn, TMP.* from(" + 
+					"select "
+					+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
+					+ "from review R inner join member M on R.review_writer_no = M.member_no "
+					+ "left outer join Reply REP on R.review_no = REP.reply_origin and REP.reply_parent >= 0 "
+					+ "inner join Movie MO on R.review_movie_no = MO.movie_no and MO.movie_no= ? "
+					+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
+					+ "order by review_no desc" + 
+					")TMP" + 
+					") where rn between ? and ?";
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, movie_no);
+			ps.setInt(2, startRow);
+			ps.setInt(3, endRow);
+			ResultSet rs = ps.executeQuery();
+			
+			List<ReviewVO> list = new ArrayList<>();
+			while(rs.next()) {
+				ReviewVO reviewVO = new ReviewVO();
+				reviewVO.setReview_no(rs.getInt("review_no"));
+				reviewVO.setReview_movie_no(rs.getInt("review_movie_no"));
+				reviewVO.setReview_writer_no(rs.getInt("review_writer_no"));
+				reviewVO.setReview_title(rs.getString("review_title"));
+				reviewVO.setReview_content(rs.getString("review_content"));
+				reviewVO.setReview_date(rs.getDate("review_date"));
+				reviewVO.setReview_read(rs.getInt("review_read"));
+				reviewVO.setMember_nick(rs.getString("member_nick"));
+				reviewVO.setMovie_name(rs.getString("movie_name"));
+				reviewVO.setReply_count(rs.getInt("reply_count"));
+				
+				list.add(reviewVO);
+			}
+			
+			con.close();
+			return list;
+		}
+		
+		
+		//카테고리 영화 상세페이지에서 넘어올때 리뷰 총 개수 구하기
+		public int detailCount(int movie_no) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select count(*) from review where review_movie_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, movie_no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			
+			con.close();
+			return count;
+			
+		}
 	
 	
 	
