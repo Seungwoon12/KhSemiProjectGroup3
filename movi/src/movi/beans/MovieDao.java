@@ -92,7 +92,7 @@ public class MovieDao {
 	public List<MovieDto> select_movie(String movie_name) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER,PASS);
 		
-		String sql ="select * from movie where movie_name=?";
+		String sql ="select * from movie where instr(movie_name, ?) > 0";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, movie_name);
 		ResultSet rs = ps.executeQuery();

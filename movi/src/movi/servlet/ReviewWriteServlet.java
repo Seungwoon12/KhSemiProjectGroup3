@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import movi.beans.MovieDao;
 import movi.beans.MovieDaoSW;
 import movi.beans.MovieDto;
 import movi.beans.ReviewDao;
@@ -21,13 +22,18 @@ public class ReviewWriteServlet extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			
 			//임시로 해보는거,, 영화명으로 영화번호 구하기
-			MovieDaoSW movieDao = new MovieDaoSW();
-			MovieDto movieDto = movieDao.find(req.getParameter("movie_name"));
+			//MovieDaoSW movieDao = new MovieDaoSW();
+			//MovieDto movieDto = movieDao.find(req.getParameter("movie_name"));
+			
+			int movie_selected_no = Integer.parseInt(req.getParameter("movie_selected_no"));
+			//MovieDao movieDao = new MovieDao();
+			//movieDao.select_movie_detail(movie_selected_no);
+			
 			
 			
 			ReviewDto reviewDto = new ReviewDto();
 			reviewDto.setReview_writer_no((int)req.getSession().getAttribute("check")); // 회원번호 가져오기
-			reviewDto.setReview_movie_no(movieDto.getMovie_no()); //영화번호 가져오기
+			reviewDto.setReview_movie_no(movie_selected_no); //영화번호 가져오기
 			reviewDto.setReview_title(req.getParameter("review_title"));
 			reviewDto.setReview_content(req.getParameter("review_content"));
 			

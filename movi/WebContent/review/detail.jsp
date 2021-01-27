@@ -442,7 +442,8 @@
  		</div>
  	
 		<div class="row">
-			<span>영화명: <%=movieDto.getMovie_name()%></span>
+			<span>영화명:</span>
+			<span style="font-weight:bold;"><%=movieDto.getMovie_name()%></span>
 		</div>
  		
  		<br>
