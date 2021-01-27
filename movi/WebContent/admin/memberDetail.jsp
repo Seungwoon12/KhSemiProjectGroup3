@@ -64,13 +64,13 @@
 					</tr>
 					<tr>
 						<th>선호장르</th>
-						<td><%=memberDto.getGenre_name() %></td>
+						<td>선호장르</td>
 					</tr>
 					<tr>
 						<th>이벤트명/ 쿠폰</th>
 						<td>
 						<%=memberDto.getEvent_name() %>/
-						<%=memberDto.getEvent_coupon() %>
+						<%=memberDto.getCoupon_name() %>
 						</td>
 					</tr>
 					

@@ -34,15 +34,16 @@
 
 <!--멤버 목록   -->
 <%	
-	EventAdminDao memberDao = new EventAdminDao();
+	CouponAdminDao eventDao = new CouponAdminDao();
 	List<MemberAdminDtoVO> memberList ;
 	if(search){
-		 memberList = memberDao.coupage_admin(type, key, startRow, endRow);
+		 memberList = eventDao.coupage_admin(type, key, startRow, endRow);
 	}else{
-		 memberList = memberDao.coupage_admin(startRow, endRow);
+		 memberList = eventDao.coupage_admin(startRow, endRow);
 	}
 %>
-
+ 
+ 
 <!-- 페이지 블록  -->
 <%	
 	//블록크기
@@ -52,9 +53,9 @@
 	
 	int count;
 	if(search){
-		count= memberDao.count_admin(type, key); 
+		count= eventDao.count_admin(type, key); 
 	}else{
-		count= memberDao.count_admin(); 
+		count= eventDao.count_admin(); 
 	}
 	//페이지 개수
 	int countSize = (count + pageSize -1) / pageSize;
@@ -68,18 +69,18 @@
 
 <!-- 각종 기능 -->
 <script>
-//	$(function(){
-//		//삭제시 알림창 보여주기
-//		$(".delete").click(function(e){
-//			e.preventDefault();
+	$(function(){
+		//삭제시 알림창 보여주기
+		$(".delete").click(function(e){
+			e.preventDefault();
 			
-//			var check = window.confirm("쿠폰을 삭제하시겠습니까?");
-//			if(check){
-//				location.href=$(this).attr("href");
-//			}
-//		});
+			var check = window.confirm("쿠폰을 삭제하시겠습니까?");
+			if(check){
+				location.href=$(this).attr("href");
+			}
+		});
 		
-//	});
+	});
 	
 	
 
@@ -117,8 +118,8 @@
   		<div>
   			<form action="memberCouponList.jsp" method="post">
   				<select name="type">
+					<option value="member_no">회원 번호</option>
 					<option value="member_id">회원 아이디</option>
-					<option value="event_name">쿠폰 이름</option>
   				</select>
   				<input type="text" name="key" placeholder="검색어를 입력하세요" required>
   				<input type="submit" value="검색">
@@ -156,11 +157,10 @@
 					<td><%=memberDto.getMember_no() %></td>
 					<td><%=memberDto.getMember_id() %></td>
 					<td><%=memberDto.getEvent_name() %></td>
-					<td><%=memberDto.getEvent_coupon() %></td>
-					<td><%=memberDto.getEvent_start() %> ~ <%=memberDto.getEvent_end() %></td>
+					<td><%=memberDto.getCoupon_name() %></td>
+					<td><%=memberDto.getCoupon_start() %> ~ <%=memberDto.getCoupon_end() %></td>
 					<td>
-						<input type="button" class="abtn green" value="수정" onclick="location.href='memberCouponEdit.jsp?member_no=<%=memberDto.getMember_no()%>' ">
-						<input type="button" class="abtn red"  value="삭제" onclick="location.href='couponDelete.do?event_member_no=<%=memberDto.getMember_no()%>'">
+						<a class="abtn red delete" href="couponDelete.do?event_member_no=<%=memberDto.getMember_no()%>">삭제</a>
 					</td>
 				</tr>
 			<%} %> 

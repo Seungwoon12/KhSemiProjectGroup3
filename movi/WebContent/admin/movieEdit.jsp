@@ -129,7 +129,7 @@
 						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" onclick="location.href='movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>'">
+									<input type="submit" value="등록" >
 									<input type="button" value="취소" onclick="location.href='movieList.jsp'">
 								</div>
 							</th>

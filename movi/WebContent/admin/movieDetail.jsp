@@ -93,7 +93,7 @@
 					</tr>
 					<tr>
 						<th colspan="3">
-							<input type="button" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%= movieDto.getMovie_no() %>' ">
+							<input type="button" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
 							<input type="button" value="삭제" id="movieDelete" onclick="location.href='movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>'">
 						</th>
 					</tr>
