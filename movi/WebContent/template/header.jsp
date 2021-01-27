@@ -42,7 +42,7 @@
    main {
       width:1200px;
       margin:auto;
-      height: 1500px;
+      height: 2000px;
    }
    /* 각각의 레이아웃 영역에 여백을 설정한다 */
    header, footer, nav, section {
@@ -50,7 +50,7 @@
    }
    /* 본문에 내용이 없어도 최소높이를 설정하여 일정 크기만큼 표시되도록 한다 */
    section {
-      height: 100%;
+      height: 70%;
    }
    
    /*다크모드 버튼 (헤더에 해야됨)*/
