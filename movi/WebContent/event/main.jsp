@@ -18,7 +18,7 @@
 	.box{
 		border: 1px solid lightgray;
 		width:100%;
-		height:10%;
+		height:11%;
 		display: inline-block;
 	}
 	img{

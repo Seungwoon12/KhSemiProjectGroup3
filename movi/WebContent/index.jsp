@@ -61,8 +61,16 @@
 	.hov:hover +.hov1{
 		top:50px;
 	}
+	.hov1{
+		font-size: 30px !important;
+	}
 	.h{
-	   display:none;
+    display: none;
+    font-size: 23px;
+    top: 7px;
+    padding: 10px;
+   	margin-top: 116px;
+    margin-top: 116px;
 	}
 	
 /*검색창 왼쪽 여백 주기*/	
@@ -202,7 +210,7 @@
 }
 
 /*팝업창*/
-.loading-wrapper{
+.event-wrapper{
     background-color: rgba(0,0,0,0.5);
     position: fixed;
     top: 0;
@@ -213,10 +221,9 @@
     display:none;
     
 }
-.loading-wrapper>a{
+.event-wrapper>a{
 	width:500px;
 	height:600px;
-	z-index:9999;
     position: fixed;
     left: 33%;
     top:20%
@@ -224,11 +231,12 @@
 /*팝업창 닫기*/
 .close{
 	width: 39px;
-    position: inherit;
-    top: 21%;
-    left: 60%;
-    z-index: 999999999;
+    margin-left: 46%;
     cursor: pointer;
+}
+.event{
+	margin-left: 35%;
+    margin-top: 16%;
 }
 
 </style>
@@ -309,11 +317,11 @@
      
 //팝업창!!!!!!!!!!
      $(".close").click(function(){
-    	 $(".loading-wrapper").hide();
+    	 $(".event-wrapper").hide();
      });
        
      $(document).ready(function(){
-    	 $(".loading-wrapper").show();
+    	 $(".event-wrapper").show();
      });
  
 });
@@ -322,11 +330,13 @@
 </script>
 
 <!-- 팝업창 -->
-<div class="loading-wrapper">
-	<img src="./img/close.jpg" class="close">
+<div class="event-wrapper">
+	<div class="event">
+	<img src="./img/close.jpg" class="close"><!-- 닫기 -->
 	<a href="/movi/event/detail.jsp?event_no=41">
 		<img src="./img/event.PNG">
 	</a>
+	</div>
 </div>
 
 
@@ -363,7 +373,7 @@
 					<div class="movie movie_recom swiper-slide">
 						<img class="hov" src="https://placehold.it/300X250?text=IMAGE">
 						<h1 class="h hov1">
-								<%=recomdto.getRecom_title()%>
+								#<%=recomdto.getRecom_title()%>
 						</h1>
 					</div>
 				<%} %>

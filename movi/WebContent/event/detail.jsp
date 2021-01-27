@@ -30,29 +30,30 @@
 	 text-align: center;
 }
 .ppopgi{
-	background-color: goldenrod;
+	background-color: steelblue;
+	color:white;
     width: 186px;
     height: 43px;
     cursor: grab;
     border-radius: 17px;
 }
+.ppopgi:hover{
+	background-color: skyblue;
+	color:black;
 }
 </style>
 <script>
-	$(function(){
-	});
 </script>
 
 <%for(EventDto dto : eventDto) {%>
 	<div class="box">
 		<h1><%=dto.getEvent_name() %></h1>
 		<h4><%=dto.getEvent_content() %></h4>
-		<%if(Integer.parseInt(sf.format(dto.getEvent_end()))<(Integer.parseInt(sf.format(now)))){%>
-			<div class="end"> 종료된 이벤트입니다!</div>
-		<%}else{%>
 	</div>
-	<%if(isLogin){%>
-
+	<!-- 종료된 이벤트면 참여 불가능 -->
+	<%if(Integer.parseInt(sf.format(dto.getEvent_end()))<(Integer.parseInt(sf.format(now)))){%>
+		<div class="box"> 종료된 이벤트입니다!</div>
+	<%}else if(isLogin){%>
 		<div class="box">
 			<img src="../img/gift.gif" style="width:300px; height:250px;">
 			<form action="event.do" method="post">
@@ -60,11 +61,15 @@
 				<input type="hidden" name="event_no" value="<%=event_no%>">
 				<input type="submit" class="ppopgi" value="두근두근 뽑기!">
 			</form>
-	<%} else{%>
-			<input type="button" onclick="alert('로그인 후에 참여가 가능합니다!')" class="ppopgi" value="뽑기 시작">
-		    <%}%>
 		</div>
-	<%} %>
+		<%} else{%>
+		<div class="box">
+			<img src="../img/gift.gif" style="width:300px; height:250px;">
+			<div>
+			<input type="button" onclick="alert('로그인 후에 참여가 가능합니다!')" class="ppopgi" value="두근두근 뽑기!">
+			</div>
+		</div>
+		<%}%>
 <%} %>
 <jsp:include page="/template/footer.jsp"></jsp:include>
 
