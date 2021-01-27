@@ -26,18 +26,19 @@
       width: 100%;
       height: 100%;
     }
-	
 	div{
 		border: none;
 	}
+	.movie_box{
+		display: inline-block;
+	}
 	
 	.movie_img{
-		height: 315px;
-		width: 215px;
+		height: 305px;
+		width: 210px;
 	}
 	.movie_name{
-		display: inline-block;
-		width: 25%;
+		
 	}
 </style>
 
@@ -101,7 +102,7 @@
 			},
 			autoplay: {
 		        delay: 2000,
-		        disableOnInteraction: false,
+		        disableOnInteraction: true,
 		    }
 		});
 		
@@ -181,12 +182,20 @@
 	        		mincount--;
 	        	%>
 	            <div class="swiper-slide">
-	            	<div class="movie-box">
-						<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
-							<img alt="movie_img" src="<%=request.getContextPath()%>/image/movie/<%=movieDto.getMovie_no()%>.jpg" 
-							onerror="this.src='/movi/image/movie/dummy.jpg'">
-							<div class="row movie_name"><%=movieDto.getMovie_name()%></div>
-						</a>
+	            	<div class="movie_box">
+	            		<table>
+	            		<tbody>
+	            			<tr><td><a href="<%=request.getContextPath()%>/category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+								<img class="movie_img" alt="movie_img" src="<%=request.getContextPath()%>/image/movie/<%=movieDto.getMovie_no()%>.jpg" 
+								onerror="this.src='/movi/image/movie/dummy.jpg'">
+							</a></td></tr>
+	            			<tr><td>
+	            			<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+	            			<%=movieDto.getMovie_name()%>
+	            			</a>
+	            			</td></tr>
+	            		</tbody>
+	            	</table>
 	            	</div>
 				</div>
 				<%} for(int i = 0; i < mincount; mincount--){%>
