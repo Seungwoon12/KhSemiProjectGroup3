@@ -21,22 +21,28 @@ public class MemberCouponDao {
 		con.close();
 	}
 	
-	public List<MemberCouponDto> find_member(int member_no) throws Exception{
+	public List<MemberCouponInfoVO> find_member(int member_no) throws Exception {
 		Connection con = JdbcUtil.getConnection("movi", "movi");
-		String sql = "select * from member_coupon where event_member_no=?";
+		String sql = "select C.coupon_name, C.coupon_start, C.coupon_end, E.event_name "
+				+ "from member_coupon MC "
+				+ "left outer join coupon C on MC.member_coupon_no = C.coupon_no "
+				+ "left outer join event E on MC.member_event_no = E.event_no "
+				+ "where MC.event_member_no=?";
 		
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, member_no);
 		
 		ResultSet rs = ps.executeQuery();
 		
-		List<MemberCouponDto> list = new ArrayList<>();
+		List<MemberCouponInfoVO> list = new ArrayList<>();
 		while(rs.next()) {
-			MemberCouponDto memberCouponDto = new MemberCouponDto();
-			memberCouponDto.setEvent_member_no(rs.getInt("event_member_no"));
-			memberCouponDto.setMember_event_no(rs.getInt("member_event_no"));
-			memberCouponDto.setMember_coupon_no(rs.getInt("member_coupon_no"));
-			list.add(memberCouponDto);
+			MemberCouponInfoVO memberCouponInfoVO = new MemberCouponInfoVO();
+			memberCouponInfoVO.setCoupon_name(rs.getString("coupon_name"));
+			memberCouponInfoVO.setStart(rs.getDate("coupon_start"));
+			memberCouponInfoVO.setEnd(rs.getDate("coupon_end"));
+			memberCouponInfoVO.setEvent_name(rs.getString("event_name"));
+			
+			list.add(memberCouponInfoVO);
 		}
 		con.close();
 		return list;

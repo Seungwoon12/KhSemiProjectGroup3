@@ -26,18 +26,22 @@
       width: 100%;
       height: 100%;
     }
-	
 	div{
 		border: none;
 	}
+	.movie_box{
+		display: inline-block;
+	}
 	
 	.movie_img{
-		height: 315px;
-		width: 215px;
+		height: 305px;
+		width: 210px;
 	}
 	.movie_name{
+		
+	}
+	.coupon_box{
 		display: inline-block;
-		width: 25%;
 	}
 </style>
 
@@ -59,27 +63,34 @@
 
 	//좋아요 누른 영화 마이페이지에 뜰 수 있도록 하기
 	LoveDao loveDao = new LoveDao();
-	int start = 1, end = 10, mincount = 3;//end의 값은 최신 좋아요 순으로 최대 10장만 나오고 최소로도 3장이 나오도록  만들어 둠(자리 차지)
+	int start = 1, end = 10; //마이페이지 메인에서 좋아요한 영화는 최대 10개까지만 보여줌 -> 더보기를 누르면 전부 보여줌
 	List<LoveDto> member_love_list = loveDao.select_love_movie(member_no, start, end);
 	MovieAdminDao movieDao = new MovieAdminDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
-
+	
+	//쿠폰의 정보를 불러올 수 있도록
+	MemberCouponDao memberCouponDao = new MemberCouponDao();
+	CouponDao couponDao = new CouponDao();
+	List<MemberCouponInfoVO> member_coupon_list = memberCouponDao.find_member(member_no);
+	
+	//영화 정보중에 장르 불러오는것 때문에 필요
+	GenreDao genredao = new GenreDao();
 %>
 
 <script>
 	$(function(){
 		$(".edit-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/edit.jsp";
+			location.href = "edit.jsp";
 		});
 		$(".myGenre-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/mygenre.jsp";
+			location.href = "mygenre.jsp";
 		});
 		$(".editPw-btn").click(function(){
-			location.href = "<%=request.getContextPath()%>/member/editpw.jsp";
+			location.href = "editpw.jsp";
 		});
 		//.del-btn을 누르면 경고창이 나오고 확인을 누르면 멤버 삭제로 이동
 		$(".del-btn").click(function(){
 			if(window.confirm("정말로 탈퇴하시겠습니까?")){
-				location.href = "<%=request.getContextPath()%>/member/delete.do";
+				location.href = "delete.do";
 			}
 		});
 	});
@@ -101,14 +112,11 @@
 			},
 			autoplay: {
 		        delay: 2000,
-		        disableOnInteraction: false,
+		        disableOnInteraction: true,
 		    }
 		});
 		
 		var swiper2 = new Swiper('.swiper2', {
-		    pagination: {
-		    	el: '.swiper-pagination',
-		    },
 			navigation: {
 				nextEl: '.swiper-button-next',
 		    	prevEl: '.swiper-button-prev',
@@ -178,26 +186,89 @@
 	        	<%
 	        	for(LoveDto loveDto : member_love_list) {
 	        		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no()); /*수정*/
-	        		mincount--;
 	        	%>
 	            <div class="swiper-slide">
-	            	<div class="movie-box">
-						<a href="<%=request.getContextPath()%>/category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
-							<img alt="movie_img" src="<%=request.getContextPath()%>/image/movie/<%=movieDto.getMovie_no()%>.jpg" 
-							onerror="this.src='/movi/image/movie/dummy.jpg'">
-							<div class="row movie_name"><%=movieDto.getMovie_name()%></div>
-						</a>
+	            	<div class="movie_box">
+	            		<table>
+	            		<tbody>
+	            			<tr>
+	            				<td rowspan="4">
+	            					<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+										<img class="movie_img" alt="movie_img" src="../image/movie/<%=movieDto.getMovie_no()%>.jpg" 
+										onerror="this.src='/movi/image/movie/dummy.jpg'">
+									</a>
+								</td>
+								<th style="min-width: 200px;">
+									<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
+	            						<%=movieDto.getMovie_name()%>
+	            					</a>
+								</th>
+							</tr>
+	            			<tr>
+	            				<td>
+	            					<a href="../category/main.jsp?movie_genre_no=<%=movieDto.getMovie_genre_no()%>">
+	            					장르 : <%=genreDao.find(movieDto.getMovie_genre_no())%>
+	            					</a>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td>
+	            					평점 : <%=movieDto.getMovie_rate()%>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td>
+	            					좋아요 : <%=loveDao.love_count(movieDto.getMovie_no())%>
+	            				</td>
+	            			</tr>
+	            		</tbody>
+	            	</table>
 	            	</div>
 				</div>
-				<%} for(int i = 0; i < mincount; mincount--){%>
+				<%} if(member_love_list.isEmpty()) {%>
 					<div class="swiper-slide">
 						<div class="movie-box">
-							<a href="<%=request.getContextPath()%>/category/main.jsp">
-								<img alt="dummy movie_img" src="<%=request.getContextPath()%>/image/movie/dummy.jpg">
-								<div class="row movie_name"><%="좋아하는 영화를 선택해 보세요"%></div>
-							</a>
+							<%if(mygenre_DtoVO_list.isEmpty()) {%>
+								<div class="movie_box">
+				            		<table>
+				            			<tbody>
+				            				<tr>
+				            					<td>
+				            						<a href="../category/main.jsp?movie_genre_no=1">
+				            							<img alt="dummy movie_img" src="../image/movie/dummy.jpg">
+				            						</a>
+												</td>
+												<td style="min-width: 200px;">
+													<a href="../category/main.jsp?movie_genre_no=1">
+					            						좋아하는 영화를 선택해 보세요
+					            					</a>
+												</td>
+											</tr>
+				            			</tbody>
+				            		</table>
+				            	</div>
+							<%} else {%>
+								<div class="movie_box">
+				            		<table>
+				            			<tbody>
+				            				<tr>
+				            					<td>
+				            						<a href="../category/main.jsp?movie_genre_no=<%=mygenre_DtoVO_list.get(0).getMygenre_genre_no()%>">
+				            							<img alt="dummy movie_img" src="../image/movie/dummy.jpg">
+				            						</a>
+												</td>
+												<td style="min-width: 200px;">
+													<a href="../category/main.jsp?movie_genre_no=<%=mygenre_DtoVO_list.get(0).getMygenre_genre_no()%>">
+					            						좋아하는 영화를 선택해 보세요
+					            					</a>
+												</td>
+											</tr>
+				            			</tbody>
+				            		</table>
+				            	</div>
+							<%} %>
 						</div>
-				</div>
+					</div>
 				<%} %>
 	        </div>
 	        <div class="swiper-pagination"></div>
@@ -209,26 +280,39 @@
 	
 	<!-- 이벤트 페이지 구성되면 만들 생각 -->
 	<div class="row float-box">
-		<span>참여한 이벤트</span>
+		<span>보유중인 상품</span>
 	</div>
 	<div class="row center">
 		<div class="swiper-container swiper2">
 	        <div class="swiper-wrapper">
+	        	<%for(MemberCouponInfoVO memberCouponInfoVO : member_coupon_list) {%>
 	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/any">
+					<div class="coupon_box">
+						<table>
+							<tbody>
+								<tr>
+									<td rowspan="3"><img src="https://chart.googleapis.com/chart?cht=qr&chl=<%=memberCouponInfoVO.getCoupon_name()%>&chs=180x180&choe=UTF-8&chld=L|2" alt="coupon_QR"></td>
+									<td><%=memberCouponInfoVO.getEvent_name() %></td>
+								</tr>
+								<tr>
+									<td><%=memberCouponInfoVO.getCoupon_name() %></td>
+								</tr>
+								<tr>
+									<td><%=memberCouponInfoVO.getStart() %> ~ <%=memberCouponInfoVO.getEnd() %></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/tech">
-				</div>
-	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/animals">
-				</div>
-	            <div class="swiper-slide">
-	            	<img class="dum" src="https://placeimg.com/600/350/nature">
-	            </div>
-	            <div class="swiper-slide">
-	            	<img class="dum" src="https://placeimg.com/600/350/architecture">
-	            </div>
+				<%} if (member_coupon_list.isEmpty()) {%>
+					<div class="swiper-slide">
+						<div class="coupon_box">
+							<a href="../event/main.jsp">
+								~진행중인 이벤트를 확인하고 상품 받아가세요~
+							</a>
+						</div>
+					</div>
+				<%} %>
 	        </div>
 	        <div class="swiper-button-prev"></div>
 	        <div class="swiper-button-next"></div>
