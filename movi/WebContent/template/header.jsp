@@ -79,32 +79,51 @@
 <script>
 $(document).ready(function(){
 
-	//버튼 클릭시에 다크 모드
+	//다크 모드
 	$(".black-btn").click(function(){	
-		if($(this).val()=="어둡게하기"){
-			$("html").addClass("black");
-			$(this).val("밝게하기");
-			$(this).css("background-color","dimgray");
-			//카테고리
-			$("li>a").css("color","white");
-			<%=mode="밝게하기"%>
+		if($(".black-btn").val()=='어둡게하기'){
+			$("html").css('background-color','#202020');
+			$("html").css('color','#d9d9d9');
+			$("li>a").css('color','#d9d9d9');
+			saveColor('#202020','#d9d9d9');
+			$(".black-btn").val('밝게하기');
+			saveValue('밝게하기');
 		}
 		else{
-			$("html").removeClass("black");
-			$(this).val("어둡게하기");
-			$(this).css("background-color","white");
-			//카테고리
-			$("li>a").css("color","black");
-			<%=mode="어둡게하기"%>
-		}
-	});
+			$("html").css('background-color','white');
+			$("html").css('color','black');
+			$("li>a").css('color','black');
+			saveColor('white','black');
+			$(".black-btn").val('어둡게하기');
+			saveValue('어둡게하기');
+			}
+		});
+	
+	//localStorage를 이용해 색상,value를 저장
+	function saveColor(color1,color2){
+	    localStorage.setItem("selectedcolor1", color1);
+	    localStorage.setItem("selectedcolor2", color2);
+	}
+	function saveValue(value){
+	    localStorage.setItem("selectedvalue", value);
+	}
+	var clr = localStorage.getItem("selectedvalue");
+	var clr1 = localStorage.getItem("selectedcolor1");
+	var clr2 = localStorage.getItem("selectedcolor2");
+	if(clr != '' && clr != null &&clr1 != '' && clr1 != null && clr2 != '' && clr2 != null)
+	{
+		$("html").css('background-color', clr1);
+		$("html").css('color', clr2);
+		$("li>a").css('color', clr2);
+		$(".black-btn").val(clr);
+	}
 });
 </script>
 </head>
 <body>
 <!-- 다크 모드 -->
 <!--<form action="" method="get">-->
-<input type="button" value="<%=mode %>" class="btn black-btn">
+<input type="button" class="btn black-btn">
    <main>
       <header>
          <h1 class="left">movi</h1>
