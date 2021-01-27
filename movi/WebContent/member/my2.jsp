@@ -40,6 +40,9 @@
 	.movie_name{
 		
 	}
+	.coupon_box{
+		display: inline-block;
+	}
 </style>
 
 <%
@@ -63,6 +66,15 @@
 	int start = 1, end = 10, mincount = 3;//end의 값은 최신 좋아요 순으로 최대 10장만 나오고 최소로도 3장이 나오도록  만들어 둠(자리 차지)
 	List<LoveDto> member_love_list = loveDao.select_love_movie(member_no, start, end);
 	MovieAdminDao movieDao = new MovieAdminDao(); //영화 정보를 찾을 것이기 때문에 미리 도구 생성
+	
+	//쿠폰의 정보를 불러올 수 있도록
+	MemberCouponDao memberCouponDao = new MemberCouponDao();
+	CouponDao couponDao = new CouponDao();
+	List<MemberCouponDto> member_coupon_list_tmp = memberCouponDao.find_member(member_no);
+	List<CouponDto> member_coupon_list = new ArrayList<>();
+	for (MemberCouponDto memberCouponDto : member_coupon_list_tmp) {
+		member_coupon_list.add(couponDao.find(memberCouponDto.getMember_coupon_no()));
+	}
 
 %>
 
@@ -218,16 +230,31 @@
 	
 	<!-- 이벤트 페이지 구성되면 만들 생각 -->
 	<div class="row float-box">
-		<span>참여한 이벤트</span>
+		<span>보유중인 상품</span>
 	</div>
 	<div class="row center">
 		<div class="swiper-container swiper2">
 	        <div class="swiper-wrapper">
 	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/any">
+					<div class="coupon_box">
+						<table>
+							<tbody>
+								<tr>
+									<td rowspan="3"><img class="dum" src="https://placeimg.com/200/200/tech"></td>
+									<td>참여한 이벤트</td>
+								</tr>
+								<tr>
+									<td>상품명</td>
+								</tr>
+								<tr>
+									<td>사용 기한</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 	            <div class="swiper-slide">
-					<img class="dum" src="https://placeimg.com/600/350/tech">
+					
 				</div>
 	            <div class="swiper-slide">
 					<img class="dum" src="https://placeimg.com/600/350/animals">
