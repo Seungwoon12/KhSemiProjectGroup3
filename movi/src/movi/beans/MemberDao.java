@@ -32,30 +32,7 @@ public class MemberDao {
 		
 		con.close();
 	}
-	// 아이디 , 비밀번호 체크
-	    public int userCheck(String member_id)throws Exception{
-       
- 
-       try{
-    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-    	    String sql ="select member_pw from MEMBER where id = ?";
-    	    PreparedStatement ps = con.prepareStatement(sql);
-    		ps.setString(1, member_id);
-    		ResultSet rs = ps.executeQuery();
-    	              
-    	    if(rs.next()){     	  
-    	    	member_id =rs.getString("member_id");           
-    	    	if(member_id.equals(member_id))
-    	    		return 1; //인증성공
-    	       else
-    	    	   return 0; //비밀번호 틀림
-    	       }else
-    	    	   return -1; //해당 아이디 없음
-		}catch (Exception e)
-       { e.printStackTrace();
-       }
-       }
-
+	
 	    //로그인
 
 		public boolean login(MemberDto dto) throws Exception {
@@ -65,7 +42,9 @@ public class MemberDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getMember_id());
 			ps.setString(2, dto.getMember_pw());
-			ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
+			ResultSet rs = ps.executeQuery();
+
+	//데이터는 있거나 없거나 둘중 하나
 		
 		boolean result=rs.next();
 		
@@ -74,6 +53,22 @@ public class MemberDao {
 			return result;
 		}
 
+
+	
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 
 		//회원 상세보기-memberDetail.jsp

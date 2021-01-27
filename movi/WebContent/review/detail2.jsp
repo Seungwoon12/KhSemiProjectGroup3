@@ -231,7 +231,7 @@
  			e.preventDefault();
  			
  			$(this).parent().parent().hide();
- 			$(this).
+ 			$(this).parent().parent().hide();
  			
  		});
  		
