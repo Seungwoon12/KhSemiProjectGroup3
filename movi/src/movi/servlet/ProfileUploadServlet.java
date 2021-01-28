@@ -20,11 +20,9 @@ import movi.beans.ProfileDto;
 public class ProfileUploadServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			
-			ServletContext context = getServletContext();
-			
-			String path = context.getRealPath("upload/profile");
+		try {			
+			String path = "C:/movi/image/profile";
+			//경로는 외부경로로 수정할 것!
 			
 			int max = 5 * 1024 * 1024;
 			String encoding = "UTF-8";

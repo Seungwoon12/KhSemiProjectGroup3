@@ -1,0 +1,59 @@
+/* 영화 박스에 대한 CSS 설정 */
+
+.movie_box{
+		display: inline-block;
+	}
+.movie_box table td,
+.movie_box table th {
+	line-height: 2.5rem;
+	padding: 0;
+}
+.movie_box table td a,
+.movie_box table th a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-decoration: none;
+	link { color: black; };
+	visited { color: black; };
+}
+.movie_img{
+	height: 300px;
+	width: 200px;
+}
+
+.btnmy,
+.filebox label {
+	width: 120px;
+	background-color: #489CFF;
+	border: 2px solid #489CFF;
+	color: white;
+	padding: 10px 0;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	margin: 3px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.btnmy:hover,
+.filebox label:hover {
+	background-color: white;
+	color: #489CFF;
+}
+
+.filebox input[type="file"] { 
+	/* 파일 필드 숨기기 */ 
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0; 
+}
+
+
