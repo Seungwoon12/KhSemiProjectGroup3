@@ -83,7 +83,6 @@
 			<a href="<%=request.getContextPath()%>/admin/memberList.jsp">회원 관리</a>
 			<a href="<%=request.getContextPath()%>/admin/movieList.jsp">영화 관리</a>
 			<a href="<%=request.getContextPath()%>/admin/eventList.jsp">이벤트 관리</a>
-			<a href="<%=request.getContextPath()%>/admin/reviewList.jsp">리뷰 관리</a>
 		</nav>
 
 		<section>

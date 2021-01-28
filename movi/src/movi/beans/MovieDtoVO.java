@@ -122,6 +122,24 @@ public class MovieDtoVO {
 	private String genre_name;
 	private String actor_name;
 	private String actor_role;
+	private String movie_poster;
 
+	public String getMovie_poster() {
+		return movie_poster;
+	}
+
+	public void setMovie_poster(String movie_poster) {
+		this.movie_poster = movie_poster;
+	}
+	private int actor_no;
+
+	public int getActor_no() {
+		return actor_no;
+	}
+
+	public void setActor_no(int actor_no) {
+		this.actor_no = actor_no;
+	}
+	
 	
 }

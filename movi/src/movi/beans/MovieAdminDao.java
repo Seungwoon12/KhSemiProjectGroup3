@@ -36,7 +36,7 @@ public class MovieAdminDao {
 			movieDto.setMovie_director(rs.getString("movie_director"));
 			movieDto.setMovie_content(rs.getString("movie_content"));
 			movieDto.setMovie_audience(rs.getInt("movie_audience"));
-
+			movieDto.setMovie_poster(rs.getString("movie_poster"));
 		} else {
 			movieDto = null;
 		}
@@ -75,7 +75,7 @@ public class MovieAdminDao {
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 
 		String sql = "insert into movie values " 
-						+ "(movie_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+						+ "(movie_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,null)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, movieDto.getMovie_genre_no());
 		ps.setString(2, movieDto.getMovie_name());
@@ -331,7 +331,6 @@ public class MovieAdminDao {
 		return mlikeList;
 		
 	}
-	
-	
+
 	
 }
