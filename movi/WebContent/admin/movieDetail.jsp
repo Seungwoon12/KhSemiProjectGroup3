@@ -48,7 +48,11 @@
 		</div>
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
-			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
+			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
+			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
+			<a href="#"> 배우 등록 </a><br><br>
+			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="#"> 3조 추천 영화 등록 </a><br><br> 
 		</div>
 	</aside>
 
@@ -69,7 +73,8 @@
 						</h1>
 						</th>
 						<td rowspan="11" class="center" style="width:300px; height:400px;">
-							<img src="https://placehold.it/300x400?text=IMAGE">
+							 <!-- <img src="https://placehold.it/300x400?text=IMAGE"> -->
+							 <img src="../image/movie/<%=movieDto.getMovie_poster() %>">
 						</td>
 					</tr>
 					<tr>
