@@ -1,9 +1,9 @@
 <%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
-<!-- 인코딩값 : UTF-8 -->
+    pageEncoding="UTF-8"%>
+    
+ <!-- 인코딩값 : UTF-8 -->
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -23,32 +23,31 @@
 	int startRow = endRow- pageSize+1;
 	
 %>
-
-<!-- 영화 검색  -->
+ 
+ <!-- 배우 검색  -->
 <%
-	//type(분류):영화 번호,영화제목 	key:검색어
+	//type(분류):배우 번호, 배우이름 	key:검색어
 	String type= request.getParameter("type");
 	String key = request.getParameter("key");
 	
 	boolean search = type != null && key != null;
 %>
-<!-- 영화 목록  -->
+<!-- 배우 목록  -->
 <%
-	MovieAdminDao movieDao = new MovieAdminDao();
-	List<MovieDto> movieList;
+	ActorAdminDao actorDao = new ActorAdminDao();
+	List<ActorDto> actorList;
 	if(search){
-		//movieList = movieDao.select_admin(type, key);
-		movieList = movieDao.page_admin(type, key, startRow, endRow);
+		actorList = actorDao.page_admin(type, key, startRow, endRow);
 	}else{
-		movieList = movieDao.page_admin(startRow, endRow);
+		actorList = actorDao.page_admin(startRow, endRow);
 	}
 	
 
 %>	
-
-<!-- 페이지 블록  -->
+    
+    
+ <!-- 페이지 블록  -->
 <%
-	
 	//블록크기
 	int blockSize = 10;
 	int startBlock = (p-1)/blockSize * blockSize +1;
@@ -56,9 +55,9 @@
 	
 	int count;
 	if(search){
-		count= movieDao.count_admin(type, key);
+		count= actorDao.count_admin(type, key);
 	}else{
-		count= movieDao.count_admin();
+		count= actorDao.count_admin();
 	}
 	// 페이지 개수
 	int countSize = (count + pageSize -1) / pageSize;
@@ -66,18 +65,18 @@
 	if(endBlock > countSize){
 		endBlock = countSize;
 	}
-%>
-
+%>   
+    
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
-<!--영화 삭제시 알림 구현  -->
+<!--배우 삭제시 알림 구현  -->
 <script>
 	$(function(){
 		//삭제시 알림창 보여주기
 		$(".delete").click(function(e){
 			e.preventDefault();
 			
-			var check = window.confirm("영화를 삭제하시겠습니까?");
+			var check = window.confirm("배우를 삭제하시겠습니까?");
 			if(check){
 				location.href=$(this).attr("href");
 			}
@@ -112,58 +111,50 @@
 	</aside>
 
 	<article>
-		<!-- 영화 검색창 -->
+		<!-- 배우 검색창 -->
 		<div>
-			<h1>영화 리스트</h1>
+			<h1>배우 리스트</h1>
 		</div>
 		<div>
-			<form action="movieList.jsp" method="post">
-				<label>영화 검색</label> 
+			<form action="actorList.jsp" method="post">
+				<label>배우 검색</label> 
 				<select name="type">
-					<option value="movie_no">영화 번호</option>
-					<option value="movie_name">영화 제목</option>
+					<option value="actor_no">배우 번호</option>
+					<option value="actor_name">배우 이름</option>
 				</select>
 				<input type="text" name="key" placeholder="검색어를 입력하세요" required> 
 				<input type="submit" value="검색">
 			</form>
 		</div>
- <%if(movieList == null){ %>
-<!-- 처음 들어온 경우 보여줄 화면 -->
-	<div class="row center">
-		<h4>검색할 영화를 입력하세요</h4>
-	</div>		
- <%}else if(movieList.isEmpty()){ %> 
+		
+ <% if(actorList.isEmpty()){ %> 
  <!-- 검색결과가 없는 경우 -->
 		<div class="row center">
 			<h1>검색결과가 없습니다.</h1>
 		</div>
  <%}else{ %>	
 <!-- 검색결과가 있는 경우 --> 
-		<!--영화 리스트 테이블  -->
+		<!--배우 리스트 테이블  -->
 		<div class="row">
 			<table class="table1" style="width: 1000px">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="checkall">전체선택</th>
-						<th>영화번호</th>
-						<th>영화제목</th>
-						<th>개봉일</th>
-						<th>관객수</th>
+						<th>배우번호</th>
+						<th>배우 이름</th>
 						<th>관리</th>
 					</tr>
 				</thead>
 				<tbody>
-					<%for(MovieDto movieDto : movieList){ %>
+					<%for(ActorDto actorDto : actorList){ %>
 					<tr>
 						<td><input type="checkbox" name="chk"></td>
-						<td><%=movieDto.getMovie_no() %></td>
-						<td><%=movieDto.getMovie_name() %></td>
-						<td><%=movieDto.getMovie_date() %></td>
-						<td><%=movieDto.getMovie_audience() %></td>
+						<td><%=actorDto.getActor_no() %></td>
+						<td><%=actorDto.getActor_name() %></td>
 						<td>
-							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
-						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
-						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+							<a class="abtn purple" href="actorDetail.jsp?actor_no=<%=actorDto.getActor_no()%>">상세보기</a>
+						 	<a class="abtn green" href="actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>">수정</a>
+						 	 <a class="delete abtn red" href="actorDelete.do?actor_no=<%=actorDto.getActor_no() %>">삭제</a>
 						</td>
 					</tr>
 					<%} %>
@@ -171,9 +162,9 @@
 			</table>
 		</div>
  <%} %>		
-		<!-- 선택된 영화 삭제버튼 -->
+		<!-- 선택된 배우 삭제버튼 -->
 		<div class="right">
-			<input type="button" value="선택된 영화 삭제" >
+			<input type="button" value="선택된 배우 삭제" >
 		</div>
 		
 		<!-- 페이지 네비게이션 -->
@@ -182,9 +173,9 @@
 				
 
 				<%if(search){ %>
-				<li><a href="movieList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
+				<li><a href="actorList?p=<%=startBlock-1%>&type=<%=type%>&key=<%=key%>">&lt;</a></li>
 				<%}else{ %>
-				<li><a href="movieList?p=<%=startBlock-1%>">&lt;</a></li>
+				<li><a href="actorList?p=<%=startBlock-1%>">&lt;</a></li>
 				<%} %>
 								
 
@@ -192,19 +183,19 @@
 					<li>
 						<%if(search){ %>
 						<!-- 검색용 링크 -->
-						<a href="movieList.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
+						<a href="actorList.jsp?p=1&type=<%=i%>&key=<%=key%>"><%=i %></a>
 						<%}else{ %>
 						<!-- 목록용 링크 -->
-						<a href="movieList.jsp?p=<%=i%>"><%=i%></a>
+						<a href="actorList.jsp?p=<%=i%>"><%=i%></a>
 						<%} %>
 					</li>	
 				<%} %>
 
 				<!-- 이후 -->
 				<%if(search){ %>
-				<li><a href="movieList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
+				<li><a href="actorList.jsp?p=<%=endBlock+1%>&type=<%=type%>&key=<%=key%>">&gt;</a></li>
 				<%}else{ %>
-				<li><a href="movieList.jsp?p=<%=endBlock+1%>">&gt;</a></li>
+				<li><a href="actorList.jsp?p=<%=endBlock+1%>">&gt;</a></li>
 				<%} %>
 				
 			</ul>
@@ -213,6 +204,5 @@
 </div>
 
 
+
 <jsp:include page="/adminTemplate/footer.jsp"></jsp:include>
-
-

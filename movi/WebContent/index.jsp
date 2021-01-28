@@ -47,8 +47,16 @@
 		transform: scale(1);
 	  	transition: all 0.3s ease-in-out;   /* 부드러운 모션을 위해 추가*/
 	}
+	.hova{
+	  	width:300px;
+	  	height:250px;
+	}
+	.hovb{
+	  	width:140px;
+	  	height:250px;
+	}
 	.hov:hover{
-		opacity: 0.5;
+		opacity: 0.3;
 		transform: scale(1.2);
 	}
 	.hov:hover +.h{
@@ -61,8 +69,16 @@
 	.hov:hover +.hov1{
 		top:50px;
 	}
+	.hov1{
+		font-size: 25px !important;
+		width: 70%;
+		margin-top: -30px !important;
+	}
 	.h{
-	   display:none;
+    display: none;
+    font-size: 23px;
+    top: 5px;
+    padding: 6px;
 	}
 	
 /*검색창 왼쪽 여백 주기*/	
@@ -109,39 +125,30 @@
 		height: 500px;
 	}
 /*하단화면*/	
-	.body{
-		width:100%;
-		height:100%;
+	.cbody{
+	    height: fit-content;
 	}     
 /*아래 영화 리스트들 왼쪽 간격*/     
 	.box{
-	   margin-left: 20%;
+	   margin-left: 10%;
 	}   
 
-/*swiper 속성*/	
-	.swiper-wrapper{
-		margin:5px;		
-	}
+/*swiper 속성*/
 	.swiper-slide img {
 		box-shadow:0 0 5px #555;
 	}
 	.swiper-slide{
-		width:141px !important;
+		width:144px !important;
 		margin-left:8px;
 		justify-content: center;
 	}
 	/*아래 container만 적용*/
 	.swiper-container {
-	    width: 779px;
-	    height:19%;
+	    width: 90%;
     }
     .swiper1{
     	height:100%;
     }
-    /*이미지 사이 간격*/
-   	.movie{
-	padding: 0.2rem;
-	}
   
 /*이전, 다음 버튼 전체 속성*/
 .swiper-button-prev,.swiper-button-next{
@@ -161,7 +168,7 @@
 .n2,.p2{
 	width:31px;
 	height:40px;
-	background-size: 43px;
+	background-size: 47px;
 }
 .n2{background-image: url("./img/next.png") !important;}
 .p2{background-image: url("./img/pre.png") !important;}
@@ -173,8 +180,7 @@
 	width : 395px !important;
 }
 .movie_detail{
-	padding:17px;
-	margin:10px;
+	margin:31px;
 }
 /*아이콘*/
 .icon{
@@ -202,7 +208,7 @@
 }
 
 /*팝업창*/
-.loading-wrapper{
+.event-wrapper{
     background-color: rgba(0,0,0,0.5);
     position: fixed;
     top: 0;
@@ -213,10 +219,9 @@
     display:none;
     
 }
-.loading-wrapper>a{
+.event-wrapper>a{
 	width:500px;
 	height:600px;
-	z-index:9999;
     position: fixed;
     left: 33%;
     top:20%
@@ -224,11 +229,12 @@
 /*팝업창 닫기*/
 .close{
 	width: 39px;
-    position: inherit;
-    top: 21%;
-    left: 60%;
-    z-index: 999999999;
+	display: inherit;
     cursor: pointer;
+}
+.event{
+    margin-top: 8%;
+    margin-left: 35%;
 }
 
 </style>
@@ -237,7 +243,7 @@
 	$(function(){
 		//추천영화 목록으로 가기
 		$(".movie_recom").click(function(){
-			location.href="/movi/category/recom.jsp?recom_title="+$(this).text();
+			location.href="/movi/category/recom.jsp?recom_title="+$(this).text().replace('#','');
 		});
 		
 		//영화 세부 페이지로 가기
@@ -270,7 +276,7 @@
 		//스와이퍼1
 		new Swiper('.swiper2', {
 			slidesPerView : 5, // 동시에 보여줄 슬라이드 갯수
-			spaceBetween : 4, // 슬라이드간 간격
+			spaceBetween : 15, // 슬라이드간 간격
 			slidesPerGroup : 5, // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
 			loopFillGroupWithBlank : true,
 			
@@ -284,7 +290,7 @@
 			},
 		});
 
-//******************************검색기능
+/******************************검색기능*/
 	
     var searchSource = [
     <%for(int i=0; i<arr.length; i++){%>
@@ -309,11 +315,13 @@
      
 //팝업창!!!!!!!!!!
      $(".close").click(function(){
-    	 $(".loading-wrapper").hide();
+    	 $(".event-wrapper").hide();
      });
        
      $(document).ready(function(){
-    	 $(".loading-wrapper").show();
+    	 $(".event-wrapper").show();
+    	 //이거 리뷰랑 마이페이지에도 넣기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+    	 $("nav>a:nth-child(1)").addClass("navstyle");
      });
  
 });
@@ -322,11 +330,13 @@
 </script>
 
 <!-- 팝업창 -->
-<div class="loading-wrapper">
-	<img src="./img/close.jpg" class="close">
-	<a href="/movi/event/main.jsp">
+<div class="event-wrapper">
+	<div class="event">
+	<img src="./img/close.jpg" class="close"><!-- 닫기 -->
+	<a href="/movi/event/detail.jsp?event_no=41">
 		<img src="./img/event.PNG">
 	</a>
+	</div>
 </div>
 
 
@@ -361,9 +371,10 @@
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
-						<img class="hov" src="https://placehold.it/300X250?text=IMAGE">
+						<img class="hov hova" src="https://placehold.it/300X250?text=IMAGE">
+						
 						<h1 class="h hov1">
-								<%=recomdto.getRecom_title()%>
+								#<%=recomdto.getRecom_title()%>
 						</h1>
 					</div>
 				<%} %>
@@ -377,8 +388,9 @@
 			</div>
 		</div>
 	</div>
-<hr>
-	<div class="body">
+	
+	
+	<div class="cbody">
 <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 좋아요 순위 -->
 
 		<div class="outbox box">
@@ -395,7 +407,8 @@
 						<div class="movie movie_detail swiper-slide">
 						<div class="rank"><%=lovedto.getRank() %></div>
 							<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
-							<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+							<img class="hov hovb" src="./image/극한직업.jpg">
+							<!--영화 포스터 다 다운 받으면 이걸로 바꾸기!! <img class="hov hovb" src="./image/movie/<%=lovedto.getMovie_no() %>.jpg"> -->
 							<h1 class="h hov2">
 									<%=lovedto.getMovie_name()%>
 							</h1>
@@ -426,7 +439,7 @@
 						<div class="movie movie_detail swiper-slide">
 						<div class="rank"><%=moviedto.getRank() %></div>
 							<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
-							<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+							<img class="hov hovb" src="https://placehold.it/140X250?text=IMAGE">
 							<h1 class="h hov3">
 									<%=moviedto.getMovie_name()%>
 							</h1>
@@ -467,7 +480,7 @@
 			<%for(MovieDto mydto : favgenre_movieList){ %>
 				<div class="movie movie_detail swiper-slide">
 				<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
-				<img class="hov" src="https://placehold.it/100X200?text=IMAGE">
+				<img class="hov hovb" src="https://placehold.it/140X250?text=IMAGE">
 				<h1 class="h hov4">
 						<%=mydto.getMovie_name()%>
 				</h1>

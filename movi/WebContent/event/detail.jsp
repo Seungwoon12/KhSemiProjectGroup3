@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="org.apache.catalina.startup.SetContextPropertiesRule"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.Random"%>
@@ -18,74 +20,56 @@
 	Collections.shuffle(couponDto);
 	CouponDto[] arr = couponDto.toArray(new CouponDto[couponDto.size()]);
 	
-	MemberCouponDao mcDao = new MemberCouponDao();
-	//int member_id = 1;
-	//mcDao.insert(member_id, arr[0].getCoupon_no(), event_no);
 	 boolean isLogin = session.getAttribute("check") != null;
+	 
+	Date now = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 %>
 <style>
-.test{
-    position: fixed;
-    top: 35%;
-    left: 32%;
-    width: 17%;
-    height: 18%;
-    background-color: darkgray;
-    display: inline-block;
-    padding: 3%;
-    font-weight: bolder;
-    font-size: 24px;
-    }
-.a{
-	display: none;
+.box{
+	 text-align: center;
+}
+.ppopgi{
+	background-color: steelblue;
+	color:white;
+    width: 186px;
+    height: 43px;
+    cursor: grab;
+    border-radius: 17px;
+}
+.ppopgi:hover{
+	background-color: skyblue;
+	color:black;
 }
 </style>
 <script>
-	$(function(){
-		$(".ppopgi").click(function(){
-			$(".a").show();
-			$(".a").addClass("test");
-		
-			<%if(arr[0].getCoupon_name().equals("꽝")){%>
-				$(".goods").text("꽝! 아쉽지만 다음 기회에 ㅠㅠ");
-			<%}else{%>
-				$(".goods").text("당첨 !  <%=arr[0].getCoupon_name()%>");
-			<%}%>
-		});
-		$(".close").click(function(){
-	    	 $(".loading-wrapper").hide();
-	     });
-	});
 </script>
+
 <%for(EventDto dto : eventDto) {%>
 	<div class="box">
 		<h1><%=dto.getEvent_name() %></h1>
 		<h4><%=dto.getEvent_content() %></h4>
-		<div class="date"> <%=dto.getEvent_start() %>~<%=dto.getEvent_end() %></div>
 	</div>
+	<!-- 종료된 이벤트면 참여 불가능 -->
+	<%if(Integer.parseInt(sf.format(dto.getEvent_end()))<(Integer.parseInt(sf.format(now)))){%>
+		<div class="box"> 종료된 이벤트입니다!</div>
+	<%}else if(isLogin){%>
+		<div class="box">
+			<img src="../img/gift.gif" style="width:300px; height:250px;">
+			<form action="event.do" method="post">
+				<input type="hidden" name="coupon_no" value="<%=arr[0].getCoupon_no()%>">
+				<input type="hidden" name="event_no" value="<%=event_no%>">
+				<input type="submit" class="ppopgi" value="두근두근 뽑기!">
+			</form>
+		</div>
+		<%} else{%>
+		<div class="box">
+			<img src="../img/gift.gif" style="width:300px; height:250px;">
+			<div>
+			<input type="button" onclick="alert('로그인 후에 참여가 가능합니다!')" class="ppopgi" value="두근두근 뽑기!">
+			</div>
+		</div>
+		<%}%>
 <%} %>
-<%if(isLogin){%>
-<input type="button" class="ppopgi" value="뽑기 시작">
-
-<img >닫기</button>
-<img src="./img/close.jpg" class="close">
-
-<div class="a">
-	<div class="goods"></div>
-	<form action="" method="get">
-		<input type="submit" value="마이페이지로 이동하기">
-	</form>
-</div>
-<%} %>
-<!--
-	로그인을 한 사람만 누르기 가능!! is Login
-	한 계정당 한번만 가능!! where member_id=session 일 때 
-	뽑기 버튼 눌렀을 때?
-	display absolute 해서 중간에
-	coupon random값을 text로 출력하기!
-	-> 닫기, 마이페이지로 링크 추가
-	=> 마이페이지 쿠폰함에 text 값 넣어주기 
-
- -->
-
 <jsp:include page="/template/footer.jsp"></jsp:include>
+

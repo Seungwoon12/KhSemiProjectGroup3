@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="movi.beans.EventDto"%>
@@ -19,7 +18,8 @@
 	.box{
 		border: 1px solid lightgray;
 		width:100%;
-		height:10%;
+		height:11%;
+		display: inline-block;
 	}
 	img{
 		width: 28%;
