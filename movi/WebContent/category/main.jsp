@@ -42,8 +42,10 @@
             text-decoration: none;
         }
         .top a{
-        	color:#4E6FA6;
         	font-size:17px;
+        }
+        .top a:hover{
+        	color:#4E6FA6 !important;
         }
         .menu{
    	 		width: 530px;
@@ -58,6 +60,7 @@
 
 <script>
 	$(document).ready(function(){
+		$("nav>a:nth-child(2)").addClass("navstyle");
 		$(".a<%=movie_genre_no%>").css("text-decoration","underline");
 		$(".a<%=movie_genre_no%>").css("font-weight","bolder");
 	
