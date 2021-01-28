@@ -144,7 +144,7 @@
 	
 	<div class="row center">
 			<%if(detailList.isEmpty()) { %>
-				<h3>등록된 게시글이 존재하지 않습니다.</h3>
+				<h3>리뷰가 존재하지 않네요.. 가장 먼저 리뷰를 등록해보세요!</h3>
 			<%} %>	
 	</div>
 	
@@ -192,9 +192,12 @@
 		<form action="list.jsp" method="post">
 			<div>
 				<select name="type" class="input input-inline">
-					<option>제목+내용</option>
+					<option value="movie_name" <%if(type != null && type.equals("movie_name")) { %> selected <% } %>>영화명</option>
 					<option value="review_title" <%if(type != null && type.equals("review_title")) { %> selected <% } %>>제목</option>
 					<option value="review_content" <%if(type != null && type.equals("review_content")) { %> selected <% } %>>내용</option>
+					<option value="member_nick"<%if(type != null && type.equals("member_nick")) {%> selected <%} %>>글작성자</option>
+					<option value="reply_content"<%if(type != null && type.equals("reply_content")) { %> selected <%} %>>댓글내용</option>
+					<option value="reply_writer_no"<%if(type != null && type.equals("reply_writer_no")) { %> selected <%} %>>댓글작성자</option>
 				</select>
 				<%if(isSearch) { %>
 				<input type="text" name="key" class="input input-inline" value="<%=key%>">

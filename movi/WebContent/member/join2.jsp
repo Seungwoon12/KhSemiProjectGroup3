@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/template/header.jsp"></jsp:include>	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
 <style>
 .row{
 height:50px; 

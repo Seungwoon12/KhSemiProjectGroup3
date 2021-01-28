@@ -3,7 +3,7 @@ package movi.util;
 import java.util.Random;
 
 //임시 비밀번호 문자열  합성
-public class PwUtil {
+public class PwUtil{
 	public static String generaterandonString(int size) {
 		String pwString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
 		StringBuffer buffer = new StringBuffer();

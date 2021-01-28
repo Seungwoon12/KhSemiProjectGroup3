@@ -28,11 +28,11 @@ public class MemberJoinServlet extends HttpServlet{
 			MemberDao dao = new MemberDao();
 			dao.insert(dto);
 			
-			resp.sendRedirect("loginsuccess.jsp");
+			resp.sendRedirect("joinsuccess.jsp");
 		}
 //아이디/닉네임이 중복 예외 --> 실패 페이지로 이동
 		catch(SQLIntegrityConstraintViolationException e) {
-			resp.sendRedirect("loginfail.jsp");
+			resp.sendRedirect("joinfail.jsp");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
