@@ -36,7 +36,7 @@
    main {
       width:1200px;
       margin:auto;
-      min-height:1000px;
+      min-height:1100px;
    }
    /* 각각의 레이아웃 영역에 여백을 설정한다 */
    header, footer, nav, section {
