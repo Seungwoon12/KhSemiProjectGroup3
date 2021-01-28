@@ -3,6 +3,7 @@ package movi.servlet;
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,9 @@ import movi.beans.ProfileDto;
 public class ProfileUploadServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			String path = req.getContextPath() + "/image/profile";
+		try {			
+			String path = "C:/movi/image/profile";
+			//경로는 외부경로로 수정할 것!
 			
 			int max = 5 * 1024 * 1024;
 			String encoding = "UTF-8";

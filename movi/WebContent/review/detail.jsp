@@ -151,40 +151,14 @@
  		
  		//댓글수정 null값 방지
 		$(".reply-edit-regist-btn").click(function(e){
- 			
  			if(!$(this).parent().prev().find(".reply-edit-area").val()) {
  				e.preventDefault();
  				window.alert("내용을 입력해주세요");
  			}
  		});
  		
- 		//댓글삭제진행
- 		//$(".reply-delete-btn").click(function(e){
- 			//e.preventDefault();
- 			
- 			//var replyNo = $(this).next().val();
- 			
- 			//데이터베이스에서 지울 필요가 없음 삭제된 댓글이란걸 보여줄거라서
- 			
- 			//삭제알림창
- 			//var confirm = window.confirm("댓글을 삭제하시겠습니까?");
- 			
- 			//if($(this).parent().parent().next().next().next().hasClass(".reply2")) {
- 				//안에 내용 지우고 삭제됐다고 보여준다.
- 				//if(confirm) {
- 	 				//$(this).parent().parent().empty();
- 	 				//$("<span>삭제된 댓글입니다.</span>")appendTo($(this).parent().parent());
- 	 			//}
- 			//}
- 			//else{
- 				//if(confirm) {
- 					//location.href = "reply_delete.do?review_no="+review_no+"&p="+p+"&reply_no="+replyNo;
- 				//}
- 			//}
- 			
- 				
- 		//});
  		
+ 	
  		
  		
  		
@@ -417,10 +391,28 @@
  			
  		});
  
+ 
+ 
  		
  		
  		
  		
+ 		
+ 		//대댓글, 대대댓글 삭제
+ 		$(".reply-delete-btn").click(function(e){
+ 			
+ 			var confirm = window.confirm("댓글을 삭제하시겠습니까?");
+ 			
+ 			if(!confirm) {
+ 				e.preventDefault();
+ 			}
+ 			
+ 		});
+ 		
+ 		//reply-deleted 삭제된 댓글중 자식댓글이 있으면 "삭제된 댓글입니다." 보여주고 자식이 없으면 보여주지 않기
+ 		//if($(".reply-deleted").next().hasClass("reply") || $(".reply-deleted").next().hasClass("reply-deleted") || $(".reply-deleted").next().hasClass("reply-write")) {
+ 			//$(".reply-deleted").hide();
+ 		//}
  		
  	});
  
@@ -453,7 +445,8 @@
  		</div>
  	
 		<div class="row">
-			<span>영화명: <%=movieDto.getMovie_name()%></span>
+			<span>영화명:</span>
+			<span style="font-weight:bold;"><%=movieDto.getMovie_name()%></span>
 		</div>
  		
  		<br>
@@ -479,7 +472,7 @@
  		
  		<%for(ReplyVO replyVO : replyList) { %>
  		<!-- 그냥 댓글 -->
- 		<%if(replyVO.getReply_depth() == 0) { %>
+ 		<%if(replyVO.getReply_depth() == 0 && replyVO.getReply_parent() != -1) { %>
  		<div class="row reply">
  			<div class="row" style="font-weight:bold;">
  				<%=replyVO.getMember_nick()%>
@@ -506,8 +499,7 @@
  				<a href="#" class="reply-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#" class="reply-delete-btn">삭제</a>
- 				<input type="hidden" name="reply_no" value="<%=replyVO.getReply_no()%>">
+ 				<a href="reply_root_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-root-delete-btn">삭제</a>
  				<%} %>	
  				<hr>
  			</div>
@@ -562,10 +554,8 @@
  			</form>
  		</div>
  		
- 		
- 		
  		<!-- 대댓글 -->
- 		<%} else if(replyVO.getReply_depth() == 1) { %>
+ 		<%} else if(replyVO.getReply_depth() == 1 && replyVO.getReply_parent() != -1 ) { %>
  		<div class="row reply2" style="margin-left:70px">
  			<div class="row" style="font-weight:bold;">
  				<span><%=replyVO.getMember_nick()%></span>
@@ -592,7 +582,7 @@
  				<a href="#" class="reply2-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#">삭제</a>
+ 				<a href="reply_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-delete-btn">삭제</a>
  				<%} %>
  				<hr>
  			</div>
@@ -653,13 +643,25 @@
  		
  		
  		<!-- 대대댓글 -->
- 		<%} else { %>
+ 		<%} else if(replyVO.getReply_depth() == 2 && replyVO.getReply_parent() != -1) { %>
  		<div class="row" style="margin-left:70px">
  			<%
- 				//reply_parent의 닉네임 및 댓글 작성자번호 구하기
- 				ReplyVO replyVONick = replyDao.getNick(replyVO.getReply_parent());
- 				String parent_nick = replyVONick.getMember_nick();
- 				int parent_writer_no = replyVONick.getReply_writer_no();
+ 			
+ 					//reply_parent의 닉네임 및 댓글 작성자번호 구하기
+ 	 				ReplyVO replyVONick = replyDao.getNick(replyVO.getReply_parent());
+ 					String parent_nick;
+ 					int parent_writer_no;
+ 					
+ 					if(replyVONick == null) {
+ 						parent_nick = "삭제된 댓글";
+ 						parent_writer_no = 0;
+ 					}
+ 					else{
+ 	 					parent_nick = replyVONick.getMember_nick();
+ 	 					parent_writer_no = replyVONick.getReply_writer_no();
+ 					}
+ 				
+ 					
  			%>
  			<div class="row" style="font-weight:bold;">
  				<%if(reviewDto.getReview_writer_no() == replyVO.getReply_writer_no()) { %>
@@ -696,7 +698,7 @@
  				<a href="#" class="reply3-edit-btn"> | 수정 |</a>
  				<%} %>
  				<%if(isReplyWriter || isAdmin) { %>
- 				<a href="#">삭제</a>
+ 				<a href="reply_delete.do?review_no=<%=review_no%>&p=<%=p%>&reply_no=<%=replyVO.getReply_no()%>" class="reply-delete-btn">삭제</a>
  				<%} %>
  				<hr>
  			</div>
@@ -750,6 +752,10 @@
 	 			</div>
  			</form>
  		</div>		
+ 		<%} else { %>
+ 		<div class="row reply-deleted" style="margin:30px 0 30px 0">
+ 			<span>삭제된 댓글입니다.</span>
+ 		</div>
  		<%} %>
  		
  		<%} %>
@@ -757,7 +763,7 @@
  		
  		<!-- 댓글 작성 -->
  		
- 		<div class="row" style="border: 1px solid black;">
+ 		<div class="row reply-write" style="border: 1px solid black;">
  			<form action="reply_write.do" method="post">
 	 			<div class="row" style="min-height:100px">
 	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">

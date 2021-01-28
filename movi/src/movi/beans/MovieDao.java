@@ -92,7 +92,7 @@ public class MovieDao {
 	public List<MovieDto> select_movie(String movie_name) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER,PASS);
 		
-		String sql ="select * from movie where movie_name=?";
+		String sql ="select * from movie where instr(movie_name, ?) > 0";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, movie_name);
 		ResultSet rs = ps.executeQuery();
@@ -262,4 +262,22 @@ public class MovieDao {
 			return list;
 		}
 		
+		
+		
+////////////////////////////////////////////////////////////////////////////////////////////		
+		
+	
+		//승운  movie_genre_no로 해당 영화 장르 가져오기
+		public String getGenre(int movie_genre_no) throws Exception {
+			Connection con = JdbcUtil.getConnection(USER, PASS);
+			String sql = "select genre_name from genre where genre_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, movie_genre_no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			String genre = rs.getString(1);
+			
+			con.close();
+			return genre;
+		}
 }

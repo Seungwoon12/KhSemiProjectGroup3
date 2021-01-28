@@ -5,8 +5,10 @@
     
 <%
 	request.setCharacterEncoding("UTF-8");
+
 	//조회수 방지위해 기록했던 review_no 세션 제거
 	session.removeAttribute("review_no");
+	
 %>
 
 <%
@@ -33,11 +35,27 @@
     	String key = request.getParameter("key");
     	boolean isSearch = type != null && key != null;
     	
+    	
     	ReviewDao reviewDao = new ReviewDao();
+    	
+    	//댓글작성자 검색을 위한 처리
+    	
+    		int reply_writer_no = 0; //초기화
+   			
+    		
+    		
+    	//게시글 목록 구하기
     	List<ReviewVO> list; 
-    	if(isSearch) {
+    	//type이 댓글작성자를 제외한 검색일 경우 목록	
+    	if(isSearch && !type.equals("reply_writer_no")) {
     		list = reviewDao.list(type, key, startRow, endRow);
     	}
+    	//type이 댓글작성자인 검색일 경우 목록
+    	else if(isSearch && type.equals("reply_writer_no")) {
+    		reply_writer_no = reviewDao.getWriterNo(key);
+    		list = reviewDao.list(type, reply_writer_no, startRow, endRow);
+    	}
+    	//검색어가 없을 경우 목록
     	else {
     		list = reviewDao.list(startRow, endRow);
     	}
@@ -54,11 +72,26 @@
    	int startNum = (p-1) / pageNavSize * pageNavSize + 1;
    	int endNum = startNum + pageNavSize - 1;
    	
-   	//목록 개수 or 검색 개수
+   	//목록 개수(영화명, 제목, 내용, 글작성자, 댓글내용) or 검색 개수
    	int count;
    	
    	if(isSearch) {
-   		count = reviewDao.count(type, key);
+			//댓글내용 검색시 게시글 개수   			
+   			if(type.equals("reply_content")) {
+   				count = reviewDao.countForReply(type, key);
+   			}
+			//영화명 검색시 게시글 개수
+   			else if(type.equals("movie_name")) {
+   				count = reviewDao.countForMovie(type, key);
+   			}
+			//댓글작성자 검색시 게시글 개수
+   			else if(type.equals("reply_writer_no")) {
+   				count = reviewDao.countForReplyWriter(reply_writer_no);
+   			}
+			//제목, 내용, 글작성자
+   			else {
+   				count = reviewDao.count(type, key);
+   			}
    	}
    	else {
    		count = reviewDao.count();
@@ -119,9 +152,7 @@
 			
 			<tbody>
 				
-			    <%
-	    		for(ReviewVO reviewVO : list) {
-			    %>
+			    <%for(ReviewVO reviewVO : list) { %>
 				<tr>
 					<td><%=reviewVO.getReview_no() %></td>
 					<td><%=reviewVO.getMovie_name()%></td>
@@ -213,9 +244,12 @@
 		<form action="list.jsp" method="post">
 			<div>
 				<select name="type" class="input input-inline">
-					<option>제목+내용</option>
+					<option value="movie_name" <%if(type != null && type.equals("movie_name")) { %> selected <% } %>>영화명</option>
 					<option value="review_title" <%if(type != null && type.equals("review_title")) { %> selected <% } %>>제목</option>
 					<option value="review_content" <%if(type != null && type.equals("review_content")) { %> selected <% } %>>내용</option>
+					<option value="member_nick"<%if(type != null && type.equals("member_nick")) {%> selected <%} %>>글작성자</option>
+					<option value="reply_content"<%if(type != null && type.equals("reply_content")) { %> selected <%} %>>댓글내용</option>
+					<option value="reply_writer_no"<%if(type != null && type.equals("reply_writer_no")) { %> selected <%} %>>댓글작성자</option>
 				</select>
 				<%if(isSearch) { %>
 				<input type="text" name="key" class="input input-inline" value="<%=key%>">

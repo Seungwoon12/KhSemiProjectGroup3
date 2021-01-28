@@ -103,7 +103,11 @@
 		</div>
 		<div class="left">
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
-			<a href="movieInsert.jsp"> 영화 등록 </a><br><br> 
+			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
+			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
+			<a href="#"> 배우 등록 </a><br><br>
+			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="#"> 3조 추천 영화 등록 </a><br><br>
 		</div>
 	</aside>
 
@@ -135,9 +139,9 @@
 		</div>
  <%}else{ %>	
 <!-- 검색결과가 있는 경우 --> 
-		<!--멤버 리스트 테이블  -->
+		<!--영화 리스트 테이블  -->
 		<div class="row">
-			<table class="table table-border">
+			<table class="table1" style="width: 1000px">
 				<thead>
 					<tr>
 						<th><input type="checkbox" id="checkall">전체선택</th>
@@ -157,9 +161,9 @@
 						<td><%=movieDto.getMovie_date() %></td>
 						<td><%=movieDto.getMovie_audience() %></td>
 						<td>
-							<a href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
-						 	<a href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
-						 	 <a class="delete" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
+						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
+						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
 						</td>
 					</tr>
 					<%} %>
@@ -167,7 +171,7 @@
 			</table>
 		</div>
  <%} %>		
-		<!-- 선택된 회원 삭제버튼 -->
+		<!-- 선택된 영화 삭제버튼 -->
 		<div class="right">
 			<input type="button" value="선택된 영화 삭제" >
 		</div>

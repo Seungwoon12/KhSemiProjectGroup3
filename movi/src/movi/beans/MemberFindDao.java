@@ -8,8 +8,6 @@ import java.util.Random;
 
 import movi.util.JdbcUtil;
 public class MemberFindDao {
-	
-
 
 //계정 정보를 상수로 저장
 		public static final String USERNAME = "movi";
@@ -70,6 +68,7 @@ public String Pw_find(MemberDto dto) throws Exception {
 
 
 
+
 //비밀번호 변경---임시비밀번호
 
 public String changPw(MemberDto dto) throws Exception {
@@ -103,5 +102,7 @@ con.close();
  return pw;
 }
 }
+
+
 
 
