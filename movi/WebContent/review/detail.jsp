@@ -410,6 +410,9 @@
  		});
  		
  		//reply-deleted 삭제된 댓글중 자식댓글이 있으면 "삭제된 댓글입니다." 보여주고 자식이 없으면 보여주지 않기
+ 		//if($(".reply-deleted").next().hasClass("reply") || $(".reply-deleted").next().hasClass("reply-deleted") || $(".reply-deleted").next().hasClass("reply-write")) {
+ 			//$(".reply-deleted").hide();
+ 		//}
  		
  	});
  
@@ -760,7 +763,7 @@
  		
  		<!-- 댓글 작성 -->
  		
- 		<div class="row" style="border: 1px solid black;">
+ 		<div class="row reply-write" style="border: 1px solid black;">
  			<form action="reply_write.do" method="post">
 	 			<div class="row" style="min-height:100px">
 	 				<input type="hidden" name="reply_writer_no" value="<%=session.getAttribute("check")%>">

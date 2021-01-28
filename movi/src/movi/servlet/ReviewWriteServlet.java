@@ -21,13 +21,8 @@ public class ReviewWriteServlet extends HttpServlet {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			
-			//임시로 해보는거,, 영화명으로 영화번호 구하기
-			//MovieDaoSW movieDao = new MovieDaoSW();
-			//MovieDto movieDto = movieDao.find(req.getParameter("movie_name"));
 			
 			int movie_selected_no = Integer.parseInt(req.getParameter("movie_selected_no"));
-			//MovieDao movieDao = new MovieDao();
-			//movieDao.select_movie_detail(movie_selected_no);
 			
 			
 			

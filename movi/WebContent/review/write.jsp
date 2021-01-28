@@ -9,6 +9,7 @@
 	String movie_name = request.getParameter("movie_name");
 	MovieDao movieDao = new MovieDao();
 	List<MovieDto> movieList = movieDao.select_movie(movie_name);
+	
 %>
 
 <style>
@@ -47,45 +48,7 @@
 		$(".list").slideDown(500);
 		$(".list").css("display","inline-block");
 		
-	});
-	
-	
-	
-</script>
-
-
-<div class="outbox">
-	<div class="row center">
-		<h2>영화명을 입력한 후 해당하는 영화를 선택해주세요.</h2>
-	</div>
-	
-	<div class="row center">
-		<form action="write.jsp" method="get">
-			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." style="width:350px">
-			<input type="submit" value="검색" class="input input-inline">
-		</form>
-	</div>
-	
-</div>		
-
-<ul class="main movie_list">
-	
-<%for(MovieDto dto : movieList){ %>
- 	<li class="list">
-		<a href="detail.jsp?movie_no=<%=dto.getMovie_no()%>">
-			<img src ="https://placehold.it/200X300?text=IMAGE">
-				<%=dto.getMovie_name() %>
-		</a>
-		<input type="radio" name="movie_no" value="<%=dto.getMovie_no() %>" required>
- 	</li>
-<%}%>
-
-</ul>
-
-<script>
-
-
-	$(function(){
+		
 		
 		//영화 제목 및 내용 작성란 기본 숨김처리
 		$(".write-form").hide();
@@ -131,16 +94,57 @@
 			
 		});
 		
-		
-		
-		
-		
-});
-	
-	
+	});
 	
 </script>
+
+
+<div class="outbox">
+	<div class="row center">
+		<h2>영화명을 입력한 후 해당하는 영화를 선택해주세요.</h2>
+	</div>
+	
+	<div class="row center">
+		<form action="write.jsp" method="get">
+			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." style="width:350px">
+			<input type="submit" value="검색" class="input input-inline">
+		</form>
+	</div>
+	
+</div>		
+
+<ul class="main movie_list">
+	
+<%for(MovieDto dto : movieList){ %>
+ 	<li class="list">
+		<a href="../category/detail.jsp?movie_no=<%=dto.getMovie_no()%>">
+			<img src ="https://placehold.it/200X300?text=IMAGE">
+		</a>
 		
+		<label for="movie_no<%=dto.getMovie_no()%>"><%=dto.getMovie_name() %></label>
+		<input id="movie_no<%=dto.getMovie_no()%>" type="radio" name="movie_no" value="<%=dto.getMovie_no()%>" required>
+		<%
+			String genre = movieDao.getGenre(dto.getMovie_genre_no());
+		%>
+		<div>
+			<span>개요:</span>
+			<label><%=genre%> |</label>
+			<label><%=dto.getMovie_country()%> |</label>
+			<label><%=dto.getMovie_time()%>분</label>
+		</div>
+		<div>
+			<span>개봉:</span>
+			<label><%=dto.getMovie_date()%></label>
+		</div>
+		<div>
+			<span>감독:</span>
+			<label><%=dto.getMovie_director()%></label>
+		</div>
+ 	</li>
+<%}%>
+
+</ul>
+
 		
 <form action="write.do" method="post">
 	<div class="outbox write-form">	
