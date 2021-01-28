@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import movi.util.JdbcUtil;
 
@@ -66,7 +67,7 @@ public class MemberDao2 {
        return x;
        }
 
-
+	  
 	    //로그인
 
 		public boolean login(MemberDto dto) throws Exception {

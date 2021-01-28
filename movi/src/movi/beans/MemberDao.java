@@ -31,6 +31,8 @@ public class MemberDao {
 		
 		con.close();
 	}
+
+
 	// 아이디 , 비밀번호 체크
 	    public int userCheck(String member_id, String member_pw)throws Exception{
         
@@ -66,7 +68,6 @@ public class MemberDao {
        return x;
        }
 
-
 	    //로그인
 
 		public boolean login(MemberDto dto) throws Exception {
@@ -76,7 +77,9 @@ public class MemberDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getMember_id());
 			ps.setString(2, dto.getMember_pw());
-			ResultSet rs = ps.executeQuery(); //데이터는 있거나 없거나 둘중 하나
+			ResultSet rs = ps.executeQuery();
+
+	//데이터는 있거나 없거나 둘중 하나
 		
 		boolean result=rs.next();
 		
@@ -85,6 +88,22 @@ public class MemberDao {
 			return result;
 		}
 
+
+	
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 
 		//회원 상세보기-memberDetail.jsp

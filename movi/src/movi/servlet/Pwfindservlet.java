@@ -16,7 +16,7 @@ public class Pwfindservlet extends HttpServlet {
 	    @Override
 	    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	       
-	   //    입력 (id, phone)	        
+	   //    입력 : id, phone	        
 	        try {
 	        req.setCharacterEncoding("UTF-8");
 	        MemberDto dto = new MemberDto(); 
@@ -27,16 +27,18 @@ public class Pwfindservlet extends HttpServlet {
            // 처리
             MemberFindDao dao = new MemberFindDao();
             
-            dao.Pw_find(dto);
-            
-            //불러오기 
             String member_pw= dao.Pw_find(dto);
             
-            if (!member_pw.isEmpty()) {
-                resp.sendRedirect("pw_findresult.jsp");
-            } else {
-                resp.sendRedirect("pw_findresult.jsp?pw=");
-            }
+            //불러오기 
+            
+            if(member_pw != null) {//결과가 있으면
+                resp.sendRedirect("Pw_findresult.jsp?member_pw="+member_pw);
+
+                req.getSession().setAttribute("member_pw", member_pw);
+             }
+             else {//결과가 없으면
+                resp.sendRedirect("Pw_findresult.jsp");
+             }
         } catch (Exception e) {
             resp.sendError(500);
             e.printStackTrace();
