@@ -1,3 +1,4 @@
+<%@page import="movi.beans.LoveDao"%>
 <%@page import="movi.beans.MovieDtoVO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="movi.beans.MovieDto"%>
@@ -32,7 +33,27 @@
 	.icon{
 		width:20px;
 	}
+	.heart {
+		height: 35px;
+		width: 35px;
+		vertical-align: middle;
+	}
+	.love-btn {
+		background-color: white;
+		border: none;
+		padding-left: 0px;
+	}
 </style>
+<script>
+	$(function(){
+		$(".cancel_love").click(function(){
+			location.href="love_cancel.do?movie_no=<%=movie_no%>";
+		});
+		$(".plus_love").click(function(){
+			location.href="love.do?movie_no=<%=movie_no%>";
+		});
+	});
+</script>
 <div class="outbox">
 	<%for(MovieDtoVO dto : moviegenreList){ %>
 	<div>
@@ -90,6 +111,28 @@
 			<%=vo.getActor_name()%>&nbsp;     
 		<%}%>
 	</p>
+	</div>
+	<div class="love_box">
+	<%
+	LoveDao loveDao = new LoveDao();
+	boolean loginCheck = session.getAttribute("check") != null;
+	
+	if(loginCheck) {
+		int member_no = (int)session.getAttribute("check");
+		boolean love_check = loveDao.love_search(member_no, movie_no);
+		if(love_check){
+		%>
+		<button class="love-btn cancel_love">
+			<img class="heart" alt="cancel_love" src="<%=request.getContextPath()%>/img/heart_red.png">
+		<%=loveDao.love_count(movie_no) %>
+		</button>
+		<%} else{ %>
+		<button class="love-btn plus_love">
+			<img class="heart" alt="plus_love" src="<%=request.getContextPath()%>/img/heart_white.png">
+		<%=loveDao.love_count(movie_no) %>
+		</button>
+		<%} %>
+	<%} %>
 	</div>
 </div>	
 	<div class="right">
