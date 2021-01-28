@@ -46,11 +46,11 @@ public class MemberAdminDao {
 	public MemberAdminDtoVO SelectAll_admin(int member_no) throws Exception{
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
-		String sql= "select M.*, G.genre_name, E.event_name, E.event_coupon  from member M  " + 
-						"left outer join mygenre MG on M.member_no = MG.mygenre_member_no " + 
-						"left outer join genre G on MG.mygenre_genre_no = G.genre_no " + 
-						"left outer join event E on E.event_member_no = M.member_no " + 
-					"where member_no = ? " ;
+		String sql= "select M.* , E.event_name, C.coupon_name from member M  " + 
+						"    left outer join  member_coupon MC on MC.event_member_no = M.member_no " + 
+						"    left outer join event E on E.event_no = MC.member_event_no " + 
+						"    left outer join coupon C on C.coupon_no = member_coupon_no " + 
+						"    where member_no = ? ";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, member_no);
 		ResultSet rs = ps.executeQuery();
@@ -64,10 +64,8 @@ public class MemberAdminDao {
 			memberDto.setMember_phone(rs.getString("member_phone"));
 			memberDto.setMember_date(rs.getDate("member_date"));
 			memberDto.setMember_auth(rs.getString("member_auth"));
-			memberDto.setGenre_name(rs.getString("genre_name"));
 			memberDto.setEvent_name(rs.getString("event_name"));
-			memberDto.setEvent_coupon(rs.getString("event_coupon"));
-
+			memberDto.setCoupon_name(rs.getString("coupon_name"));
 		} else {
 			memberDto = null;
 		}
