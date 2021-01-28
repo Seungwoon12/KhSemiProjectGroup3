@@ -110,7 +110,7 @@ public class CouponAdminDao {
 		public int count_admin() throws Exception {
 			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 
-			String sql = "select count(*) from member ";
+			String sql = "select count(*) from member_coupon ";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
@@ -124,7 +124,7 @@ public class CouponAdminDao {
 		public int count_admin(String type, String key) throws Exception {
 			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 
-			String sql = " select count(*) from member where instr(#1, ?) >0 ";
+			String sql = " select count(*) from member_coupon where instr(#1, ?) >0 ";
 			sql = sql.replace("#1", type);
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, key);

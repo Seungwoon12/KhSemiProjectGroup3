@@ -9,6 +9,25 @@
 	EventAdminDao eventDao = new EventAdminDao();
 	EventAdminDtoVO eventDto = eventDao.SelectAll_admin(event_no); 
 %>
+
+<!-- 각종 기능 -->
+<script>
+//이벤트 삭제시 alert확인
+	window.onload= function(){
+		document.querySelector(".event_delete").addEventListener("click", function(){
+			
+			var check = window.confirm("이벤트를 삭제하시겠습니까?");
+			if(check){
+				location.href="<%=request.getContextPath()%>/admin/eventDelete.do?event_no=<%=eventDto.getEvent_no()%>" ;
+			}else{
+				location.href= "<%=request.getContextPath()%>/admin/eventList.jsp" ;
+			}
+		});
+	}; 
+</script>
+
+
+
 <div class="outbox" style="width:100%">
     <aside>
    		<div class="row center">
@@ -56,8 +75,8 @@
 					</tr>					
 					<tr>
 						<td colspan="2">
-							<input type="button" value="수정" id="editBtn" onclick="location.href='eventEdit.jsp?event_no=<%=eventDto.getEvent_no()%>'">
-							<input type="button" value="삭제" id="deleteBtn" onclick="location.href='eventDelete.do?event_no=<%=eventDto.getEvent_no()%>'">
+							<input type="button" value="수정" onclick="location.href='eventEdit.jsp?event_no=<%=eventDto.getEvent_no()%>'">
+							<input type="button" value="삭제" class="event_delete">
 						</td>
 					</tr>
 				</tbody>
