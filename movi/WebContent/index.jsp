@@ -245,7 +245,7 @@
 	$(function(){
 		//추천영화 목록으로 가기
 		$(".movie_recom").click(function(){
-			location.href="/movi/category/recom.jsp?recom_title="+$(this).text();
+			location.href="/movi/category/recom.jsp?recom_title="+$(this).text().replace('#','');
 		});
 		
 		//영화 세부 페이지로 가기
@@ -372,6 +372,7 @@
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
 						<img class="hov" src="https://placehold.it/300X250?text=IMAGE">
+						
 						<h1 class="h hov1">
 								#<%=recomdto.getRecom_title()%>
 						</h1>
