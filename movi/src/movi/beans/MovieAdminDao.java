@@ -257,5 +257,81 @@ public class MovieAdminDao {
 
 		return count;
 	}
+	
+//영화 상세보기+배우 추가 -admin/movieDetail.jsp
+	public List<MovieDtoVO> actor_admin(int movie_no, String actor_role) throws Exception{
+		Connection con =JdbcUtil.getConnection(USER, PASS);
+		
+		String sql="select * from actor " + 
+				"    right outer join actor_con " + 
+				"    on actor_no = con_actor_no " + 
+				"    where con_movie_no= ? and con_actor_role=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ps.setString(2, actor_role);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDtoVO> actorList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDtoVO actorDto = new MovieDtoVO();
+			actorDto.setActor_name(rs.getString("actor_name"));
+			actorList.add(actorDto);
+		}
+		con.close();
+		
+		return actorList;
+	}
 
+//영화 상세보기+장르 추가	
+	public List<MovieDtoVO> genre_admin(int movie_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql="select M.*, G.genre_name from movie M " + 
+					"    left outer join genre G on G.genre_no = M.movie_genre_no " + 
+					"where M.movie_no=? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDtoVO> genreList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDtoVO genreDto = new MovieDtoVO();
+			genreDto.setMovie_no(rs.getInt("movie_no"));
+			genreDto.setGenre_name(rs.getString("genre_name"));
+			genreList.add(genreDto);
+		}
+			con.close();
+			
+			return genreList;
+		
+	}
+	
+//영화 상세보기+ 좋아요 수 추가
+	public List<MovieDtoVO> mlike_amdin(int movie_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql= "select M.movie_no, M.movie_name, count(L.love_movie_no) mlike " + 
+					"    from movie M " + 
+					"    left outer join love L on M.movie_no = L.love_movie_no " + 
+					"    where movie_no =? " + 
+					"    group by M.movie_no, M.movie_name " ;
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ResultSet rs = ps.executeQuery();
+		
+		List<MovieDtoVO> mlikeList = new ArrayList<>();
+		while(rs.next()) {
+			MovieDtoVO mlikeDto = new MovieDtoVO();
+			mlikeDto.setMovie_no(rs.getInt("movie_no"));
+			mlikeDto.setMlike(rs.getInt("mlike"));
+			mlikeList.add(mlikeDto);
+		}
+		con.close();
+		
+		return mlikeList;
+		
+	}
+	
+	
+	
 }

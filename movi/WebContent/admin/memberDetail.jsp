@@ -1,3 +1,4 @@
+<%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +10,36 @@
 	int member_no = Integer.parseInt(request.getParameter("member_no"));
 	MemberAdminDao memberDao = new MemberAdminDao();
 	MemberAdminDtoVO memberDto = memberDao.SelectAll_admin(member_no); 
+
+//선호 장르 불러오기
+	MygenreDao mygenreDao = new MygenreDao();
+	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
+	List<String> mygenre_list = new ArrayList<>();
+	GenreDao genreDao = new GenreDao();
+	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
+		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+	}
+
 %>
+
+<!-- 각종 기능 -->
+<script>
+//리뷰 삭제시 alert확인
+	window.onload= function(){
+		document.querySelector(".member_delete").addEventListener("click", function(){
+			
+			var check = window.confirm("회원을 삭제하시겠습니까?");
+			if(check){
+				location.href="<%=request.getContextPath()%>/admin/memberDelete.do?member_no=<%=memberDto.getMember_no()%>" ;
+			}else{
+				location.href= "<%=request.getContextPath()%>/admin/memberList.jsp" ;
+			}
+		});
+	}; 
+	
+
+</script>
+
 
 <div class="outbox" style="width:100%">
    <aside>
@@ -64,20 +94,23 @@
 					</tr>
 					<tr>
 						<th>선호장르</th>
-						<td><%=memberDto.getGenre_name() %></td>
+						<td><%for(String mygenre : mygenre_list){ %>
+								<%=mygenre %>
+							<%} %>
+						</td>
 					</tr>
 					<tr>
 						<th>이벤트명/ 쿠폰</th>
 						<td>
 						<%=memberDto.getEvent_name() %>/
-						<%=memberDto.getEvent_coupon() %>
+						<%=memberDto.getCoupon_name() %>
 						</td>
 					</tr>
 					
 					<tr>
 						<td colspan="2">
-							<input type="button" value="수정" id="editBtn" onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
-							<input type="button" value="삭제" id="deleteBtn" onclick="location.href='memberDelete.do?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="수정"  onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="삭제" class="member_delete">
 						</td>
 					</tr>
 				</tbody>

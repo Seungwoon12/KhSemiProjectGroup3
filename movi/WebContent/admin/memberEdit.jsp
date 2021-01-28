@@ -91,7 +91,7 @@
 							<th>이벤트 내역</th>
 							<td>
 							이벤트명: <%=memberDto.getEvent_name() %>/
-							쿠폰 :<%=memberDto.getEvent_coupon() %>
+							쿠폰 :<%=memberDto.getCoupon_name() %>
 							</td>
 						</tr>
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import movi.beans.CouponAdminDao;
 import movi.beans.EventAdminDao;
 
 @WebServlet(urlPatterns = "/admin/couponDelete.do")
@@ -19,7 +20,7 @@ public class AdminCouDeleteservlet extends HttpServlet{
 			int event_member_no = Integer.parseInt(req.getParameter("event_member_no"));
 			
 //			처리:
-			EventAdminDao memberDao = new EventAdminDao();
+			CouponAdminDao memberDao = new CouponAdminDao();
 			boolean result = memberDao.delete_admin(event_member_no);
 			
 //			출력:삭제 완료하면 couponList.jsp로 이동
