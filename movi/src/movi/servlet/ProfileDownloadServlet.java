@@ -25,9 +25,7 @@ public class ProfileDownloadServlet extends HttpServlet{
 			ProfileDao profileDao = new ProfileDao();
 			ProfileDto profileDto = profileDao.select(member_no);
 			
-			ServletContext context = getServletContext();
-			
-			String path = context.getRealPath("upload/profile");
+			String path = "C:/movi/image/profile";
 			
 			File target = new File(path, profileDto.getProfile_save_name());
 			byte[] data = new byte[(int)target.length()];
@@ -38,7 +36,7 @@ public class ProfileDownloadServlet extends HttpServlet{
 			resp.setHeader("Content-Type", "application/octet-stream");
 			resp.setHeader("Content-Encoding", "UTF-8");
 			resp.setHeader("Content-Length", String.valueOf(profileDto.getProfile_size()));
-			resp.setHeader("Content-Disposition", "attachment; filename=\""+URLEncoder.encode(profileDto.getProfile_upload_name(), "UTF-8")+"\"");
+			resp.setHeader("Content-Disposition", "attachment; filename=\""+URLEncoder.encode(profileDto.getProfile_save_name(), "UTF-8")+"\"");
 			
 			resp.getOutputStream().write(data);
 		}

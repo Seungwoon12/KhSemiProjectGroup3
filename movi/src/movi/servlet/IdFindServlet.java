@@ -16,11 +16,11 @@ import movi.beans.MemberFindDao;
 public class IdFindServlet extends HttpServlet {
 	    @Override
 	    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	    req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("utf-8");
 
 	   //    입력 : nick ,phone
 	    try {
-	        req.setCharacterEncoding("UTF-8");
+	    	req.setCharacterEncoding("UTF-8");
 	        MemberDto dto = new MemberDto(); 
 	        
 	        dto.setMember_nick(req.getParameter("member_nick"));
@@ -28,23 +28,24 @@ public class IdFindServlet extends HttpServlet {
 	       
       //처리
 			
-			System.out.println(dto);          
 			MemberFindDao dao = new MemberFindDao();
-			
-            dao.Id_find(dto);
-
-			
             String member_id= dao.Id_find(dto);
-           
-     //
-            if (!member_id.isEmpty()) {
+
+     //결과
+            if(member_id != null) {//결과가 있으면
+                resp.sendRedirect("Id_findresult.jsp?member_id="+member_id);
+
+                req.getSession().setAttribute("member_id", member_id);
+             }
+             else {//결과가 없으면
                 resp.sendRedirect("Id_findresult.jsp");
-            } else {
-                resp.sendRedirect("Id_findresult.jsp?Id=");
-            }
-        } catch (Exception e) {
-            resp.sendError(500);
+             }
+          }
+        catch (Exception e) {
             e.printStackTrace();
+            resp.sendError(500);
+
+
         } 
 	    }
 }

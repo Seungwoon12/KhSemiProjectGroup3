@@ -1,3 +1,4 @@
+<%@page import="java.util.Collections"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,8 +8,11 @@
     
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/swiper.css">
 <script src="<%=request.getContextPath()%>/js/swiper.js"></script>
- 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mypage.css">
 <style>
+	main {
+		height: 1350px;
+	}
 	.outbox{
 		width: 66%;
 		min-width: 500px;
@@ -29,19 +33,18 @@
 	div{
 		border: none;
 	}
-	.movie_box{
-		display: inline-block;
-	}
 	
-	.movie_img{
-		height: 305px;
-		width: 210px;
-	}
-	.movie_name{
-		
-	}
 	.coupon_box{
+		display: table-cell;
+		min-height: 200px;
 		display: inline-block;
+	}
+	.title-img{
+		height: 23px;
+		width: 23px;
+	}
+	#member_nick{
+		font-size: 36px;
 	}
 </style>
 
@@ -59,6 +62,9 @@
 	GenreDao genreDao = new GenreDao();
 	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
 		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+	}
+	if(mygenre_list.size() >= 2) {
+		Collections.shuffle(mygenre_list);
 	}
 
 	//좋아요 누른 영화 마이페이지에 뜰 수 있도록 하기
@@ -128,9 +134,10 @@
 
 <div class="outbox">
 	<div class="row">
-		<table class="table table-border">
+		<table class="table">
 			<tbody>
 				<tr>
+					<!-- 프로필 파일 다운로드 경로 수정할 것.onerror 안은 그대로 둬도 됨 -->
 					<td style="width: 30%">
 						<img alt="user_profile" src="profile-download.do" 
 						onerror="this.src='/movi/image/profile/default_profile.png'" 
@@ -138,18 +145,18 @@
 					</td>
 					<td rowspan="2">
 						<div>
-							<h2><%=memberDto.getMember_nick()%>님</h2>
+							<h2 id="member_nick"><%=memberDto.getMember_nick()%>님</h2>
 							<h5>방문해 주셔서 감사합니다.</h5>
 							<h5>
 								<%=memberDto.getMember_nick()%>님
 								<%if(mygenre_list.isEmpty()) {%>
-									은 아직 선호 장르를 선택하시지 않았습니다.(선호하는 영화 장르를 선택해보세요)
+									은 아직 선호 장르를 선택하시지 않았습니다.<br>(선호하는 영화 장르를 선택해보세요)
 								<%} else {%>
-									의 선호 장르는
+									의 선호 장르는 [ 
 									<%for (String mygenre : mygenre_list) {%>
 										<%=mygenre %>
 									<%} %>
-									입니다.
+									 ] 입니다.
 								<%} %>
 							</h5>
 						</div>
@@ -158,8 +165,11 @@
 				<tr>
 					<td>
 						<form action="profile-enroll.do" method="post" enctype="multipart/form-data">
- 							<input type="file" name="profile" accept=".jpg, .png, .gif">
- 							<input type="submit" class="input input-inline" value="프로필 변경">
+							<div class="filebox"> 
+								<label for="pro_file">업로드</label> 
+								<input id="pro_file" type="file" name="profile" accept=".jpg, .png, .gif">
+							</div>
+ 							<input type="submit" class="btnmy" value="프로필 변경">
  						</form>
 					</td>
 				</tr>
@@ -167,14 +177,15 @@
 		</table>
 	</div>
 	<div class="row center">
-		<input type="button" class="input input-inline edit-btn" value="내 정보 수정">
-		<input type="button" class="input input-inline myGenre-btn" value="선호 장르 변경">
-		<input type="button" class="input input-inline editPw-btn" value="비밀 번호 변경">
-		<input type="button" class="input input-inline del-btn" value="회원 탈퇴">
+		<input type="button" class="btnmy edit-btn" value="내 정보 수정">
+		<input type="button" class="btnmy myGenre-btn" value="선호 장르 변경">
+		<input type="button" class="btnmy editPw-btn" value="비밀 번호 변경">
+		<input type="button" class="btnmy del-btn" value="회원 탈퇴">
 	</div>
 	
 	<!-- 스와이퍼 다시 한번 생각해보기 -->
 	<div class="row float-box">
+		<img class="title-img" alt="heart-img" src="../img/heart_red.png">
 		<span>좋아요 누른 영화</span>
 		<div class="right-btn">
 			<a href="mylovemovielist.jsp?p=1">더보기</a>
@@ -280,12 +291,15 @@
 	
 	<!-- 이벤트 페이지 구성되면 만들 생각 -->
 	<div class="row float-box">
+		<img class="title-img" alt="heart-img" src="../img/gift-box.png">
 		<span>보유중인 상품</span>
 	</div>
 	<div class="row center">
 		<div class="swiper-container swiper2">
 	        <div class="swiper-wrapper">
-	        	<%for(MemberCouponInfoVO memberCouponInfoVO : member_coupon_list) {%>
+	        	<%for(MemberCouponInfoVO memberCouponInfoVO : member_coupon_list) {
+	        		if(memberCouponInfoVO.getCoupon_name() != "꽝") {
+	        	%>
 	            <div class="swiper-slide">
 					<div class="coupon_box">
 						<table>
@@ -304,7 +318,7 @@
 						</table>
 					</div>
 				</div>
-				<%} if (member_coupon_list.isEmpty()) {%>
+				<%}} if (member_coupon_list.isEmpty()) {%>
 					<div class="swiper-slide">
 						<div class="coupon_box">
 							<a href="../event/main.jsp">

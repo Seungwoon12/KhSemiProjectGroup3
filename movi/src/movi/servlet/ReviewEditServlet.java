@@ -20,12 +20,10 @@ public class ReviewEditServlet extends HttpServlet {
 		try {
 			req.setCharacterEncoding("UTF-8");
 			
-			MovieDaoSW movieDao = new MovieDaoSW();
-			MovieDto movieDto = movieDao.find(req.getParameter("movie_name"));
 			
 			ReviewDto reviewDto = new ReviewDto();
 			reviewDto.setReview_no(Integer.parseInt(req.getParameter("review_no")));
-			reviewDto.setReview_movie_no(movieDto.getMovie_no());
+			reviewDto.setReview_movie_no(Integer.parseInt(req.getParameter("movie_no")));
 			reviewDto.setReview_title(req.getParameter("review_title"));
 			reviewDto.setReview_content(req.getParameter("review_content"));
 			

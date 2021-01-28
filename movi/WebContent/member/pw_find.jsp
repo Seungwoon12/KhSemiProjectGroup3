@@ -15,7 +15,7 @@
 <label for="phone"> 전화번호:</label>            
 <input type="tel"  name="phone"  placeholder=" - 를 제외하고 번호 전체를 입력해주세요." required></input>
 
-        
+ <br>
 <input type="submit"  value="찾기" ></input>  
 		
 		</form>

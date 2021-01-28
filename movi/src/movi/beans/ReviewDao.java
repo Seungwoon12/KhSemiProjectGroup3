@@ -100,7 +100,7 @@ public class ReviewDao {
 		return list;
 	}
 	
-	// 게시판 페이지당 표시될 목록 개수
+	// 게시판 페이지당 표시될 목록 
 	public List<ReviewVO> list(int startRow, int endRow) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "select * from(" + 
@@ -142,7 +142,7 @@ public class ReviewDao {
 	}
 	
 	
-	//검색 일 경우 게시판 페이지당 표시될 목록 개수
+	//검색 일 경우 게시판 페이지당 표시될 목록 
 	public List<ReviewVO> list(String type, String key, int startRow, int endRow) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "select * from(" + 
@@ -185,6 +185,50 @@ public class ReviewDao {
 		con.close();
 		return list;
 	}
+	
+	//검색 일 경우 게시판 페이지당 표시될 목록 *** type이 reply_writer_no일때 사용*** (목록 출력시 제목옆에 댓글 개수가 검색한 댓글작성자가 작성한 개수만 표시됨)
+		public List<ReviewVO> list(String type, int reply_writer_no, int startRow, int endRow) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select * from(" + 
+					"select rownum rn, TMP.* from(" + 
+					"select "
+					+ "R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name, count(REP.reply_origin) reply_count "
+					+ "from review R inner join member M on R.review_writer_no = M.member_no "
+					+ "left outer join Reply REP on R.review_no = REP.reply_origin and REP.reply_parent >= 0 "
+					+ "inner join movie MO on R.review_movie_no = MO.movie_no "
+					+ "where #1 = ? "
+					+ "group by R.review_no, R.review_movie_no, R.review_writer_no, R.review_title, R.review_content, R.review_date, R.review_read, M.member_nick, MO.movie_name "
+					+ "order by review_no desc" + 
+					")TMP" + 
+					") where rn between ? and ?";
+			
+			sql = sql.replace("#1", type);
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, reply_writer_no);
+			ps.setInt(2, startRow);
+			ps.setInt(3, endRow);
+			ResultSet rs = ps.executeQuery();
+			
+			List<ReviewVO> list = new ArrayList<>();
+			while(rs.next()) {
+				ReviewVO reviewVO = new ReviewVO();
+				reviewVO.setReview_no(rs.getInt("review_no"));
+				reviewVO.setReview_movie_no(rs.getInt("review_movie_no"));
+				reviewVO.setReview_writer_no(rs.getInt("review_writer_no"));
+				reviewVO.setReview_title(rs.getString("review_title"));
+				reviewVO.setReview_content(rs.getString("review_content"));
+				reviewVO.setReview_date(rs.getDate("review_date"));
+				reviewVO.setReview_read(rs.getInt("review_read"));
+				reviewVO.setMember_nick(rs.getString("member_nick"));
+				reviewVO.setMovie_name(rs.getString("movie_name"));
+				reviewVO.setReply_count(rs.getInt("reply_count"));
+				
+				list.add(reviewVO);
+			}
+			
+			con.close();
+			return list;
+		}
 	
 	
 	
@@ -234,10 +278,10 @@ public class ReviewDao {
 		
 	}
 	
-	//리뷰게시글 총 개수 구하기(검색일때)
+	//리뷰게시글 총 개수 구하기(검색일때) -> 제목, 내용, 글작성자
 	public int count(String type, String key) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql = "select count(*) from review where instr(#1, ?) > 0";
+		String sql = "select count(*) from review R inner join member M on R.review_writer_no = M.member_no and instr(#1, ?) > 0";
 		sql = sql.replace("#1", type);
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, key);
@@ -250,6 +294,60 @@ public class ReviewDao {
 		return count;
 		
 	}	
+	
+	//리뷰게시글 총 개수 구하기(검색일때) -> 댓글내용
+	public int countForReply(String type, String key) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		String sql = "select count(*) from review R inner join reply REP on R.review_no = REP.reply_origin and instr(#1, ?) > 0";
+		sql = sql.replace("#1", type);
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, key);
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		int count = rs.getInt(1);
+		
+		con.close();
+		return count;
+		
+	}	
+	
+	//리뷰게시글 총 개수 구하기(검색일때) -> **댓글작성자라서 distinct로 중복 없애줘야함
+		public int countForReplyWriter(int reply_writer_no) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select count(distinct reply_origin) from review R inner join reply REP on R.review_no = REP.reply_origin and reply_writer_no = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, reply_writer_no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			int count = rs.getInt(1);
+			
+			con.close();
+			return count;
+			
+		}	
+	
+	//리뷰게시글 총 개수 구하기(검색일때) -> 영화명
+		public int countForMovie(String type, String key) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select count(*) from review R inner join movie M on R.review_movie_no = M.movie_no and instr(#1, ?) > 0";
+			sql = sql.replace("#1", type);
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, key);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			
+			int count = rs.getInt(1);
+			
+			con.close();
+			return count;
+			
+		}	
+	
+	
+	
+	
 	
 	//조회수 증가
 	public void plusRead(int review_no) throws Exception {
@@ -323,8 +421,28 @@ public class ReviewDao {
 			return count;
 			
 		}
-	
-	
+		
+		//사용자가 "댓글작성자"를 타입으로 검색했을때 reply_writer_no를 구하기위한 메소드
+		public int getWriterNo(String member_nick) throws Exception {
+			Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+			String sql = "select member_no from member where member_nick = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, member_nick);
+			ResultSet rs = ps.executeQuery();
+			
+			int reply_writer_no = 0;
+			if(rs.next()) {
+				reply_writer_no = rs.getInt(1); //member_no라 무조건 1개나옴
+			}
+			
+			con.close();
+			return reply_writer_no;
+		}
+		
+		
+		
+		
+			
 	
 	
 	
