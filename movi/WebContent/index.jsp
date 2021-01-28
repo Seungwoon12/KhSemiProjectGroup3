@@ -70,9 +70,9 @@
 		top:50px;
 	}
 	.hov1{
-		font-size: 30px !important;
+		font-size: 25px !important;
 		width: 70%;
-		margin-top: -58px !important;
+		margin-top: -30px !important;
 	}
 	.h{
     display: none;
