@@ -104,7 +104,7 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
 			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
 			<a href="#"> 3조 추천 영화 등록 </a><br><br>
 		</div>
@@ -154,7 +154,7 @@
 						<td>
 							<a class="abtn purple" href="actorDetail.jsp?actor_no=<%=actorDto.getActor_no()%>">상세보기</a>
 						 	<a class="abtn green" href="actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>">수정</a>
-						 	 <a class="delete abtn red" href="actorDelete.do?actor_no=<%=actorDto.getActor_no() %>">삭제</a>
+						 	 <a class="delete abtn red"  href="actorDelete.do?actor_no=<%=actorDto.getActor_no() %>">삭제</a>
 						</td>
 					</tr>
 					<%} %>
