@@ -16,8 +16,8 @@
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
 			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br>
 			</div>
 		</aside>
 		
@@ -44,8 +44,8 @@
 						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" >
-									<input type="button" value="취소" onclick="location.href='actorList.jsp'">
+									<input type="submit" class="adbtn green" value="등록" >
+									<input type="button" class="adbtn yellow" value="취소" onclick="location.href='actorList.jsp'">
 								</div>
 							</th>
 						</tr>

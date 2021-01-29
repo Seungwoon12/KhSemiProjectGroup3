@@ -95,8 +95,8 @@
 
 						<tr>
 							<td colspan="2">
-							<input type="submit" value="등록"> 
-							<input type="button" value="취소" onclick="location.href='memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="submit" value="등록" class="adbtn green"> 
+							<input type="button" value="취소" class="adbtn yellow" onclick="location.href='memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>'">
 							</td>
 						</tr>
 					</tbody>

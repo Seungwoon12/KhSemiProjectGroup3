@@ -142,8 +142,8 @@
 					</tr>
 					<tr>
 						<th colspan="3">
-							<input type="button" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
-							<input type="button" value="삭제" class="movie_delete">
+							<input type="button" class="adbtn blue" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
+							<input type="button" class="adbtn red" value="삭제" class="movie_delete">
 						</th>
 					</tr>
 				</tbody>

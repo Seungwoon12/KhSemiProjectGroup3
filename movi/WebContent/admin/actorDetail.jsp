@@ -93,8 +93,8 @@
 
 					<tr>
 						<th colspan="3">
-							<input type="button" value="수정" id="actorEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
-							<input type="button" value="삭제" class="actor_delete">
+							<input type="button" class="adbtn blue" value="수정" id="actorEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
+							<input type="button" class="adbtn red" value="삭제" class="actor_delete">
 						</th>
 					</tr>
 				</tbody>

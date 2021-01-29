@@ -81,8 +81,8 @@
 						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" >
-									<input type="button" value="취소" onclick="location.href='actorList.jsp'">
+									<input type="submit" class="adbtn green" value="등록" >
+									<input type="button" class="adbtn yellow" value="취소" onclick="location.href='actorList.jsp'">
 								</div>
 							</th>
 						</tr>

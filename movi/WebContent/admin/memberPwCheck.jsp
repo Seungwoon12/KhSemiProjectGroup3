@@ -45,7 +45,7 @@
 			<h1>임시 비밀번호 발급</h1>
 		</div>
 
-		<div class="outbox center" style="width: 500px">
+		<div class="outbox center" style="width: 500px; border:1px solid #489CFF ; padding:1rem ; border-radius:10px;">
 
 			<div class="row">
 				<h2>임시 비밀번호 생성</h2>
@@ -64,8 +64,8 @@
 				</tr>
 				<tr>
 					<td style="height:100px">
-						<input type="button" value="확인" id="pass-btn" onclick="pass()">
-					 	<input type="button" value="취소" onclick="location.href='memberList.jsp'">
+						<input type="button" value="확인" class="adbtn blue" id="pass-btn" onclick="pass()">
+					 	<input type="button" value="취소" class="adbtn blue" onclick="location.href='memberList.jsp'">
 					 </td>
 				</tr>
 
