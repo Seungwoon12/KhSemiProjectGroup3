@@ -82,6 +82,9 @@
 %>
 
 <script>
+	$(document).ready(function(){
+	    $("nav>a:nth-child(4)").addClass("navstyle");
+	 });
 	$(function(){
 		$(".edit-btn").click(function(){
 			location.href = "edit.jsp";

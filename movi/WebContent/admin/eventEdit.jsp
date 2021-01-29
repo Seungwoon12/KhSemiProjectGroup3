@@ -65,8 +65,8 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-							<input type="submit" value="등록"> 
-							<input type="button" value="취소" onclick="location.href='eventDetail.jsp?event_no=<%=eventDto.getEvent_no()%>'">
+							<input type="submit" class="adbtn green" value="등록"> 
+							<input type="button" class="adbtn yellow" value="취소" onclick="location.href='eventDetail.jsp?event_no=<%=eventDto.getEvent_no()%>'">
 							</td>
 						</tr>
 					</tbody>

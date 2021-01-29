@@ -11,15 +11,15 @@
 	MemberAdminDao memberDao = new MemberAdminDao();
 	MemberAdminDtoVO memberDto = memberDao.SelectAll_admin(member_no); 
 
-//선호 장르 불러오기
-	MygenreDao mygenreDao = new MygenreDao();
-	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
-	List<String> mygenre_list = new ArrayList<>();
-	GenreDao genreDao = new GenreDao();
-	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
-		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
-	}
-
+	//선호 장르 불러오기
+		MygenreDao mygenreDao = new MygenreDao();
+		List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
+		List<String> mygenre_list = new ArrayList<>();
+		GenreDao genreDao = new GenreDao();
+		for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
+			mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+		}
+	
 %>
 
 <!-- 각종 기능 -->
@@ -121,8 +121,8 @@
 					
 					<tr>
 						<td colspan="2">
-							<input type="button" value="수정"  onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
-							<input type="button" value="삭제" class="member_delete">
+							<input type="button" value="수정" class="adbtn blue"  onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="삭제" class="adbtn red member_delete">
 						</td>
 					</tr>
 				</tbody>

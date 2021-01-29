@@ -19,6 +19,26 @@
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<!-- 각종 기능 -->
+<script>
+//영화 삭제시 alert확인
+	window.onload= function(){
+		document.querySelector(".actor_delete").addEventListener("click", function(){
+			
+			var check = window.confirm("영화를 삭제하시겠습니까?");
+			if(check){
+				location.href="<%=request.getContextPath()%>/admin/actorDelete.do?movie_no=<%=actorDto.getActor_no()%>" ;
+			}else{
+				location.href= "<%=request.getContextPath()%>/admin/actorList.jsp" ;
+			}
+		});
+	}; 
+	
+
+</script>
+
+
+
 <div class="outbox" style="width: 100%">
 	<aside>
 		<div class="row center">
@@ -28,7 +48,7 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
 			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
 			<a href="#"> 3조 추천 영화 등록 </a><br><br> 
 		</div>
@@ -73,8 +93,8 @@
 
 					<tr>
 						<th colspan="3">
-							<input type="button" value="수정" id="movieEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
-							<input type="button" value="삭제" class="movie_delete">
+							<input type="button" class="adbtn blue" value="수정" id="actorEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
+							<input type="button" class="adbtn red" value="삭제" class="actor_delete">
 						</th>
 					</tr>
 				</tbody>
