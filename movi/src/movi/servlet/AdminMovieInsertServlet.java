@@ -34,10 +34,10 @@ public class AdminMovieInsertServlet extends HttpServlet{
 			
 //			처리:
 			MovieAdminDao movieDao = new MovieAdminDao();
-			movieDao.insert_admin(movieDto); 
+			movieDao.insert_admin(movieDto);
 			
 //			출력 : 
-				resp.sendRedirect("posterUpTest.jsp?movie_no= "+ movieDto.getMovie_no());	
+				resp.sendRedirect("posterUpTest.jsp?movie_no="+ movieDao.lastestUpdate());	
 
 			
 			

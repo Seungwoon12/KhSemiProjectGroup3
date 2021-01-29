@@ -35,7 +35,7 @@
 	            			<tr>
 	            				<td rowspan="4">
 	            					<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
-										<img class="movie_img" alt="movie_img" src="../image/movie/<%=movieDto.getMovie_no()%>.jpg" 
+										<img class="movie_img" alt="movie_img" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no()%>" 
 										onerror="this.src='/movi/image/movie/dummy.jpg'">
 									</a>
 								</td>

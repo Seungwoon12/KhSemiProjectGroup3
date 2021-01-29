@@ -135,6 +135,8 @@
 			<h1>영화 포스터 업로드</h1>
 		<form action="poster-up.do" method="post" enctype="multipart/form-data">
 		<div class="row">
+			<input type="hidden" name="movie_no" value="<%=movie_no%>">
+			<%=movie_no%>
 			<table class="table table-border" style="width:800px">
 				<tbody>
 					<tr>
