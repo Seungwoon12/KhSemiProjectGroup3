@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import movi.beans.MovieDtoVO;
 import movi.beans.PosterTestDao;
 
 @WebServlet(urlPatterns = "/admin/poster-up.do")
@@ -34,6 +35,11 @@ public class PosterUpTestServlet extends HttpServlet{
 			MultipartRequest mRequest = new MultipartRequest(req, path, max, encoding, policy);
 			
 			PosterTestDao posterDao = new PosterTestDao();
+			//update movie set movie_poster = '87.jpg' where movie_no =87  ;
+			MovieDtoVO movieDto = new MovieDtoVO();
+			movieDto.setMovie_poster(req.getParameter("movie_poster"));
+			movieDto.setMovie_no(Integer.parseInt(req.getParameter("movie_no")));
+			
 			
 			System.out.println("이름 " + mRequest.getOriginalFileName("poster").split("\\.").length);
 			
@@ -42,7 +48,9 @@ public class PosterUpTestServlet extends HttpServlet{
 			posterDao.update(Integer.parseInt(name_part), //영화 번호 파일이름을와 매칭
 					mRequest.getFilesystemName("poster")); //시스템에 저장되는 파일 이름
 			
-			resp.sendRedirect("posterUpTest.jsp");//이거는 다시 돌아갈 주소로 지정
+			
+			
+			resp.sendRedirect(req.getContextPath()+"/admin/movieList.jsp");//이거는 다시 돌아갈 주소로 지정
 		}
 		catch(Exception e) {
 			e.printStackTrace();
