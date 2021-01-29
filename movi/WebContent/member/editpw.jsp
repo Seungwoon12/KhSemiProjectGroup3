@@ -68,7 +68,7 @@ $(function(){
 		</div>
 		<div class="row right">
 			<input class="input input-inline" type="submit" value="등록">
-			<input class="input input-inline" type="button" value="취소">
+			<input class="input input-inline cancel-btn" type="button" value="취소">
 		</div>
 	</div>
 </form>
