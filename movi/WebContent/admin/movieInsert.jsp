@@ -100,14 +100,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th>배우</th>
-							<td></td>
-						</tr>
-						<tr>
 							<th>줄거리</th>
 							<td>
 								<textarea class="input" name="movie_content" placeholder="줄거리 입력" required></textarea>
 							</td>
+						</tr>
+						<tr>
+							<th colspan="2">배우는 영화리스트-> 배우 수정에서 넣으세요.</th>
 						</tr>
 						<tr>
 							<th colspan="2">

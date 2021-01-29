@@ -164,6 +164,7 @@
 							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
 						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
 						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+						 	 <a class="abtn orange" href="movieActor.jsp?movie_no=<%=movieDto.getMovie_no()%>">배우 추가</a>
 						</td>
 					</tr>
 					<%} %>

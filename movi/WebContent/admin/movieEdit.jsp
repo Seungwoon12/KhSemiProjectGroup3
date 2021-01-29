@@ -54,7 +54,7 @@
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
-								<input type="text" name="movie_name" placeholder="<%=movieDto.getMovie_name() %>" required>
+								<input type="text" name="movie_name" value="<%=movieDto.getMovie_name() %>" required>
 							</td>
 						</tr>
 						<tr>
@@ -67,25 +67,25 @@
 						<tr>
 							<th>장르</th>
 							<td>
-								<input type="text" name="movie_genre_no" placeholder="<%=movieDto.getMovie_genre_no() %>" required>
+								<input type="text" name="movie_genre_no" value="<%=movieDto.getMovie_genre_no() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>상영시간</th>
 							<td>
-								<input type="text" name="movie_time" placeholder="<%=movieDto.getMovie_time() %>" required>
+								<input type="text" name="movie_time" value="<%=movieDto.getMovie_time() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>평점</th>
 							<td>
-								<input type="text" name="movie_rate" placeholder="<%=movieDto.getMovie_rate() %>" required>							
+								<input type="text" name="movie_rate" value="<%=movieDto.getMovie_rate() %>" required>							
 							</td>
 						</tr>
 						<tr>
 							<th>관객수</th>
 							<td>
-								<input type="text" name="movie_audience" placeholder="<%=movieDto.getMovie_audience() %>" required>
+								<input type="text" name="movie_audience" value="<%=movieDto.getMovie_audience() %>" required>
 							</td>
 						</tr>
 						<tr>
@@ -111,23 +111,19 @@
 						<tr>
 							<th>개봉일</th>
 							<td>
-								<input type="text" name="movie_date" placeholder="<%=movieDto.getMovie_date() %>" required>
+								<input type="text" name="movie_date" value="<%=movieDto.getMovie_date() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
 							<td>
-								<input type="text" name="movie_director" placeholder="<%=movieDto.getMovie_director() %>" required>
+								<input type="text" name="movie_director" value="<%=movieDto.getMovie_director() %>" required>
 							</td>
-						</tr>
-						<tr>
-							<th>배우</th>
-							<td></td>
 						</tr>
 						<tr>
 							<th>줄거리</th>
 							<td>
-								<textarea class="input" name="movie_content" placeholder="줄거리 입력"></textarea>
+								<textarea class="input" name="movie_content" value="줄거리 입력"></textarea>
 							</td>
 						</tr>
 						<tr>
