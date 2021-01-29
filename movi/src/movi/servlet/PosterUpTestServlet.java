@@ -37,17 +37,14 @@ public class PosterUpTestServlet extends HttpServlet{
 			PosterTestDao posterDao = new PosterTestDao();
 			//update movie set movie_poster = '87.jpg' where movie_no =87  ;
 			MovieDtoVO movieDto = new MovieDtoVO();
-			movieDto.setMovie_poster(req.getParameter("movie_poster"));
-			movieDto.setMovie_no(Integer.parseInt(req.getParameter("movie_no")));
+			//movieDto.setMovie_poster(req.getParameter("movie_poster")); //이렇게 하면 안올라감
+			//movieDto.setMovie_no(Integer.parseInt(req.getParameter("movie_no")));
 			
+			//System.out.println(mRequest.getParameter("movie_no"));
+			//System.out.println(mRequest.getFilesystemName("movie_poster"));
 			
-			System.out.println("이름 " + mRequest.getOriginalFileName("poster").split("\\.").length);
-			
-			String name_part = mRequest.getOriginalFileName("poster").split("\\.")[0];
-			
-			posterDao.update(Integer.parseInt(name_part), //영화 번호 파일이름을와 매칭
-					mRequest.getFilesystemName("poster")); //시스템에 저장되는 파일 이름
-			
+			posterDao.update(Integer.parseInt(mRequest.getParameter("movie_no")),
+					mRequest.getFilesystemName("movie_poster")); //시스템에 저장되는 파일 이름
 			
 			
 			resp.sendRedirect(req.getContextPath()+"/admin/movieList.jsp");//이거는 다시 돌아갈 주소로 지정

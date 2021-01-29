@@ -348,4 +348,20 @@ public class MovieAdminDao {
 		return count > 0 ;
 	}
 	
+	
+	public int lastestUpdate() throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select * from movie order by movie_no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int lastestMovieNum = 0;
+		if(rs.next()) {
+			lastestMovieNum = rs.getInt("movie_no");
+		}
+		
+		return lastestMovieNum;
+	}
 }

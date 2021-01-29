@@ -65,3 +65,11 @@
 .dotbox {
 	border: 3px dotted #6CFFFF;
 }
+
+.good {
+	color : blue;
+}
+
+.bad{
+	color: red;
+}

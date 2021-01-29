@@ -39,7 +39,6 @@
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
-								<input type="hidden" name="movie_no" >
 								<input type="text" name="movie_name" required>
 							</td>
 						</tr>
