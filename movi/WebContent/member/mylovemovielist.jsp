@@ -16,9 +16,17 @@
 	MovieAdminDao movieDao = new MovieAdminDao();
 	int count = 0;
 	GenreDao genreDao = new GenreDao();
+	MemberDao memberDao = new MemberDao();
+	MemberDto memberDto = memberDao.select(member_no);
 %>
 
 <div class="outbox center">
+	<div class="lovelistTitle">
+		<span style="font-size: 25px;"><%=memberDto.getMember_nick() %></span> 
+		<span style="font-size: 18px;">님이 좋아요 한 영화 목록</span>
+		
+	</div>
+	<br>
 	<%for(LoveDto loveDto : member_love_list) {
 		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no());%>
 		<div class="movie_box dotbox">

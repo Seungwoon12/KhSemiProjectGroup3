@@ -4,6 +4,8 @@
 	
 <jsp:include page="/template/header.jsp"></jsp:include>
 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mypage.css">
+
 <script>
 $(function(){
 	//.cancel-btn을 누르면 마이 페이지로 이동
@@ -17,11 +19,15 @@ $(function(){
 		var regex = /^[가-힣]{2,10}$/;
 		if(regex.test(nick)){
 			$(this).next().text("올바른 닉네임입니다");
+			$(this).next().removeClass("bad");
+			$(this).next().addClass("good");
 			$(this).addClass("correct");
 		}
 		else{
 			$(this).next().text("닉네임은 한글 2~10자만 가능합니다.");
 			$(this).removeClass("correct");
+			$(this).next().removeClass("good");
+			$(this).next().addClass("bad");
 		}
 	});
 	
@@ -30,10 +36,14 @@ $(function(){
 		var regex = /^01[016-9]-[1-9][0-9]{3}-[0-9]{4}$/;
 		if(regex.test(phone)){
 			$(this).next().text("올바른 전화번호 형식입니다");
+			$(this).next().removeClass("bad");
+			$(this).next().addClass("good");
 			$(this).addClass("correct");
 		}
 		else{
 			$(this).next().text("xxx-xxxx-xxxx 형식에 맞게 작성해 주세요");
+			$(this).next().removeClass("good");
+			$(this).next().addClass("bad");
 			$(this).removeClass("correct");
 		}
 	});
