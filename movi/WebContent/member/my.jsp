@@ -58,14 +58,13 @@
 	//선호 장르 불러오기
 	MygenreDao mygenreDao = new MygenreDao();
 	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
-	List<String> mygenre_list = new ArrayList<>();
 	GenreDao genreDao = new GenreDao();
-	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
-		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+	
+	if(mygenre_DtoVO_list.size() >= 2) {
+		Collections.shuffle(mygenre_DtoVO_list);
 	}
-	if(mygenre_list.size() >= 2) {
-		Collections.shuffle(mygenre_list);
-	}
+	
+	
 
 	//좋아요 누른 영화 마이페이지에 뜰 수 있도록 하기
 	LoveDao loveDao = new LoveDao();
@@ -83,6 +82,9 @@
 %>
 
 <script>
+	$(document).ready(function(){
+	    $("nav>a:nth-child(4)").addClass("navstyle");
+	 });
 	$(function(){
 		$(".edit-btn").click(function(){
 			location.href = "edit.jsp";
@@ -143,18 +145,21 @@
 						onerror="this.src='/movi/image/profile/default_profile.png'" 
 						style="height: 150px; width: 150px;">
 					</td>
-					<td rowspan="2">
+					<td rowspan="2" class="dotbox">
 						<div>
 							<h2 id="member_nick"><%=memberDto.getMember_nick()%>님</h2>
 							<h5>방문해 주셔서 감사합니다.</h5>
 							<h5>
 								<%=memberDto.getMember_nick()%>님
-								<%if(mygenre_list.isEmpty()) {%>
+								<%if(mygenre_DtoVO_list.isEmpty()) {%>
 									은 아직 선호 장르를 선택하시지 않았습니다.<br>(선호하는 영화 장르를 선택해보세요)
 								<%} else {%>
 									의 선호 장르는 [ 
-									<%for (String mygenre : mygenre_list) {%>
-										<%=mygenre %>
+									<%
+									for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
+									%>	<a class="dotbox" href="../category/main.jsp?movie_genre_no=<%=mygenreDtoVO.getMygenre_genre_no()%>">
+										&nbsp;<%=genreDao.find(mygenreDtoVO.getMygenre_genre_no())%>&nbsp;
+										</a>
 									<%} %>
 									 ] 입니다.
 								<%} %>
@@ -198,7 +203,7 @@
 	        	for(LoveDto loveDto : member_love_list) {
 	        		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no()); /*수정*/
 	        	%>
-	            <div class="swiper-slide">
+	            <div class="swiper-slide dotbox">
 	            	<div class="movie_box">
 	            		<table>
 	            		<tbody>
@@ -237,7 +242,7 @@
 	            	</div>
 				</div>
 				<%} if(member_love_list.isEmpty()) {%>
-					<div class="swiper-slide">
+					<div class="swiper-slide dotbox">
 						<div class="movie-box">
 							<%if(mygenre_DtoVO_list.isEmpty()) {%>
 								<div class="movie_box">
@@ -300,7 +305,7 @@
 	        	<%for(MemberCouponInfoVO memberCouponInfoVO : member_coupon_list) {
 	        		if(memberCouponInfoVO.getCoupon_name() != "꽝") {
 	        	%>
-	            <div class="swiper-slide">
+	            <div class="swiper-slide dotbox">
 					<div class="coupon_box">
 						<table>
 							<tbody>
@@ -319,8 +324,9 @@
 					</div>
 				</div>
 				<%}} if (member_coupon_list.isEmpty()) {%>
-					<div class="swiper-slide">
+					<div class="swiper-slide dotbox">
 						<div class="coupon_box">
+							<div><br><br><br><br></div>
 							<a href="../event/main.jsp">
 								~진행중인 이벤트를 확인하고 상품 받아가세요~
 							</a>
