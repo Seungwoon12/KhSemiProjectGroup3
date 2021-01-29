@@ -117,7 +117,7 @@
 			<h1>영화 리스트</h1>
 		</div>
 		<div class="search">
-			<form action="movieList.jsp" method="get">
+			<form action="movieList.jsp" method="post">
 				<label>영화 검색</label> 
 				<select name="type" class="padding">
 					<option value="movie_no">영화 번호</option>
