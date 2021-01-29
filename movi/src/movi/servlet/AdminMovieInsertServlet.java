@@ -37,7 +37,7 @@ public class AdminMovieInsertServlet extends HttpServlet{
 			movieDao.insert_admin(movieDto); 
 			
 //			출력 : 
-				resp.sendRedirect("movieList.jsp");	
+				resp.sendRedirect("posterUpTest.jsp?movie_no= "+ movieDto.getMovie_no());	
 
 			
 			
