@@ -117,7 +117,7 @@
 			<h1>영화 리스트</h1>
 		</div>
 		<div class="search">
-			<form action="movieList.jsp" method="post">
+			<form action="movieList.jsp" method="get">
 				<label>영화 검색</label> 
 				<select name="type" class="padding">
 					<option value="movie_no">영화 번호</option>
@@ -164,6 +164,7 @@
 							<a class="abtn purple" href="movieDetail.jsp?movie_no=<%=movieDto.getMovie_no()%>">상세보기</a>
 						 	<a class="abtn green" href="movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>">수정</a>
 						 	 <a class="delete abtn red" href="movieDelete.do?movie_no=<%=movieDto.getMovie_no()%>">삭제</a>
+						 	 <a class="abtn orange" href="movieActor.jsp?movie_no=<%=movieDto.getMovie_no()%>">배우 추가</a>
 						</td>
 					</tr>
 					<%} %>

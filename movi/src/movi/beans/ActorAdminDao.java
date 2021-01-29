@@ -1,5 +1,6 @@
 package movi.beans;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -218,4 +219,26 @@ public class ActorAdminDao {
 
 	
 //	
+	public void insert_main_actor(int movie_no, int actor_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into actor_con values(?, ?, '주연') ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ps.setInt(2, actor_no);
+		ps.execute();
+		
+		con.close();
+	}
+	public void insert_sub_actor(int movie_no, int actor_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into actor_con values(?, ?, '조연') ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ps.setInt(2, actor_no);
+		ps.execute();
+		
+		con.close();
+	}
 }
