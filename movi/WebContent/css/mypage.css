@@ -17,10 +17,16 @@
 	link { color: black; };
 	visited { color: black; };
 }
+.movie_box table td a:hover,
+.movie_box table th a:hover {
+	text-decoration: underline;
+}
+
 .movie_img{
 	height: 300px;
 	width: 200px;
 }
+
 
 .btnmy,
 .filebox label {
@@ -56,4 +62,6 @@
 	border: 0; 
 }
 
-
+.dotbox {
+	border: 3px dotted #6CFFFF;
+}

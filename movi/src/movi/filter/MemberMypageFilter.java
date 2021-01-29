@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(urlPatterns = {
-      "/member/my.jsp", "/member/edit.jsp", "/member/editpw.jsp", "/member/goodbye.jsp",
+      "/member/my.jsp", "/member/edit.jsp", "/member/editpw.jsp",
       "/member/mygenre.jsp", "/member/mylovemovielist.jsp",
       "/review/detail.jsp", "/review/write.jsp"
 })

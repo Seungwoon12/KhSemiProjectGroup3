@@ -21,7 +21,7 @@
 <div class="outbox center">
 	<%for(LoveDto loveDto : member_love_list) {
 		MovieDto movieDto = movieDao.select_admin(loveDto.getLove_movie_no());%>
-		<div class="movie_box center">
+		<div class="movie_box dotbox">
 	            		<table>
 	            		<tbody>
 	            			<tr>
@@ -62,10 +62,12 @@
 		%>
 		<hr>
 	<%} }%>
-	
+	<br>
 	<%if(p > 1) {%>
 		<a href="mylovemovielist.jsp?p=<%=p-1%>">이전</a>
 	<%} %>
+	
+	<div style="display: inline-block; width: 700px"></div>
 	
 	<%List<LoveDto> next_check = loveDao.select_love_movie(member_no, end+1, end+1); 
 	if(!next_check.isEmpty()){%>
