@@ -27,31 +27,6 @@
 				<h1>영화 등록</h1>
 			</div>
 			<!--영화 추가 테이블  -->			
-
-			<!-- 영화 포스터 먼저 업로드 하기 -->
-			<h1>영화 포스터 업로드</h1>
-		<form action="poster_upload.do" method="post" enctype="multipart/form-data">
-		<div class="row">
-			<table class="table table-border" style="width:800px">
-				<tbody>
-					<tr>
-						<td>
-							<input type="file" name="movie_poster" required accept=".jpg, .png, .gif">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="submit" class="adbtn green" value="이미지 등록">
-							<input type="button" class="adbtn yellow" value="취소" onclick="location.href='movieList.jsp'">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>	
-		</form>
-
-
-
 			
 		<form action="movieInsert.do" method="post">
 			<div class="row center">
@@ -64,6 +39,7 @@
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
+								<input type="hidden" name="movie_no" >
 								<input type="text" name="movie_name" required>
 							</td>
 						</tr>

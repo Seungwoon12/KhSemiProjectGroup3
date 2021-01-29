@@ -84,14 +84,14 @@ $(function(){
 			<br>
 			<input type="text" name="member_nick" class="input" placeholder="한글 2~10자" required 
 			value="<%=memberDto.getMember_nick()%>">
-			<span></span>
+			<span>&nbsp;</span>
 		</div>
 		<div style="text-align:center" class="row">
 			<label>전화번호</label>
 			<br>
 			<input type="text" name="member_phone" class="input" placeholder="xxx-xxxx-xxxx 형식에 맞게 작성해 주세요" required 
 			value="<%=memberDto.getMember_phone()%>">
-			<span></span>
+			<span>&nbsp;</span>
 		</div>
 		<div class="row right">
 			<input class="input input-inline" type="submit" value="등록">
