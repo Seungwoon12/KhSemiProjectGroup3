@@ -92,7 +92,7 @@
 <div class="outbox" style="width: 100%">
 	<aside>
 		<div class="row center">
-			<h2 style="color: deepskyblue;">회원 관리</h2>
+			<h2 style="color: #4B89DC;">회원 관리</h2>
 		</div>
 		<div class="left">
 				<a href="memberList.jsp">회원리스트 </a><br> <br>
@@ -115,12 +115,12 @@
   		</div>
   		<div>
   			<form action="memberCouponList.jsp" method="post">
-  				<select name="type">
+  				<select name="type" class="padding">
 					<option value="member_no">회원 번호</option>
 					<option value="member_id">회원 아이디</option>
   				</select>
-  				<input type="text" name="key" placeholder="검색어를 입력하세요" required>
-  				<input type="submit" value="검색">
+  				<input type="text" name="key" class="padding" placeholder="검색어를 입력하세요" required>
+  				<input type="submit" value="검색"  class="padding1">
   			</form>
   		</div>
   		
