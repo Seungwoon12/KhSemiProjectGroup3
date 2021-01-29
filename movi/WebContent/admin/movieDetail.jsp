@@ -72,9 +72,10 @@
 							<%=movieDto.getMovie_name() %>
 						</h1>
 						</th>
-						<td rowspan="11" class="center" style="width:300px; height:400px;">
-							 <!-- <img src="https://placehold.it/300x400?text=IMAGE"> -->
-							 <img src="../image/movie/<%=movieDto.getMovie_poster() %>">
+						<td rowspan="11" class="center">
+						<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
+						onerror="this.src='https://placehold.it/300x400?text=IMAGE'" 
+						style="height: 300px; width: 400px;">
 						</td>
 					</tr>
 					<tr>
