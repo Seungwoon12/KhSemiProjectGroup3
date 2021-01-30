@@ -89,25 +89,25 @@ chart.render();
   		<table class="center">
   		  	<tr>
   				<th>
-  				 	<div style="width:200px" class="margin">
+  				 	<div style="width:200px" class="margin static">
   						<h1>총 회원 수</h1>
 						 <h1><%=count_mem%>명</h1>
   					</div>
   				</th>
   				<th>
-  				  	<div style="width:200px" class="margin">
+  				  	<div style="width:200px" class="margin static">
   						<h1>이벤트 참여자 수</h1>
 						<h1><%=count_cou %>명</h1>
   					</div>
   				</th>
   				<th>
-  					<div style="width:200px" class="margin">
+  					<div style="width:200px" class="margin static">
   				  		<h1>등록된 영화의 개수</h1>
   				  		<h1><%=count_mov %>개</h1>
   					</div>
   				</th>
   				<th>
-  					<div style="width:200px" class="margin">
+  					<div style="width:200px" class="margin static">
   						<h1>리뷰 총 개수</h1>
   						<h1><%=count_rev %>개</h1>
   					</div>
