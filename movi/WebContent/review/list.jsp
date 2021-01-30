@@ -9,7 +9,7 @@
 	//조회수 방지위해 기록했던 review_no 세션 제거
 	session.removeAttribute("review_no");
 	//관리자 공지사항용
-	session.removeAttribute("admin_no");
+	session.removeAttribute("notice_no");
 	
 %>
 
