@@ -15,6 +15,8 @@ public class AdminRecomDeleteServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
+			req.setCharacterEncoding("UTF-8");
+			
 			String recom_title = req.getParameter("recom_title");
 			
 			RecomAdminDao recomDao = new RecomAdminDao();
