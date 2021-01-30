@@ -20,7 +20,8 @@ public class AdminRecomMovie_no_delete extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 //			준비: recom데이터 수신
-			req.setCharacterEncoding("utf-8");
+			req.setCharacterEncoding("UTF-8");
+			
 			
 			int recom_movie_no = Integer.parseInt(req.getParameter("recom_movie_no"));
 			int recom_no = Integer.parseInt(req.getParameter("recom_no"));

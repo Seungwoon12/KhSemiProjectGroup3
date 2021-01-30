@@ -47,7 +47,7 @@
   		
   	<!--이벤트ㅡ상세보기 테이블  -->	
 		<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table table-border" style="width:80%; margin:10%">
 
 				<tbody>
 				

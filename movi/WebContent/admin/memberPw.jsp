@@ -11,8 +11,22 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
 
+<style>
+		.table2{
+			border-radius: 10px;
+			padding:1rem;
+            font-size:18px;
+            width:500px; 
+            border:1px solid gray;
+            margin:auto;
+            padding:1rem;			
+		}
+		.back{
+			background-color: orange;
+			padding: 1rem;		
+		}
 
-
+</style>
 
 <div class="outbox" style="width:100%">
    <aside>
@@ -32,7 +46,7 @@
   			<h1>임시 비밀번호 발급 현황</h1>
   		</div>
   		
-		<div class="outbox" style="width:500px;">
+		<div class="table2 center" style="">
 			<div class="row left">
 				<h3>임시 비밀번호 발급 완료</h3>
 			</div>
@@ -40,12 +54,12 @@
 				<h4>임시 비밀번호가 전송되었습니다</h4>
 			</div>
 			<!-- 비밀번호 확인용 -->
-			<div class="row">
+			<div class="row back">
 				발급된 비밀번호 : <%=pw %>
 			</div>
 			
-			<div class="center">
-				<input type="button" value="확인"  onclick="location.href='memberList.jsp'">
+			<div class="center" style="margin: 20px">
+				<input type="button" value="확인" class="adbtn gray" onclick="location.href='memberList.jsp'">
 			</div>
 		</div>	
 

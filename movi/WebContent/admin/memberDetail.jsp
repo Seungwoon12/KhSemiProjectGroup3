@@ -22,6 +22,40 @@
 	
 %>
 
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+
+		.back{
+			background-color: lightblue;
+		}
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+		.table > thead > tr > th,
+		.table > thead > tr > td,
+		.table > tbody > tr > th,
+		.table > tbody > tr > td,
+		.table > tfoot > tr > th,
+		.table > tfoot > tr > td
+		{
+ 		   padding: 1rem;
+ 		   text-align: center;
+		}
+
+</style>
+
 <!-- 각종 기능 -->
 <script>
 //리뷰 삭제시 alert확인
@@ -75,7 +109,7 @@
   		
   	<!--멤버 상세보기 테이블  -->	
 		<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table2 table " style="width:80%; margin-left: 10%">
 
 				<tbody>
 				
@@ -131,7 +165,7 @@
 			
 			
 			<!-- 회원리스트로 돌아가기 -->
-		<div class="right">
+		<div class="right " style="margin:1rem;">
 			<a href="memberList.jsp">회원리스트로 돌아가기</a>
 		</div>
 		
