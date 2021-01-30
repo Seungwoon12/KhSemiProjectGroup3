@@ -60,7 +60,7 @@
 
 			<!--영화 추가 테이블  -->
 			<div class="row center">
-				<table class="table2  table" style="width: 80%; margin:10%">
+				<table class="table2  table" style="width: 80%; margin-left:10%">
 					<thead>
 						<h4 class="left">영화 정보 수정</h4>
 					</thead>
@@ -69,52 +69,52 @@
 							<th>영화 번호</th>
 							<td>
 								<input type="hidden" name="movie_no" value="<%=movieDto.getMovie_no()%>">
+								<%=movieDto.getMovie_no()%> 번
 							</td>
 						</tr>
 					
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
-								<input type="text" name="movie_name" value="<%=movieDto.getMovie_name() %>" required>
+								<input type="text"  class="row1"  name="movie_name" placeholder="<%=movieDto.getMovie_name() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>포스터</th>
 							<td>
-								<input type="button" class="adbtn gray" value="이미지 업로드">
 									<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
-										onerror="this.src='https://placehold.it/300x400?text=IMAGE'" 
-										style="height: 300px; width: 400px;">
+										onerror="this.src='https://placehold.it/400X300?text=IMAGE'" 
+										style="height: 400px; width: 300px;">
 							</td>
 						</tr>
 						<tr>
 							<th>장르</th>
 							<td>
-								<input type="text" name="movie_genre_no" value="<%=movieDto.getMovie_genre_no() %>" required>
+								<input type="text" class="row1" name="movie_genre_no" placeholder="<%=movieDto.getMovie_genre_no() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>상영시간</th>
 							<td>
-								<input type="text" name="movie_time" value="<%=movieDto.getMovie_time() %>" required>
+								<input type="text" class="row1" name="movie_time" placeholder="<%=movieDto.getMovie_time() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>평점</th>
 							<td>
-								<input type="text" name="movie_rate" value="<%=movieDto.getMovie_rate() %>" required>							
+								<input type="text" class="row1" name="movie_rate" placeholder="<%=movieDto.getMovie_rate() %>" required>							
 							</td>
 						</tr>
 						<tr>
 							<th>관객수</th>
 							<td>
-								<input type="text" name="movie_audience" value="<%=movieDto.getMovie_audience() %>" required>
+								<input type="text" class="row1" name="movie_audience" placeholder="<%=movieDto.getMovie_audience() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>등급</th>
 							<td>
-								<select name="movie_age">
+								<select name="movie_age" class="row1" >
 									<option <%if(movieDto.age("전체관람가")){%>selected<%}%>>전체관람가</option>
 									<option <%if(movieDto.age("12세이상관람가")){%>selected<%}%>>12세이상관람가</option>
 									<option <%if(movieDto.age("15세이상관람가")){%>selected<%}%>>15세이상관람가</option>
@@ -125,7 +125,7 @@
 						<tr>
 							<th>국가</th>
 							<td>
-								<select name="movie_country">
+								<select name="movie_country" class="row1" >
 									<option <%if(movieDto.country("한국")){%>selected<%}%>>한국</option>
 									<option <%if(movieDto.country("해외")){%>selected<%}%>>해외</option>
 								</select>
@@ -134,19 +134,19 @@
 						<tr>
 							<th>개봉일</th>
 							<td>
-								<input type="text" name="movie_date" value="<%=movieDto.getMovie_date() %>" required>
+								<input type="date" class="row1"  name="movie_date" placeholder="<%=movieDto.getMovie_date() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
 							<td>
-								<input type="text" name="movie_director" value="<%=movieDto.getMovie_director() %>" required>
+								<input type="text" class="row1"  name="movie_director" placeholder="<%=movieDto.getMovie_director() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>줄거리</th>
 							<td>
-								<textarea class="input" name="movie_content" value="줄거리 입력"></textarea>
+								<textarea class="input" name="movie_content" placeholder="줄거리 입력"></textarea>
 							</td>
 						</tr>
 						<tr>

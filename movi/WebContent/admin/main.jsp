@@ -68,7 +68,7 @@ chart.render();
        		<h2 style="color:#4B89DC;">관리자 페이지</h2>     
   	 	</div>
   	 	<div class="left">
-  	 		<a href="#">통계 </a>
+  	 		<a href="main.jsp">통계 </a>
   	 	</div>
   	</aside>
 	

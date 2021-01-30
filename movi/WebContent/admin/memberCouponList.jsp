@@ -89,7 +89,7 @@
 
 
 
-<div class="outbox" style="width: 100%">
+<div class="outbox" style="width: 100% ">
 	<aside>
 		<div class="row center">
 			<h2 style="color: #4B89DC;">회원 관리</h2>
@@ -107,7 +107,7 @@
 			<h1>회원 쿠폰 목록</h1>
 		</div>
 
-<div class="outbox center" style="width: 900px">
+<div class="outbox center" style="width: 900px ; margin-top:2rem;">
 
   	<!-- 회원 쿠폰 검색창 -->
   		<div>
@@ -138,7 +138,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--쿠폰 리스트 테이블  -->	
 	<div class="row"> 
-		<table class="table1" style="width: 880px">
+		<table class="table1" style="width: 880px;  margin-top:2rem;">
 			<thead>
 				<tr>
 					<th>회원번호</th>
@@ -202,7 +202,6 @@
 
 			</ul>
 		</div>
-
 	</article>
 </div>
 

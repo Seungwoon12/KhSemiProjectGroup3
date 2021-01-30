@@ -34,7 +34,7 @@
         aside {
             float: left;
             width: 17%;
-            min-height:1000px;
+            min-height:1100px;
             border-right: 3px solid lightblue;
         }
 
@@ -74,12 +74,15 @@
 		margin-bottom: 1%;
 		margin-left: 2%;
 	}
-	.big_name{
+	.big_name,
+	.big_name:hover{
 		font-size: 49px;
 	    font-family: sans-serif;
-	    color: #4E6FA6;
+	    color: #4E6FA6 !important;
 	    font-weight: bolder;
+	    cursor: pointer;
 	}
+
 	.name{
 	  float: left;
 	  text-align: center;
@@ -137,6 +140,35 @@
          width: 150px;
          text-align: center;
      }
+     
+             .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+ 		/*페이지네이션*/
+ .pagination > li:hover > a {
+    color:#4E6FA6;
+    font-size: bold;
+}    
+
+.pagination > li.active,
+.pagination > li:hover {
+    /*border:1px solid gray;*/
+    cursor: pointer;
+    box-shadow: 0px 0px 1px 1px #4E6FA6;
+}
 	
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -153,7 +185,7 @@
 		</div>
 		
 			<div class="title">
-				<div class="big_name">MOVI</div>
+					<a class="big_name" href="<%=request.getContextPath()%>/admin/main.jsp">MOVI</a>
 				<div class="small_name">모두의 비디오, 모비</div>
 			</div>
 			
