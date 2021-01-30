@@ -29,16 +29,13 @@
 			
 		<form action="actorInsert.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%; margin:10%">
-					<thead>
-						<h1 class="left">배우 기본정보</h1>
-					</thead>
+				<table class="table table2" style="width: 80%; margin:10%">
 					<tbody>
 							
 						<tr>
 							<th style="width:30%">배우 이름</th>
 							<td>
-								<input type="text" name="actor_name" required>
+								<input type="text" class="row1" name="actor_name" required>
 							</td>
 						</tr>
 						<tr>
