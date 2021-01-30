@@ -407,7 +407,7 @@
 						<div class="movie movie_detail swiper-slide">
 						<div class="rank"><%=lovedto.getRank() %></div>
 							<div class="no" hidden="true"><%=lovedto.getMovie_no() %></div><!-- 영화번호 -->
-							<img class="hov hovb" src="./image/극한직업.jpg">
+							<img class="hov hovb" src="poster-down.do?movie_no=<%=lovedto.getMovie_no()%>">
 							<!--영화 포스터 다 다운 받으면 이걸로 바꾸기!! <img class="hov hovb" src="./image/movie/<%=lovedto.getMovie_no() %>.jpg"> -->
 							<h1 class="h hov2">
 									<%=lovedto.getMovie_name()%>
@@ -439,7 +439,7 @@
 						<div class="movie movie_detail swiper-slide">
 						<div class="rank"><%=moviedto.getRank() %></div>
 							<div class="no" hidden="true"><%=moviedto.getMovie_no()%></div><!-- 영화번호 -->
-							<img class="hov hovb" src="https://placehold.it/140X250?text=IMAGE">
+							<img class="hov hovb" src="poster-down.do?movie_no=<%=moviedto.getMovie_no()%>">
 							<h1 class="h hov3">
 									<%=moviedto.getMovie_name()%>
 							</h1>
@@ -480,7 +480,7 @@
 			<%for(MovieDto mydto : favgenre_movieList){ %>
 				<div class="movie movie_detail swiper-slide">
 				<div class="no" hidden="true"><%=mydto.getMovie_no()%></div><!-- 영화번호 -->
-				<img class="hov hovb" src="https://placehold.it/140X250?text=IMAGE">
+				<img class="hov hovb" src="poster-down.do?movie_no=<%=mydto.getMovie_no()%>">
 				<h1 class="h hov4">
 						<%=mydto.getMovie_name()%>
 				</h1>
