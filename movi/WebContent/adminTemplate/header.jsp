@@ -34,7 +34,7 @@
         aside {
             float: left;
             width: 17%;
-            min-height: 900px;
+            min-height:1000px;
             border-right: 3px solid lightblue;
         }
 

@@ -14,6 +14,27 @@
  %>     
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>    
+
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+
+</style>
+
     
 <form action="movieEdit.do" method="post">
 	<div class="outbox" style="width: 100%">
@@ -39,7 +60,7 @@
 
 			<!--영화 추가 테이블  -->
 			<div class="row center">
-				<table class="table table-border" style="width: 80%; margin:10%">
+				<table class="table2  table" style="width: 80%; margin:10%">
 					<thead>
 						<h4 class="left">영화 정보 수정</h4>
 					</thead>
