@@ -1,6 +1,7 @@
 package movi.servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +21,15 @@ public class AdminRecomInsertServlet extends HttpServlet{
 //			준비: 32조 추천 태그와 영화번호 입력
 			req.setCharacterEncoding("UTF-8");
 			resp.setCharacterEncoding("UTF-8");
-			RecommendDto recomDto = new RecommendDto();
-			recomDto.setRecom_movie_no(Integer.parseInt(req.getParameter("recom_movie_no")));
-			recomDto.setRecom_title(req.getParameter("recom_title"));
+			int movie_no[] = Arrays.stream(req.getParameterValues("recom_movie_no")).mapToInt(Integer::parseInt).toArray();
+			String recom_title = req.getParameter("recom_title");
 			
 //			처리: 
 			RecomAdminDao recomDao = new RecomAdminDao();
-			recomDao.insert_admin(recomDto);
 			
+			for(int i=0; i<movie_no.length; i++) {
+				recomDao.insert_admin(movie_no[i],recom_title);
+				}
 //			출력:
 			resp.sendRedirect("recomList.jsp");
 			
