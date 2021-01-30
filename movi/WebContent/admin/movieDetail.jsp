@@ -35,31 +35,8 @@
 		margin-top: 7%;
 		margin-bottom: 7%;
 	}
-	.detail{
-		border: 1px solid lightgray;
-	    text-align: left;
-	    width: 68%;
-	    margin-left: 16%;
-	    padding: 2rem;
-	}
-	.icon{
-		width:20px;
-	}
-	.heart {
-		height: 35px;
-		width: 35px;
-		vertical-align: middle;
-	}
-	.love-btn {
-		background-color: white;
-		border: none;
-		padding-left: 0px;
-	}
-	.reviewgo{
-		text-align: right;	
-	}
-	.reviewgo:hover{
-		font-weight: bolder;
+	th,hd{
+		padding: 0.3rem;
 	}
 	
 	 .table2 {
@@ -108,17 +85,16 @@
 			<h1>영화 상세보기</h1>
 		</div>
 
-		<div>
+		<div style="margin:10px;">
 			<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
 				onerror="this.src='https://placehold.it/400x300?text=IMAGE'" 
 				style="height: 400px; width: 300px;">
-		
 		</div>
 
 
 		<!--영화 리스트 테이블  -->
 		<div class="row ">
-			<table class="table2 left" style=" width:50%; margin-left:25%;">
+			<table class="table2 left" style=" width: 70%; margin-left:15%;">
 				<tbody >
 					<tr >
 						<th colspan="2">
@@ -128,7 +104,7 @@
 						</th>
 					</tr>
 					<tr >
-						<th style="width:20%; paddin: 0.5rem;">평점</th>
+						<th style="width:20%; paddin: 1.5rem;">평점</th>
 						<td class="center"><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
@@ -180,10 +156,12 @@
 					</tr>
 					<tr>
 						<th>관객 수</th>
-						<td class="center"><%=movieDto.getMovie_audience() %></td>
+						<td class="center"><%=movieDto.getMovie_audience() %>
+						</td>
 					</tr>
 					<tr >
-						<th colspan="3">
+						<th colspan="2">
+						<hr>
 						<h4 class="left">줄거리</h4>
 						<p class="left">
 							<%=movieDto.getMovie_content() %>
@@ -191,7 +169,7 @@
 						</th>
 					</tr>
 					<tr>
-						<th colspan="2">
+						<th colspan="2" class="center">
 							<input type="button" class="adbtn blue" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
 							<input type="button" class="adbtn red" value="삭제" class="movie_delete">
 						</th>
@@ -201,7 +179,7 @@
 		</div>
 
 		<!-- 영화리스트로 돌아가기 -->
-		<div class="right">
+		<div class="right" style="margin: 20px">
 			<a href="movieList.jsp">영화리스트로 돌아가기</a>
 		</div>
 		

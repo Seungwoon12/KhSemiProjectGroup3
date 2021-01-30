@@ -1,7 +1,7 @@
 package movi.servlet;
 
 import java.io.IOException;
-import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,16 +20,26 @@ public class AdminRecomMovie_no_delete extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			req.setCharacterEncoding("utf-8");
+//			준비: recom데이터 수신
+			req.setCharacterEncoding("UTF-8");
+			
 			
 			int recom_movie_no = Integer.parseInt(req.getParameter("recom_movie_no"));
-			String recom_title = req.getParameter("recom_title");
+			int recom_no = Integer.parseInt(req.getParameter("recom_no"));
 			
+			RecomAdminDao dao = new RecomAdminDao();
+			List<RecommendDto> dto = dao.find(recom_no);
+			String title = dto.get(0).getRecom_title();
+			
+//			처리
 			RecomAdminDao recomDao = new RecomAdminDao();
 			boolean result = recomDao.delete_no_admin(recom_movie_no);
 			
+			title = URLEncoder.encode(title);
+			
+//			출력: 
 			if(result) {
-				resp.sendRedirect("recomDetail.jsp?recom_title="+recom_title);
+				resp.sendRedirect("recomDetail.jsp?recom_title="+title);
 			}else {
 				resp.sendError(400);
 			}

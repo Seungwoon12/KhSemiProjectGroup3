@@ -32,7 +32,7 @@
 
 			<!--이벤트 상세보기 테이블에서 정보 수정  -->
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin:10%">
 
 					<tbody>
 

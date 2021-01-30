@@ -30,7 +30,7 @@
 			
 		<form action="movieInsert.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin-left:10%;">
 					<thead>
 						<h1 class="left">영화 기본정보</h1>
 					</thead>
@@ -89,7 +89,7 @@
 						<tr>
 							<th>개봉일</th>
 							<td>
-								<input type="text" name="movie_date" required>
+								<input type="date" name="movie_date" required>
 							</td>
 						</tr>
 						<tr>

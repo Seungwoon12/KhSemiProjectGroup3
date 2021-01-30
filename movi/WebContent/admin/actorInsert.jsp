@@ -29,7 +29,7 @@
 			
 		<form action="actorInsert.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin:10%">
 					<thead>
 						<h1 class="left">배우 기본정보</h1>
 					</thead>

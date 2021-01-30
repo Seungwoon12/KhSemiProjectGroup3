@@ -78,7 +78,7 @@
 							<%=recomMovie.getRecom_movie_name() %>	
   						</a>
   						<form action="movie_no_delete.do" method="get">
-  							<input type="hidden" name="recom_title" value="<%=recom_title%>">
+  							<input type="hidden" name="recom_no" value="<%=recomMovie.getRecom_no()%>">
   							<input type="hidden" name="recom_movie_no" value="<%=recomMovie.getRecom_movie_no()%>">
 							<input class= "movie_no_delete" type="submit" value="X">	
 						</form>				
