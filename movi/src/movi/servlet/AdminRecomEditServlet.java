@@ -18,13 +18,12 @@ public class AdminRecomEditServlet extends HttpServlet{
 		try {
 //			준비: recom데이터 수신
 			req.setCharacterEncoding("UTF-8");
-			RecommendDtoVO recomDto = new RecommendDtoVO();
-			recomDto.setRecom_title(req.getParameter("recom_title"));
-			recomDto.setRecom_title(req.getParameter("recom_title"));
+			String new_recom_title = req.getParameter("new_recom_title");
+			String recom_title = req.getParameter("recom_title");
 			
 //			처리
 			RecomAdminDao recomDao = new RecomAdminDao();
-			boolean result = recomDao.edit_admin(recomDto);
+			boolean result = recomDao.edit_admin(new_recom_title,recom_title);
 			
 //			출력: 
 			if(result) {

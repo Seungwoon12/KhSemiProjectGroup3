@@ -6,15 +6,11 @@
 
 
 <%
-	int review_no = Integer.parseInt(request.getParameter("review_no"));
+    	int notice_no = Integer.parseInt(request.getParameter("notice_no"));
 
-	ReviewDao reviewDao = new ReviewDao();
-	ReviewDto reviewDto = reviewDao.find(review_no);
-	
-	//페이지번호
-	int p = Integer.parseInt(request.getParameter("p"));
-		
-%>
+    	ReviewDao reviewDao = new ReviewDao();
+    	NoticeDto noticeDto = reviewDao.noticeFind(notice_no);
+    %>
 
 <style>
 	textarea{
@@ -41,8 +37,8 @@
 		//수정완료 버튼 클릭시 값 여부 체크
 		$(".edit-btn").click(function(e){
 			
-			var title = document.querySelector("input[name=review_title]").value;
-			var content = document.querySelector("textarea[name=review_content]").value;
+			var title = document.querySelector("input[name=notice_title]").value;
+			var content = document.querySelector("textarea[name=notice_content]").value;
 			
 			if(!title) {
 				e.preventDefault();
@@ -60,7 +56,7 @@
 			var confirm = window.confirm("게시글 수정을 취소하시겠습니까?");
 			
 			if(confirm) {
-				location.href = "list.jsp?review_no=<%=review_no%>&p=<%=p%>";
+				location.href = "list.jsp?p=1";
 			}
 			
 			
@@ -75,20 +71,22 @@
 
 <div class="outbox">
 		<div class="row center">
-			<h2>당신이 본 영화를 다른 사람에게 추천해주세요.</h2>
+			<h2>MOVI 게시판 관리자단</h2>
 		</div>
-		<form action="edit.do" method="post">
-			<input type="hidden" name="review_no" value="<%=review_no%>">
-			<input type="hidden" name="p" value=<%=p%>>
-			<input type="hidden" name="movie_no" class="input" value="<%=reviewDto.getReview_movie_no()%>">
+		<form action="notice_edit.do" method="post">
+			<input type="hidden" name="notice_no" value="<%=notice_no%>">
 			
+			<select class="input" name="notice_header" style="border:1px solid lightgray;">
+				<option <%if(noticeDto.getNotice_header().equals("공지")) { %> selected <%} %>>공지</option>
+				<option <%if(noticeDto.getNotice_header().equals("필독")) { %> selected <%} %>>필독</option> 
+			</select>	
 			<div class="row">	
 				<label>제목</label>
-				<input type="text" name="review_title" class="input box" value="<%=reviewDto.getReview_title()%>">
+				<input type="text" name="notice_title" class="input box" value="<%=noticeDto.getNotice_title()%>">
 			</div>
 			<div class="row">
 				<label>내용</label>
-				<textarea name="review_content" rows="20" class="input box"><%=reviewDto.getReview_content()%></textarea>
+				<textarea name="notice_content" rows="20" class="input box"><%=noticeDto.getNotice_content()%></textarea>
 			</div>
 			<div class="row center">
 				<input type="button" value="취소하기" class="input input-inline cancel-btn">
