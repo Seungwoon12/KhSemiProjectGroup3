@@ -61,7 +61,9 @@
 							<th>포스터</th>
 							<td>
 								<input type="button" value="이미지 업로드">
-								<img src="https://placehold.it/300x300?text=IMAGE">
+									<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
+										onerror="this.src='https://placehold.it/300x400?text=IMAGE'" 
+										style="height: 300px; width: 400px;">
 							</td>
 						</tr>
 						<tr>
