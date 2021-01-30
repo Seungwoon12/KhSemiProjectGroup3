@@ -91,6 +91,11 @@
 		
 	}
 	
+	/*영화명 마우스 오버시 언더라인*/
+	#movie-name:hover{
+		text-decoration: underline;
+	}
+	
 	
 </style>
 
