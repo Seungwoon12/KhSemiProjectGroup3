@@ -38,7 +38,7 @@
 	
 	
 	//조회수 중복방지(게시글번호 세션에 저장)
-	if(!isAdmin && session.getAttribute("admin_no") == null) {
+	if(!isAdmin && session.getAttribute("notice_no") == null) {
 	session.setAttribute("notice_no", notice_no);
 	reviewDao.noticePlusRead(notice_no);
 		}
