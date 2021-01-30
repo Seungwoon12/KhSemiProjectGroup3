@@ -50,7 +50,7 @@
 		</div>
 
 			<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table table-border" style="width:80%; margin:10%">
 				<tbody>
 					<tr>
 						<th colspan="2">
@@ -137,7 +137,7 @@
 		<div class="row">
 			<input type="hidden" name="movie_no" value="<%=movie_no%>">
 			<%=movie_no%>
-			<table class="table table-border" style="width:800px">
+			<table class="table table-border" style="width:800px ;  margin:10%">
 				<tbody>
 					<tr>
 						<td>

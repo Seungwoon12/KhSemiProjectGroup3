@@ -7,7 +7,7 @@
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
 
-<div class="outbox" style="width:100%">
+<div class="outbox" style="width:100%;">
 	<aside>
 		<div class="row center " >
 			<h2 style="color: #4B89DC;" >영화 관리</h2>
@@ -29,7 +29,7 @@
   		</div>
   	
 		<div>
-			<table class="table table-border" style="width:80%">
+			<table class="table table-border" style="width:80% ; margin:10%">
 				<tbody>
 					<tr>
 						<th>태그 이름</th>

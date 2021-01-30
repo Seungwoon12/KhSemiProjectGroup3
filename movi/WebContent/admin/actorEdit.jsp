@@ -43,7 +43,7 @@
 
 			<!--영화 추가 테이블  -->
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin:10%;">
 					<thead>
 						<h4 class="left">배우 정보 수정</h4>
 					</thead>
