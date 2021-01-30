@@ -1,7 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%request.setCharacterEncoding("utf-8"); %>
 <!-- 태그 상세보기  -->
 <%
 //태그 상세목록
@@ -18,7 +18,7 @@
 			
 			var check = window.confirm("이 태그를 삭제하시겠습니까?");
 			if(check){
-				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>";
+				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>" ;
 			}else{
 				location.href= "<%=request.getContextPath()%>/admin/recomList.jsp" ;
 			}
@@ -37,15 +37,21 @@
 				location.href=$(this).attr("href");
 			}
 		});	
-		
 	});
-
 </script>
 
 
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<style>
+	.abtn{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+
+</style>
 
 <div class="outbox" style="width:100%">
 	<aside>
@@ -68,28 +74,26 @@
   		<h1>3조 추천 태그 상세보기</h1>
   	</div>
   	<div>
-  		<table style="margin:10%">
+  		<table class="table2  table" style="width:500px; margin:auto">
   			<tbody>
   				<tr>
   					<th>#<%=recom_title %></th>
   				</tr>
   				<%for(RecommendDtoVO recomMovie : recomDto){ %>
   				<tr >
-  					<td>
-  						<a class="abtn orange movie_delete">
-							<%=recomMovie.getRecom_movie_name() %>	
-  						</a>
+  					<td >
   						<form action="movie_no_delete.do" method="get">
   							<input type="hidden" name="recom_no" value="<%=recomMovie.getRecom_no()%>">
   							<input type="hidden" name="recom_movie_no" value="<%=recomMovie.getRecom_movie_no()%>">
-							<input class= "movie_no_delete" type="submit" value="X">	
-						</form>				
+							<input class= "abtn orange movie_no_delete" type="submit" value="<%=recomMovie.getRecom_movie_name() %>    X">	
+						</form>	
+		
   					</td>
   				</tr>
   				<%} %>
   			</tbody>
   		</table>
-				<div style="display-block; margin:10%">
+				<div class="center" style="margin:1rem; ">
   					<input type="button" class="adbtn gray" value="태그 이름 수정" onclick="location.href='recomEdit.jsp?recom_title=<%=recom_title%>'">
   					<input type="button" class="adbtn gray recom_delete" value="태그삭제">				
 				</div>

@@ -371,7 +371,7 @@
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
-						<img class="hov hova" src="https://placehold.it/300X250?text=IMAGE">
+						<img class="hov hova" src="poster-down.do?recom_no=<%=recomdto.getRecom_no()%>">
 						
 						<h1 class="h hov1">
 								#<%=recomdto.getRecom_title()%>

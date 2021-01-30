@@ -47,6 +47,10 @@
         	padding :0.5rem;
         	display: none;
         }
+        img{
+			width:200px;
+			height:300px;
+		}
 </style>
 
 <script>
@@ -61,7 +65,7 @@
 		<%for(MovieDto dto : movieList){ %>
        <li class="list">
 			<a href="detail.jsp?movie_no=<%=dto.getMovie_no()%>">
-			<img src ="https://placehold.it/200X300?text=IMAGE">
+			<img src="../poster-down.do?movie_no=<%=dto.getMovie_no()%>">
 				<%=dto.getMovie_name() %>
 			</a>
        </li>

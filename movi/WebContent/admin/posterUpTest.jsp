@@ -26,6 +26,33 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+		
+		th{
+    		text-align: left !important;
+    		padding:1rem;
+		}
+
+</style>
+
+
+
 
 
 	<div class="outbox" style="width: 100%">
@@ -50,7 +77,7 @@
 		</div>
 
 			<div class="row center">
-			<table class="table table-border" style="width:80%; margin:10%">
+			<table class="table table2" style="width:80%; margin-left:10%">
 				<tbody>
 					<tr>
 						<th colspan="2">
@@ -60,7 +87,7 @@
 						</th>
 					</tr>
 					<tr>
-						<th style="width:10%">평점</th>
+						<th style="width:20%">평점</th>
 						<td><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
@@ -91,7 +118,7 @@
 						<td><%=movieDto.getMovie_director() %></td>
 					</tr>
 					<tr>
-						<th>배우</th>
+						<th class="left">배우</th>
 						<td>
 						주연: <%for(MovieDtoVO actor : main_actor) { %>
 								<%=actor.getActor_name() %>
@@ -103,7 +130,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>좋아요 수</th>
+						<th class="left">좋아요 수</th>
 						<td>
 							<%for(MovieDtoVO like : mlike){ %>
 								<%=like.getMlike() %>
@@ -116,8 +143,9 @@
 					</tr>
 					<tr >
 						<th colspan="3">
+						<hr>
 						<h4 class="left">줄거리</h4>
-						<p class="left">
+						<p class="left" style="font-size: medium;">
 							<%=movieDto.getMovie_content() %>
 						</p>
 						</th>
@@ -137,7 +165,7 @@
 		<div class="row">
 			<input type="hidden" name="movie_no" value="<%=movie_no%>">
 			<%=movie_no%>
-			<table class="table table-border" style="width:800px ;  margin:10%">
+			<table class="table table2" style="width:800px ;  margin-left:10%">
 				<tbody>
 					<tr>
 						<td>

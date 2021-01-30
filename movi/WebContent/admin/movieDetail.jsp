@@ -40,8 +40,9 @@
 	}
 	
 	 .table2 {
-       border: 1px solid gray;
+       border: 1px solid lightblue;
        padding: 1rem;
+       border-radius: 8px;
         }
 </style>
 
@@ -94,7 +95,7 @@
 
 		<!--영화 리스트 테이블  -->
 		<div class="row ">
-			<table class="table2 left" style=" width: 70%; margin-left:15%;">
+			<table class="table2 table left" style=" width: 70%; margin-left:15%;">
 				<tbody >
 					<tr >
 						<th colspan="2">
