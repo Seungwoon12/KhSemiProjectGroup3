@@ -89,7 +89,7 @@
 		</div>
 
 		
-<div class="outbox center" style="width: 800px">
+<div class="outbox center" style="width: 800px ; margin-top:2rem;">
   	<!-- 회원 검색창 -->
   		<div>
   			<h1>회원 검색</h1>
@@ -119,7 +119,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table1" style="width:790px">
+		<table class="table1" style="width:790px ; margin-top:2rem;">
 			<thead>
 				<tr>
 					<th>회원번호</th>
