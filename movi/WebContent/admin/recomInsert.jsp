@@ -52,7 +52,7 @@ $(function(){
   		</div>
   	
 		<div>
-			<table class="table table-border" style="width:80%">
+			<table class="table table-border" style="width:80% ; margin:10%">
 				<tbody>
 					<tr>
 						<th>태그 이름</th>

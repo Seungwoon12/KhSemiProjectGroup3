@@ -68,7 +68,7 @@
   		<h1>3조 추천 태그 상세보기</h1>
   	</div>
   	<div>
-  		<table style="margin:30px">
+  		<table style="margin:10%">
   			<tbody>
   				<tr>
   					<th>#<%=recom_title %></th>
@@ -89,7 +89,7 @@
   				<%} %>
   			</tbody>
   		</table>
-				<div style="display-block">
+				<div style="display-block; margin:10%">
   					<input type="button" class="adbtn gray" value="태그 이름 수정" onclick="location.href='recomEdit.jsp?recom_title=<%=recom_title%>'">
   					<input type="button" class="adbtn gray recom_delete" value="태그삭제">				
 				</div>

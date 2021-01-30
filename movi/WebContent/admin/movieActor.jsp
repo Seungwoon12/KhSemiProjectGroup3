@@ -63,7 +63,7 @@ $(function(){
 			
 		<form action="actorConInsert1.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin:10%">
 					<thead>
 						<h1 class="left">영화 배우 추가하기(배우 고유번호로 입력하세요)</h1>
 						<input type="hidden" name="movie_no" value="<%=movie_no%>">
