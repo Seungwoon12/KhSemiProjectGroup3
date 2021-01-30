@@ -1,7 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%request.setCharacterEncoding("utf-8"); %>
 <!-- 태그 상세보기  -->
 <%
 //태그 상세목록
@@ -37,9 +37,7 @@
 				location.href=$(this).attr("href");
 			}
 		});	
-		
 	});
-
 </script>
 
 
@@ -80,7 +78,7 @@
 							<%=recomMovie.getRecom_movie_name() %>	
   						</a>
   						<form action="movie_no_delete.do" method="get">
-  							<input type="hidden" name="recom_no" value="<%=recomMovie.getRecom_no()%>">
+  							<input type="hidden" name="recom_title" value="<%=recom_title%>">
   							<input type="hidden" name="recom_movie_no" value="<%=recomMovie.getRecom_movie_no()%>">
 							<input class= "movie_no_delete" type="submit" value="X">	
 						</form>				

@@ -158,23 +158,5 @@ public class RecomAdminDao {
 		
 		return count > 0 ;
 	}
-	//recom_no으로 reom_title찾기
-	public List<RecommendDto> find(int recom_no) throws Exception{
-		Connection con = JdbcUtil.getConnection(USER, PASS);
-		
-		String sql = "select * from recommend where recom_no = ? ";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, recom_no);
-		ResultSet rs = ps.executeQuery();
-		
-		List<RecommendDto> list = new ArrayList<>();
-		while(rs.next()) {
-			RecommendDto recomDto = new RecommendDto();
-			recomDto.setRecom_title(rs.getString("recom_title"));
-			list.add(recomDto);
-		}
-		con.close();
-		return list;
-	}
 	
 }
