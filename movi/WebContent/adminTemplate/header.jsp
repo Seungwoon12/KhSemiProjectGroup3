@@ -128,6 +128,16 @@
 		font-weight: bolder;
 	}
 	
+     /*통계*/
+     .static {
+         background-color: white;
+         border: 2px solid lightblue;
+         border-radius: 10px;
+         color: black;
+         width: 150px;
+         text-align: center;
+     }
+	
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script >

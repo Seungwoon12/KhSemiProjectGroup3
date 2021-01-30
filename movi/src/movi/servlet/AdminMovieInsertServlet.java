@@ -22,7 +22,7 @@ public class AdminMovieInsertServlet extends HttpServlet{
 			MovieDto movieDto = new MovieDto();
 			movieDto.setMovie_genre_no(Integer.parseInt(req.getParameter("movie_genre_no")));
 			movieDto.setMovie_name(req.getParameter("movie_name"));
-			movieDto.setMovie_rate(Integer.parseInt(req.getParameter("movie_rate")));
+			movieDto.setMovie_rate(Double.parseDouble(req.getParameter("movie_rate")));
 			movieDto.setMovie_time(Integer.parseInt(req.getParameter("movie_time")));
 			movieDto.setMovie_age(req.getParameter("movie_age"));
 			movieDto.setMovie_country(req.getParameter("movie_country"));

@@ -172,6 +172,11 @@
          caption-side: bottom;
          display: none;
      }
+     
+      .table2 {
+         border: 1px solid gray;
+         padding: 0.5rem;
+        }
 	/*버튼에 대한 설정*/
 	
 	.adbtn {
