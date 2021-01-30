@@ -1,12 +1,6 @@
 <%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<!-- 인코딩값 : UTF-8 -->
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- 태그 상세보기  -->
 <%
@@ -42,7 +36,7 @@
 			if(check){
 				location.href=$(this).attr("href");
 			}
-		});
+		});	
 		
 	});
 
@@ -82,16 +76,21 @@
   				<%for(RecommendDtoVO recomMovie : recomDto){ %>
   				<tr >
   					<td>
-  						<a class="abtn orange movie_delete" href="#">
-							<%=recomMovie.getRecom_movie_name() %>  X						
+  						<a class="abtn orange movie_delete">
+							<%=recomMovie.getRecom_movie_name() %>	
   						</a>
+  						<form action="movie_no_delete.do" method="get">
+  							<input type="hidden" name="recom_no" value="<%=recomMovie.getRecom_no()%>">
+  							<input type="hidden" name="recom_movie_no" value="<%=recomMovie.getRecom_movie_no()%>">
+							<input class= "movie_no_delete" type="submit" value="X">	
+						</form>				
   					</td>
   				</tr>
   				<%} %>
   			</tbody>
   		</table>
 				<div style="display-block">
-  					<input type="button" class="adbtn gray" value="태그이름 변경" onclick="location.href='recomEdit.jsp?recom_title=<%=recom_title%>'">
+  					<input type="button" class="adbtn gray" value="태그 이름 수정" onclick="location.href='recomEdit.jsp?recom_title=<%=recom_title%>'">
   					<input type="button" class="adbtn gray recom_delete" value="태그삭제">				
 				</div>
 
