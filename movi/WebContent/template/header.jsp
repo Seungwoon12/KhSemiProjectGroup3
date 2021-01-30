@@ -22,10 +22,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css"> 
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> 
-<script src="https://unpkg.com/swiper/js/swiper.js"></script> 
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
 
 

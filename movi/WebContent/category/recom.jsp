@@ -28,6 +28,10 @@
         	width:215px;
         	padding :0.5rem;
         }
+        img{
+		width:200px;
+		height:300px;
+		}
 </style>
 
 <div>
@@ -45,7 +49,7 @@
 		<%for(RecommendDtoVO dto : recomDto) {%>
        <li class="list">
 			<a href="detail.jsp?movie_no=<%=dto.getRecom_movie_no()%>">
-			<img src ="https://placehold.it/200X300?text=IMAGE">
+			<img src="../poster-down.do?movie_no=<%=dto.getRecom_movie_no()%>">
 				<%=dto.getRecom_movie_name() %>
 			</a>
        </li>
