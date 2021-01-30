@@ -40,22 +40,28 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	title:{
 		text: "방문자 수"
 	},
+	 axisX:{
+		  title : "방문 날짜"
+		 },
 	data: [{        
 		type: "line",
       	indexLabelFontSize: 16,
 		dataPoints: [
-			{ y: 12 },
-			{ y: 8},
-			{ y: 9 },
-			{ y: 15 },
-			{ y: 7  , indexLabel: "\u2193 lowest",markerColor: "DarkSlateGrey", markerType: "cross"},
-			{ y: 22 },
-			{ y: 34 ,indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
-			{ y: 21 },
-			{ y: 17 },
-			{ y: 24 },
-			{ y: 29 },
-			{ y: 32 }
+
+			{x: new Date(2021, 00, 20), y: 9 },
+			{x: new Date(2021, 00, 21), y: 15 },
+			{x: new Date(2021, 00, 22), y: 7  , indexLabel: "\u2193 lowest",markerColor: "DarkSlateGrey", markerType: "cross"},
+			{x: new Date(2021, 00, 23), y: 22 },
+			{x: new Date(2021, 00, 24), y: 34 ,indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
+			{x: new Date(2021, 00, 25), y: 21 },
+			{x: new Date(2021, 00, 26), y: 17 },
+			{x: new Date(2021, 00, 27), y: 24 },
+			{x: new Date(2021, 00, 28), y: 29 },
+			{x: new Date(2021, 00, 29), y: 32 },
+			{x: new Date(2021, 00, 30), y: 20 },
+			{x: new Date(2021, 00, 31), y: 23 },
+			{x: new Date(2021, 01, 01), y: 25 }
+
 		]
 	}]
 });
