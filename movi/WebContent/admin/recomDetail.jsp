@@ -1,7 +1,7 @@
 <%@page import="java.util.*"%>
 <%@page import="movi.beans.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%request.setCharacterEncoding("utf-8"); %>
 <!-- 태그 상세보기  -->
 <%
 //태그 상세목록
@@ -18,7 +18,7 @@
 			
 			var check = window.confirm("이 태그를 삭제하시겠습니까?");
 			if(check){
-				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>";
+				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>" ;
 			}else{
 				location.href= "<%=request.getContextPath()%>/admin/recomList.jsp" ;
 			}
@@ -37,9 +37,7 @@
 				location.href=$(this).attr("href");
 			}
 		});	
-		
 	});
-
 </script>
 
 
@@ -68,7 +66,7 @@
   		<h1>3조 추천 태그 상세보기</h1>
   	</div>
   	<div>
-  		<table style="margin:10%">
+  		<table style="margin:30px">
   			<tbody>
   				<tr>
   					<th>#<%=recom_title %></th>
@@ -89,7 +87,7 @@
   				<%} %>
   			</tbody>
   		</table>
-				<div style="display-block; margin:10%">
+				<div style="display-block">
   					<input type="button" class="adbtn gray" value="태그 이름 수정" onclick="location.href='recomEdit.jsp?recom_title=<%=recom_title%>'">
   					<input type="button" class="adbtn gray recom_delete" value="태그삭제">				
 				</div>
