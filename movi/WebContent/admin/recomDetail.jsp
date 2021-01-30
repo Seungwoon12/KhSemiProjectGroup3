@@ -18,7 +18,7 @@
 			
 			var check = window.confirm("이 태그를 삭제하시겠습니까?");
 			if(check){
-				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>" ;
+				location.href="<%=request.getContextPath()%>/admin/recomDelete.do?recom_title=<%=recom_title%>";
 			}else{
 				location.href= "<%=request.getContextPath()%>/admin/recomList.jsp" ;
 			}
