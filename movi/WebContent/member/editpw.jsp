@@ -4,6 +4,8 @@
 	
 <jsp:include page="/template/header.jsp"></jsp:include>
 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/mypage.css">
+
 <script>
 $(function(){
 	//.cancel-btn을 누르면 마이 페이지로 이동
@@ -17,8 +19,14 @@ $(function(){
 		
         var pw = $("input[name=member_pw]").val();
         var pw2 = $("input[name=member_pw2]").val();
+        var regex = /^[a-zA-Z0-9!@#$]{8,16}$/;
         if(pw && pw === pw2){//비밀번호가 있으며 비밀번호와 재확인이 같은 경우
-            this.submit();
+            if(regex.test(pw)){
+            	this.submit();
+            }
+            else{
+            	alert("비밀번호 형식이 올바르지 않습니다.");
+            }
         }
         else {
         	alert("비밀번호 확인이 올바르지 않습니다.");
@@ -68,7 +76,7 @@ $(function(){
 		</div>
 		<div class="row right">
 			<input class="input input-inline" type="submit" value="등록">
-			<input class="input input-inline" type="button" value="취소">
+			<input class="input input-inline cancel-btn" type="button" value="취소">
 		</div>
 	</div>
 </form>

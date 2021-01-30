@@ -69,7 +69,31 @@
 		<div class="top">
 			<img src ="https://placehold.it/200X300?text=IMAGE">
 		</div>
+		
 		<div class="top">
+			<div class="love_box">
+			<%
+			LoveDao loveDao = new LoveDao();
+			boolean loginCheck = session.getAttribute("check") != null;
+			
+			if(loginCheck) {
+				int member_no = (int)session.getAttribute("check");
+				boolean love_check = loveDao.love_search(member_no, movie_no);
+				if(love_check){
+				%>
+				<button class="love-btn cancel_love">
+					<img class="heart" alt="cancel_love" src="<%=request.getContextPath()%>/img/heart_red.png">
+				<%=loveDao.love_count(movie_no) %>
+				</button>
+				<%} else{ %>
+				<button class="love-btn plus_love">
+					<img class="heart" alt="plus_love" src="<%=request.getContextPath()%>/img/heart_white.png">
+				<%=loveDao.love_count(movie_no) %>
+				</button>
+				<%} %>
+			<%} %>
+			</div>
+			<br>
 			<div>
 			<% String a = String.format("%,d", dto.getMovie_audience());%>
 			누적 관객수 · <%=a %>명
@@ -121,31 +145,10 @@
 		<%}%>
 	</p>
 	</div>
-	<div class="love_box">
-	<%
-	LoveDao loveDao = new LoveDao();
-	boolean loginCheck = session.getAttribute("check") != null;
-	
-	if(loginCheck) {
-		int member_no = (int)session.getAttribute("check");
-		boolean love_check = loveDao.love_search(member_no, movie_no);
-		if(love_check){
-		%>
-		<button class="love-btn cancel_love">
-			<img class="heart" alt="cancel_love" src="<%=request.getContextPath()%>/img/heart_red.png">
-		<%=loveDao.love_count(movie_no) %>
-		</button>
-		<%} else{ %>
-		<button class="love-btn plus_love">
-			<img class="heart" alt="plus_love" src="<%=request.getContextPath()%>/img/heart_white.png">
-		<%=loveDao.love_count(movie_no) %>
-		</button>
-		<%} %>
-	<%} %>
+
 	<div class="reviewgo">
 	<!-- 클릭하면 해당 영화의 movie_no가 검색된 리뷰 테이블로 이동하기 -->
 	<a href="/movi/review/listForDetail.jsp?movie_no=<%=movie_no%>">영화 리뷰 보러가기</a>
-	</div>
 	</div>
 </div>	
 	

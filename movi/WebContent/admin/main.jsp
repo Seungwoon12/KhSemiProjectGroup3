@@ -40,22 +40,28 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	title:{
 		text: "방문자 수"
 	},
+	 axisX:{
+		  title : "방문 날짜"
+		 },
 	data: [{        
 		type: "line",
       	indexLabelFontSize: 16,
 		dataPoints: [
-			{ y: 450 },
-			{ y: 414},
-			{ y: 520, indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
-			{ y: 460 },
-			{ y: 450 },
-			{ y: 500 },
-			{ y: 480 },
-			{ y: 480 },
-			{ y: 410 , indexLabel: "\u2193 lowest",markerColor: "DarkSlateGrey", markerType: "cross" },
-			{ y: 500 },
-			{ y: 480 },
-			{ y: 510 }
+
+			{x: new Date(2021, 00, 20), y: 9 },
+			{x: new Date(2021, 00, 21), y: 15 },
+			{x: new Date(2021, 00, 22), y: 7  , indexLabel: "\u2193 lowest",markerColor: "DarkSlateGrey", markerType: "cross"},
+			{x: new Date(2021, 00, 23), y: 22 },
+			{x: new Date(2021, 00, 24), y: 34 ,indexLabel: "\u2191 highest",markerColor: "red", markerType: "triangle" },
+			{x: new Date(2021, 00, 25), y: 21 },
+			{x: new Date(2021, 00, 26), y: 17 },
+			{x: new Date(2021, 00, 27), y: 24 },
+			{x: new Date(2021, 00, 28), y: 29 },
+			{x: new Date(2021, 00, 29), y: 32 },
+			{x: new Date(2021, 00, 30), y: 20 },
+			{x: new Date(2021, 00, 31), y: 23 },
+			{x: new Date(2021, 01, 01), y: 25 }
+
 		]
 	}]
 });
@@ -69,10 +75,10 @@ chart.render();
 <div class="outbox" style="width:100%">
    <aside>
    		<div class="row center">
-       		<h2 style="color:deepskyblue;">관리자 페이지</h2>     
+       		<h2 style="color:#4B89DC;">관리자 페이지</h2>     
   	 	</div>
   	 	<div class="left">
-  	 		<a href="#">-   통계 </a>
+  	 		<a href="#">통계 </a>
   	 	</div>
   	</aside>
 	
@@ -83,25 +89,25 @@ chart.render();
   		<table class="center">
   		  	<tr>
   				<th>
-  				 	<div style="width:200px">
+  				 	<div style="width:200px" class="margin static">
   						<h1>총 회원 수</h1>
 						 <h1><%=count_mem%>명</h1>
   					</div>
   				</th>
   				<th>
-  				  	<div style="width:200px">
+  				  	<div style="width:200px" class="margin static">
   						<h1>이벤트 참여자 수</h1>
 						<h1><%=count_cou %>명</h1>
   					</div>
   				</th>
   				<th>
-  					<div style="width:200px">
+  					<div style="width:200px" class="margin static">
   				  		<h1>등록된 영화의 개수</h1>
   				  		<h1><%=count_mov %>개</h1>
   					</div>
   				</th>
   				<th>
-  					<div style="width:200px">
+  					<div style="width:200px" class="margin static">
   						<h1>리뷰 총 개수</h1>
   						<h1><%=count_rev %>개</h1>
   					</div>
@@ -110,32 +116,12 @@ chart.render();
   		
   		
   		</table>
-  		<table>
-  			<tr>
-  				<th colspan="2">
-  				  	<div>
-  						<h1>방문자 수</h1>
-							<div id="chartContainer" style="height: 350px; width: 800px"></div>
-							<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-  					</div>
-  				</th>
-  			</tr>
-  			<tr>
-  				<th>
-  				 	<div>
-  				 	<!--파이차트 -->
-  						<h1>장르별 좋아요 비율</h1>
+  		<div >
+  			<h1>방문자 수</h1>
+			<div id="chartContainer" style="height: 350px; width: 900px; margin: 50px" ></div>
+			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  		</div>
 
-  					</div>
-  				</th>
-  				<th>
-  				  	<div>
-  				  	<!-- 리스트  -->
-  						<h1>영화 좋아요 순위</h1>
-  					</div>
-  				</th>
-  			</tr>
-  		</table>
   	</article>
 </div>
 

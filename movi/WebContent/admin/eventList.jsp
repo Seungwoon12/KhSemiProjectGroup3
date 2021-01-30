@@ -86,7 +86,7 @@
 <div class="outbox" style="width:100%">
    <aside>
    		<div class="row center">
-       		<h2 style="color:deepskyblue;">이벤트 관리</h2>     
+       		<h2 style="color:#4B89DC;">이벤트 관리</h2>     
   	 	</div>
   	 	<div class="left">
   	 		<a href="eventList.jsp"> 이벤트 목록 </a><br><br>
@@ -99,15 +99,15 @@
   		<div>
   			<h1>이벤트 목록</h1>
   		</div>
-  		<div>
+  		<div class="search">
   			<form action="eventList.jsp" method="post">
   				<label>이벤트 검색</label>
-  				<select name="type">
+  				<select name="type" class="padding">
   					<option value="event_no">이벤트 번호</option>
   					<option value="event_name">이벤트 이름</option>
   				</select>
-  				<input type="text" name="key" placeholder="검색어를 입력하세요" required>
-  				<input type="submit" value="검색">
+  				<input type="text" name="key" class="padding" placeholder="검색어를 입력하세요" required>
+  				<input type="submit" value="검색" class="padding1">
   			</form>
   		</div>
 

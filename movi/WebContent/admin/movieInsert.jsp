@@ -15,9 +15,9 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br>
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br>
 			</div>
 		</aside>
 
@@ -27,9 +27,6 @@
 				<h1>영화 등록</h1>
 			</div>
 			<!--영화 추가 테이블  -->			
-
-			<!-- 영화 포스터 먼저 업로드 하기 -->
-
 			
 		<form action="movieInsert.do" method="post">
 			<div class="row center">
@@ -102,20 +99,19 @@
 							</td>
 						</tr>
 						<tr>
-							<th>배우</th>
-							<td></td>
-						</tr>
-						<tr>
 							<th>줄거리</th>
 							<td>
 								<textarea class="input" name="movie_content" placeholder="줄거리 입력" required></textarea>
 							</td>
 						</tr>
 						<tr>
+							<th colspan="2">배우는 영화리스트-> 배우 수정에서 넣으세요.</th>
+						</tr>
+						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" >
-									<input type="button" value="취소" onclick="location.href='movieList.jsp'">
+									<input type="submit" class="adbtn green" value="등록" >
+									<input type="button" class="adbtn yellow" value="취소" onclick="location.href='movieList.jsp'">
 								</div>
 							</th>
 						</tr>

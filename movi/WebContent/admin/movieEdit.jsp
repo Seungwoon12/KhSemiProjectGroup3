@@ -25,9 +25,9 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br>
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br>
 			</div>
 		</aside>
 
@@ -54,38 +54,40 @@
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
-								<input type="text" name="movie_name" placeholder="<%=movieDto.getMovie_name() %>" required>
+								<input type="text" name="movie_name" value="<%=movieDto.getMovie_name() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>포스터</th>
 							<td>
 								<input type="button" value="이미지 업로드">
-								<img src="https://placehold.it/300x300?text=IMAGE">
+									<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
+										onerror="this.src='https://placehold.it/300x400?text=IMAGE'" 
+										style="height: 300px; width: 400px;">
 							</td>
 						</tr>
 						<tr>
 							<th>장르</th>
 							<td>
-								<input type="text" name="movie_genre_no" placeholder="<%=movieDto.getMovie_genre_no() %>" required>
+								<input type="text" name="movie_genre_no" value="<%=movieDto.getMovie_genre_no() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>상영시간</th>
 							<td>
-								<input type="text" name="movie_time" placeholder="<%=movieDto.getMovie_time() %>" required>
+								<input type="text" name="movie_time" value="<%=movieDto.getMovie_time() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>평점</th>
 							<td>
-								<input type="text" name="movie_rate" placeholder="<%=movieDto.getMovie_rate() %>" required>							
+								<input type="text" name="movie_rate" value="<%=movieDto.getMovie_rate() %>" required>							
 							</td>
 						</tr>
 						<tr>
 							<th>관객수</th>
 							<td>
-								<input type="text" name="movie_audience" placeholder="<%=movieDto.getMovie_audience() %>" required>
+								<input type="text" name="movie_audience" value="<%=movieDto.getMovie_audience() %>" required>
 							</td>
 						</tr>
 						<tr>
@@ -111,30 +113,26 @@
 						<tr>
 							<th>개봉일</th>
 							<td>
-								<input type="text" name="movie_date" placeholder="<%=movieDto.getMovie_date() %>" required>
+								<input type="text" name="movie_date" value="<%=movieDto.getMovie_date() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
 							<td>
-								<input type="text" name="movie_director" placeholder="<%=movieDto.getMovie_director() %>" required>
+								<input type="text" name="movie_director" value="<%=movieDto.getMovie_director() %>" required>
 							</td>
-						</tr>
-						<tr>
-							<th>배우</th>
-							<td></td>
 						</tr>
 						<tr>
 							<th>줄거리</th>
 							<td>
-								<textarea class="input" name="movie_content" placeholder="줄거리 입력"></textarea>
+								<textarea class="input" name="movie_content" value="줄거리 입력"></textarea>
 							</td>
 						</tr>
 						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" >
-									<input type="button" value="취소" onclick="location.href='movieList.jsp'">
+									<input type="submit" class="adbtn green" value="등록" >
+									<input type="button" class="adbtn yellow" value="취소" onclick="location.href='movieList.jsp'">
 								</div>
 							</th>
 						</tr>
