@@ -17,7 +17,7 @@ public class RecomAdminDao {
 	public List<RecommendDtoVO> select_admin(String recom_title) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
-		String sql = "select r.recom_title,m.movie_name,r.recom_movie_no "
+		String sql = "select r.recom_title,m.movie_name,r.recom_movie_no,r.recom_no "
 				+"from recommend R "
 				+ "left outer join movie M on r.recom_movie_no=m.movie_no "
 				+ "where r.recom_title=?"; 
@@ -31,6 +31,7 @@ public class RecomAdminDao {
 			recomDto.setRecom_title(rs.getString("recom_title"));
 			recomDto.setRecom_movie_name(rs.getString("movie_name"));
 			recomDto.setRecom_movie_no(rs.getInt("recom_movie_no"));
+			recomDto.setRecom_no(rs.getInt("recom_no"));
 			recomList.add(recomDto);
 		}
 		con.close();
@@ -56,7 +57,7 @@ public class RecomAdminDao {
 	}	
 
 //회원 상세보기 반환형은 Dto 
-	public RecommendDtoVO selectAll_admin(String recom_title) throws Exception{
+	public List<RecommendDto> selectAll_admin(String recom_title) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
 		String sql = "select * from recommend where recom_title = ? ";
@@ -64,28 +65,25 @@ public class RecomAdminDao {
 		ps.setString(1, recom_title);
 		ResultSet rs = ps.executeQuery();
 		
-		RecommendDtoVO recomDto;
-		if(rs.next()) {
-			recomDto= new RecommendDtoVO();
+		List<RecommendDto> list = new ArrayList<>();
+		while(rs.next()) {
+			RecommendDto recomDto = new RecommendDto();
 			recomDto.setRecom_title(rs.getString("recom_title"));
-			recomDto.setRecom_movie_name(rs.getString("movie_name"));
 			recomDto.setRecom_movie_no(rs.getInt("recom_movie_no"));
-		}else {
-			recomDto= null;
+			list.add(recomDto);
 		}
 		con.close();
-		
-		return recomDto;
+		return list;
 	}
 	
 		
 //3조 추천영화 추가 -admin/recomInsert.jsp
-	public void insert_admin(RecommendDto recomDto) throws Exception{
+	public void insert_admin(int movie_no , String recom_title) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		String sql="insert into recommend values(recom_seq.nextval, ? , ?) ";
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setInt(1, recomDto.getRecom_movie_no());
-		ps.setString(2,recomDto.getRecom_title());
+		ps.setInt(1, movie_no);
+		ps.setString(2,recom_title);
 		ps.execute();
 		con.close();
 		
@@ -130,13 +128,13 @@ public class RecomAdminDao {
 	
 //태그명 변경
 	//update recommend set recom_title= ? where recom_title=? ;
-	public boolean edit_admin(RecommendDtoVO recomDto) throws Exception{
+	public boolean edit_admin(String new_recom_title, String recom_title) throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
-		String sql ="update recommend set recom_title= ? where recom_title=? " ; 
+		String sql ="update recommend set recom_title= ? where recom_title=?" ; 
 		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, recomDto.getRecom_title());
-		ps.setString(2, recomDto.getRecom_title());
+		ps.setString(1, new_recom_title);
+		ps.setString(2, recom_title);
 		int count = ps.executeUpdate();
 		
 		con.close();
@@ -146,5 +144,37 @@ public class RecomAdminDao {
 		
 	}
 	
+	//추천 영화의 영화 삭제
+	public boolean delete_no_admin(int recom_movie_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "delete recommend where recom_movie_no=?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, recom_movie_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ;
+	}
+	//recom_no으로 reom_title찾기
+	public List<RecommendDto> find(int recom_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select * from recommend where recom_no = ? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, recom_no);
+		ResultSet rs = ps.executeQuery();
+		
+		List<RecommendDto> list = new ArrayList<>();
+		while(rs.next()) {
+			RecommendDto recomDto = new RecommendDto();
+			recomDto.setRecom_title(rs.getString("recom_title"));
+			list.add(recomDto);
+		}
+		con.close();
+		return list;
+	}
 	
 }

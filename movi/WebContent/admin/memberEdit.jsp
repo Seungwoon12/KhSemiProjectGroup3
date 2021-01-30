@@ -15,6 +15,25 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+
+</style>
 
 
 
@@ -41,27 +60,27 @@
 
 			<!--멤버 상세보기 테이블에서 정보 수정  -->
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table2  table" style="width: 80%; margin:10%">
 
 					<tbody>
 
-						<tr>
+						<tr >
 							<th width="20%">회원번호</th>
 							<td>
 							<input type="hidden" name="member_no" value="<%=memberDto.getMember_no()%>">
 							<%=memberDto.getMember_no()%>
 							</td>
 						</tr>
-						<tr>
+						<tr >
 							<th>회원아이디</th>
 							<td><%=memberDto.getMember_id()%>
-							<input type="button" value="임시 비밀번호 발급" onclick="location.href='memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="임시 비밀번호 발급" class="adbtn gray" onclick="location.href='memberPwCheck.jsp?member_no=<%=memberDto.getMember_no()%>'">
 							 </td>
 						</tr>
 						<tr>
 							<th>닉네임</th>
 							<td>
-							<input type="text" name="member_nick" placeholder="<%=memberDto.getMember_nick()%>" required>
+							<input class="row1" type="text" name="member_nick" placeholder="<%=memberDto.getMember_nick()%>" required>
 							</td>
 						</tr>
 						<tr>
@@ -75,7 +94,7 @@
 						<tr>
 							<th>권한</th>
 							<td>
-							<select name="member_auth">
+							<select name="member_auth" class="row1">
 								<option <%if(memberDto.is("일반")){%>selected<%}%>>일반</option>
 								<option <%if(memberDto.is("관리자")){%>selected<%}%>>관리자</option>
 							</select>
@@ -104,7 +123,7 @@
 			</div>
 
 			<!-- 회원리스트로 돌아가기 -->
-			<div class="right">
+			<div class="right" style="margin:1rem;">
 				<a href="memberDetail.jsp?member_no=<%=memberDto.getMember_no()%>">회원상세보기로 돌아가기</a>
 			</div>
 		</article>

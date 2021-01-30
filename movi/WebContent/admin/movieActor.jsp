@@ -19,12 +19,24 @@ $(function(){
             var a = $("#template2").html();
             $(a).insertBefore(this);
         });
-	//삭제
-        $(".delete").on("click",function(){
-            $(this).parent().remove();
-        });
+	//동적 삭제
+        $(document).on("click",".delete",function(){
+                $(this).parent().remove();
+            });
     });	
 </script>
+    <script id="template1" type="text/template"> 
+        <div>
+            <input class="input" type="text" name="main_actor">
+			<input type="button" class="delete" value="삭제">
+        </div>
+    </script>
+    <script id="template2" type="text/template"> 
+        <div>
+            <input class="input" type="text" name="sub_actor">
+			<input type="button" class="delete" value="삭제">
+        </div>
+    </script>
 <style>
 	.input{
 		width:46%;
@@ -51,7 +63,7 @@ $(function(){
 			
 		<form action="actorConInsert1.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
+				<table class="table table-border" style="width: 80%; margin:10%">
 					<thead>
 						<h1 class="left">영화 배우 추가하기(배우 고유번호로 입력하세요)</h1>
 						<input type="hidden" name="movie_no" value="<%=movie_no%>">
@@ -60,24 +72,24 @@ $(function(){
 						<tr>
 							<th style="width:30%">주연 배우</th>
 							<td>
-								<div id="template1">
-									<input class="input" type="text" name="main_actor">
-									<button class="delete">삭제</button>
-								</div>
+							<div>
 								<div>
-									 <input type="button" class="add1" style="display:block" value="추가">
+									<input class="input" type="text" name="main_actor">
+									<input type="button" class="delete" value="삭제">
 								</div>
+								<input type="button" class="add1" style="display:block" value="추가">
+							</div>
 							</td>
 						</tr>
 						<tr>
 							<th>조연 배우</th>
 							<td>
-								<div id="template2">
-									<input class="input" type="text" name="sub_actor">
-									<button class="delete">삭제</button>
-								</div>
 								<div>
-									 <input type="button" class="add2" style="display:block" value="추가">
+									<div>
+										<input class="input" type="text" name="sub_actor">
+										<input type="button" class="delete" value="삭제">
+									</div>
+									<input type="button" class="add2" style="display:block" value="추가">
 								</div>
 							</td>
 						</tr>

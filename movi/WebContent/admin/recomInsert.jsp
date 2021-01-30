@@ -6,7 +6,30 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
-
+<script>
+$(function(){
+    //추가
+        $(".add").click(function(){
+                var a = $("#template").html();
+                $(a).insertBefore(this);
+            });
+	//동적 삭제
+        $(document).on("click",".delete",function(){
+            $(this).parent().remove();
+        });
+    });	
+</script>
+<script id="template" type="text/template"> 
+        <div>
+			<input class="input" type="text" name="recom_movie_no">
+			<input type="button" class="delete" value="삭제">
+        </div>
+</script>
+<style>
+	.input{
+		width:50%;
+	}
+</style>
 <div class="outbox" style="width:100%">
 	<aside>
 		<div class="row center " >
@@ -29,7 +52,7 @@
   		</div>
   	
 		<div>
-			<table class="table table-border" style="width:80%">
+			<table class="table table-border" style="width:80% ; margin:10%">
 				<tbody>
 					<tr>
 						<th>태그 이름</th>
@@ -40,10 +63,16 @@
 							<input type="text" name="recom_title" required>
 						</td>
 						<td>
-							<input type="text" name="recom_movie_no" required>
+							<div>
+								<div>
+									<input class="input" type="text" name="recom_movie_no">
+									<input type="button" class="delete" value="삭제">
+								</div>
+								<input type="button" class="add" style="display:block" value="추가">
+							</div>
 						</td>
 					</tr>
-					<tr >
+					<tr>
 						<td colspan="2">
 							<input type="submit" class="adbtn green" value="등록">
 							<input type="button" class="adbtn yellow" value="취소" onclick="location.href='recomList.jsp'">

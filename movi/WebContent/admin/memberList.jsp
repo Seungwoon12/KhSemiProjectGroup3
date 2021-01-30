@@ -154,7 +154,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table1" style="width: 1000px">
+		<table class="table1" style="width: 1000px; margin: 15px">
 			<thead>
 				<tr>
 					<th><input type="checkbox" id="checkall">전체선택</th>
