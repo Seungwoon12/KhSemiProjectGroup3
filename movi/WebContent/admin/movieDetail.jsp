@@ -105,7 +105,7 @@
 						</th>
 					</tr>
 					<tr >
-						<th style="width:20%; paddin: 1.5rem;">평점</th>
+						<th style="width:20%; paddin: 1.5rem;">평점(/5.0)</th>
 						<td class="center"><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
@@ -172,7 +172,7 @@
 					<tr>
 						<th colspan="2" class="center">
 							<input type="button" class="adbtn blue" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
-							<input type="button" class="adbtn red" value="삭제" class="movie_delete">
+							<input type="button" value="삭제" class="movie_delete adbtn red">
 						</th>
 					</tr>
 				</tbody>
