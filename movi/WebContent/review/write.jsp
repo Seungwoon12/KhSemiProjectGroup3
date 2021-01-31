@@ -39,6 +39,7 @@
         	width:215px;
         	padding :0.5rem;
         	display: none;
+        	
         }
         
         .search-btn{
@@ -63,6 +64,10 @@
         }
         textarea{
 			resize: none;        
+        }
+        img{
+        	width:200px;
+        	height:300px;
         }
        
       
@@ -145,10 +150,10 @@
 <%for(MovieDto dto : movieList){ %>
  	<li class="list">
 		<a href="../category/detail.jsp?movie_no=<%=dto.getMovie_no()%>">
-			<img src ="https://placehold.it/200X300?text=IMAGE">
+			<img src ="../poster-down.do?movie_no=<%=dto.getMovie_no()%>">
 		</a>
 		
-		<label for="movie_no<%=dto.getMovie_no()%>"><%=dto.getMovie_name() %></label>
+		<label for="movie_no<%=dto.getMovie_no()%>" style="white-space: nowrap;"><%=dto.getMovie_name() %></label>
 		<input id="movie_no<%=dto.getMovie_no()%>" type="radio" name="movie_no" value="<%=dto.getMovie_no()%>" required>
 		<%
 			String genre = movieDao.getGenre(dto.getMovie_genre_no());

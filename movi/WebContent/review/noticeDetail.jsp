@@ -17,17 +17,17 @@
 	
 	
 	//댓글 작성란에 닉네임 불러오기
-		int member_no = (int)session.getAttribute("check");
-		MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
+	int member_no = (int)session.getAttribute("check");
+	MemberDto memberReplyDto = memberDao.find(member_no); //댓글창에 현재 로그인한 사용자의 닉네임을 가져오기 위한 DTO
 		
-		NoticeReplyDao noticeReplyDao = new NoticeReplyDao();
+	NoticeReplyDao noticeReplyDao = new NoticeReplyDao();
 		
-		//댓글개수
-		int count = noticeReplyDao.getCount(notice_no);
+	//댓글개수
+	int count = noticeReplyDao.getCount(notice_no);
 		
 		
-		//댓글 목록 출력
-		List<NoticeReplyVO> replyList = noticeReplyDao.selectReply(notice_no);
+	//댓글 목록 출력
+	List<NoticeReplyVO> replyList = noticeReplyDao.selectReply(notice_no);
 	
 	
 	
@@ -39,9 +39,9 @@
 	
 	//조회수 중복방지(게시글번호 세션에 저장)
 	if(!isAdmin && session.getAttribute("notice_no") == null) {
-	session.setAttribute("notice_no", notice_no);
-	reviewDao.noticePlusRead(notice_no);
-		}
+		session.setAttribute("notice_no", notice_no);
+		reviewDao.noticePlusRead(notice_no);
+	}
 %>
 
  <jsp:include page="/template/header.jsp"></jsp:include>
@@ -82,9 +82,6 @@
 		border-radius:4px;
 		
 	}
-	
-	
-	
 	
 </style>
 
