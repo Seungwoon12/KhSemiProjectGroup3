@@ -23,6 +23,30 @@
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include> 
 
+
+<style>
+	.top{
+		display:inline-block;
+		text-align:left;
+		margin: 10px;
+	}
+	.outbox{
+		text-align:center;
+		margin-top: 7%;
+		margin-bottom: 7%;
+	}
+	th,hd{
+		padding: 0.3rem;
+	}
+	
+	 .table2 {
+       border: 1px solid lightblue;
+       padding: 1rem;
+       border-radius: 8px;
+        }
+</style>
+
+
 <!-- 각종 기능 -->
 <script>
 //영화 삭제시 alert확인
@@ -50,67 +74,70 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br> 
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br> 
 		</div>
 	</aside>
 
 	<article>
 
-		<div>
+		<div class="left">
 			<h1>영화 상세보기</h1>
 		</div>
 
+		<div style="margin:10px;">
+			<img alt="poster" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no() %>" 
+				onerror="this.src='https://placehold.it/400x300?text=IMAGE'" 
+				style="height: 400px; width: 300px;">
+		</div>
+
+
 		<!--영화 리스트 테이블  -->
-		<div class="row center">
-			<table class="table table-border" style="width:80%">
-				<tbody>
-					<tr>
+		<div class="row ">
+			<table class="table2 table left" style=" width: 70%; margin-left:15%;">
+				<tbody >
+					<tr >
 						<th colspan="2">
 						<h1 class="left">
 							<%=movieDto.getMovie_name() %>
 						</h1>
 						</th>
-						<td rowspan="11" class="center" style="width:300px; height:400px;">
-							 <!-- <img src="https://placehold.it/300x400?text=IMAGE"> -->
-							 <img src="../image/movie/<%=movieDto.getMovie_poster() %>">
-						</td>
 					</tr>
-					<tr>
-						<th style="width:10%">평점</th>
-						<td><%=movieDto.getMovie_rate() %></td>
+					<tr >
+						<th style="width:20%; paddin: 1.5rem;">평점</th>
+						<td class="center"><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
 						<th>장르</th>
-						<td><%for(MovieDtoVO genre : genre_name){ %>
+						<td class="center"><%for(MovieDtoVO genre : genre_name){ %>
 								<%=genre.getGenre_name() %>
 							<%} %>
 						</td>
 					</tr>
 					<tr>
 						<th>상영시간</th>
-						<td><%=movieDto.getMovie_time() %></td>
+						<td class="center"><%=movieDto.getMovie_time() %></td>
 					</tr>
 					<tr>
 						<th>등급</th>
-						<td><%=movieDto.getMovie_age() %></td>
+						<td class="center"><%=movieDto.getMovie_age() %></td>
 					</tr>
 					<tr>
 						<th>개봉일</th>
-						<td><%=movieDto.getMovie_date() %></td>
+						<td class="center"><%=movieDto.getMovie_date() %></td>
 					</tr>
 					<tr>
 						<th>국가</th>
-						<td><%=movieDto.getMovie_country() %></td>
+						<td class="center"><%=movieDto.getMovie_country() %></td>
 					</tr>
 					<tr>
 						<th>감독</th>
-						<td><%=movieDto.getMovie_director() %></td>
+						<td class="center"><%=movieDto.getMovie_director() %></td>
 					</tr>
 					<tr>
 						<th>배우</th>
-						<td>
+						<td class="center">
 						주연: <%for(MovieDtoVO actor : main_actor) { %>
 								<%=actor.getActor_name() %>
 							 <%} %>
@@ -122,7 +149,7 @@
 					</tr>
 					<tr>
 						<th>좋아요 수</th>
-						<td>
+						<td class="center">
 							<%for(MovieDtoVO like : mlike){ %>
 								<%=like.getMlike() %>
 							<%} %>	
@@ -130,10 +157,12 @@
 					</tr>
 					<tr>
 						<th>관객 수</th>
-						<td><%=movieDto.getMovie_audience() %></td>
+						<td class="center"><%=movieDto.getMovie_audience() %>
+						</td>
 					</tr>
 					<tr >
-						<th colspan="3">
+						<th colspan="2">
+						<hr>
 						<h4 class="left">줄거리</h4>
 						<p class="left">
 							<%=movieDto.getMovie_content() %>
@@ -141,9 +170,9 @@
 						</th>
 					</tr>
 					<tr>
-						<th colspan="3">
-							<input type="button" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
-							<input type="button" value="삭제" class="movie_delete">
+						<th colspan="2" class="center">
+							<input type="button" class="adbtn blue" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
+							<input type="button" class="adbtn red" value="삭제" class="movie_delete">
 						</th>
 					</tr>
 				</tbody>
@@ -151,7 +180,7 @@
 		</div>
 
 		<!-- 영화리스트로 돌아가기 -->
-		<div class="right">
+		<div class="right" style="margin: 20px">
 			<a href="movieList.jsp">영화리스트로 돌아가기</a>
 		</div>
 		

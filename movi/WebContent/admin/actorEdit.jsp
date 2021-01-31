@@ -18,6 +18,30 @@
 %>
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
+
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+
+
+</style>
+
+
+
 	
 <form action="actorEdit.do" method="post">
 	<div class="outbox" style="width: 100%">
@@ -29,9 +53,9 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br>
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br>
 			</div>
 		</aside>
 
@@ -43,10 +67,7 @@
 
 			<!--영화 추가 테이블  -->
 			<div class="row center">
-				<table class="table table-border" style="width: 80%">
-					<thead>
-						<h4 class="left">배우 정보 수정</h4>
-					</thead>
+				<table class="table table2" style="width: 80%; margin:10%;">
 					<tbody>
 						<tr>
 							<th>배우 번호</th>
@@ -59,12 +80,12 @@
 						<tr>
 							<th style="width:30%">배우 이름</th>
 							<td>
-								<input type="text" name="actor_name" placeholder="<%=actorDto.getActor_name() %>" required>
+								<input type="text" class="row1" name="actor_name" placeholder="<%=actorDto.getActor_name() %>" required>
 							</td>
 						</tr>
 						<tr>
 							<th>주연작품</th>
-							<td>
+							<td style="color:#4E6FA6; font-weight: bold;">
 								<%for(MovieDtoVO actor : main){ %>
 									[<%=actor.getMovie_name() %>]
 								<%} %>	
@@ -81,8 +102,8 @@
 						<tr>
 							<th colspan="2">
 								<div >
-									<input type="submit" value="등록" >
-									<input type="button" value="취소" onclick="location.href='actorList.jsp'">
+									<input type="submit" class="adbtn green" value="등록" >
+									<input type="button" class="adbtn yellow" value="취소" onclick="location.href='actorList.jsp'">
 								</div>
 							</th>
 						</tr>

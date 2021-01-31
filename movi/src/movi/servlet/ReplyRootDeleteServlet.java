@@ -24,7 +24,7 @@ public class ReplyRootDeleteServlet extends HttpServlet {
 			
 			//댓글삭제 메소드
 			ReplyDao replyDao = new ReplyDao();
-			replyDao.deleteRootReply(reply_no);
+			replyDao.deleteRootReply(reply_no); 
 			
 			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p="+p);
 		}

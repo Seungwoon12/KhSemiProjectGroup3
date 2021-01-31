@@ -27,7 +27,6 @@
 </script>
 
 
-
 <div class="outbox" style="width:100%">
     <aside>
    		<div class="row center">
@@ -47,7 +46,7 @@
   		
   	<!--이벤트ㅡ상세보기 테이블  -->	
 		<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table2  table" style="width:80%; margin:10%">
 
 				<tbody>
 				
@@ -71,12 +70,12 @@
 					</tr>
 					<tr>
 						<th>쿠폰종류</th>
-						<td><%=eventDto.getCoupon_name() %></td>
+						<td>꽝,CGV10%할인,영화예매권,바나나우유,비타500,abc초콜릿</td>
 					</tr>					
 					<tr>
 						<td colspan="2">
-							<input type="button" value="수정" onclick="location.href='eventEdit.jsp?event_no=<%=eventDto.getEvent_no()%>'">
-							<input type="button" value="삭제" class="event_delete">
+							<input type="button" class="adbtn blue" value="수정" onclick="location.href='eventEdit.jsp?event_no=<%=eventDto.getEvent_no()%>'">
+							<input type="button" class="adbtn red" value="삭제" class="event_delete">
 						</td>
 					</tr>
 				</tbody>

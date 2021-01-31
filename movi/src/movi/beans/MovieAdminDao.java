@@ -332,5 +332,36 @@ public class MovieAdminDao {
 		
 	}
 
+//포스터 추가하기
+	//update movie set movie_poster = '87.jpg' where movie_no =87;
+	public boolean update(MovieDtoVO movieDto) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "update movie set movie_poster = ? where movie_no =? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, movieDto.getMovie_poster());
+		ps.setInt(2, movieDto.getMovie_no());
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ;
+	}
 	
+	
+	public int lastestUpdate() throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "select * from movie order by movie_no desc";
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		int lastestMovieNum = 0;
+		if(rs.next()) {
+			lastestMovieNum = rs.getInt("movie_no");
+		}
+		
+		return lastestMovieNum;
+	}
 }

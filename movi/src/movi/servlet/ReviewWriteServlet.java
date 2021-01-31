@@ -40,7 +40,7 @@ public class ReviewWriteServlet extends HttpServlet {
 				
 			reviewDao.reviewWrite(reviewDto);
 			
-			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p=1");
+			resp.sendRedirect("detail.jsp?review_no="+review_no+"&p=1"); //새롭게 작성된글이라 무조건 1페이지에 생김
 			
 		}
 		catch(Exception e) {

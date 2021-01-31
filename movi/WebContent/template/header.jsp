@@ -22,10 +22,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css"> 
-<link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> 
-<script src="https://unpkg.com/swiper/js/swiper.js"></script> 
-<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
 
 
@@ -185,7 +181,7 @@ $(document).ready(function(){
       <a href="<%=request.getContextPath()%>">홈</a>
       <!-- 카테고리 처음 들어갔을 때 로맨스 영화로 설정-->
       <a href="/movi/category/main.jsp?movie_genre_no=1">카테고리</a>
-      <a href="<%=request.getContextPath()%>/review/list.jsp">리뷰게시판</a>
+      <a href="<%=request.getContextPath()%>/review/list.jsp">리뷰Talk</a>
       <%if(isLogin){ %>
       <!--로그인했을때---->
       <a href="<%=request.getContextPath()%>/member/my.jsp">마이페이지</a><%} %>

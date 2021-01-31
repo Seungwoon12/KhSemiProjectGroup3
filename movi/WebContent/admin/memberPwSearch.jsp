@@ -73,7 +73,7 @@
 <div class="outbox" style="width: 100%">
 	<aside>
 		<div class="row center">
-			<h2 style="color: deepskyblue;">회원 관리</h2>
+			<h2 style="color: #4B89DC;">회원 관리</h2>
 		</div>
 		<div class="left">
 				<a href="memberList.jsp">회원리스트 </a><br> <br>
@@ -89,19 +89,19 @@
 		</div>
 
 		
-<div class="outbox center" style="width: 800px">
+<div class="outbox center" style="width: 800px ; margin-top:2rem;">
   	<!-- 회원 검색창 -->
   		<div>
   			<h1>회원 검색</h1>
   		</div>
   		<div>
   			<form action="memberPwSearch.jsp" method="post">
-  				<select name="type">
+  				<select name="type" class="padding">
 					<option value="member_no">회원 번호</option>
 					<option value="member_id">아이디</option>
   				</select>
-  				<input type="text" name="key" placeholder="검색어를 입력하세요" required>
-  				<input type="submit" value="검색">
+  				<input type="text" name="key" class="padding" placeholder="검색어를 입력하세요" required>
+  				<input type="submit" value="검색" class="padding1">
   			</form>
   		</div>
   		
@@ -119,7 +119,7 @@
 <!-- 검색결과가 있는 경우 --> 
   	<!--멤버 리스트 테이블  -->	
 	<div class="row">
-		<table class="table1" style="width:790px">
+		<table class="table1" style="width:790px ; margin-top:2rem;">
 			<thead>
 				<tr>
 					<th>회원번호</th>
@@ -147,11 +147,6 @@
 	</div>
  <%} %>
 </div>			
-			
-		<!-- 선택된 회원 삭제버튼 -->
-		<div class="right">
-				<input type="button" value="선택된 회원 삭제">
-		</div>
 
 		<!-- 페이지 네비게이션 -->
 		<div class="row center">

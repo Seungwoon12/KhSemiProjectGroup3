@@ -159,7 +159,7 @@ public class ReplyDao {
 		con.close();
 	}
 	
-	//댓글삭제(댓글을 DB에서 삭제시키면 안될듯....)
+	//댓글삭제
 	public void deleteReply(int reply_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "delete reply where reply_no=?";
@@ -171,16 +171,18 @@ public class ReplyDao {
 		
 	}
 	
-	//댓글 삭제시 그 댓글의 reply_parent를 -1로 변경하고 reply_content를 "삭제된 댓글입니다"로 변경
+	//댓글 및 부모댓글 삭제시 메소드(자식댓글이 있는 경우 자식댓글까지 같이 사라짐)
 	public void deleteRootReply(int reply_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		String sql = "update reply set reply_parent = -1, reply_content= '삭제된 댓글입니다.' where reply_no =?";
+		String sql = "delete reply where reply_root = ?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, reply_no);
 		ps.execute();
 		
 		con.close();
 	}
+	
+	
 	
 	
 	

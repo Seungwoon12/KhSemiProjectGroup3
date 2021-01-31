@@ -16,6 +16,59 @@
 		
 %>
 
+<style>
+	textarea{
+		resize:none;
+	}
+	
+	.box{
+		border:1px solid lightgray;
+	}
+	.edit-btn, .cancel-btn{
+		font-size: 16px;
+		padding:0.5rem;
+		background-color:#4E6FA6;
+		color:white;
+		border-radius:4px;
+		border:none;
+		cursor:pointer;
+	}
+	
+</style>
+
+<script>
+	$(function(){
+		//수정완료 버튼 클릭시 값 여부 체크
+		$(".edit-btn").click(function(e){
+			
+			var title = document.querySelector("input[name=review_title]").value;
+			var content = document.querySelector("textarea[name=review_content]").value;
+			
+			if(!title) {
+				e.preventDefault();
+				alert("제목을 입력하세요");
+			}
+			else if(!content) {
+				e.preventDefault();
+				alert("내용을 입력하세요");
+			}
+			
+		});
+		
+		//취소하기 버튼 클릭시 해당 게시글이 있던 목록 페이지로 이동
+		$(".cancel-btn").click(function(){
+			var confirm = window.confirm("게시글 수정을 취소하시겠습니까?");
+			
+			if(confirm) {
+				location.href = "list.jsp?review_no=<%=review_no%>&p=<%=p%>";
+			}
+			
+			
+		});
+		
+	});
+
+</script>
 
 
 
@@ -31,15 +84,17 @@
 			
 			<div class="row">	
 				<label>제목</label>
-				<input type="text" name="review_title" class="input" value="<%=reviewDto.getReview_title()%>">
+				<input type="text" name="review_title" class="input box" value="<%=reviewDto.getReview_title()%>">
 			</div>
 			<div class="row">
 				<label>내용</label>
-				<textarea name="review_content" rows="20" class="input" ><%=reviewDto.getReview_content()%></textarea>
+				<textarea name="review_content" rows="20" class="input box"><%=reviewDto.getReview_content()%></textarea>
 			</div>
 			<div class="row center">
-				<input type="submit" value="수정완료" class="input input-inline" style="width:70px;">	
+				<input type="button" value="취소하기" class="input input-inline cancel-btn">
+				<input type="submit" value="수정완료" class="input input-inline edit-btn">	
 			</div>
+			
 		</form>
 </div>
 

@@ -11,16 +11,50 @@
 	MemberAdminDao memberDao = new MemberAdminDao();
 	MemberAdminDtoVO memberDto = memberDao.SelectAll_admin(member_no); 
 
-//선호 장르 불러오기
-	MygenreDao mygenreDao = new MygenreDao();
-	List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
-	List<String> mygenre_list = new ArrayList<>();
-	GenreDao genreDao = new GenreDao();
-	for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
-		mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
-	}
-
+	//선호 장르 불러오기
+		MygenreDao mygenreDao = new MygenreDao();
+		List<MygenreDtoVO> mygenre_DtoVO_list = mygenreDao.find_no(member_no);
+		List<String> mygenre_list = new ArrayList<>();
+		GenreDao genreDao = new GenreDao();
+		for(MygenreDtoVO mygenreDtoVO : mygenre_DtoVO_list){
+			mygenre_list.add(genreDao.find(mygenreDtoVO.getMygenre_genre_no()));
+		}
+	
 %>
+
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+
+		.back{
+			background-color: lightblue;
+		}
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+		.table > thead > tr > th,
+		.table > thead > tr > td,
+		.table > tbody > tr > th,
+		.table > tbody > tr > td,
+		.table > tfoot > tr > th,
+		.table > tfoot > tr > td
+		{
+ 		   padding: 1rem;
+ 		   text-align: center;
+		}
+
+</style>
 
 <!-- 각종 기능 -->
 <script>
@@ -75,7 +109,7 @@
   		
   	<!--멤버 상세보기 테이블  -->	
 		<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table2 table " style="width:80%; margin-left: 10%">
 
 				<tbody>
 				
@@ -121,8 +155,8 @@
 					
 					<tr>
 						<td colspan="2">
-							<input type="button" value="수정"  onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
-							<input type="button" value="삭제" class="member_delete">
+							<input type="button" value="수정" class="adbtn blue"  onclick="location.href='memberEdit.jsp?member_no=<%=memberDto.getMember_no()%>'">
+							<input type="button" value="삭제" class="adbtn red member_delete">
 						</td>
 					</tr>
 				</tbody>
@@ -131,7 +165,7 @@
 			
 			
 			<!-- 회원리스트로 돌아가기 -->
-		<div class="right">
+		<div class="right " style="margin:1rem;">
 			<a href="memberList.jsp">회원리스트로 돌아가기</a>
 		</div>
 		

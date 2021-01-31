@@ -1,5 +1,6 @@
 package movi.beans;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +54,31 @@ public class ActorAdminDao {
 	}
 	
 //배우 삭제하기 - /admin/actorDelete.do
-	//public boolean delete_admin(int )
+	public boolean delete_admin(int actor_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "delete actor where actor_no = ? ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, actor_no);
+		int count = ps.executeUpdate();
+		
+		con.close();
+		
+		return count > 0 ; 
+	}
+	
+//배우 추가하기 - /admin/actorInsert.jsp
+	public void insert_admin(ActorDto actorDto) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into actor values(actor_seq.nextval, ?) ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, actorDto.getActor_name());
+		ps.execute();
+		
+		con.close();
+		
+	}
 	
 	
 //배우 상세보기- admin/actorDetail.jsp
@@ -194,4 +219,26 @@ public class ActorAdminDao {
 
 	
 //	
+	public void insert_main_actor(int movie_no, int actor_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into actor_con values(?, ?, '주연') ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ps.setInt(2, actor_no);
+		ps.execute();
+		
+		con.close();
+	}
+	public void insert_sub_actor(int movie_no, int actor_no) throws Exception{
+		Connection con = JdbcUtil.getConnection(USER, PASS);
+		
+		String sql = "insert into actor_con values(?, ?, '조연') ";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, movie_no);
+		ps.setInt(2, actor_no);
+		ps.execute();
+		
+		con.close();
+	}
 }

@@ -78,13 +78,12 @@ outline:0;
     	  //아이디중복확인
    function id_check(){
     			
-    			//1. 아이디가 없으면 알림창과 진행x
+    			// 아이디작성x
     			if(document.join.member_id.value =="" || document.join.member_id.value.length < 0){
     				alert("아이디를 먼저 입력해주세요")
     				document.join.member_id.focus();
     			}else{
-    				//2. 회원정보아이디를 가지고 있는 지 체크
-    				window.open("joinfail.jsp?member_id="+document.join.member_id.value,"","width=500, height=300");
+    				window.open("joinfail.jsp?member_id="+document.join.member_id.value,"","width=300, height=250");
     			}
     		}
 

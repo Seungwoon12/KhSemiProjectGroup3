@@ -17,7 +17,8 @@ import movi.beans.ReviewDao;
 import movi.beans.ReviewDto;
 
 @WebFilter(urlPatterns= {
-		"/review/edit.jsp", "/review/edit.do", "/review/delete.do"
+		"/review/edit.jsp", "/review/edit.do", "/review/delete.do",
+		"/review/noticeEdit.jsp", "/review/notice_edit.do", "/review/notice_delete.do"
 })
 public class ReviewFilter implements Filter {
 	@Override

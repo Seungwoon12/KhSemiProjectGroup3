@@ -1,3 +1,4 @@
+
 package movi.beans;
 
 import java.sql.Connection;
@@ -61,6 +62,7 @@ public class MemberDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, dto.getMember_id());
 			ps.setString(2, dto.getMember_pw());
+
 			ResultSet rs = ps.executeQuery();
 
 	//데이터는 있거나 없거나 둘중 하나

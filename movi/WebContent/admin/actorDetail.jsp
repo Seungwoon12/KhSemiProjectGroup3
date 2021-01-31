@@ -19,6 +19,47 @@
     
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+
+
+</style>
+
+<!-- 각종 기능 -->
+<script>
+//영화 삭제시 alert확인
+	window.onload= function(){
+		document.querySelector(".actor_delete").addEventListener("click", function(){
+			
+			var check = window.confirm("영화를 삭제하시겠습니까?");
+			if(check){
+				location.href="<%=request.getContextPath()%>/admin/actorDelete.do?movie_no=<%=actorDto.getActor_no()%>" ;
+			}else{
+				location.href= "<%=request.getContextPath()%>/admin/actorList.jsp" ;
+			}
+		});
+	}; 
+	
+
+</script>
+
+
+
 <div class="outbox" style="width: 100%">
 	<aside>
 		<div class="row center">
@@ -28,9 +69,9 @@
 			<a href="movieList.jsp"> 영화리스트 </a><br><br> 
 			<a href="movieInsert.jsp"> 영화 등록 </a><br><br>
 			<a href="actorList.jsp"> 배우 리스트 </a><br><br>
-			<a href="#"> 배우 등록 </a><br><br>
-			<a href="#"> 3조 추천 영화 리스트 </a><br><br>
-			<a href="#"> 3조 추천 영화 등록 </a><br><br> 
+			<a href="actorInsert.jsp"> 배우 등록 </a><br><br>
+			<a href="recomList.jsp"> 3조 추천 영화 리스트 </a><br><br>
+			<a href="recomInsert.jsp"> 3조 추천 영화 등록 </a><br><br> 
 		</div>
 	</aside>
 
@@ -42,10 +83,10 @@
 
 		<!--배우 상세보기 테이블  -->
 		<div class="row center">
-			<table class="table table-border" style="width:80%">
+			<table class="table table2" style="width:80%; margin:10%">
 				<tbody>
 					<tr>
-						<th style="width:10%">배우 번호</th>
+						<th style="width:20%">배우 번호</th>
 						<td><%=actorDto.getActor_no() %></td>
 					</tr>
 					<tr>
@@ -73,8 +114,8 @@
 
 					<tr>
 						<th colspan="3">
-							<input type="button" value="수정" id="movieEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
-							<input type="button" value="삭제" class="movie_delete">
+							<input type="button" class="adbtn blue" value="수정" id="actorEdit" onclick="location.href='actorEdit.jsp?actor_no=<%=actorDto.getActor_no()%>'">
+							<input type="button" class="adbtn red" value="삭제" class="actor_delete">
 						</th>
 					</tr>
 				</tbody>

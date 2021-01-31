@@ -18,6 +18,7 @@
 	      background-image: url(../img/search.jpg);
 	      background-size: contain;
 	      background-repeat: no-repeat; 
+	      border:1px solid lightgray;
 	}
 	
 		.main,
@@ -39,6 +40,32 @@
         	padding :0.5rem;
         	display: none;
         }
+        
+        .search-btn{
+        	cursor:pointer;
+        	border-radius:4px;
+			padding: 9px 16px;
+			font-size: 18px;
+			/*padding:0.5rem;*/
+			background-color: #4E6FA6;
+			color:white;
+			border:none;
+        }
+        #regist-btn{
+        	cursor:pointer;
+        	border-radius:4px;
+			font-size: 18px;
+			width:100px;
+			padding:0.5rem;
+			background-color: #4E6FA6;
+			color:white;
+			border:none;
+        }
+        textarea{
+			resize: none;        
+        }
+       
+      
 
 </style>
 
@@ -99,19 +126,19 @@
 </script>
 
 
-<div class="outbox">
+<div class="outbox" style="width:1100px;">
 	<div class="row center">
 		<h2>영화명을 입력한 후 해당하는 영화를 선택해주세요.</h2>
 	</div>
 	
 	<div class="row center">
 		<form action="write.jsp" method="get">
-			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." style="width:350px">
-			<input type="submit" value="검색" class="input input-inline">
+			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." style="width:350px; height:40px">
+			<input type="submit" value="검색" class="input input-inline search-btn">
 		</form>
 	</div>
 	
-</div>		
+		
 
 <ul class="main movie_list">
 	
@@ -150,17 +177,18 @@
 	<div class="outbox write-form">	
 		<input id="movie_selected_no" type="hidden" name="movie_selected_no">
 		<div class="row">
-			<input type="text" name="review_title" class="input" placeholder="제목을 입력해주세요.">
+			<input type="text" name="review_title" class="input" placeholder="제목을 입력하세요." style="border:1px solid lightgray;">
 		</div>
 		<div class="row">
-			<textarea name="review_content" rows="20" class="input" placeholder="내용을 입력하세요."></textarea>
+			<textarea name="review_content" rows="20" class="input" placeholder="내용을 입력하세요." style="border:1px solid lightgray;"></textarea>
 		</div>
 		<div class="row center">
-			<input type="button" value="취소" class="input input-inline">
-			<input id="regist-btn" type="submit" value="등록" class="input input-inline">	
+			<input id="regist-btn" type="submit" value="등록하기" class="input input-inline">	
 		</div>
 	</div>
 </form>
+
+</div>
 
 
 

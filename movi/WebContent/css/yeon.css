@@ -1,21 +1,17 @@
      .outbox {
-         border: 1px solid black;
          width: 1000px;
      }
 
      .header {
          padding: 1rem;
-         border: 1px solid black;
      }
 
      .nav {
          padding: 1rem;
-         border: 1px solid black;
      }
 
      .aside {
          padding: 1rem;
-         border: 1px solid black;
          width: 15%;
          height: 400px;
          float: left;
@@ -23,7 +19,6 @@
 
      .section {
          padding: 1rem;
-         border: 1px solid black;
          width: 85%;
          height: 400px;
          float: right;
@@ -31,7 +26,6 @@
 
      .footer {
          padding: 1rem;
-         border: 1px solid black;
      }
 
      .float-box::after {
@@ -57,6 +51,7 @@
             border-radius: 10px;
             transition: all 0.1s;
             text-decoration: none;
+           	cursor: pointer;
         }
 
         .abtn:active {
@@ -122,7 +117,19 @@
             border: 2px solid #1aa006;
             background-color: #1aa006;
         }
+        .abtn.orange {
+            color: #ffa500;
+            border: 2px solid #ffa500;
+            background-color: white;
+        }
 
+        .abtn.orange:hover  {
+            color: white;
+            border: 2px solid #ffa500;
+            background-color: #ffa500;
+        }        
+        
+        
      /*테이블 게시판 형식*/
      .table1 {
          border-collapse: collapse;
@@ -165,5 +172,84 @@
          caption-side: bottom;
          display: none;
      }
+     
+      .table2 {
+         border: 1px solid gray;
+         padding: 0.5rem;
+        }
+	/*버튼에 대한 설정*/
+	
+	.adbtn {
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	margin: 3px;
+	cursor: pointer;
+	border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.1s;
+    
+}
 
- 
+	.adbtn.blue{
+	background-color: #489CFF;
+	border: 2px solid #489CFF;
+	color: white;
+	}
+
+	.adbtn.blue:hover,
+	.adbtn.blue:active {
+	background-color: white;
+	color: #489CFF;
+}
+
+	.adbtn.red{
+	background-color: #f64c49;
+	border: 2px solid #f64c49;
+	color: white;
+	}
+
+	.adbtn.red:hover,
+	.adbtn.red:active {
+	background-color: white;
+	color: #f64c49;
+}	
+
+	.adbtn.gray{
+	background-color: #666666;
+	border: 2px solid #666666;
+	color: white;	
+	}
+	
+	.adbtn.gray:hover,
+	.adbtn.gray:active {
+	background-color: white;
+	color: #666666;
+}	
+
+	.adbtn.green{
+	background-color: #1aa006;
+	border: 2px solid #1aa006;
+	color: white;
+	}
+
+	.adbtn.green:hover,
+	.adbtn.green:active {
+	background-color: white;
+	color: #1aa006;
+}	
+
+	.adbtn.yellow{
+	background-color: #ffd000;
+	border: 2px solid #ffd000;
+	color: white;	
+	}
+	
+	.adbtn.yellow:hover,
+	.adbtn.yellow:active {
+	background-color: white;
+	color: #ffd000;
+}	
+	
