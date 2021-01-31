@@ -62,19 +62,23 @@ border-radius:10px;
         	  alert("-를 제외한 전화번호 전체를 입력해주세요");
               return false;
     	  }
+    	  var chkList = document.querySelectorAll("input[name=genre]:checked");
+    	  chkList.forEach(function (ch) {
+    	      console.log(ch.value);
+    	  });
     	  
-    	  
-   	  var chk_arr = $("input[name='genre[]']");
+  // 	  var chk_arr = $("input[name='genre[]']");
 
-         var chk_data = [];
-         for( var i=0; i<chk_arr.length; i++ ) {
-         if( chk_arr[i].checked == true ) {
-                  chk_data.push(chk_arr[i].value);
-          return false; 
-              }
-          }
-}
-
+//         var chk_data = [];
+ //        for( var i=0; i<chk_arr.length; i++ ) {
+  //       if( chk_arr[i].checked == true ) {
+  //                chk_data.push(chk_arr[i].value);
+  //        return false; 
+//}
+    //      }
+//}
+  
+      }
  //   	  var checkArr=[];
 //    	  $("input[name=genre]:checked").each(function() { 
 //		         checkArr.push($(this).val());

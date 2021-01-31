@@ -26,8 +26,8 @@
    <h2>비밀번호 재설정</h2></div>
 <form action="pw_find.do" method="get">
   <div align="center">
- <p>아이디</p><input type="text"  name="member_id"  id="id" placeholder="아이디를 입력해주세요" required class="outbox" style="height:50px; width:430px; "></input>
-<p>전화번호</p><input type="tel"  name="member_phone" id="phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요." required class="outbox" style="height:50px; width:430px;"></input>
+ <p><font color="#3B83BD" size="5">1</font>아이디</p><input type="text"  name="member_id"  id="id" placeholder="아이디를 입력해주세요" required class="outbox" style="height:50px; width:430px; "></input>
+<p><font color="#3B83BD" size="5">2</font>전화번호</p><input type="tel"  name="member_phone" id="phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요." required class="outbox" style="height:50px; width:430px;"></input>
   </div>
   <br><br>
           <br><br>
