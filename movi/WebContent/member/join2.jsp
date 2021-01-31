@@ -56,6 +56,19 @@ outline:0;
         	  alert("전화번호형식이 틀립니다");
               return false;
     	  }
+    	  
+    	  
+    	  var chk_arr = $("input[name='genre[]']");
+
+          var chk_data = [];
+          for( var i=0; i<chk_arr.length; i++ ) {
+              if( chk_arr[i].checked == true ) {
+                  chk_data.push(chk_arr[i].value);
+                  return false; 
+              }
+          }
+
+
  //   	  var checkArr=[];
 //    	  $("input[name=genre]:checked").each(function() { 
 //		         checkArr.push($(this).val());
@@ -86,7 +99,7 @@ outline:0;
 			<label>아이디</label>
 			<br>
 			<input type="text" name="member_id" id="id" required  class="row" placeholder="4~12자의 영문/ 대소문자/숫자 입력"  style="height:50px; width:380px" >
-			<button type="button" class="id_button" onclick="id_check()">중복체크</button>
+			<button type="button" class="id_check" style="height:50px;" onclick="id_check()">중복체크</button>
 		</div>
 	        <br>
 		<div align="center">

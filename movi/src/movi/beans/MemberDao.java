@@ -32,7 +32,7 @@ public class MemberDao {
 		
 		con.close();
 	}
-
+//아이디중복
 	public boolean confirm(String id) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		
@@ -51,27 +51,6 @@ public class MemberDao {
 	}
 	
 	
-	
-	// 아이디 중복
-	public int IdExist (String id) throws Exception {
-		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-		int result = 0;
-
-		String sql = "select * from Member where member_id = ?";
-		try(
-		PreparedStatement ps = con.prepareStatement(sql);
-				){
-			ps.setString(1, id);
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()){	
-				result = 1;
-			}else{
-				result = 0;
-			}				
-			}
-		return result;
-		};
-
 
 	    //로그인
 
