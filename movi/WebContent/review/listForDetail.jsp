@@ -14,7 +14,7 @@
 
 <%
 	//페이지당 보여줄 게시글 목록 개수
-	int reviewSize = 10;
+	int reviewSize = 15;
 	int p;
 	try{
 		p = Integer.parseInt(request.getParameter("p"));
@@ -61,8 +61,15 @@
    	int count = reviewDao.detailCount(movie_no);
    	
    	
-   	// 필요한 페이지 개수
-   	int pageSize = (count + pageNavSize - 1) / pageNavSize;
+ 	// 필요한 페이지 개수
+   	// 페이지당 15개씩 보여주는거라 수정
+   	int pageSize; 
+   	if(count % reviewSize == 0) {
+   		pageSize = count / reviewSize;
+   	}
+   	else {
+   		pageSize = count / reviewSize +1;
+   	}
    	
    	//페이지 마지막번호가 필요한 페이지 개수보다 클 경우 페이지 마지막번호를 필요한 페이지 개수로 설정해준다.
    	if(endNum > pageSize) {
