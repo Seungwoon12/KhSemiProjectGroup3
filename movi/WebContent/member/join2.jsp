@@ -18,7 +18,13 @@ border-radius:1.5em;
 border:0;
 outline:0;
 }
-
+.id_check{
+background-color: white; 
+color: black; 
+border: 2px solid #008CBA;
+height:50px; 
+border-radius:10px;
+}
 </style>
 
  <script>
@@ -37,7 +43,7 @@ outline:0;
               alert( "비밀번호가 일치하지않습니다" );
               return false;
          }
-          var regexpw = /^[a-zA-Z0-9!@#$]{8,16}$/;
+          var regexpw = /^[a-zA-Z0-9?!@#$*]{8,16}$/;
           if(!regexpw.test(pw1)){
         	 alert("비밀번호는 8~20자 영문,숫자,특수문자조합으로 작성하세요");
               return false;
@@ -56,19 +62,23 @@ outline:0;
         	  alert("-를 제외한 전화번호 전체를 입력해주세요");
               return false;
     	  }
+    	  var chkList = document.querySelectorAll("input[name=genre]:checked");
+    	  chkList.forEach(function (ch) {
+    	      console.log(ch.value);
+    	  });
     	  
-    	  
-   	  var chk_arr = $("input[name='genre[]']");
+  // 	  var chk_arr = $("input[name='genre[]']");
 
-         var chk_data = [];
-         for( var i=0; i<chk_arr.length; i++ ) {
-         if( chk_arr[i].checked == true ) {
-                  chk_data.push(chk_arr[i].value);
-          return false; 
-              }
-          }
-}
-
+//         var chk_data = [];
+ //        for( var i=0; i<chk_arr.length; i++ ) {
+  //       if( chk_arr[i].checked == true ) {
+  //                chk_data.push(chk_arr[i].value);
+  //        return false; 
+//}
+    //      }
+//}
+  
+      }
  //   	  var checkArr=[];
 //    	  $("input[name=genre]:checked").each(function() { 
 //		         checkArr.push($(this).val());
@@ -83,7 +93,7 @@ outline:0;
     				alert("아이디를 먼저 입력해주세요")
     				document.join.member_id.focus();
     			}else{
-    				window.open("joincheck.jsp?member_id="+document.join.member_id.value,"","width=300, height=250");
+    				window.open("joincheck.jsp?member_id="+document.join.member_id.value,"","width=350, height=250");
     			}
     		}
 
@@ -92,41 +102,40 @@ outline:0;
 <form action="join.do" method="post" name="join" onsubmit="return check();">
 
 	<div  class="outbox" align="center">
-			<h1>회원 가입</h1>
-	</div>
+			<h1>회원 가입</h1>  
 		<div align="center">
-			<label>아이디</label>
-			<br>
+			 <font color="#3B83BD" size="5" style="text-align:left" >01</font> <font size="3" style="text-align:left">아이디</font>
+	    </div>
 			<input type="text" name="member_id" id="id" required  class="row" placeholder="4~12자의 영문/ 대소문자/숫자 입력"  style="height:50px; width:380px" >
-			<button type="button" class="id_check" style="height:50px;" onclick="id_check()">중복체크</button>
+			<button type="button" class="id_check"  onclick="id_check()">중복체크</button>
 		</div>
 	        <br>
 		<div align="center">
-			<label>비밀번호</label>
+			<font color="#3B83BD" size="5">02</font> <font size="3">비밀번호</font>
 		    <br>
 			<input type="password"  name="member_pw" id="pw1" required class="row" placeholder="4~20자의 영문/ 대소문자/숫자 입력" style="height:50px; width:460px">
 		</div>
 			<br>
 			<div align="center">
-			<label>비밀번호확인</label>
+			<font color="#3B83BD" size="5">03</font> <font size="3">비밀번호확인</font>
 			<br>
 			<input type="password"  name="member_pw2" id="pw2" required class="row"  placeholder="4~20자의 영문/ 대소문자/숫자 입력" style="height:50px; width:460px">
 		</div>
 			<br>
 			<div align="center">
-			<label>닉네임</label>
+			<font color="#3B83BD" size="5">04</font> <font size="3">닉네임</font>
 			<br>
 			<input type="text" name="member_nick" id="nick" required class="row"   placeholder="한글 2~10자" style="height:50px; width:460px">
 		</div>
 		   <br>
 			<div align="center">
-			<label>전화번호</label>
+			<font color="#3B83BD" size="5">05</font> <font size="3">전화번호</font>
 			<br>
-			<input type="tel" name="member_phone" id="phone" class="row" placeholder="선택사항/'-'제외.아이디 비밀번호 찾기시 사용될 수 있습니다" style="height:50px; width:460px">
+			<input type="tel" name="member_phone" id="phone" required class="row" placeholder="-제외.아이디 비밀번호 찾기시 사용될 수 있습니다" style="height:50px; width:460px">
 		</div>
 		<br>	
 			<div align="center">
-		<label>장르체크(선택사항)</label>
+		<font color="#3B83BD" size="5">06</font> <font size="3">선택사항</font>
                 <br>
                 <input type="checkbox"  name="genre" value="로맨스" >로맨스
                 <input type="checkbox"  name="genre" value="뮤지컬" >뮤지컬
