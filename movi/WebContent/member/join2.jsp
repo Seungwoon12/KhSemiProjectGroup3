@@ -18,7 +18,13 @@ border-radius:1.5em;
 border:0;
 outline:0;
 }
-
+.id_check{
+background-color: white; 
+color: black; 
+border: 2px solid #008CBA;
+height:50px; 
+border-radius:10px;
+}
 </style>
 
  <script>
@@ -97,7 +103,7 @@ outline:0;
 			 <font color="#3B83BD" size="5" style="text-align:left" >01</font> <font size="3" style="text-align:left">아이디</font>
 	    </div>
 			<input type="text" name="member_id" id="id" required  class="row" placeholder="4~12자의 영문/ 대소문자/숫자 입력"  style="height:50px; width:380px" >
-			<button type="button" class="id_check" style="height:50px;" onclick="id_check()">중복체크</button>
+			<button type="button" class="id_check"  onclick="id_check()">중복체크</button>
 		</div>
 	        <br>
 		<div align="center">
