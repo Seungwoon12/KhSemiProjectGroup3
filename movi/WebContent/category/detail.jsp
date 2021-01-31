@@ -117,7 +117,7 @@
 			<%=date%> ・ <%=dto.getGenre_name()%> ・ <%=dto.getMovie_country()%> ・ <%=dto.getMovie_age() %>
 			</div>
 			<div>
-			<h4>평점 ★(<%=dto.getMovie_rate()%>/5.0)</h4>
+			<h4>평점 ★(<%=dto.getMovie_rate()%>/10.0)</h4>
 			</div>
 		</div>
 	</div>
