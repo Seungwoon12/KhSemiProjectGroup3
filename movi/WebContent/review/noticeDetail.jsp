@@ -35,6 +35,8 @@
 	String auth = (String)session.getAttribute("auth");
 	boolean isAdmin = auth.equals("관리자");
 	
+	boolean isWriter = noticeDto.getNotice_auth_no() == member_no;
+	
 	
 	
 	//조회수 중복방지(게시글번호 세션에 저장)
@@ -472,8 +474,8 @@
 	 		<%if(noticeReplyVO.getReply_depth() == 0 ) { %>
 	 		<div class="row reply">
 	 			<div class="row">
-	 			<%if(isAdmin) {%>
-	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(관리자)</span>
+	 			<%if(noticeDto.getNotice_auth_no() == noticeReplyVO.getReply_writer_no()) {%>
+	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(작성자)</span>
 	 			<%} else { %>
 	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span>
 	 			<%} %>
@@ -563,8 +565,8 @@
 	 		<%} else if(noticeReplyVO.getReply_depth() == 1) { %>
 	 		<div class="row reply2" style="margin-left:70px">
 	 			<div class="row">
-	 			<%if(isAdmin) { %>
-	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(관리자)</span>
+	 			<%if(noticeDto.getNotice_auth_no() == noticeReplyVO.getReply_writer_no()) { %>
+	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(작성자)</span>
 	 			<%} else { %>
 	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span>
 	 			<%} %>
@@ -674,9 +676,9 @@
 	 					
 	 			%>
 	 			<div class="row">
-	 				<%if(isAdmin) { %>
-	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(관리자)</span><span> -> </span><span style="font-weight:bold;"><%=parent_nick%></span>
-	 				<%}else if(isAdmin) { %>	
+	 				<%if(noticeDto.getNotice_auth_no() == noticeReplyVO.getReply_writer_no()) { %>
+	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%></span><span style="color:red;">(작성자)</span><span> -> </span><span style="font-weight:bold;"><%=parent_nick%></span>
+	 				<%}else if(noticeDto.getNotice_auth_no() == parent_writer_no) { %>	
 	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%> -> </span><span style="font-weight:bold;"><%=parent_nick%></span><span style="color:red;">(작성자)</span>
 	 				<%}else{ %>
 	 				<span style="font-weight:bold;"><%=noticeReplyVO.getMember_nick()%> -> </span><span style="font-weight:bold;"><%=parent_nick%></span>
