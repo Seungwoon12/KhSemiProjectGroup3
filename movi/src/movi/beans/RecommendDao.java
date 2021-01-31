@@ -31,7 +31,8 @@ public class RecommendDao {
 	public List<RecommendDto> select_title() throws Exception{
 		Connection con = JdbcUtil.getConnection(USER, PASS);
 		
-		String sql = "select recom_title from recommend group by recom_title"; 
+		String sql = "select M.recom_title,rownum from( " + 
+				"select recom_title from recommend group by recom_title)M"; 
 		PreparedStatement ps = con.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
@@ -39,6 +40,7 @@ public class RecommendDao {
 		while(rs.next()) {
 			RecommendDto dto = new RecommendDto();
 			dto.setRecom_title(rs.getString("recom_title"));
+			dto.setRecom_no(rs.getInt("rownum"));
 			list.add(dto);
 		}
 		con.close();
