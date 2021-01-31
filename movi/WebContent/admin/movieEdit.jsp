@@ -32,7 +32,10 @@
 			padding:1rem;
             font-size:18px;			
 		}
-
+		label{
+			font-size: 15px;
+			color:gray;
+		}
 </style>
 
     
@@ -90,6 +93,7 @@
 						<tr>
 							<th>장르</th>
 							<td>
+							<label>1:로맨스, 2:범죄, 3:뮤지컬, 4:애니, 5:액션, 6:판타지, 7:역사극,<br> 8:전쟁, 9:코미디, 10:SF</label>
 								<input type="text" class="row1" name="movie_genre_no" placeholder="<%=movieDto.getMovie_genre_no() %>" required>
 							</td>
 						</tr>
@@ -100,7 +104,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>평점</th>
+							<th>평점(/10.0)</th>
 							<td>
 								<input type="text" class="row1" name="movie_rate" placeholder="<%=movieDto.getMovie_rate() %>" required>							
 							</td>

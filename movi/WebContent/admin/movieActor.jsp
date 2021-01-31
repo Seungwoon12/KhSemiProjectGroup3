@@ -27,14 +27,14 @@ $(function(){
 </script>
     <script id="template1" type="text/template"> 
         <div>
-            <input class="input" type="text" name="main_actor">
-			<input type="button" class="delete" value="삭제">
+            <input class="row1" type="text" name="main_actor">
+			<input type="button" class="delete adbtn red" value="X">
         </div>
     </script>
     <script id="template2" type="text/template"> 
         <div>
-            <input class="input" type="text" name="sub_actor">
-			<input type="button" class="delete" value="삭제">
+            <input class="row1" type="text" name="sub_actor">
+			<input type="button" class="delete adbtn red" value="X">
         </div>
     </script>
 <style>
@@ -63,21 +63,22 @@ $(function(){
 			
 		<form action="actorConInsert1.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%; margin:10%">
+				<table class="table2  table" style="width: 80%; margin:10%">
 					<thead>
 						<h1 class="left">영화 배우 추가하기(배우 고유번호로 입력하세요)</h1>
 						<input type="hidden" name="movie_no" value="<%=movie_no%>">
 					</thead>
 					<tbody>
 						<tr>
+						
 							<th style="width:30%">주연 배우</th>
 							<td>
 							<div>
 								<div>
-									<input class="input" type="text" name="main_actor">
-									<input type="button" class="delete" value="삭제">
+									<input class="row1" type="text" name="main_actor">
+									<input type="button" class="delete  adbtn red" value="X">
 								</div>
-								<input type="button" class="add1" style="display:block" value="추가">
+								<input type="button" class="add1 adbtn gray" style="display:block" value="추가">
 							</div>
 							</td>
 						</tr>
@@ -86,15 +87,16 @@ $(function(){
 							<td>
 								<div>
 									<div>
-										<input class="input" type="text" name="sub_actor">
-										<input type="button" class="delete" value="삭제">
+										<input class="row1" type="text" name="sub_actor">
+										<input type="button" class="delete  adbtn red" value="X">
 									</div>
-									<input type="button" class="add2" style="display:block" value="추가">
+									<input type="button" class="add2  adbtn gray" style="display:block" value="추가">
 								</div>
 							</td>
 						</tr>
 						<tr >
 							<td colspan="2">
+							<hr>
 								<input type="submit" class="adbtn green" value="등록">
 								<input type="button" class="adbtn yellow" value="취소" onclick="location.href='movieList.jsp'">
 							</td>
