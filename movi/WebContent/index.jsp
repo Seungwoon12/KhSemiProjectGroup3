@@ -319,7 +319,7 @@
      });
        
      $(document).ready(function(){
-    	 $(".event-wrapper").show();
+    	 //$(".event-wrapper").show();
     	 //이거 리뷰랑 마이페이지에도 넣기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     	 $("nav>a:nth-child(1)").addClass("navstyle");
      });
@@ -371,7 +371,7 @@
 			<div class="row recom swiper-wrapper">
 				<%for(RecommendDto recomdto : recomList){%>
 					<div class="movie movie_recom swiper-slide">
-						<img class="hov hova" src="poster-down.do?recom_no=<%=recomdto.getRecom_no()%>">
+						<img class="hov hova" src="recom_poster/<%=recomdto.getRecom_no()%>.jpg">
 						
 						<h1 class="h hov1">
 								#<%=recomdto.getRecom_title()%>
