@@ -105,7 +105,7 @@
 						</th>
 					</tr>
 					<tr >
-						<th style="width:20%; paddin: 1.5rem;">평점(/5.0)</th>
+						<th style="width:20%; paddin: 1.5rem;">평점(/10.0)</th>
 						<td class="center"><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
