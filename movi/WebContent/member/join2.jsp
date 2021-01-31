@@ -58,13 +58,13 @@ outline:0;
     	  }
     	  
     	  
-    	  var chk_arr = $("input[name='genre[]']");
+   	  var chk_arr = $("input[name='genre[]']");
 
-          var chk_data = [];
-          for( var i=0; i<chk_arr.length; i++ ) {
-              if( chk_arr[i].checked == true ) {
+         var chk_data = [];
+         for( var i=0; i<chk_arr.length; i++ ) {
+         if( chk_arr[i].checked == true ) {
                   chk_data.push(chk_arr[i].value);
-                  return false; 
+          return false; 
               }
           }
 
@@ -83,7 +83,7 @@ outline:0;
     				alert("아이디를 먼저 입력해주세요")
     				document.join.member_id.focus();
     			}else{
-    				window.open("joinfail.jsp?member_id="+document.join.member_id.value,"","width=300, height=250");
+    				window.open("joincheck.jsp?member_id="+document.join.member_id.value,"","width=300, height=250");
     			}
     		}
 
