@@ -34,6 +34,7 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
                MemberDto m = dao.find(dto.getMember_id());
                req.getSession().setAttribute("check", m.getMember_no()); // 로그인유지
                req.getSession().setAttribute("auth", m.getMember_auth());
+               req.getSession().setAttribute("id", m.getMember_id());
          
                resp.sendRedirect("loginfinal.jsp");
          

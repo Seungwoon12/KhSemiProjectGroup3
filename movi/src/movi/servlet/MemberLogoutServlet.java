@@ -16,9 +16,9 @@ public class MemberLogoutServlet extends HttpServlet{
       try {
          req.getSession().removeAttribute("check");
          req.getSession().removeAttribute("auth");
-         req.getSession().invalidate();
-         
-           resp.sendRedirect("../index.jsp");
+         req.getSession().invalidate();//세션을 파괴하라!
+			
+         resp.sendRedirect("../index.jsp");
    
       }
       catch(Exception e) {
