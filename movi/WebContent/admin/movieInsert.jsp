@@ -90,7 +90,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>평점(/5.0)</th>
+							<th>평점(/10.0)</th>
 							<td>
 								<input type="text" class="row1" name="movie_rate" required>							
 							</td>
