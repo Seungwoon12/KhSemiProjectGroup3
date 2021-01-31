@@ -92,41 +92,40 @@ outline:0;
 <form action="join.do" method="post" name="join" onsubmit="return check();">
 
 	<div  class="outbox" align="center">
-			<h1>회원 가입</h1>
-	</div>
+			<h1>회원 가입</h1>  
 		<div align="center">
-			<label>아이디</label>
-			<br>
+			 <font color="#3B83BD" size="5" style="text-align:left" >01</font> <font size="3" style="text-align:left">아이디</font>
+	    </div>
 			<input type="text" name="member_id" id="id" required  class="row" placeholder="4~12자의 영문/ 대소문자/숫자 입력"  style="height:50px; width:380px" >
 			<button type="button" class="id_check" style="height:50px;" onclick="id_check()">중복체크</button>
 		</div>
 	        <br>
 		<div align="center">
-			<label>비밀번호</label>
+			<font color="#3B83BD" size="5">02</font> <font size="3">비밀번호</font>
 		    <br>
 			<input type="password"  name="member_pw" id="pw1" required class="row" placeholder="4~20자의 영문/ 대소문자/숫자 입력" style="height:50px; width:460px">
 		</div>
 			<br>
 			<div align="center">
-			<label>비밀번호확인</label>
+			<font color="#3B83BD" size="5">03</font> <font size="3">비밀번호확인</font>
 			<br>
 			<input type="password"  name="member_pw2" id="pw2" required class="row"  placeholder="4~20자의 영문/ 대소문자/숫자 입력" style="height:50px; width:460px">
 		</div>
 			<br>
 			<div align="center">
-			<label>닉네임</label>
+			<font color="#3B83BD" size="5">04</font> <font size="3">닉네임</font>
 			<br>
 			<input type="text" name="member_nick" id="nick" required class="row"   placeholder="한글 2~10자" style="height:50px; width:460px">
 		</div>
 		   <br>
 			<div align="center">
-			<label>전화번호</label>
+			<font color="#3B83BD" size="5">05</font> <font size="3">전화번호</font>
 			<br>
-			<input type="tel" name="member_phone" id="phone" class="row" placeholder="선택사항/'-'제외.아이디 비밀번호 찾기시 사용될 수 있습니다" style="height:50px; width:460px">
+			<input type="tel" name="member_phone" id="phone" required class="row" placeholder="-제외.아이디 비밀번호 찾기시 사용될 수 있습니다" style="height:50px; width:460px">
 		</div>
 		<br>	
 			<div align="center">
-		<label>장르체크(선택사항)</label>
+		<font color="#3B83BD" size="5">06</font> <font size="3">선택사항</font>
                 <br>
                 <input type="checkbox"  name="genre" value="로맨스" >로맨스
                 <input type="checkbox"  name="genre" value="뮤지컬" >뮤지컬

@@ -20,7 +20,7 @@ public class MemberDao {
 	public void insert(MemberDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into member("
-				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth,member_email)"
+				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
 				+ " values(member_seq.nextval,?,?,?,?,'일반')";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_id());
