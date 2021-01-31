@@ -95,6 +95,16 @@
 		
 	}
 	
+	/*영화명 마우스 오버시 언더라인*/
+	#movie-name:hover{
+		text-decoration: underline;
+	}
+	
+	img{
+		width:200px;
+		height:300px;
+	}
+	
 </style>
 
 
@@ -457,8 +467,9 @@
 	 	</div>
 	 	<hr>
 		<div class="row">
-			<span>영화명:</span>
-			<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>" id="movie-name" style="font-weight:bold;"><%=movieDto.getMovie_name()%></a>
+			<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>" id="movie-name" style="font-weight:bold;">
+				<img src ="../poster-down.do?movie_no=<%=movieDto.getMovie_no()%>">
+			</a>
 			<span class="f-right"><%=reviewDto.getReview_date()%></span>
 			<span class="f-right">조회 <%=reviewDto.getReview_read()%> |</span> 
 			<span class="f-right"><%=memberDto.getMember_nick()%> |</span> 

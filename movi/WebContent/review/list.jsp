@@ -100,7 +100,14 @@
    	}
    	
    	// 필요한 페이지 개수
-   	int pageSize = (count + pageNavSize - 1) / pageNavSize;
+   	// 페이지당 15개씩 보여주는거라 수정
+   	int pageSize; 
+   	if(count % reviewSize == 0) {
+   		pageSize = count / reviewSize;
+   	}
+   	else {
+   		pageSize = count / reviewSize +1;
+   	}
    	
    	//페이지 마지막번호가 필요한 페이지 개수보다 클 경우 페이지 마지막번호를 필요한 페이지 개수로 설정해준다.
    	if(endNum > pageSize) {
