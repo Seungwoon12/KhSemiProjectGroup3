@@ -42,8 +42,7 @@ public class MemberDao {
 		
 		ResultSet rs = ps.executeQuery();
 
-	
-	  boolean result=rs.next();
+	    boolean result=rs.next();
 	
 		con.close();
 		

@@ -67,14 +67,14 @@ outline:0;
           return false; 
               }
           }
-
+}
 
  //   	  var checkArr=[];
 //    	  $("input[name=genre]:checked").each(function() { 
 //		         checkArr.push($(this).val());
 //    	  return false;  
     	  
-}
+
     	  //아이디중복확인
    function id_check(){
     			
