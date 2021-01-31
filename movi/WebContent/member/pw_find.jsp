@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
   
 <jsp:include page="/template/header.jsp"></jsp:include>
+
 <script>
 	function check() {
 		var id = document.getElementById('id').value;
@@ -20,15 +21,19 @@
 	  return true;
 }
 </script>
-<div align="center" height="40" width="430"> 
-    <h2>비밀번호 재설정 </h2> 
+
+<div align="center"> 
+   <h2>비밀번호 재설정</h2></div>
 <form action="pw_find.do" method="get">
-  
- <p>아이디 </p><input type="text"  name="member_id"  placeholder="아이디를 입력해주세요" required class="outbox" style="height:50px; width:430px"></input>
- <p>전화번호</p><input type="tel"  name="member_phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요" required class="outbox" style="height:50px; width:430px"  ></input>
+  <div align="center">
+ <p><font color="#3B83BD" size="5">아이디</font></p><input type="text"  name="member_id"  id="nick" placeholder="아이디를 입력해주세요" required class="outbox" style="height:50px; width:430px; "></input>
+<p><font color="#3B83BD" size="5">전화번호</font></p><input type="tel"  name="member_phone" id="phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요." required class="outbox" style="height:50px; width:430px;"></input>
+  </div>
   <br><br>
           <br><br>
-        <input type="submit" value="임시비밀번호 받기"  class="outbox2"  style=" height:50px; width:430px;background-color:#3B83BD; color:white; font-size:15px; border-radius:1.5em; border:0;outline:0;"></input>                               
+           <div align="center">
+        <input type="submit"  value="찾기"  class="outbox2"  style=" height:50px; width:430px;background-color:#3B83BD; color:white; font-size:15px; border-radius:1.5em;border:0;outline:0;"></input>   
+         </div>                                  
  </form>
-  </div>
+ 
 <jsp:include page="/template/footer.jsp"></jsp:include>
