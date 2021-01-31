@@ -19,54 +19,59 @@ public class MemberDao {
 	public void insert(MemberDto dto) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
 		String sql = "insert into member("
-				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth)"
-				+ " values(member_seq.nextval,?,?,?,?,'일반')";
+				+ "member_no,member_id,member_pw,member_nick,member_phone,member_auth,member_email)"
+				+ " values(member_seq.nextval,?,?,?,?,'일반',?)";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setString(1, dto.getMember_id());
 		ps.setString(2, dto.getMember_pw());
 		ps.setString(3, dto.getMember_nick());
 		ps.setString(4, dto.getMember_phone());
+		ps.setString(5, dto.getMember_email());
 	
 		ps.execute();
 		
 		con.close();
 	}
 
+	public boolean confirm(String id) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		
+		String sql = "select * from member where member_id=?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, id);
+		
+		ResultSet rs = ps.executeQuery();
 
-	// 아이디 , 비밀번호 체크
-	    public int userCheck(String member_id, String member_pw)throws Exception{
-        
-       Connection conn= null;
-       PreparedStatement ps = null;
-       ResultSet rs =null;
-       String sql="";
-       String dbmember_pw ="";
-       int x = -1;
-       
-       try{
-    	    Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
-    	    sql ="select member_pw from MEMBER where id = ?";           
-    	    ps =conn.prepareStatement(sql);           
-    	    ps.setString(1, member_id);         
-    	    rs=ps.executeQuery();
-    	             
-    	              
-    	    if(rs.next()){     	  
-    	    	dbmember_pw =rs.getString("member_pw");           
-    	    	if(dbmember_pw.equals(member_pw))
-    	    		x=1; //인증성공
-    	       else
-    	    	   x=0; //비밀번호 틀림
-    	       }else
-    	    	   x=-1; //해당 아이디 없음
-    	         
-       }catch(Exception e){
-    	   e.printStackTrace();	           
-       }finally{        	 
-    	   ps.execute();
-    	   }
-       return x;
-       }
+	
+	boolean result=rs.next();
+	
+		con.close();
+		
+		return result;
+	}
+	
+	
+	
+	// 아이디 중복
+	public int IdExist (String id) throws Exception {
+		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
+		int result = 0;
+
+		String sql = "select * from Member where member_id = ?";
+		try(
+		PreparedStatement ps = con.prepareStatement(sql);
+				){
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()){	
+				result = 1;
+			}else{
+				result = 0;
+			}				
+			}
+		return result;
+		};
+
 
 	    //로그인
 
@@ -91,7 +96,7 @@ public class MemberDao {
 
 	
 		
-
+		
 		
 		
 		

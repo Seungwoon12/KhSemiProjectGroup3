@@ -10,6 +10,8 @@ public class MemberDto {
 	private String member_phone;
 	private Date member_date;
 	private String member_auth;
+	private String member_email;
+	
 	public int getMember_no() {
 		return member_no;
 	}
@@ -56,8 +58,19 @@ public class MemberDto {
 	public boolean is(String member_auth) {
 		return this.member_auth != null & this.member_auth.equals(member_auth);
 	}
-	
-	
+	public String getMember_email() {
+		return member_email;
+	}
+	public void setMember_email(String member_email) {
+		this.member_email = member_email;
+	}
+	@Override
+	public String toString() {
+		return "Member [member_no=" + member_no + ", member_id=" + member_id + ", member_nick=" + member_nick + ", member_phone="
+				+ member_phone + ", member_date=" + member_date + ", member_auth=" + member_auth + ", member_email="
+				+ member_email + "]";
+	}
+
 	public MemberDto() {
 		super();
 	}
