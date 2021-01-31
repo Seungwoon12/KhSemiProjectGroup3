@@ -52,6 +52,10 @@
 	.reviewgo:hover{
 		font-weight: bolder;
 	}
+	.main_img{
+		width:200px;
+		height:300px;
+	}
 </style>
 <script>
 	$(function(){
@@ -67,7 +71,8 @@
 	<%for(MovieDtoVO dto : moviegenreList){ %>
 	<div>
 		<div class="top">
-			<img src ="https://placehold.it/200X300?text=IMAGE">
+		<!-- 추천 영화 포스터는 경로 따로 지정! -->
+			<img class="main_img" src="../poster-down.do?movie_no=<%=dto.getMovie_no()%>">
 		</div>
 		
 		<div class="top">

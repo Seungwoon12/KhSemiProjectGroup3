@@ -40,8 +40,9 @@
 	}
 	
 	 .table2 {
-       border: 1px solid gray;
+       border: 1px solid lightblue;
        padding: 1rem;
+       border-radius: 8px;
         }
 </style>
 
@@ -94,7 +95,7 @@
 
 		<!--영화 리스트 테이블  -->
 		<div class="row ">
-			<table class="table2 left" style=" width: 70%; margin-left:15%;">
+			<table class="table2 table left" style=" width: 70%; margin-left:15%;">
 				<tbody >
 					<tr >
 						<th colspan="2">
@@ -104,7 +105,7 @@
 						</th>
 					</tr>
 					<tr >
-						<th style="width:20%; paddin: 1.5rem;">평점</th>
+						<th style="width:20%; paddin: 1.5rem;">평점(/5.0)</th>
 						<td class="center"><%=movieDto.getMovie_rate() %></td>
 					</tr>
 					<tr>
@@ -171,7 +172,7 @@
 					<tr>
 						<th colspan="2" class="center">
 							<input type="button" class="adbtn blue" value="수정" id="movieEdit" onclick="location.href=' movieEdit.jsp?movie_no=<%=movieDto.getMovie_no()%>' ">
-							<input type="button" class="adbtn red" value="삭제" class="movie_delete">
+							<input type="button" value="삭제" class="movie_delete adbtn red">
 						</th>
 					</tr>
 				</tbody>

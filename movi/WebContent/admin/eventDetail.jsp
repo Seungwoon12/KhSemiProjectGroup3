@@ -27,7 +27,6 @@
 </script>
 
 
-
 <div class="outbox" style="width:100%">
     <aside>
    		<div class="row center">
@@ -47,7 +46,7 @@
   		
   	<!--이벤트ㅡ상세보기 테이블  -->	
 		<div class="row center">
-			<table class="table table-border" style="width:80%; margin:10%">
+			<table class="table2  table" style="width:80%; margin:10%">
 
 				<tbody>
 				

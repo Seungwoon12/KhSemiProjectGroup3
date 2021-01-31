@@ -1,6 +1,7 @@
 package movi.servlet;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,12 @@ public class AdminRecomMovie_no_delete extends HttpServlet{
 			RecomAdminDao dao = new RecomAdminDao();
 			List<RecommendDto> dto = dao.find(recom_no);
 			String title = dto.get(0).getRecom_title();
-			
+			java.net.URLDecoder.decode(title,"UTF-8");
 //			처리
 			RecomAdminDao recomDao = new RecomAdminDao();
 			boolean result = recomDao.delete_no_admin(recom_movie_no);
+			
+			title = URLEncoder.encode(title);
 			
 //			출력: 
 			if(result) {

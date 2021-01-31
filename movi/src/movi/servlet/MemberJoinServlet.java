@@ -24,16 +24,16 @@ public class MemberJoinServlet extends HttpServlet{
 			dto.setMember_pw(req.getParameter("member_pw"));
 			dto.setMember_nick(req.getParameter("member_nick"));
 			dto.setMember_phone(req.getParameter("member_phone"));
+			dto.setMember_email(req.getParameter("member_email"));
 	
 			MemberDao dao = new MemberDao();
 			dao.insert(dto);
 			
 			resp.sendRedirect("joinsuccess.jsp");
 		}
-//아이디/닉네임이 중복 예외 --> 실패 페이지로 이동
 		catch(SQLIntegrityConstraintViolationException e) {
-			resp.sendRedirect("joinfail.jsp");
-		}
+			resp.sendError(404);	
+			}
 		catch(Exception e) {
 			e.printStackTrace();
 			resp.sendError(500);

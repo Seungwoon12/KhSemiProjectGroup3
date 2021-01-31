@@ -6,6 +6,40 @@
 
 <jsp:include page="/adminTemplate/header.jsp"></jsp:include>
 
+<style>
+        .row1 {
+            width: 90%;
+            margin:3px;
+            border: solid 2px gray;
+            border-radius: 8px;
+            font-size:15px;
+            padding:0.5rem;
+            padding-left: 1.5rem;
+        }
+		
+		.table2{
+			border-radius: 10px;
+			border-color: lightblue;
+			padding:1rem;
+            font-size:18px;			
+		}
+		.table > thead > tr > th,
+		.table > thead > tr > td,
+		.table > tbody > tr > th,
+		.table > tbody > tr > td,
+		.table > tfoot > tr > th,
+		.table > tfoot > tr > td
+		{
+ 		   padding: 1rem;
+ 		   text-align: center;
+		}
+		label{
+			font-size: 15px;
+			color:gray;
+		}
+
+</style>
+
 	<div class="outbox" style="width: 100%">
 		<aside>
 			<div class="row center">
@@ -30,7 +64,7 @@
 			
 		<form action="movieInsert.do" method="post">
 			<div class="row center">
-				<table class="table table-border" style="width: 80%; margin-left:10%;">
+				<table class="table2 table " style="width: 80%; margin-left:10%;">
 					<thead>
 						<h1 class="left">영화 기본정보</h1>
 					</thead>
@@ -39,37 +73,38 @@
 						<tr>
 							<th style="width:30%">제목</th>
 							<td>
-								<input type="text" name="movie_name" required>
+								<input type="text" class="row1" name="movie_name" required>
 							</td>
 						</tr>
 						<tr>
 							<th>장르</th>
 							<td>
-								<input type="text" name="movie_genre_no" required>
+								<label>1:로맨스, 2:범죄, 3:뮤지컬, 4:애니, 5:액션, 6:판타지, 7:역사극,<br> 8:전쟁, 9:코미디, 10:SF</label>
+								<input type="text" class="row1" name="movie_genre_no" required>
 							</td>
 						</tr>
 						<tr>
 							<th>상영시간</th>
 							<td>
-								<input type="text" name="movie_time" required>
+								<input type="text" class="row1" name="movie_time" required>
 							</td>
 						</tr>
 						<tr>
-							<th>평점</th>
+							<th>평점(/5.0)</th>
 							<td>
-								<input type="text" name="movie_rate" required>							
+								<input type="text" class="row1" name="movie_rate" required>							
 							</td>
 						</tr>
 						<tr>
 							<th>관객수</th>
 							<td>
-								<input type="text" name="movie_audience" required>
+								<input type="text" class="row1" name="movie_audience" required>
 							</td>
 						</tr>
 						<tr>
 							<th>등급</th>
 							<td>
-								<select name="movie_age">
+								<select name="movie_age" class="row1">
 									<option>전체관람가</option>
 									<option>12세이상관람가</option>
 									<option>15세이상관람가</option>
@@ -80,7 +115,7 @@
 						<tr>
 							<th>국가</th>
 							<td>
-								<select name="movie_country">
+								<select name="movie_country" class="row1">
 									<option>한국</option>
 									<option>해외</option>
 								</select>
@@ -89,13 +124,13 @@
 						<tr>
 							<th>개봉일</th>
 							<td>
-								<input type="date" name="movie_date" required>
+								<input type="date" class="row1" name="movie_date" required>
 							</td>
 						</tr>
 						<tr>
 							<th>감독</th>
 							<td>
-								<input type="text" name="movie_director" required>
+								<input type="text" class="row1" name="movie_director" required>
 							</td>
 						</tr>
 						<tr>
