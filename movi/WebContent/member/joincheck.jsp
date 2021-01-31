@@ -12,7 +12,7 @@ MemberDao dao = new MemberDao();
 
 boolean result = dao.confirm(id);
 if(result){ 
-	out.println("아이디중복"); 
+	out.println("아이디중복 .다른 아이디를 사용해주세요"); 
  	}else{
 	out.println("사용 가능한 아이디입니다"); 
 	out.println("<a href='javascript:apply(\"" + id + "\")'>[사용하기]</a>"); }
