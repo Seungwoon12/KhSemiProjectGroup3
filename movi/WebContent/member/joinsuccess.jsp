@@ -8,10 +8,10 @@
 		<h3>회원 가입이 완료되었습니다</h3>
 	</div>
 	<div class="row center">
-		<a href="loginpage.jsp">로그인</a>
+      <a href="loginpage.jsp"><font color="#3B83BD" size="3">로그인하기</font></a>
 	</div>
 	<div class="row center">
-		<a href="../index.jsp">홈으로</a>
+		 <a href="../index.jsp"><font color="#3B83BD" size="3">홈으로</font></a>
 	</div>
 </div>
 

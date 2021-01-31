@@ -12,7 +12,7 @@ String pw = dao.changePw(member_id,member_phone);
 
 %>
 
-<h3>임시 비밀번호는<font color="red"> <%=pw%></font>입니다</h3>
+<h3>임시 비밀번호는<font color="red" size="5"><%=pw%></font>입니다</h3>
 
 
 

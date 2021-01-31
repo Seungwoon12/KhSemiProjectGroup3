@@ -37,7 +37,7 @@ outline:0;
               alert( "비밀번호가 일치하지않습니다" );
               return false;
          }
-          var regexpw = /^[a-zA-Z0-9!@#$]{8,16}$/;
+          var regexpw = /^[a-zA-Z0-9?!@#$*]{8,16}$/;
           if(!regexpw.test(pw1)){
         	 alert("비밀번호는 8~20자 영문,숫자,특수문자조합으로 작성하세요");
               return false;
@@ -83,7 +83,7 @@ outline:0;
     				alert("아이디를 먼저 입력해주세요")
     				document.join.member_id.focus();
     			}else{
-    				window.open("joincheck.jsp?member_id="+document.join.member_id.value,"","width=300, height=250");
+    				window.open("joincheck.jsp?member_id="+document.join.member_id.value,"","width=350, height=250");
     			}
     		}
 

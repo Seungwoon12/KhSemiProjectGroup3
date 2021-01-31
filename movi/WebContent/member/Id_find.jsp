@@ -24,8 +24,8 @@ function check() {
  <div align="center" height="40" width="430"> 
     <h2>아이디 찾기</h2>
 <form  action="Id_find.do" method="post" onsubmit="return check();">
-         <p>닉네임</p><input type="text"  name="member_nick"  id="nick" placeholder="닉네임을 입력해주세요" required class="outbox" style="height:50px; width:430px;"></input>    
-       <p> 전화번호</p><input type="tel"  name="member_phone" id="phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요." required class="outbox" style="height:50px; width:430px;" ></input>
+       <p>닉네임</p><input type="text"  name="member_nick"  id="nick" placeholder="닉네임을 입력해주세요" required class="outbox" style="height:50px; width:430px;"></input>    
+      <p>전화번호</p><input type="tel"  name="member_phone" id="phone" placeholder=" - 를 제외한 번호 전체를 입력해주세요." required class="outbox" style="height:50px; width:430px;" ></input>
          <br><br>
             <br><br>
          <input type="submit"  value="찾기"  class="outbox2"  style=" height:50px; width:430px;background-color:#3B83BD; color:white; font-size:15px; border-radius:1.5em;border:0;outline:0;"></input>    
