@@ -38,7 +38,7 @@ outline:0;
               return false;
          }
           var regexpw = /^[a-zA-Z0-9!@#$]{8,16}$/;
-          if(!regexid.test(pw1)){
+          if(!regexpw.test(pw1)){
         	 alert("비밀번호는 8~20자 영문,숫자,특수문자조합으로 작성하세요");
               return false;
             }
@@ -53,7 +53,7 @@ outline:0;
     	  var phone = document.getElementById('phone').value;
     	  var regexphone =/(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/;
     	  if(!regexphone.test(phone)){
-        	  alert("전화번호형식이 틀립니다");
+        	  alert("-를 제외한 전화번호 전체를 입력해주세요");
               return false;
     	  }
     	  

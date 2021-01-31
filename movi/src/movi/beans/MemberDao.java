@@ -27,7 +27,7 @@ public class MemberDao {
 		ps.setString(2, dto.getMember_pw());
 		ps.setString(3, dto.getMember_nick());
 		ps.setString(4, dto.getMember_phone());
-
+	
 		ps.execute();
 		
 		con.close();
@@ -43,7 +43,7 @@ public class MemberDao {
 		ResultSet rs = ps.executeQuery();
 
 	
-	boolean result=rs.next();
+	  boolean result=rs.next();
 	
 		con.close();
 		
