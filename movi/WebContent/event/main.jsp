@@ -23,7 +23,7 @@
 	}
 	img{
 		width: 28%;
-	    height: 100%;
+	    height: 153px;
 	    float: left;
 	    padding: 1rem;
 	    margin-right: 15px;
@@ -50,7 +50,7 @@
 		<!-- 종료 시점이 오늘보다 이전이면 클릭 금지 -->
 		<%if(Integer.parseInt(sf.format(dto.getEvent_end()))<(Integer.parseInt(sf.format(now)))){%>
 				<div class="box hid">
-					<img class="event1" src="../img/event2.png">
+					<img class="event1" src="../img/event3.PNG">
 					<input type="hidden" value="<%=dto.getEvent_no()%>">
 					<h2><%=dto.getEvent_name() %></h2>
 					<h4><%=dto.getEvent_content() %></h4>

@@ -13,8 +13,8 @@ import movi.util.JdbcUtil;
 
 public class ActorAdminDao {
 	// 계정 정보를 상수로 저장
-	public static final String USER = "movi";
-	public static final String PASS = "movi";
+	public static final String USER = "kh43";
+	public static final String PASS = "kh43";
 	
 //배우 목록 -admin.actorList.jsp
 	public List<ActorDto> select_admin() throws Exception{

@@ -319,7 +319,7 @@
      });
        
      $(document).ready(function(){
-    	 //$(".event-wrapper").show();
+    	 $(".event-wrapper").show();
     	 //이거 리뷰랑 마이페이지에도 넣기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     	 $("nav>a:nth-child(1)").addClass("navstyle");
      });
@@ -333,7 +333,7 @@
 <div class="event-wrapper">
 	<div class="event">
 	<img src="./img/close.jpg" class="close"><!-- 닫기 -->
-	<a href="/movi/event/detail.jsp?event_no=41">
+	<a href="/movi/event/detail.jsp?event_no=21">
 		<img src="./img/event.PNG">
 	</a>
 	</div>
