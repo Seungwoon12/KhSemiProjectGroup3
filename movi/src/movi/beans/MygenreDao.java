@@ -10,8 +10,8 @@ import movi.util.JdbcUtil;
 
 public class MygenreDao {
 	
-	public static final String USERNAME="movi";
-	public static final String PASSWORD="movi";
+	public static final String USERNAME="kh43";
+	public static final String PASSWORD="kh43";
 	
 	//회원이 선호하는 장르의 이름을 가져오기
 	//선호하는 장르에 따른 영화 이름은 movieDao에 있음

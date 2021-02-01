@@ -19,7 +19,7 @@ public class PosterDownTestServlet extends HttpServlet{
 		try {
 			int movie_no = Integer.parseInt(req.getParameter("movie_no"));
 			
-			String path = "C:/movi/image/poster"; //다운 받아올 경로 지정
+			String path = "D:/upload/kh43/image/poster"; //다운 받아올 경로 지정
 			
 			PosterTestDao posterTestDao = new PosterTestDao();
 			
