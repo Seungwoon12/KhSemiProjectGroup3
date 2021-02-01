@@ -36,7 +36,7 @@
 	            				<td rowspan="4">
 	            					<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
 										<img class="movie_img" alt="movie_img" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no()%>" 
-										onerror="this.src='/movi/image/movie/dummy.jpg'">
+										onerror="this.src='../image/movie/dummy.jpg'">
 									</a>
 								</td>
 								<th style="min-width: 100px; max-width:150px">
