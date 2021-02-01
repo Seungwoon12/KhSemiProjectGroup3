@@ -25,7 +25,7 @@ public class ProfileDownloadServlet extends HttpServlet{
 			ProfileDao profileDao = new ProfileDao();
 			ProfileDto profileDto = profileDao.select(member_no);
 			
-			String path = "C:/movi/image/profile";
+			String path = "D:/upload/kh43/image/profile";
 			
 			File target = new File(path, profileDto.getProfile_save_name());
 			byte[] data = new byte[(int)target.length()];
