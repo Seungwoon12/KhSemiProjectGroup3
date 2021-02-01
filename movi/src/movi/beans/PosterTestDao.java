@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import movi.util.JdbcUtil;
 
 public class PosterTestDao {
-	public static final String USERNAME="movi";
-	public static final String PASSWORD="movi";
+	public static final String USERNAME="kh43";
+	public static final String PASSWORD="kh43";
 	
 	public boolean update(int movie_no, String poster_file_name) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);

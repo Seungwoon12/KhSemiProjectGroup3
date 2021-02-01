@@ -21,7 +21,7 @@ public class PosterUpTestServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			//파일이 저장될 경로
-			String path = "C:/movi/image/poster";
+			String path = "D:/upload/kh43/image/poster";
 			
 			//파일 최댓값 / 이름 안깨지게 / 이름이 중복될 경우 처리할 방식
 			int max = 5 * 1024 * 1024;

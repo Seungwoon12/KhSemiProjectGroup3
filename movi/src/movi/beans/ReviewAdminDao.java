@@ -11,8 +11,8 @@ import movi.util.JdbcUtil;
 public class ReviewAdminDao {
 
 	// 데이터베이스 계정정보
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+	public static final String USERNAME = "kh43";
+	public static final String PASSWORD = "kh43";
 
 //리뷰 목록 - /admin/reviewList.jsp
 	public List<ReviewDto> select_admin() throws Exception {

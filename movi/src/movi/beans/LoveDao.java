@@ -10,8 +10,8 @@ import movi.util.JdbcUtil;
 
 public class LoveDao {
 
-	public static final String USERNAME="movi";
-	public static final String PASSWORD="movi";
+	public static final String USERNAME="kh43";
+	public static final String PASSWORD="kh43";
 	
 	//박동진 수정 구역 
 	//유저 번호와 시작 / 끝 번호를 받아서 유저가 좋아요 누른 영화들을 최근에 좋아요한 순으로 정렬해서 보내주는 코드
