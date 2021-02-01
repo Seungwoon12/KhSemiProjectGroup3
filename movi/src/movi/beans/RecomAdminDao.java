@@ -10,8 +10,8 @@ import movi.util.JdbcUtil;
 
 public class RecomAdminDao {
 
-	public static final String USER="movi";
-	public static final String PASS="movi";
+	public static final String USER="kh43";
+	public static final String PASS="kh43";
 	
 //3조 추천영화 상세보기 -admin/recomList.jsp
 	public List<RecommendDtoVO> select_admin(String recom_title) throws Exception{

@@ -9,8 +9,8 @@ import java.util.List;
 import movi.util.JdbcUtil;
 
 public class CouponAdminDao {
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+	public static final String USERNAME = "kh43";
+	public static final String PASSWORD = "kh43";
 	
 	//쿠폰 목록- /admin/memberCouponList.jsp
 	//페이징 + 회원 쿠폰 목록:아이디, 이벤트명 -/admin/memberCouponList.jsp	

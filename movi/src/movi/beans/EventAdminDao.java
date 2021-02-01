@@ -9,8 +9,8 @@ import java.util.List;
 import movi.util.JdbcUtil;
 
 public class EventAdminDao {
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+	public static final String USERNAME = "kh43";
+	public static final String PASSWORD = "kh43";
 	
 	//이벤트 목록 개수 -/admin/coupontList.jsp
 		public int count_admin() throws Exception {

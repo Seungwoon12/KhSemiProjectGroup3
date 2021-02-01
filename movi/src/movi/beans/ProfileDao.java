@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import movi.util.JdbcUtil;
 
 public class ProfileDao {
-	public static final String USERNAME="movi";
-	public static final String PASSWORD="movi";
+	public static final String USERNAME="kh43";
+	public static final String PASSWORD="kh43";
 	
 	public void delete(int member_no) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);
