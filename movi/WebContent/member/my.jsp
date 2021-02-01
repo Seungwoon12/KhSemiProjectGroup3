@@ -142,7 +142,7 @@
 					<!-- 프로필 파일 다운로드 경로 수정할 것.onerror 안은 그대로 둬도 됨 -->
 					<td style="width: 30%">
 						<img alt="user_profile" src="profile-download.do" 
-						onerror="this.src='/movi/image/profile/default_profile.png'" 
+						onerror="this.src='../image/profile/default_profile.png'" 
 						style="height: 150px; width: 150px;">
 					</td>
 					<td rowspan="2" class="dotbox">
@@ -211,7 +211,7 @@
 	            				<td rowspan="4">
 	            					<a href="../category/detail.jsp?movie_no=<%=movieDto.getMovie_no()%>">
 										<img class="movie_img" alt="movie_img" src="../poster-down.do?movie_no=<%=movieDto.getMovie_no()%>" 
-										onerror="this.src='/movi/image/movie/dummy.jpg'">
+										onerror="this.src='../image/movie/dummy.jpg'">
 									</a>
 								</td>
 								<th style="min-width: 200px;">
