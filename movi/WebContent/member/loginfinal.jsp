@@ -4,12 +4,17 @@
 	<jsp:include page="/template/header.jsp"></jsp:include>  
 
 <body>
-
-<h2><%=session.getAttribute("id")%>님 반갑습니다 </h2>
+<div class="row center">
+<h3><font color="#3B83BD" size="5"><%=session.getAttribute("id")%></font>님 반갑습니다 </h3>
+</div>
 <br>
-<a href="/movi/member/Logout.jsp">로그아웃</a>
+<div class="row center">
+<a href="Logout.jsp"><font color="#4E6FA6" size="3">로그아웃</font></a>
+</div>
 <br>
- <a href="../index.jsp">홈으로</a>
+<div class="row center">
+ <a href="my.jsp"><font color="#4E6FA6" size="3">마이페이지가기</font></a>
+ </div>
     </body>
 </html>
 </html>

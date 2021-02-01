@@ -138,7 +138,11 @@
 	
 	<div class="row center">
 		<form action="write.jsp" method="get">
+			<%if(movie_name != null) { %>
+			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." value="<%=movie_name%>" style="width:350px; height:40px">
+			<%} else {%>
 			<input type="text" name="movie_name" class="input input-hint search" placeholder="영화명을 입력하세요." style="width:350px; height:40px">
+			<%} %>
 			<input type="submit" value="검색" class="input input-inline search-btn">
 		</form>
 	</div>

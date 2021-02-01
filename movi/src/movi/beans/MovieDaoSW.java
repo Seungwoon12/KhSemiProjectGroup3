@@ -9,8 +9,8 @@ import java.sql.ResultSet;
 import movi.util.JdbcUtil;
 
 public class MovieDaoSW {
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+	public static final String USERNAME = "kh43";
+	public static final String PASSWORD = "kh43";
 	
 	public MovieDto find(String movie_name) throws Exception {
 		Connection con = JdbcUtil.getConnection(USERNAME, PASSWORD);

@@ -21,7 +21,7 @@ public class ProfileUploadServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {			
-			String path = "C:/movi/image/profile";
+			String path = "D:/upload/kh43/image/profile";
 			//경로는 외부경로로 수정할 것!
 			
 			int max = 5 * 1024 * 1024;

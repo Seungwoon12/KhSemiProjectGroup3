@@ -10,8 +10,8 @@ import movi.util.JdbcUtil;
 
 public class RecommendDao {
 	
-	public static final String USER="movi";
-	public static final String PASS="movi";
+	public static final String USER="kh43";
+	public static final String PASS="kh43";
 	
 	//3조 추천 영화
 	

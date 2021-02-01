@@ -10,7 +10,7 @@ import movi.util.JdbcUtil;
 
 public class CouponDao {
 	public List<CouponDto> goods(int event_no) throws Exception{
-		Connection con = JdbcUtil.getConnection("movi", "movi");
+		Connection con = JdbcUtil.getConnection("kh43", "kh43");
 		String sql = "select * from coupon where coupon_event_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, event_no);
@@ -26,7 +26,7 @@ public class CouponDao {
 		return list;
 		}
 	public CouponDto find(int coupon_no) throws Exception{
-		Connection con = JdbcUtil.getConnection("movi", "movi");
+		Connection con = JdbcUtil.getConnection("kh43", "kh43");
 		String sql = "select * from coupon where coupon_no=?";
 		PreparedStatement ps = con.prepareStatement(sql);
 		ps.setInt(1, coupon_no);
