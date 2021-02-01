@@ -243,12 +243,12 @@
 	$(function(){
 		//추천영화 목록으로 가기
 		$(".movie_recom").click(function(){
-			location.href="/movi/category/recom.jsp?recom_title="+$(this).text().replace('#','');
+			location.href="<%=request.getContextPath()%>/category/recom.jsp?recom_title="+$(this).text().replace('#','');
 		});
 		
 		//영화 세부 페이지로 가기
 		$(".movie_detail").click(function(){
-			location.href="/movi/category/detail.jsp?movie_no="+$(this).children('.no').text();
+			location.href="<%=request.getContextPath()%>/category/detail.jsp?movie_no="+$(this).children('.no').text();
 		})
 		
 		//스와이퍼1
@@ -333,7 +333,7 @@
 <div class="event-wrapper">
 	<div class="event">
 	<img src="./img/close.jpg" class="close"><!-- 닫기 -->
-	<a href="/movi/event/detail.jsp?event_no=21">
+	<a href="<%=request.getContextPath()%>/event/detail.jsp?event_no=21">
 		<img src="./img/event.PNG">
 	</a>
 	</div>
@@ -346,7 +346,7 @@
 		<div class="name">
 		
 		<!-- 영화 이름으로 검색하고 , 같은 이름이 있을수도 있으니 한번더 걸러주는 작업을 한다!! -->
-		<form action="/movi/category/search.jsp" method="get">
+		<form action="<%=request.getContextPath()%>/category/search.jsp" method="get">
 			<div>	
 			
 <!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@검색기능 -->
