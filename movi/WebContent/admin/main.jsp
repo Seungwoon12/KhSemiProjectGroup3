@@ -107,7 +107,7 @@ chart.render();
   		
   		</table>
   		<div >
-  			<h1>방문자 수</h1>
+  			<h1>그래프</h1>
 			<div id="chartContainer" style="height: 350px; width: 900px; margin: 50px" ></div>
 			<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   		</div>
