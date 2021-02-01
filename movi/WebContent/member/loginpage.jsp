@@ -35,12 +35,12 @@
              <td><input type="submit" value="로그인" class="input" style=" height:50px; width:430px;background-color:#3B83BD; color:white; font-size:15px; border-radius:1.5em; "></td>
       </tr>
  </table>
- 
+ <%=request.getContextPath()%>
 <table align="center" height="40"  class="message">
   <tr>
-   <td><a href="/movi/member/join.jsp"> 회원가입 | </a></td> 
-   <td><a href="/movi/member/Id_find.jsp"> 아이디 찾기 |</a></td>
-   <td><a href="/movi/member/pw_find.jsp"> 비밀번호 재설정</a></td>
+   <td><a href="<%=request.getContextPath()%>/member/join.jsp"> 회원가입 | </a></td> 
+   <td><a href="<%=request.getContextPath()%>/member/Id_find.jsp"> 아이디 찾기 |</a></td>
+   <td><a href="<%=request.getContextPath()%>/member/pw_find.jsp"> 비밀번호 재설정</a></td>
   </tr>
   </table>
              
