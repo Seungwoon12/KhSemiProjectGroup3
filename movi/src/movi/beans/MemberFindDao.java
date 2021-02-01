@@ -11,8 +11,8 @@ import movi.util.PwUtil;
 public class MemberFindDao {
 
 //계정 정보를 상수로 저장
-		public static final String USERNAME = "movi";
-		public static final String PASSWORD = "movi";
+		public static final String USERNAME = "kh43";
+		public static final String PASSWORD = "kh43";
 	
   //아이디 찾기(nick, phone)
 		public String Id_find(MemberDto dto) throws Exception {

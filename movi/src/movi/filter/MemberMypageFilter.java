@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter(urlPatterns = {
       "/member/my.jsp", "/member/edit.jsp", "/member/editpw.jsp",
       "/member/mygenre.jsp", "/member/mylovemovielist.jsp",
-      "/review/detail.jsp", "/review/write.jsp", "/review/detailForDetail.jsp", "/review/noticeDetail.jsp"
+      "/review/detail.jsp", "/review/write.jsp", "/review/detailForDetail.jsp", "/review/noticeDetail.jsp",
+      "/category/love.do", "/category/love_cancel.do"
 })
 public class MemberMypageFilter implements Filter {
    @Override

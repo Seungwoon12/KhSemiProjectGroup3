@@ -9,8 +9,8 @@ import java.util.List;
 import movi.util.JdbcUtil;
 
 public class NoticeReplyDao {
-	public static final String USERNAME = "movi";
-	public static final String PASSWORD = "movi";
+	public static final String USERNAME = "kh43";
+	public static final String PASSWORD = "kh43";
 	
 	//시퀀스 메소드로 reply_no(댓글번호)에 들어 갈 번호를 생성해준다.
 	public int getSequence() throws Exception {

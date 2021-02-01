@@ -11,8 +11,8 @@ import movi.util.JdbcUtil;
 public class ReviewDao {
 	
 //데이터베이스 계정정보
-public static final String USERNAME = "movi";
-public static final String PASSWORD = "movi";
+public static final String USERNAME = "kh43";
+public static final String PASSWORD = "kh43";
 
 //게시글 생성시 review_no에 들어 갈 시퀀스 생성
 public int getSequence() throws Exception {
