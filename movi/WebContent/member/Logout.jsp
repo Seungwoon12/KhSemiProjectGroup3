@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html>
 <meta http-equiv="refresh" content="6;url=../index.jsp">
+<%@page import="movi.beans.*"%>
 
-
+ <% request.getSession().invalidate();
+ %>
 
   
 <head>
