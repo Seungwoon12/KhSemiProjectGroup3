@@ -9,11 +9,11 @@
 </div>
 <br>
 <div class="row center">
-<a href="Logout.jsp"><font color="#4E6FA6" size="3">로그아웃</font></a>
+<a href="<%=request.getContextPath()%>/member/Logout.jsp"><font color="#4E6FA6" size="3">로그아웃</font></a>
 </div>
 <br>
 <div class="row center">
- <a href="my.jsp"><font color="#4E6FA6" size="3">마이페이지가기</font></a>
+ <a href="<%=request.getContextPath()%>/member/my.jsp"><font color="#4E6FA6" size="3">마이페이지가기</font></a>
  </div>
     </body>
 </html>
